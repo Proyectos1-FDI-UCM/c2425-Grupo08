@@ -27,7 +27,7 @@ public class Lantern : MonoBehaviour
     [SerializeField] private GameObject beamObject; // El objeto rectángulo que representa el haz
     [SerializeField] private float beamGrowSpeed = 2f; // Velocidad a la que el haz crece
     [SerializeField] private float maxBeamLength = 5f; // Longitud máxima del haz de luz
-    [SerializeField] private float minBeamWidth = 0.05f; // Ancho mínimo cuando se apunta (en el eje Y)
+    [SerializeField] private float minBeamWidth = 1; // Ancho mínimo cuando se apunta (en el eje Y)
                                                          // El convenio de nombres de Unity recomienda que los atributos
                                                          // públicos y de inspector se nombren en formato PascalCase
                                                          // (palabras con primera letra mayúscula, incluida la primera letra)
@@ -46,6 +46,7 @@ public class Lantern : MonoBehaviour
     private float mouseMoveThreshold = 0.1f; // Umbral de movimiento para detectar si el ratón se mueve
     private Vector3 initialBeamScale; // Para guardar la escala inicial del haz de luz
     private bool isRightClickPressed = false; // Indica si el clic derecho está presionado
+    private bool isLTButtonPressed = false; // Indica si el botón LT del mando está presionado
 
     // ---- MÉTODOS DE MONOBEHAVIOUR ----
 
@@ -155,6 +156,29 @@ public class Lantern : MonoBehaviour
             if (isRightClickPressed)
             {
                 isRightClickPressed = false;
+                StartCoroutine(RetractBeam());
+            }
+        }
+
+        // Detectar si el botón LT del mando está siendo presionado
+        isLTButtonPressed = Gamepad.current.leftTrigger.isPressed;
+
+        if (isLTButtonPressed)
+        {
+            if (!isRightClickPressed) // Solo iniciar el apuntado si no está activo el clic derecho
+            {
+                if (!isAiming)
+                {
+                    isAiming = true;
+                    StartCoroutine(GrowBeam());
+                }
+            }
+        }
+        else
+        {
+            if (isAiming)
+            {
+                isAiming = false;
                 StartCoroutine(RetractBeam());
             }
         }

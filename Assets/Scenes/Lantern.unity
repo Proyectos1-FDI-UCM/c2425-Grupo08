@@ -319,7 +319,7 @@ MonoBehaviour:
   beamObject: {fileID: 1471322202}
   beamGrowSpeed: 2
   maxBeamLength: 5
-  minBeamWidth: 0.05
+  minBeamWidth: 1
 --- !u!1 &1382768737
 GameObject:
   m_ObjectHideFlags: 0
