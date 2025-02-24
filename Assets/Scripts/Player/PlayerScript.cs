@@ -6,6 +6,7 @@
 //---------------------------------------------------------
 
 using UnityEngine;
+using System;
 // Añadir aquí el resto de directivas using
 
 
@@ -33,6 +34,7 @@ public class PlayerScript : MonoBehaviour
     {
         if (InputManager.Instance.MovementVector.x != 0)
         {
+            joystickMaxSpeed = maxSpeed * InputManager.Instance.MovementVector.x;
             Walk(InputManager.Instance.MovementVector.x);
         }
         else StopWalking();
@@ -55,19 +57,22 @@ public class PlayerScript : MonoBehaviour
 
         rb.drag = 0;
 
-        rb.AddForce(new Vector2(x, 0) * 5, ForceMode2D.Force);
-        if (rb.velocity.magnitude > 3)
+        rb.AddForce(new Vector2(x, 0) * acceleration, ForceMode2D.Force);
+        if (Math.Abs(rb.velocity.x) > Math.Abs(joystickMaxSpeed))
         {
-            rb.velocity = rb.velocity.normalized * 3;
+            rb.velocity = new Vector2(joystickMaxSpeed, 0);
         }
     }
     private void StopWalking()
     {
-        rb.drag = 5;
+        rb.drag = deceleration;
     }
     private void OnDrawGizmos()
     {
+        Gizmos.color = Color.red;
         Gizmos.DrawLine(gameObject.transform.position, gameObject.transform.position + new Vector3(rb.velocity.x, rb.velocity.y, 0));
+        Gizmos.color = Color.blue;
+        Gizmos.DrawLine(gameObject.transform.position, gameObject.transform.position + new Vector3(InputManager.Instance.MovementVector.x, InputManager.Instance.MovementVector.y, 0));
     }
 
 } // class PlayerScript 
