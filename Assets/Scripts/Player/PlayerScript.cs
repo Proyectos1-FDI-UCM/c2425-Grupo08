@@ -37,9 +37,9 @@ public class PlayerScript : MonoBehaviour
             joystickMaxSpeed = maxSpeed * InputManager.Instance.MovementVector.x;
             Walk(InputManager.Instance.MovementVector.x);
         }
-        else StopWalking();
-        
+        else StopWalking();       
     }
+
     // ---- MÉTODOS PÚBLICOS ----
     #region Métodos públicos
     // Documentar cada método que aparece aquí con ///<summary>
@@ -60,7 +60,7 @@ public class PlayerScript : MonoBehaviour
         rb.AddForce(new Vector2(x, 0) * acceleration, ForceMode2D.Force);
         if (Math.Abs(rb.velocity.x) > Math.Abs(joystickMaxSpeed))
         {
-            rb.velocity = new Vector2(joystickMaxSpeed, 0);
+            rb.velocity = rb.velocity.normalized * Math.Abs(joystickMaxSpeed);
         }
     }
     private void StopWalking()
