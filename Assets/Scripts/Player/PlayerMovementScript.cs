@@ -25,7 +25,7 @@ public class PlayerMovementScript : MonoBehaviour
     [SerializeField] private float maxSpeed; // El límite de velocidad del jugador
     [SerializeField] private float acceleration; // La aceleración positiva para moverse
     [SerializeField] private float deceleration; // La aceleración negativa para frenar
-    [SerializeField] private float decelerationThreshold; // El límite de velocidad para parar de frenar mediante fuerzas (para evitar temblor en el jugador) SE RECOMIENDA UN MÍNIMO DE 0.2
+    [SerializeField] private float decelerationThreshold; // El límite de velocidad para parar de frenar mediante fuerzas (para evitar temblor en el jugador) SE RECOMIENDA UN MÍNIMO DE 0.15
 
     #endregion
 
