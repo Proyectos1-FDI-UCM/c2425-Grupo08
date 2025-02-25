@@ -58,11 +58,14 @@ public class Lantern : MonoBehaviour
 
     private void Update()
     {
-        // Leer la entrada del joystick derecho (si está siendo usado)
-        Vector2 joystickInput = Gamepad.current.rightStick.ReadValue();
+        // Verificar si el mando está conectado antes de intentar usarlo
+        if (Gamepad.current != null)
+        {
+            // Leer la entrada del joystick derecho (si está siendo usado)
+            Vector2 joystickInput = Gamepad.current.rightStick.ReadValue();
 
-        // Si el joystick se está moviendo, desactivar el control del ratón
-        if (joystickInput.sqrMagnitude > 0.1f)
+            // Si el joystick se está moviendo, desactivar el control del ratón
+            if (joystickInput.sqrMagnitude > 0.1f)
         {
             // El joystick está siendo movido, lo que hace que el mouse se ignore.
             isJoystickActive = true; // Marcamos que el joystick está activo
@@ -183,7 +186,73 @@ public class Lantern : MonoBehaviour
             }
         }
     }
+        // Si no hay mando, controlar con el ratón
+        else
+        {
+            // Obtener la posición actual del mouse
+            Vector2 currentMousePosition = Mouse.current.position.ReadValue();
 
+            // Verificamos si el ratón se ha movido desde la última vez
+            if (Vector2.Distance(currentMousePosition, lastMousePosition) > mouseMoveThreshold)
+            {
+                // El ratón se ha movido, entonces activamos el control del ratón
+                isJoystickActive = false; // Desactivar el joystick
+
+                // Actualizamos la última posición conocida del ratón
+                lastMousePosition = currentMousePosition;
+
+                // Controlar la linterna con el mouse
+                Vector3 worldMousePosition = Camera.main.ScreenToWorldPoint(currentMousePosition);
+                worldMousePosition.z = 0;
+
+                Vector3 directionToMouse = worldMousePosition - transform.position;
+                float distanceToMouse = directionToMouse.magnitude;
+
+                if (distanceToMouse > radius)
+                {
+                    // Si el mouse está fuera del radio, movemos la linterna y actualizamos la rotación
+                    directionToMouse.Normalize();
+                    float targetAngle = Mathf.Atan2(directionToMouse.y, directionToMouse.x) * Mathf.Rad2Deg;
+
+                    currentAngle = targetAngle;
+                    Vector3 newPosition = player.position + directionToMouse * radius;
+                    transform.position = newPosition;
+                    transform.rotation = Quaternion.Euler(new Vector3(0, 0, currentAngle));
+                }
+
+                // Hacer invisible el cursor cuando el ratón está siendo utilizado
+                Cursor.visible = false;
+            }
+            else
+            {
+                // Si el ratón no se ha movido significativamente, mantenemos el control del joystick
+                if (!isJoystickActive)
+                {
+                    // Mantener el control del joystick y seguir ocultando el cursor si no se mueve el ratón
+                    Cursor.visible = false;
+                }
+            }
+
+            // Detectar si el clic derecho está siendo presionado
+            if (Mouse.current.rightButton.isPressed)
+            {
+                if (!isRightClickPressed)
+                {
+                    isRightClickPressed = true;
+                    StartCoroutine(GrowBeam());
+                }
+            }
+            else
+            {
+                if (isRightClickPressed)
+                {
+                    isRightClickPressed = false;
+                    StartCoroutine(RetractBeam());
+                }
+            }
+
+        }
+    }
 
 
     // ---- MÉTODOS PÚBLICOS ----
