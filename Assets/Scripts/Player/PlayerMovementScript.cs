@@ -61,7 +61,7 @@ public class PlayerMovementScript : MonoBehaviour
     /// <summary>
     /// Update is called every frame, if the MonoBehaviour is enabled.
     /// </summary>
-    void Update() // Comprueba si hay está pulsada una tecla de movimiento
+    void FixedUpdate() // Comprueba si hay está pulsada una tecla de movimiento
     {
         Debug.Log(InputManager.Instance.MovementVector.x);
         if (InputManager.Instance.MovementVector.x != 0)
