@@ -26,6 +26,7 @@ public class EnemyRouteScript : MonoBehaviour
 
     [SerializeField] private GameObject[] NodeArray;
     [SerializeField] private float Speed;
+    [SerializeField] private bool Debug = false;
 
     #endregion
     
@@ -120,7 +121,7 @@ public class EnemyRouteScript : MonoBehaviour
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision == nodeRoute.GetNextNode().GetComponent<Collider2D>()){
+        if (collision == nodeRoute.GetCollider()){
             nodeRoute.SetNextNode();
             MoveEnemy();
         }
@@ -130,12 +131,14 @@ public class EnemyRouteScript : MonoBehaviour
 
     void OnDrawGizmos()
     {
+        if (Debug) {
         Gizmos.color = Color.green;
         foreach(GameObject go in NodeArray){
             Gizmos.DrawSphere(go.transform.position,0.5f);
         }
         Gizmos.color = Color.red;
-        Gizmos.DrawSphere(transform.position,0.5f);
+        Gizmos.DrawSphere(transform.position,0.5f);    
+        } 
     }
 } // class EnemieRouteScript 
 // namespace
