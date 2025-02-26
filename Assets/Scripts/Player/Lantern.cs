@@ -148,19 +148,17 @@ public class Lantern : MonoBehaviour
         // Detectar si el clic derecho está siendo presionado
         if (Mouse.current.rightButton.isPressed)
         {
-            if (!isRightClickPressed)
-            {
+           
                 isRightClickPressed = true;
                 StartCoroutine(GrowBeam());
-            }
+            
         }
         else
         {
-            if (isRightClickPressed)
-            {
+           
                 isRightClickPressed = false;
                 StartCoroutine(RetractBeam());
-            }
+            
         }
 
         // Detectar si el botón LT del mando está siendo presionado
@@ -168,22 +166,18 @@ public class Lantern : MonoBehaviour
 
         if (isLTButtonPressed)
         {
-            if (!isRightClickPressed) // Solo iniciar el apuntado si no está activo el clic derecho
-            {
-                if (!isAiming)
-                {
+            
                     isAiming = true;
                     StartCoroutine(GrowBeam());
-                }
-            }
+                
+            
         }
         else
         {
-            if (isAiming)
-            {
+           
                 isAiming = false;
                 StartCoroutine(RetractBeam());
-            }
+            
         }
     }
         // Si no hay mando, controlar con el ratón
@@ -236,19 +230,17 @@ public class Lantern : MonoBehaviour
             // Detectar si el clic derecho está siendo presionado
             if (Mouse.current.rightButton.isPressed)
             {
-                if (!isRightClickPressed)
-                {
+                
                     isRightClickPressed = true;
                     StartCoroutine(GrowBeam());
-                }
+                
             }
             else
             {
-                if (isRightClickPressed)
-                {
+                
                     isRightClickPressed = false;
                     StartCoroutine(RetractBeam());
-                }
+                
             }
 
         }
@@ -274,6 +266,10 @@ public class Lantern : MonoBehaviour
         // Aumentamos la longitud y reducimos el ancho gradualmente mientras se mantiene el clic derecho
         while (beamObject.transform.localScale.x < maxBeamLength && beamObject.transform.localScale.y > minBeamWidth)
         {
+            if(isRightClickPressed == false)
+            {
+                StopCoroutine(GrowBeam());
+            }
             // Aumentamos la longitud y reducimos el ancho gradualmente
             beamObject.transform.localScale = new Vector3(
                 beamObject.transform.localScale.x + beamGrowSpeed * Time.deltaTime,
