@@ -26,7 +26,7 @@ public class PlayerMovementScript : MonoBehaviour
     [SerializeField] private float acceleration; // La aceleración positiva para moverse
     [SerializeField] private float deceleration; // La aceleración negativa para frenar
     [SerializeField] private float decelerationThreshold; // El límite de velocidad para parar de frenar mediante fuerzas (para evitar temblor en el jugador) SE RECOMIENDA UN MÍNIMO DE 0.15
-
+    [SerializeField] private bool debug; // Para ver los vectores de velocidad y aceleración
     #endregion
 
     // ---- ATRIBUTOS PRIVADOS ----
@@ -63,7 +63,6 @@ public class PlayerMovementScript : MonoBehaviour
     /// </summary>
     void FixedUpdate() // Comprueba si hay está pulsada una tecla de movimiento
     {
-        Debug.Log(InputManager.Instance.MovementVector.x);
         if (InputManager.Instance.MovementVector.x != 0)
         {
             joystickMaxSpeed = maxSpeed * InputManager.Instance.MovementVector.x;
@@ -124,6 +123,16 @@ public class PlayerMovementScript : MonoBehaviour
         {
             rb.AddForce(new Vector2(decelerationValue, 0), ForceMode2D.Force);
         }      
+    }
+    private void OnDrawGizmos()
+    {
+        if (debug)
+        {
+            Gizmos.color = Color.yellow;
+            Gizmos.DrawLine(transform.position, transform.position + new Vector3(rb.velocity.x, rb.velocity.y, 0));
+            Gizmos.color = Color.blue;
+            Gizmos.DrawLine(transform.position, transform.position + new Vector3(InputManager.Instance.MovementVector.x, InputManager.Instance.MovementVector.y, 0));
+        }     
     }
 
     #endregion   
