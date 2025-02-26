@@ -63,6 +63,7 @@ public class PlayerMovementScript : MonoBehaviour
     /// </summary>
     void Update() // Comprueba si hay está pulsada una tecla de movimiento
     {
+        Debug.Log(InputManager.Instance.MovementVector.x);
         if (InputManager.Instance.MovementVector.x != 0)
         {
             joystickMaxSpeed = maxSpeed * InputManager.Instance.MovementVector.x;
