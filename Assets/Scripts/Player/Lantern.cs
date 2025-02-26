@@ -22,16 +22,11 @@ public class Lantern : MonoBehaviour
     // ---- ATRIBUTOS DEL INSPECTOR ----
     [SerializeField] private Transform player;  // El jugador alrededor del cual se mueve la linterna
     [SerializeField] private float radius = 2f; // Radio del círculo sobre el que se mueve la linterna
-    [SerializeField] private float beamWidth = 0.1f; // Ancho inicial del haz de luz (en el eje Y)
-    [SerializeField] private float beamLength = 1f; // Ancho inicial del haz de luz
     [SerializeField] private GameObject beamObject; // El objeto rectángulo que representa el haz
     [SerializeField] private float beamGrowSpeed = 2f; // Velocidad a la que el haz crece
     [SerializeField] private float maxBeamLength = 5f; // Longitud máxima del haz de luz
     [SerializeField] private float minBeamWidth = 1; // Ancho mínimo cuando se apunta (en el eje Y)
-                                                         // El convenio de nombres de Unity recomienda que los atributos
-                                                         // públicos y de inspector se nombren en formato PascalCase
-                                                         // (palabras con primera letra mayúscula, incluida la primera letra)
-                                                         // Ejemplo: MaxHealthPoints
+                                                         
 
 
 
@@ -41,7 +36,6 @@ public class Lantern : MonoBehaviour
 
     private float currentAngle = 0f; // Ángulo actual de la linterna en el círculo
     private bool isJoystickActive = false; // Variable que indica si el joystick está siendo usado
-    private bool isAiming = false; // Para saber si estamos en el estado de apuntar
     private Vector2 lastMousePosition; // Última posición conocida del ratón
     private float mouseMoveThreshold = 0.1f; // Umbral de movimiento para detectar si el ratón se mueve
     private Vector3 initialBeamScale; // Para guardar la escala inicial del haz de luz
@@ -54,10 +48,13 @@ public class Lantern : MonoBehaviour
     {
         // Guardamos la escala original del haz de luz cuando se inicia el juego
         initialBeamScale = beamObject.transform.localScale;
+        // Hacer invisible el cursor
+       
     }
 
     private void Update()
-    {
+    { 
+        Cursor.visible = false;
         // Verificar si el mando está conectado antes de intentar usarlo
         if (Gamepad.current != null)
         {
@@ -66,7 +63,7 @@ public class Lantern : MonoBehaviour
 
             // Si el joystick se está moviendo, desactivar el control del ratón
             if (joystickInput.sqrMagnitude > 0.1f)
-        {
+            {
             // El joystick está siendo movido, lo que hace que el mouse se ignore.
             isJoystickActive = true; // Marcamos que el joystick está activo
 
@@ -88,9 +85,8 @@ public class Lantern : MonoBehaviour
             // Aplicar la rotación
             transform.rotation = Quaternion.Euler(new Vector3(0, 0, currentAngle));
 
-            // Ocultar el cursor cuando el joystick está en uso
-            Cursor.visible = false;
-        }
+           
+            }
         else
         {
             // Si el joystick no está en movimiento, permitir que el ratón controle la linterna
@@ -131,18 +127,9 @@ public class Lantern : MonoBehaviour
                     transform.rotation = Quaternion.Euler(new Vector3(0, 0, currentAngle));
                 }
 
-                // Hacer invisible el cursor cuando el ratón está siendo utilizado
-                Cursor.visible = false;
+              
             }
-            else
-            {
-                // Si el ratón no se ha movido significativamente, mantenemos el control del joystick
-                if (!isJoystickActive)
-                {
-                    // Mantener el control del joystick y seguir ocultando el cursor si no se mueve el ratón
-                    Cursor.visible = false;
-                }
-            }
+            
 
         }
         // Detectar si el clic derecho está siendo presionado
@@ -166,18 +153,11 @@ public class Lantern : MonoBehaviour
 
         if (isLTButtonPressed)
         {
-            
-                    isAiming = true;
                     StartCoroutine(GrowBeam());
-                
-            
         }
         else
         {
-           
-                isAiming = false;
                 StartCoroutine(RetractBeam());
-            
         }
     }
         // Si no hay mando, controlar con el ratón
@@ -213,18 +193,6 @@ public class Lantern : MonoBehaviour
                     transform.position = newPosition;
                     transform.rotation = Quaternion.Euler(new Vector3(0, 0, currentAngle));
                 }
-
-                // Hacer invisible el cursor cuando el ratón está siendo utilizado
-                Cursor.visible = false;
-            }
-            else
-            {
-                // Si el ratón no se ha movido significativamente, mantenemos el control del joystick
-                if (!isJoystickActive)
-                {
-                    // Mantener el control del joystick y seguir ocultando el cursor si no se mueve el ratón
-                    Cursor.visible = false;
-                }
             }
 
             // Detectar si el clic derecho está siendo presionado
@@ -258,6 +226,41 @@ public class Lantern : MonoBehaviour
     #endregion
 
     // ---- MÉTODOS PRIVADOS ----
+
+    private void ControllerHandler()
+    {
+        // Leer la entrada del joystick derecho (si está siendo usado)
+        Vector2 joystickInput = Gamepad.current.rightStick.ReadValue();
+
+        // Si el joystick se está moviendo, desactivar el control del ratón
+        if (joystickInput.sqrMagnitude > 0.1f)
+        {
+            // El joystick está siendo movido, lo que hace que el mouse se ignore.
+            isJoystickActive = true; // Marcamos que el joystick está activo
+
+            // Controlar la linterna con el joystick
+            Vector3 directionToJoystick = new Vector3(joystickInput.x, joystickInput.y, 0).normalized;
+
+            // Calcular el ángulo de la linterna basado en el movimiento del joystick
+            float targetAngle = Mathf.Atan2(directionToJoystick.y, directionToJoystick.x) * Mathf.Rad2Deg;
+
+            // Actualizar el ángulo de la linterna para que apunte en la dirección del joystick
+            currentAngle = targetAngle;
+
+            // Calcular la nueva posición de la linterna en la circunferencia alrededor del jugador
+            Vector3 newPosition = player.position + directionToJoystick * radius;
+
+            // Actualizar la posición de la linterna
+            transform.position = newPosition;
+
+            // Aplicar la rotación
+            transform.rotation = Quaternion.Euler(new Vector3(0, 0, currentAngle));
+
+            // Ocultar el cursor cuando el joystick está en uso
+            Cursor.visible = false;
+        }
+        }
+
 
     // ---- MÉTODOS DE BEAM ----
 
