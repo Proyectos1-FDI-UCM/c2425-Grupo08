@@ -54,7 +54,7 @@ public class Lantern : MonoBehaviour
 
     private void Update()
     { 
-        Cursor.visible = false;
+        //Cursor.visible = false;
         // Verificar si el mando está conectado antes de intentar usarlo
         if (Gamepad.current != null)
         {
@@ -85,7 +85,6 @@ public class Lantern : MonoBehaviour
             // Aplicar la rotación
             transform.rotation = Quaternion.Euler(new Vector3(0, 0, currentAngle));
 
-           
             }
         else
         {
@@ -126,10 +125,7 @@ public class Lantern : MonoBehaviour
                     transform.position = newPosition;
                     transform.rotation = Quaternion.Euler(new Vector3(0, 0, currentAngle));
                 }
-
-              
             }
-            
 
         }
         // Detectar si el clic derecho está siendo presionado
