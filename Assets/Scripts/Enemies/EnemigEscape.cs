@@ -5,6 +5,7 @@
 // Proyectos 1 - Curso 2024-25
 //---------------------------------------------------------
 
+using System.Collections;
 using UnityEngine;
 // Añadir aquí el resto de directivas using
 
@@ -26,6 +27,7 @@ public class EnemigEscape : MonoBehaviour
     #endregion
     [Header("Los valores de la huida")]
     [SerializeField] private float fleeSpeed = 5f; // La velocidad de la huida
+    [SerializeField] private float escapeDuracion = 10f; //duracion de escape
     
     [Header("Referencia para comunicar")]
     [SerializeField] private Transform playerTransform; // referencia de transform del jugador
@@ -47,6 +49,7 @@ public class EnemigEscape : MonoBehaviour
 
     private Rigidbody2D _rb;
     private bool _isFleeing = false;
+    
     
     // ---- MÉTODOS DE MONOBEHAVIOUR ----
     #region Métodos de MonoBehaviour
@@ -78,11 +81,8 @@ public class EnemigEscape : MonoBehaviour
             // Asignar la velocidad de huida
             _rb.velocity = fleeDirection * fleeSpeed;
 
-            // Es opcional, es girar el spirte para dar la espalda al jugador ya que usaremos a flipX
-            if (fleeDirection.x < 0)
-                spriteRenderer.flipX = false;
-            else
-                spriteRenderer.flipX = true;
+            // Conserva la oreintacion que tenia antes de huir
+            spriteRenderer.flipX = (fleeDirection.x > 0);
 
         }
 
@@ -116,10 +116,10 @@ public class EnemigEscape : MonoBehaviour
         }
     }
 
-    
 
 
-  
+
+
 
     #endregion
 
@@ -134,8 +134,39 @@ public class EnemigEscape : MonoBehaviour
     // Ejemplo: GetPlayerController
 
     #endregion
+    public void ActivateEscape()
+    {
+        _isFleeing = true;
 
+        
+        Debug.Log("Escape a sido activado");
 
+        // Desactivar el script de ataque para que no interfiere
+        EnemigAtack atacksprit = GetComponent<EnemigAtack>();
+        if (atacksprit != null)
+        {
+            atacksprit.DisableVisionCollider();
+            atacksprit.enabled = false;
+            Debug.Log("Ha sido deshabilitado");
+        }
+
+        //Reactiva el componetne de ataque y el collider
+        StartCoroutine(ReactivoAttacktime(escapeDuracion));
+
+    }
+
+    private IEnumerator ReactivoAttacktime(float delay)
+    {
+        yield return new WaitForSeconds(delay);
+        EnemigAtack AtackScript = GetComponent<EnemigAtack>();
+        if (AtackScript != null)
+        {
+            AtackScript.enabled = true;
+            AtackScript.EnableVisionCollider();
+        }
+        _isFleeing = false;
+
+    }
 
     // ---- MÉTODOS PRIVADOS ----
     #region Métodos Privados
