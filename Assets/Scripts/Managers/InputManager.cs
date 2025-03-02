@@ -67,6 +67,8 @@ public class InputManager : MonoBehaviour
     /// </summary>
     private InputAction _fire;
 
+    private InputAction _jump;
+
     #endregion
 
     // ---- MÉTODOS DE MONOBEHAVIOUR ----
@@ -163,6 +165,11 @@ public class InputManager : MonoBehaviour
         return _fire.IsPressed();
     }
 
+    public bool JumpIsPressed()
+    {
+        return _jump.IsPressed();
+    }
+
     /// <summary>
     /// Método para saber si el botón de disparo (Fire) se ha pulsado en este frame
     /// <returns>Devuelve true, si el botón ha sido pulsado en este frame
@@ -213,6 +220,8 @@ public class InputManager : MonoBehaviour
         // tenemos (FireIsPressed, FireWasPressedThisFrame 
         // y FireWasReleasedThisFrame)
         _fire = _theController.Player.Fire;
+
+        _jump = _theController.Player.Jump;
     }
 
     /// <summary>

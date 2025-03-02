@@ -13,7 +13,7 @@ using UnityEngine;
 /// Antes de cada class, descripción de qué es y para qué sirve,
 /// usando todas las líneas que sean necesarias.
 /// </summary>
-public class PlayerMovementScript : MonoBehaviour
+public class PlayerMovementWalkState : MonoBehaviour
 {
     // ---- ATRIBUTOS DEL INSPECTOR ----
     #region Atributos del Inspector (serialized fields)
@@ -58,19 +58,6 @@ public class PlayerMovementScript : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
     }
 
-    /// <summary>
-    /// Update is called every frame, if the MonoBehaviour is enabled.
-    /// </summary>
-    void FixedUpdate() // Comprueba si hay está pulsada una tecla de movimiento
-    {
-        if (InputManager.Instance.MovementVector.x != 0)
-        {
-            joystickMaxSpeed = maxSpeed * InputManager.Instance.MovementVector.x;
-            Walk(InputManager.Instance.MovementVector.x);
-        }
-        else Decelerate(deceleration);
-    }
-
     #endregion
 
     // ---- MÉTODOS PÚBLICOS ----
@@ -80,16 +67,37 @@ public class PlayerMovementScript : MonoBehaviour
     // se nombren en formato PascalCase (palabras con primera letra
     // mayúscula, incluida la primera letra)
     // Ejemplo: GetPlayerController
+    public void Move()
+    {
+        if (InputManager.Instance.MovementVector.x != 0)
+        {
+            joystickMaxSpeed = maxSpeed * InputManager.Instance.MovementVector.x;
+            Walk(InputManager.Instance.MovementVector.x);
+        }
+        else Decelerate(deceleration);
+    }
+    private void NextState()
+    {
+        if (rb.velocity == new Vector2(0, 0))
+        {
+            // Cambiar a estado Idle
+        }
+        else if (rb.velocity.y < 0)
+        {
+            // Cambiar a estado Fall
+        }
+        // else if () // Aim 
+        // else if () // Jump
+    }
 
     #endregion
-    
+
     // ---- MÉTODOS PRIVADOS ----
     #region Métodos Privados
     // Documentar cada método que aparece aquí
     // El convenio de nombres de Unity recomienda que estos métodos
     // se nombren en formato PascalCase (palabras con primera letra
     // mayúscula, incluida la primera letra)
-
     private void Walk(float x) // Mueve al jugador en la dirección indicada por el signo de x y con la velocidad máxima indicada por el valor de x
     {
         if ((x < 0 && rb.velocity.x > 0) || (x > 0 && rb.velocity.x < 0)) // Deceleración en cambio de sentido
@@ -103,14 +111,14 @@ public class PlayerMovementScript : MonoBehaviour
 
         if (Mathf.Abs(rb.velocity.x) > Mathf.Abs(joystickMaxSpeed)) // Limitación de la velocidad
         {
-            if (joystickMaxSpeed == 1 || joystickMaxSpeed == -1) 
+            if (joystickMaxSpeed == 1 || joystickMaxSpeed == -1)
             {
                 rb.velocity = rb.velocity.normalized * Mathf.Abs(joystickMaxSpeed);
             }
             else
             {
                 Decelerate(acceleration); // En el caso (nada raro) de que el joystick pase de un valor a otro más bajo del mismo signo, se frena con el valor de la aceleración
-            }               
+            }
         }
     }
     private void Decelerate(float decelerationValue) // Frena al jugador con la aceleración negativa indicada
@@ -122,7 +130,7 @@ public class PlayerMovementScript : MonoBehaviour
         else if (rb.velocity.x < -decelerationThreshold)
         {
             rb.AddForce(new Vector2(decelerationValue, 0), ForceMode2D.Force);
-        }      
+        }
     }
     private void OnDrawGizmos()
     {
@@ -132,9 +140,9 @@ public class PlayerMovementScript : MonoBehaviour
             Gizmos.DrawLine(transform.position, transform.position + new Vector3(rb.velocity.x, rb.velocity.y, 0));
             Gizmos.color = Color.blue;
             Gizmos.DrawLine(transform.position, transform.position + new Vector3(InputManager.Instance.MovementVector.x, InputManager.Instance.MovementVector.y, 0));
-        }     
+        }
     }
-
+    
     #endregion   
 
 } // class PlayerMovementScript 
