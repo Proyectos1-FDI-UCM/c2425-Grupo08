@@ -180,6 +180,11 @@ public class InputManager : MonoBehaviour
     {
         return _fire.WasPressedThisFrame();
     }
+    
+    public bool JumpWasRealeasedThisFrame()
+    {
+        return _jump.WasReleasedThisFrame();
+    }
 
     /// <summary>
     /// Método para saber si el botón de disparo (Fire) ha dejado de pulsarse

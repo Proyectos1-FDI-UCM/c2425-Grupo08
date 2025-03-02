@@ -77,6 +77,11 @@ public class PlayerMovementJumpState : MonoBehaviour
     // Ejemplo: GetPlayerController
     public void Move()
     {
+        if (InputManager.Instance.JumpWasRealeasedThisFrame())
+        {
+            jumpMultiplier = 0;
+        }
+
         if (InputManager.Instance.JumpIsPressed() && jumpMultiplier > 0)
         {
             Jump();
