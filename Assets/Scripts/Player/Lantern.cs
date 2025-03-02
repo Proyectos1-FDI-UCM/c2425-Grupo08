@@ -8,8 +8,10 @@
 //---------------------------------------------------------
 
 using System.Collections;
+using System.Runtime.InteropServices;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using static UnityEngine.UIElements.UxmlAttributeDescription;
 
 
 
@@ -26,7 +28,7 @@ public class Lantern : MonoBehaviour
     [SerializeField] private float beamGrowSpeed = 2f; // Velocidad a la que el haz crece
     [SerializeField] private float maxBeamLength = 5f; // Longitud máxima del haz de luz
     [SerializeField] private float minBeamWidth = 1; // Ancho mínimo cuando se apunta (en el eje Y)
-                                                         
+    [SerializeField] private float flashCooldown = 5; //Cooldown del flash (linterna apagada)
 
 
 
@@ -41,6 +43,10 @@ public class Lantern : MonoBehaviour
     private Vector3 initialBeamScale; // Para guardar la escala inicial del haz de luz
     private bool isRightClickPressed = false; // Indica si el clic derecho está presionado
     private bool isLTButtonPressed = false; // Indica si el botón LT del mando está presionado
+    private SpriteRenderer firstChildSpriteRenderer; //Sprite luz de linterna
+    private SpriteRenderer secondChildSpriteRenderer;//Sprite luz de flash
+    private BoxCollider2D secondChildBoxCollider; //Collider de flash
+    private bool isCooldownActive = false; // Indica si el cooldown de la linterna está activo
 
     // ---- MÉTODOS DE MONOBEHAVIOUR ----
 
@@ -49,7 +55,19 @@ public class Lantern : MonoBehaviour
         // Guardamos la escala original del haz de luz cuando se inicia el juego
         initialBeamScale = beamObject.transform.localScale;
         // Hacer invisible el cursor
-       
+
+        // Obtener el primer hijo (con solo SpriteRenderer)
+        Transform firstChildPivot = transform.GetChild(0); // El primer hijo (el pivote vacío)
+       firstChildSpriteRenderer = firstChildPivot.GetChild(0).GetComponent<SpriteRenderer>(); // Obtener SpriteRenderer del hijo dentro del pivote
+
+        // Obtener el segundo hijo (con SpriteRenderer y BoxCollider2D)
+        Transform secondChild = transform.GetChild(1); // El segundo hijo (índice 1)
+        secondChildSpriteRenderer = secondChild.GetComponent<SpriteRenderer>(); // Obtener SpriteRenderer
+        secondChildBoxCollider = secondChild.GetComponent<BoxCollider2D>(); // Obtener BoxCollider2D
+
+        // Desactivar inicialmente los componentes del segundo hijo
+        secondChildSpriteRenderer.enabled = false; // Desactivar SpriteRenderer del segundo hijo
+        secondChildBoxCollider.enabled = false; // Desactivar BoxCollider2D del segundo hijo
     }
 
     private void Update()
@@ -134,8 +152,9 @@ public class Lantern : MonoBehaviour
            
                 isRightClickPressed = true;
                 StartCoroutine(GrowBeam());
-            
-        }
+               
+
+            }
         else
         {
            
@@ -144,18 +163,21 @@ public class Lantern : MonoBehaviour
             
         }
 
+
         // Detectar si el botón LT del mando está siendo presionado
         isLTButtonPressed = Gamepad.current.leftTrigger.isPressed;
 
         if (isLTButtonPressed)
         {
                     StartCoroutine(GrowBeam());
-        }
+                    
+            }
         else
         {
                 StartCoroutine(RetractBeam());
         }
-    }
+        Flash();
+        }
         // Si no hay mando, controlar con el ratón
         else
         {
@@ -197,7 +219,7 @@ public class Lantern : MonoBehaviour
                 
                     isRightClickPressed = true;
                     StartCoroutine(GrowBeam());
-                
+                     
             }
             else
             {
@@ -206,6 +228,7 @@ public class Lantern : MonoBehaviour
                     StartCoroutine(RetractBeam());
                 
             }
+            Flash();   
 
         }
     }
@@ -257,6 +280,20 @@ public class Lantern : MonoBehaviour
         }
         }
 
+    private void Flash() // Método para hacer el flash de la linterna
+    {
+        // No permitir el flash si el cooldown está activo
+        if (isCooldownActive) return;
+        // Verificar si el clic izquierdo del ratón o el RT del mando están siendo presionados
+        if ((Mouse.current.leftButton.isPressed && isRightClickPressed) ||
+            (Gamepad.current != null && Gamepad.current.rightTrigger.isPressed && isLTButtonPressed))
+        {
+            StartCoroutine(FlashRutine());
+            StartCoroutine(LanternCooldown());
+
+        }
+    }
+
 
     // ---- MÉTODOS DE BEAM ----
 
@@ -294,7 +331,28 @@ public class Lantern : MonoBehaviour
         }
     }
 
+    private IEnumerator FlashRutine()
+    {
+     // Afectar al segundo hijo: activar SpriteRenderer y BoxCollider2D
+        secondChildSpriteRenderer.enabled = true;
+        secondChildBoxCollider.enabled = true;
+        yield return new WaitForSeconds(0.1f);
+     // Desactivar SpriteRenderer y BoxCollider2D del segundo hijo
+        secondChildSpriteRenderer.enabled = false;
+        secondChildBoxCollider.enabled = false;
+    }
 
+    private IEnumerator LanternCooldown()
+    {
+        isCooldownActive = true; // Activa el cooldown
+
+        firstChildSpriteRenderer.enabled = false;  // Afectar solo al primer hijo: desactivar SpriteRenderer
+
+        yield return new WaitForSeconds(flashCooldown);
+        firstChildSpriteRenderer.enabled = true;  // Reactivar SpriteRenderer del primer hijo
+
+        isCooldownActive = false; // Desactiva el cooldown
+    }
     // class Lantern 
     // namespace
 
