@@ -13,37 +13,23 @@ using UnityEngine;
 /// Antes de cada class, descripción de qué es y para qué sirve,
 /// usando todas las líneas que sean necesarias.
 /// </summary>
-public class PlayerMovementIdleState : MonoBehaviour
-{      
-    // ---- ATRIBUTOS PRIVADOS ----
+namespace PlayerLogic
+{
+class PlayerIdleState : PlayerState{
+// ---- ATRIBUTOS PRIVADOS ----
     #region Atributos Privados (private fields)
     // Documentar cada atributo que aparece aquí.
     // El convenio de nombres de Unity recomienda que los atributos
-    // privados se nombren en formato _camelCase (comienza con _, 
-    // primera palabra en minúsculas y el resto con la 
+    // privados se nombren en formato _camelCase (comienza con _,
+    // primera palabra en minúsculas y el resto con la
     // primera letra en mayúsculas)
     // Ejemplo: _maxHealthPoints
-    private Rigidbody2D rb;
-
+    private PlayerScript player;
     #endregion
-
-    // ---- MÉTODOS DE MONOBEHAVIOUR ----
-    #region Métodos de MonoBehaviour
-
-    // Por defecto están los típicos (Update y Start) pero:
-    // - Hay que añadir todos los que sean necesarios
-    // - Hay que borrar los que no se usen 
-
-    /// <summary>
-    /// Start is called on the frame when a script is enabled just before 
-    /// any of the Update methods are called the first time.
-    /// </summary>
-    void Start()
-    {
-        rb = GetComponent<Rigidbody2D>();
+    public PlayerIdleState(PlayerScript playerObject){
+        this.player = playerObject.GetComponent<PlayerScript>();
     }
 
-    #endregion
 
     // ---- MÉTODOS PÚBLICOS ----
     #region Métodos públicos
@@ -54,15 +40,16 @@ public class PlayerMovementIdleState : MonoBehaviour
     // Ejemplo: GetPlayerController
     public void Move()
     {
-       
+
     }
-    public void NextState()
-    {
+    public void NextState() {
         if (InputManager.Instance.MovementVector.x != 0)
         {
             //player.State = new WalkState;
+            player.State = new PlayerIdleState(player); //texto de ejemplo, porfa cambiar por un estado real que cuando he creado esto no había
         }
-        else if (rb.velocity.y < 0)
+        else if (player.rb.velocity.y < 0)
+
         {
             //player.State = new FallState;
         }
@@ -70,7 +57,7 @@ public class PlayerMovementIdleState : MonoBehaviour
         {
             //player.State = new JumpState;
         }
-        // else if () // Aim 
+        // else if () // Aim
     }
 
     #endregion
@@ -82,7 +69,6 @@ public class PlayerMovementIdleState : MonoBehaviour
     // se nombren en formato PascalCase (palabras con primera letra
     // mayúscula, incluida la primera letra)
 
-    #endregion   
-
-} // class PlayerMovementScript 
-  // namespace
+    #endregion
+}
+}
