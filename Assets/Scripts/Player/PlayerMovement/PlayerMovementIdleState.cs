@@ -56,18 +56,21 @@ public class PlayerMovementIdleState : MonoBehaviour
     {
        
     }
-    private void NextState()
+    public void NextState()
     {
-        if (InputManager.Instance.MovementVector.x == 0)
+        if (InputManager.Instance.MovementVector.x != 0)
         {
-            // Cambiar a estado Walk
+            //player.State = new WalkState;
         }
         else if (rb.velocity.y < 0)
         {
-            // Cambiar a estado de caída
+            //player.State = new FallState;
+        }
+        else if (InputManager.Instance.JumpIsPressed())
+        {
+            //player.State = new JumpState;
         }
         // else if () // Aim 
-        // else if () // Jump
     }
 
     #endregion

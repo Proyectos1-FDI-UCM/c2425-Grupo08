@@ -61,11 +61,6 @@ public class PlayerMovementJumpState : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
     }
 
-    private void Update()
-    {
-        Move();
-    }
-
     #endregion
 
     // ---- MÉTODOS PÚBLICOS ----
@@ -94,11 +89,11 @@ public class PlayerMovementJumpState : MonoBehaviour
         }
         else Decelerate(deceleration);
     }
-    private void NextState()
+    public void NextState()
     {
         if (rb.velocity.y < 0)
         {
-            // Cambiar a estado Fall
+            //player.State = new FallState;
         }
     }
 

@@ -56,17 +56,17 @@ public class PlayerMovementAimState : MonoBehaviour
     {
 
     }
-    private void NextState()
+    public void NextState()
     {
         /*if (se deja de apuntar) 
         {
             if (InputManager.MovementVector.x == 0) 
             {
-                // Cambiar a estado Idle
+                //player.State = new IdleState;
             }
             else 
             {
-                // Cambiar a estado Walk
+                //player.State = new WalkState;
             }
         } */
     }

@@ -76,17 +76,17 @@ public class PlayerMovementFallState : MonoBehaviour
         }
         else Decelerate(deceleration);
     }
-    private void NextState()
+    public void NextState()
     {
         if (rb.velocity.y == 0)
         {
             if (rb.velocity.x == 0)
             {
-                // Cambiar a estado Idle
+                //player.State = new IdleState;
             }
             else
             {
-                // Cambiar a estado Walk
+                //player.State = new WalkState;
             }
         }
     }
