@@ -116,9 +116,15 @@ public class EnemigEscape : MonoBehaviour
         }
     }
 
-
-
-
+    // Método que se llama cuando el objeto deja de ser visible por la cámara
+    void OnBecameInvisible()
+    {
+        if (_isFleeing)
+        {
+            Debug.Log("Enemigo huido fuera de la cámara. Destruyéndolo.");
+            Destroy(gameObject);
+        }
+    }
 
 
     #endregion
@@ -145,7 +151,7 @@ public class EnemigEscape : MonoBehaviour
         EnemigAtack atacksprit = GetComponent<EnemigAtack>();
         if (atacksprit != null)
         {
-            atacksprit.DisableVisionCollider();
+            
             atacksprit.enabled = false;
             Debug.Log("Ha sido deshabilitado");
         }
@@ -162,7 +168,7 @@ public class EnemigEscape : MonoBehaviour
         if (AtackScript != null)
         {
             AtackScript.enabled = true;
-            AtackScript.EnableVisionCollider();
+            
         }
         _isFleeing = false;
 
