@@ -27,8 +27,8 @@ public class EnemigEscape : MonoBehaviour
     #endregion
     [Header("Los valores de la huida")]
     [SerializeField] private float fleeSpeed = 5f; // La velocidad de la huida
-    [SerializeField] private float escapeDuracion = 10f; //duracion de escape
-    
+    [SerializeField] private float rotationDelay = 2f; // Tiempo en segundos antes de aplicar la rotación en Y
+
     [Header("Referencia para comunicar")]
     [SerializeField] private Transform playerTransform; // referencia de transform del jugador
     [SerializeField] private SpriteRenderer spriteRenderer; // Para girar el sprite
@@ -81,11 +81,9 @@ public class EnemigEscape : MonoBehaviour
             // Asignar la velocidad de huida
             _rb.velocity = fleeDirection * fleeSpeed;
 
-            // Conserva la oreintacion que tenia antes de huir
+            // Conserva la orientación que tenía antes de huir
             spriteRenderer.flipX = (fleeDirection.x > 0);
-
         }
-
     }
 
     // ---- Detectar la Literna (Trigger) y huir ----
@@ -143,36 +141,20 @@ public class EnemigEscape : MonoBehaviour
     public void ActivateEscape()
     {
         _isFleeing = true;
-
-        
-        Debug.Log("Escape a sido activado");
-
-        // Desactivar el script de ataque para que no interfiere
-        EnemigAtack atacksprit = GetComponent<EnemigAtack>();
-        if (atacksprit != null)
-        {
-            
-            atacksprit.enabled = false;
-            Debug.Log("Ha sido deshabilitado");
-        }
-
-        //Reactiva el componetne de ataque y el collider
-        StartCoroutine(ReactivoAttacktime(escapeDuracion));
-
+        // Aquí se asume que el movimiento se controla en Update
+        // Inicia la rutina para rotar 180° en Y después de rotationDelay segundos
+        StartCoroutine(RotateYAfterDelay(rotationDelay));
     }
 
-    private IEnumerator ReactivoAttacktime(float delay)
+    private IEnumerator RotateYAfterDelay(float delay)
     {
         yield return new WaitForSeconds(delay);
-        EnemigAtack AtackScript = GetComponent<EnemigAtack>();
-        if (AtackScript != null)
-        {
-            AtackScript.enabled = true;
-            
-        }
-        _isFleeing = false;
-
+        Vector3 currentEuler = transform.eulerAngles;
+        currentEuler.y += 180f;
+        transform.eulerAngles = currentEuler;
+        Debug.Log("Rotación en Y aplicada. Nueva rotación Y: " + transform.eulerAngles.y);
     }
+
 
     // ---- MÉTODOS PRIVADOS ----
     #region Métodos Privados
