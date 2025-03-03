@@ -186,24 +186,32 @@ public class LanternVicentePrototipo : MonoBehaviour
     }
 
     // Método para manejar el crecimiento del haz de luz cuando se presiona el botón adecuado
+    // Método para manejar el crecimiento del haz de luz basado en la entrada del usuario
     private void HandleBeamGrowth()
     {
-        // Verificamos si el clic derecho del ratón o el botón LT del mando están siendo presionados
-        if (Mouse.current.rightButton.isPressed || Gamepad.current.leftTrigger.isPressed)
+        // Se comprueba que exista el dispositivo Mouse y que el botón derecho esté presionado.
+        // Esto evita que se intente acceder a Mouse.current.rightButton si el Mouse no está conectado.
+        bool isRightMousePressed = Mouse.current != null && Mouse.current.rightButton.isPressed;
+
+        // Se comprueba de forma similar para el Gamepad, verificando que esté conectado y que el botón LT esté presionado.
+        bool isLeftTriggerPressed = Gamepad.current != null && Gamepad.current.leftTrigger.isPressed;
+
+        // Si cualquiera de los dos botones está presionado, consideramos que el haz debe crecer.
+        if (isRightMousePressed || isLeftTriggerPressed)
         {
-            // Marcamos que el botón de crecimiento está presionado
+            // Se marca que el botón de crecimiento está activo.
             isRightClickPressed = true;
 
-            // Si el cooldown no está activo, iniciamos el crecimiento del haz
+            // Si no hay cooldown activo, se inicia la corutina para aumentar el haz.
             if (!isCooldownActive)
                 StartCoroutine(GrowBeam());
         }
         else
         {
-            // Si no se está presionando el botón, detenemos el crecimiento del haz
+            // Si no se presionan los botones, se indica que el crecimiento ya no está activo.
             isRightClickPressed = false;
 
-            // Si el cooldown no está activo, iniciamos la retracción del haz
+            // Si no hay cooldown activo, se inicia la corutina para retraer el haz de luz.
             if (!isCooldownActive)
                 StartCoroutine(RetractBeam());
         }
@@ -226,21 +234,27 @@ public class LanternVicentePrototipo : MonoBehaviour
 
     // ---- MÉTODOS DE BEAM ----
 
+    // Corutina para aumentar el tamaño del haz de luz (GrowBeam)
     private IEnumerator GrowBeam()
     {
-        // Aumentamos la longitud y reducimos el ancho gradualmente mientras se mantiene el clic derecho
+        // Mientras la longitud actual del haz sea menor a la máxima permitida
+        // Y el ancho actual sea mayor al mínimo permitido:
         while (beamObject.transform.localScale.x < maxBeamLength && beamObject.transform.localScale.y > minBeamWidth)
         {
-            if (isRightClickPressed == false)
-            {
-                StopCoroutine(GrowBeam());
-            }
-            // Aumentamos la longitud y reducimos el ancho gradualmente
+            // Si se suelta el botón de crecimiento (isRightClickPressed pasa a false),
+            // se termina la corutina de forma inmediata usando yield break.
+            if (!isRightClickPressed)
+                yield break;
+
+            // Se incrementa la longitud (eje X) del haz de luz en función de la velocidad de crecimiento y el tiempo transcurrido.
+            // Simultáneamente se reduce el ancho (eje Y) pero sin bajar de un ancho mínimo (minBeamWidth).
             beamObject.transform.localScale = new Vector3(
                 beamObject.transform.localScale.x + beamGrowSpeed * Time.deltaTime,
                 Mathf.Max(minBeamWidth, beamObject.transform.localScale.y - beamGrowSpeed * Time.deltaTime),
                 beamObject.transform.localScale.z
             );
+
+            // Se espera hasta el siguiente frame para continuar el ciclo.
             yield return null;
         }
     }
