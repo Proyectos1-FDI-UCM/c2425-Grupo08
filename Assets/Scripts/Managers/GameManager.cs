@@ -6,6 +6,8 @@
 //---------------------------------------------------------
 
 using UnityEngine;
+using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
 
 
 /// <summary>
@@ -84,6 +86,13 @@ public class GameManager : MonoBehaviour
         } // if-else somos instancia nueva o no.
     }
 
+    private void Update()
+    {
+        if (Gamepad.current != null && Gamepad.current.startButton.wasPressedThisFrame || Keyboard.current != null && Keyboard.current.escapeKey.wasPressedThisFrame && SceneManager.GetActiveScene().buildIndex != 0)
+        {
+            ChangeScene(0);
+        }
+    }
     /// <summary>
     /// Método llamado cuando se destruye el componente.
     /// </summary>
