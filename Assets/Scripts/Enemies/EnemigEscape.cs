@@ -28,11 +28,14 @@ public class EnemigEscape : MonoBehaviour
     [Header("Los valores de la huida")]
     [SerializeField] private float fleeSpeed = 5f; // La velocidad de la huida
     [SerializeField] private float rotationDelay = 2f; // Tiempo en segundos antes de aplicar la rotación en Y
+    [SerializeField] private float escapeDuracion = 10f; // Duración de escape (para reactivar ataque, etc.)
+
 
     [Header("Referencia para comunicar")]
     [SerializeField] private Transform playerTransform; // referencia de transform del jugador
     [SerializeField] private SpriteRenderer spriteRenderer; // Para girar el sprite
     [SerializeField] private Collider2D flashCollider;
+    [SerializeField] private Collider2D flashCollider2;
 
 
 
@@ -112,6 +115,25 @@ public class EnemigEscape : MonoBehaviour
 
            
         }
+
+        else if (collision == flashCollider2)
+        {
+            Debug.Log("¡Collider del flash detectado!");
+
+            // Desactivar la patrulla (si el enemigo la tiene)
+            EnemyRouteScript route = GetComponent<EnemyRouteScript>();
+            if (route != null)
+            {
+                route.enabled = false;
+                Debug.Log("EnemyRouteScript desactivado.");
+            }
+
+            // Activar modo huida
+            _isFleeing = true;
+            Debug.Log("Modo huida activado.");
+
+
+        }
     }
 
     // Método que se llama cuando el objeto deja de ser visible por la cámara
@@ -141,9 +163,18 @@ public class EnemigEscape : MonoBehaviour
     public void ActivateEscape()
     {
         _isFleeing = true;
-        // Aquí se asume que el movimiento se controla en Update
+        Debug.Log("Escape ha sido activado.");
+        // Desactiva el componente de ataque para que no interfiera
+        EnemigAtack attackScript = GetComponent<EnemigAtack>();
+        if (attackScript != null)
+        {
+            attackScript.enabled = false;
+            Debug.Log("EnemigAtack ha sido deshabilitado.");
+        }
         // Inicia la rutina para rotar 180° en Y después de rotationDelay segundos
         StartCoroutine(RotateYAfterDelay(rotationDelay));
+        // (Opcional) Reactiva el componente de ataque tras escapeDuracion segundos y finaliza el modo escape
+        StartCoroutine(ReactivoAttacktime(escapeDuracion));
     }
 
     private IEnumerator RotateYAfterDelay(float delay)
@@ -155,6 +186,17 @@ public class EnemigEscape : MonoBehaviour
         Debug.Log("Rotación en Y aplicada. Nueva rotación Y: " + transform.eulerAngles.y);
     }
 
+    private IEnumerator ReactivoAttacktime(float delay)
+    {
+        yield return new WaitForSeconds(delay);
+        EnemigAtack attackScript = GetComponent<EnemigAtack>();
+        if (attackScript != null)
+        {
+            attackScript.enabled = true;
+            Debug.Log("EnemigAtack reactivado.");
+        }
+        _isFleeing = false;
+    }
 
     // ---- MÉTODOS PRIVADOS ----
     #region Métodos Privados

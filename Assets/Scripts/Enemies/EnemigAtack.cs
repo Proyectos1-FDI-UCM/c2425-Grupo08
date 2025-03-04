@@ -37,6 +37,7 @@ public class EnemigAtack : MonoBehaviour
     [Header("Colliders Externos")]
     [SerializeField] private Collider2D PlayerCollider;      // Collider que detecta al jugador
     [SerializeField] private Collider2D flashCollider;       // Collider del flash
+    [SerializeField] private Collider2D flashCollider2;       // Collider del flash
 
     [Header("Colliders Internos (enemigo)")]
     [SerializeField] private Collider2D EneVisionCollider;   // Collider de visión del enemigo
@@ -125,6 +126,20 @@ public class EnemigAtack : MonoBehaviour
         {
             // Usamos IsTouching para confirmar que el flash choca con el cuerpo, no con la visión
             if (EneBodycollider != null && EneBodycollider.IsTouching(flashCollider))
+            {
+                Debug.Log("El flash iluminó el cuerpo => desactivar ataque y apagar visión.");
+                _isAttacking = false;
+                DisableVisionCollider();
+
+                // (Opcional) deshabilitar este script para que no retome la persecución
+                this.enabled = false;
+            }
+        }
+
+        else if (collision == flashCollider2)
+        {
+            // Usamos IsTouching para confirmar que el flash choca con el cuerpo, no con la visión
+            if (EneBodycollider != null && EneBodycollider.IsTouching(flashCollider2))
             {
                 Debug.Log("El flash iluminó el cuerpo => desactivar ataque y apagar visión.");
                 _isAttacking = false;
