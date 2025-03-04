@@ -35,7 +35,7 @@ public class EnemigEscape : MonoBehaviour
     [SerializeField] private Transform playerTransform; // referencia de transform del jugador
     [SerializeField] private SpriteRenderer spriteRenderer; // Para girar el sprite
     [SerializeField] private Collider2D flashCollider;
-    [SerializeField] private Collider2D flashCollider2;
+    
 
 
 
@@ -116,24 +116,7 @@ public class EnemigEscape : MonoBehaviour
            
         }
 
-        else if (collision == flashCollider2)
-        {
-            Debug.Log("¡Collider del flash detectado!");
-
-            // Desactivar la patrulla (si el enemigo la tiene)
-            EnemyRouteScript route = GetComponent<EnemyRouteScript>();
-            if (route != null)
-            {
-                route.enabled = false;
-                Debug.Log("EnemyRouteScript desactivado.");
-            }
-
-            // Activar modo huida
-            _isFleeing = true;
-            Debug.Log("Modo huida activado.");
-
-
-        }
+        
     }
 
     // Método que se llama cuando el objeto deja de ser visible por la cámara
