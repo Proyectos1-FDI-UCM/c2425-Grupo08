@@ -13,18 +13,27 @@ using UnityEngine;
 /// Antes de cada class, descripción de qué es y para qué sirve,
 /// usando todas las líneas que sean necesarias.
 /// </summary>
-public class PlayerMovementAimState : MonoBehaviour
+namespace PlayerLogic
+{
+public class PlayerAimState: PlayerState
 {
     // ---- ATRIBUTOS PRIVADOS ----
     #region Atributos Privados (private fields)
     // Documentar cada atributo que aparece aquí.
     // El convenio de nombres de Unity recomienda que los atributos
-    // privados se nombren en formato _camelCase (comienza con _, 
-    // primera palabra en minúsculas y el resto con la 
+    // privados se nombren en formato _camelCase (comienza con _,
+    // primera palabra en minúsculas y el resto con la
     // primera letra en mayúsculas)
     // Ejemplo: _maxHealthPoints
-    private Rigidbody2D rb;
 
+    private PlayerScript player;
+    private GameObject playerObject;
+    private Rigidbody2D rb;
+    public PlayerAimState(GameObject playerObject){
+        this.playerObject = playerObject;
+        player = playerObject.GetComponent<PlayerScript>();
+        rb = playerObject.GetComponent<Rigidbody2D>();
+    }
     #endregion
 
     // ---- MÉTODOS DE MONOBEHAVIOUR ----
@@ -32,16 +41,12 @@ public class PlayerMovementAimState : MonoBehaviour
 
     // Por defecto están los típicos (Update y Start) pero:
     // - Hay que añadir todos los que sean necesarios
-    // - Hay que borrar los que no se usen 
+    // - Hay que borrar los que no se usen
 
     /// <summary>
-    /// Start is called on the frame when a script is enabled just before 
+    /// Start is called on the frame when a script is enabled just before
     /// any of the Update methods are called the first time.
     /// </summary>
-    void Start()
-    {
-        rb = GetComponent<Rigidbody2D>();
-    }
 
     #endregion
 
@@ -58,13 +63,13 @@ public class PlayerMovementAimState : MonoBehaviour
     }
     public void NextState()
     {
-        /*if (se deja de apuntar) 
+        /*if (se deja de apuntar)
         {
-            if (InputManager.MovementVector.x == 0) 
+            if (InputManager.MovementVector.x == 0)
             {
                 //player.State = new IdleState;
             }
-            else 
+            else
             {
                 //player.State = new WalkState;
             }
@@ -80,7 +85,9 @@ public class PlayerMovementAimState : MonoBehaviour
     // se nombren en formato PascalCase (palabras con primera letra
     // mayúscula, incluida la primera letra)
 
-    #endregion   
+    #endregion
 
-} // class PlayerMovementScript 
+} // class PlayerMovementScript
   // namespace
+
+}

@@ -6,6 +6,7 @@
 //---------------------------------------------------------
 
 using UnityEngine;
+using UnityEngine.UI; 
 // Añadir aquí el resto de directivas using
 
 
@@ -26,6 +27,7 @@ public class OxigenScript : MonoBehaviour
     [SerializeField] private int maxOxigen; // La cantidad máxima de oxígeno que puede tener el jugador
     [SerializeField] private float oxigenDecayHealthy; // La cantidad de oxígeno que se pierde por segundo al estar en estado "sano"
     [SerializeField] private float oxigenDecayBroken; // La cantidad de oxígeno que se pierde por segundo al estar en estado "roto"
+    [SerializeField] private Text oxigenText; // El texto que muestra la cantidad de oxígeno que tiene el jugador
 
     #endregion
 
@@ -64,6 +66,8 @@ public class OxigenScript : MonoBehaviour
     /// </summary>
     void Update() // Cada frame se resta oxígeno al jugador y en el caso de llegar a 0 el jugador muere
     {
+        oxigenText.text = ((int)currentOxigen).ToString();
+
         if (tankBroken)
         {
             currentOxigen -= oxigenDecayBroken * Time.deltaTime;
@@ -77,7 +81,7 @@ public class OxigenScript : MonoBehaviour
         {
             currentOxigen = 0;
             // die
-        }
+        } 
     }
     #endregion
 
