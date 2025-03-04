@@ -581,11 +581,6 @@ BoxCollider2D:
   m_CorrespondingSourceObject: {fileID: 2822870897547958266, guid: b0daa0d61f8842341909c13109f7ecc8, type: 3}
   m_PrefabInstance: {fileID: 974728671}
   m_PrefabAsset: {fileID: 0}
---- !u!61 &974728674 stripped
-BoxCollider2D:
-  m_CorrespondingSourceObject: {fileID: 1907426827182342548, guid: b0daa0d61f8842341909c13109f7ecc8, type: 3}
-  m_PrefabInstance: {fileID: 974728671}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &974728676 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3487877536795823580, guid: b0daa0d61f8842341909c13109f7ecc8, type: 3}
@@ -892,7 +887,7 @@ PrefabInstance:
     - target: {fileID: 90545323139350567, guid: 73846ec46db3ab848b40bdb6fecb500f, type: 3}
       propertyPath: flashCollider2
       value: 
-      objectReference: {fileID: 974728674}
+      objectReference: {fileID: 0}
     - target: {fileID: 90545323139350567, guid: 73846ec46db3ab848b40bdb6fecb500f, type: 3}
       propertyPath: playerTransform
       value: 
@@ -968,7 +963,7 @@ PrefabInstance:
     - target: {fileID: 9123215735450568011, guid: 73846ec46db3ab848b40bdb6fecb500f, type: 3}
       propertyPath: flashCollider2
       value: 
-      objectReference: {fileID: 974728674}
+      objectReference: {fileID: 0}
     - target: {fileID: 9123215735450568011, guid: 73846ec46db3ab848b40bdb6fecb500f, type: 3}
       propertyPath: playerTransform
       value: 
