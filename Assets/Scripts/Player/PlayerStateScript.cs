@@ -9,8 +9,8 @@ using UnityEngine;
 namespace PlayerLogic
 {
 
-    public abstract class PlayerState{
-        PlayerScript player;
+    public interface PlayerState{
+        //private PlayerScript player;
 
         public void Move(){}
         public void NextState(){}

@@ -15,7 +15,7 @@ using UnityEngine;
 /// </summary>
 namespace PlayerLogic
 {
-class PlayerIdleState : PlayerState{
+class PlayerIdleState : PlayerState {
 // ---- ATRIBUTOS PRIVADOS ----
     #region Atributos Privados (private fields)
     // Documentar cada atributo que aparece aquí.
@@ -24,10 +24,14 @@ class PlayerIdleState : PlayerState{
     // primera palabra en minúsculas y el resto con la
     // primera letra en mayúsculas)
     // Ejemplo: _maxHealthPoints
-    private PlayerScript player;
     #endregion
-    public PlayerIdleState(PlayerScript player){
-        this.player = player;
+    private PlayerScript player;
+    private GameObject playerObject;
+    private Rigidbody2D rb;
+    public PlayerIdleState(GameObject playerObject){
+        this.playerObject = playerObject;
+        player = playerObject.GetComponent<PlayerScript>();
+        rb = playerObject.GetComponent<Rigidbody2D>();
     }
 
 
@@ -42,26 +46,30 @@ class PlayerIdleState : PlayerState{
     {
 
     }
-    public void NextState() {
+     public void NextState() {
+
+        Debug.Log("State: Idle");
         if (InputManager.Instance.MovementVector.x != 0)
         {
             //player.State = new WalkState;
-            player.State = new PlayerWalkState(player);
+            player.State = new PlayerWalkState(playerObject);
         }
         else if (player.rb.velocity.y < 0)
 
         {
             //player.State = new FallState;
-            player.State = new PlayerFallState(player);
+            player.State = new PlayerFallState(playerObject);
         }
         else if (InputManager.Instance.JumpIsPressed())
         {
             //player.State = new JumpState;
-            player.State = new PlayerJumpState(player);
+            player.State = new PlayerJumpState(playerObject);
         }
         // else if () // Aim
     }
-
+    public void test(){
+        Debug.Log("Test");
+    }
     #endregion
 
     // ---- MÉTODOS PRIVADOS ----

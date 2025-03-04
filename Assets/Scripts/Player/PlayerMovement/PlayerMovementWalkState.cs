@@ -36,11 +36,21 @@ class PlayerWalkState : PlayerState
     // primera palabra en minúsculas y el resto con la
     // primera letra en mayúsculas)
     // Ejemplo: _maxHealthPoints
-    private PlayerScript player;
     private float joystickMaxSpeed; // El límite de velocidad con el que operará el script (en el caso del teclado no hace nada, en el caso del joystick se multiplica la velocidad máxima por el desplazamiento horizontal de este)
-    private Movement movement= new Movement(0f,0f,0f,0f,0f,0f);
-    public PlayerWalkState(PlayerScript player){
-        this.player = player;
+    private Movement movement= new Movement(
+        10f,
+        5f,
+        5f,
+        5f,
+        5f,
+        5f);
+    private PlayerScript player;
+    private GameObject playerObject;
+    private Rigidbody2D rb;
+    public PlayerWalkState(GameObject playerObject){
+        this.playerObject = playerObject;
+        player = playerObject.GetComponent<PlayerScript>();
+        rb = playerObject.GetComponent<Rigidbody2D>();
     }
 
     #endregion
@@ -77,20 +87,21 @@ class PlayerWalkState : PlayerState
     }
     public void NextState()
     {
+        Debug.Log("State Walk");
         if (player.rb.velocity == new Vector2(0, 0))
         {
             //player.State = new IdleState;
-            player.State = new PlayerIdleState(player);
+            player.State = new PlayerIdleState(playerObject);
         }
         else if (player.rb.velocity.y < 0)
         {
             //player.State = new FallState;
-            player.State = new PlayerFallState(player);
+            player.State = new PlayerFallState(playerObject);
         }
         else if (InputManager.Instance.JumpIsPressed())
         {
             //player.State = new JumpState;
-            player.State = new PlayerJumpState(player);
+            player.State = new PlayerJumpState(playerObject);
         }
         // else if () // Aim
     }

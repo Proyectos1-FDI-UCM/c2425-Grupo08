@@ -26,9 +26,13 @@ public class PlayerAimState: PlayerState
     // primera letra en mayúsculas)
     // Ejemplo: _maxHealthPoints
 
-    PlayerScript player;
-    public PlayerAimState(PlayerScript player){
-        this.player = player;
+    private PlayerScript player;
+    private GameObject playerObject;
+    private Rigidbody2D rb;
+    public PlayerAimState(GameObject playerObject){
+        this.playerObject = playerObject;
+        player = playerObject.GetComponent<PlayerScript>();
+        rb = playerObject.GetComponent<Rigidbody2D>();
     }
     #endregion
 

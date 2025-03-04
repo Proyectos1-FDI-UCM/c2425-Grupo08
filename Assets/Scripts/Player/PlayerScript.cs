@@ -74,17 +74,19 @@ public class PlayerScript : MonoBehaviour
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
-        State = new PlayerIdleState(this);
+        State = new PlayerIdleState(this.gameObject);
+        Debug.Log("Player Starts");
+        Debug.Log("State: " + State);
     }
 
     /// <summary>
     /// Update is called every frame, if the MonoBehaviour is enabled.
     /// </summary>
-    void Update()
+    public void Update()
     {
-            State.NextState();
+        State.NextState();
     }
-    void FixedUpdate()
+    public void FixedUpdate()
     {
         State.Move();
     }

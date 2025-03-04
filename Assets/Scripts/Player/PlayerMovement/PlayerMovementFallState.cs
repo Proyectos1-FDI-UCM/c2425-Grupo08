@@ -25,8 +25,11 @@ class PlayerFallState : PlayerState{
     // (palabras con primera letra mayúscula, incluida la primera letra)
     // Ejemplo: MaxHealthPoints
     private PlayerScript player;
-    public PlayerFallState(PlayerScript player){
-        this.player = player;
+    private GameObject playerObject;
+    public PlayerFallState(GameObject playerObject){
+        this.playerObject = playerObject;
+        player = playerObject.GetComponent<PlayerScript>();
+        rb = playerObject.GetComponent<Rigidbody2D>();
     }
     Movement movement = new Movement(
         0,
@@ -88,12 +91,12 @@ class PlayerFallState : PlayerState{
             if (rb.velocity.x == 0)
             {
                 //player.State = new IdleState;
-                player.State = new PlayerIdleState(player);
+                player.State = new PlayerIdleState(playerObject);
             }
             else
             {
                 //player.State = new WalkState;
-               player.State = new PlayerWalkState(player);
+               player.State = new PlayerWalkState(playerObject);
             }
         }
     }
