@@ -73,7 +73,7 @@ public class #SCRIPTNAME# : MonoBehaviour
     #endregion
     
     // ---- MÉTODOS PRIVADOS ----
-    #region Métodos Privados
+    #region Métodos privados
     // Documentar cada método que aparece aquí
     // El convenio de nombres de Unity recomienda que estos métodos
     // se nombren en formato PascalCase (palabras con primera letra

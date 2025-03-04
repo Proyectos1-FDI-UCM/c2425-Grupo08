@@ -8,12 +8,8 @@
 //---------------------------------------------------------
 
 using System.Collections;
-using System.Runtime.InteropServices;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using static UnityEngine.UIElements.UxmlAttributeDescription;
-
-
 
 /// <summary>
 /// Antes de cada class, descripción de qué es y para qué sirve,
@@ -22,301 +18,144 @@ using static UnityEngine.UIElements.UxmlAttributeDescription;
 public class Lantern : MonoBehaviour
 {
     // ---- ATRIBUTOS DEL INSPECTOR ----
-    [SerializeField] private Transform player;  // El jugador alrededor del cual se mueve la linterna
-    [SerializeField] private float radius = 2f; // Radio del círculo sobre el que se mueve la linterna
-    [SerializeField] private GameObject beamObject; // El objeto rectángulo que representa el haz
     [SerializeField] private float beamGrowSpeed = 2f; // Velocidad a la que el haz crece
     [SerializeField] private float maxBeamLength = 5f; // Longitud máxima del haz de luz
-    [SerializeField] private float minBeamWidth = 1; // Ancho mínimo cuando se apunta (en el eje Y)
-    [SerializeField] private float flashCooldown = 5; //Cooldown del flash (linterna apagada)
-
-
+    [SerializeField] private float minBeamWidth = 1f; // Ancho mínimo cuando se apunta (en el eje Y)
+    [SerializeField] private float flashCooldown = 5f; //Cooldown del flash (linterna apagada)
+    [SerializeField] private float inputDeadzone; // Umbral de movimiento para detectar si el ratón se mueve
 
     // ---- ATRIBUTOS PRIVADOS ----
-
-
-
-    private float currentAngle = 0f; // Ángulo actual de la linterna en el círculo
-    private bool isJoystickActive = false; // Variable que indica si el joystick está siendo usado
-    private Vector2 lastMousePosition; // Última posición conocida del ratón
-    private float mouseMoveThreshold = 0.1f; // Umbral de movimiento para detectar si el ratón se mueve
     private Vector3 initialBeamScale; // Para guardar la escala inicial del haz de luz
-    private bool isRightClickPressed = false; // Indica si el clic derecho está presionado
-    private bool isLTButtonPressed = false; // Indica si el botón LT del mando está presionado
-    private SpriteRenderer firstChildSpriteRenderer; //Sprite luz de linterna
+    private bool isFocus = false; // Indica si el clic derecho está presionado
     private SpriteRenderer secondChildSpriteRenderer;//Sprite luz de flash
-    private BoxCollider2D secondChildBoxCollider; //Collider de flash
+    private PolygonCollider2D secondChildPolygonCollider; //Collider de flash
     private bool isCooldownActive = false; // Indica si el cooldown de la linterna está activo
+    private GameObject beamObject; // EL haz de luz
 
     // ---- MÉTODOS DE MONOBEHAVIOUR ----
 
+    #region Métodos de MonoBehaviour
+
     private void Start()
     {
+        // Asignamos el hijo corrspondiente al beam (el LightBeam)
+        beamObject = transform.GetChild(0).gameObject;
+
         // Guardamos la escala original del haz de luz cuando se inicia el juego
         initialBeamScale = beamObject.transform.localScale;
-        // Hacer invisible el cursor
-
-        // Obtener el primer hijo (con solo SpriteRenderer)
-        Transform firstChildPivot = transform.GetChild(0); // El primer hijo (el pivote vacío)
-       firstChildSpriteRenderer = firstChildPivot.GetChild(0).GetComponent<SpriteRenderer>(); // Obtener SpriteRenderer del hijo dentro del pivote
 
         // Obtener el segundo hijo (con SpriteRenderer y BoxCollider2D)
         Transform secondChild = transform.GetChild(1); // El segundo hijo (índice 1)
         secondChildSpriteRenderer = secondChild.GetComponent<SpriteRenderer>(); // Obtener SpriteRenderer
-        secondChildBoxCollider = secondChild.GetComponent<BoxCollider2D>(); // Obtener BoxCollider2D
+        secondChildPolygonCollider = secondChild.GetComponent<PolygonCollider2D>(); // Obtener BoxCollider2D
 
         // Desactivar inicialmente los componentes del segundo hijo
         secondChildSpriteRenderer.enabled = false; // Desactivar SpriteRenderer del segundo hijo
-        secondChildBoxCollider.enabled = false; // Desactivar BoxCollider2D del segundo hijo
+        secondChildPolygonCollider.enabled = false; // Desactivar BoxCollider2D del segundo hijo
     }
 
     private void Update()
-    { 
-        //Cursor.visible = false;
-        // Verificar si el mando está conectado antes de intentar usarlo
-        if (Gamepad.current != null)
-        {
-            // Leer la entrada del joystick derecho (si está siendo usado)
-            Vector2 joystickInput = Gamepad.current.rightStick.ReadValue();
-
-            // Si el joystick se está moviendo, desactivar el control del ratón
-            if (joystickInput.sqrMagnitude > 0.1f)
-            {
-            // El joystick está siendo movido, lo que hace que el mouse se ignore.
-            isJoystickActive = true; // Marcamos que el joystick está activo
-
-            // Controlar la linterna con el joystick
-            Vector3 directionToJoystick = new Vector3(joystickInput.x, joystickInput.y, 0).normalized;
-
-            // Calcular el ángulo de la linterna basado en el movimiento del joystick
-            float targetAngle = Mathf.Atan2(directionToJoystick.y, directionToJoystick.x) * Mathf.Rad2Deg;
-
-            // Actualizar el ángulo de la linterna para que apunte en la dirección del joystick
-            currentAngle = targetAngle;
-
-            // Calcular la nueva posición de la linterna en la circunferencia alrededor del jugador
-            Vector3 newPosition = player.position + directionToJoystick * radius;
-
-            // Actualizar la posición de la linterna
-            transform.position = newPosition;
-
-            // Aplicar la rotación
-            transform.rotation = Quaternion.Euler(new Vector3(0, 0, currentAngle));
-
-            }
-        else
-        {
-            // Si el joystick no está en movimiento, permitir que el ratón controle la linterna
-            if (isJoystickActive)
-            {
-                // Si el joystick estaba activo pero ya no se está moviendo, desactivamos el control del joystick
-                isJoystickActive = false;
-            }
-
-            // Obtener la posición actual del mouse
-            Vector2 currentMousePosition = Mouse.current.position.ReadValue();
-
-            // Verificamos si el ratón se ha movido desde la última vez
-            if (Vector2.Distance(currentMousePosition, lastMousePosition) > mouseMoveThreshold)
-            {
-                // El ratón se ha movido, entonces activamos el control del ratón
-                isJoystickActive = false; // Desactivar el joystick
-
-                // Actualizamos la última posición conocida del ratón
-                lastMousePosition = currentMousePosition;
-
-                // Controlar la linterna con el mouse
-                Vector3 worldMousePosition = Camera.main.ScreenToWorldPoint(currentMousePosition);
-                worldMousePosition.z = 0;
-
-                Vector3 directionToMouse = worldMousePosition - transform.position;
-                float distanceToMouse = directionToMouse.magnitude;
-
-                if (distanceToMouse > radius)
-                {
-                    // Si el mouse está fuera del radio, movemos la linterna y actualizamos la rotación
-                    directionToMouse.Normalize();
-                    float targetAngle = Mathf.Atan2(directionToMouse.y, directionToMouse.x) * Mathf.Rad2Deg;
-
-                    currentAngle = targetAngle;
-                    Vector3 newPosition = player.position + directionToMouse * radius;
-                    transform.position = newPosition;
-                    transform.rotation = Quaternion.Euler(new Vector3(0, 0, currentAngle));
-                }
-            }
-
-        }
+    {
+        // Control del movimiento de la linterna con el joystick o el ratón
+        AimAtInput();
         // Detectar si el clic derecho está siendo presionado
-        if (Mouse.current.rightButton.isPressed)
-        {
-           
-                isRightClickPressed = true;
-                StartCoroutine(GrowBeam());
-               
-
-            }
-        else
-        {
-           
-                isRightClickPressed = false;
-                StartCoroutine(RetractBeam());
-            
-        }
-
-
-        // Detectar si el botón LT del mando está siendo presionado
-        isLTButtonPressed = Gamepad.current.leftTrigger.isPressed;
-
-        if (isLTButtonPressed)
-        {
-                    StartCoroutine(GrowBeam());
-                    
-            }
-        else
-        {
-                StartCoroutine(RetractBeam());
-        }
+        HandleBeamGrowth();
+        // Verificar si se puede hacer un flash
         Flash();
-        }
-        // Si no hay mando, controlar con el ratón
-        else
-        {
-            // Obtener la posición actual del mouse
-            Vector2 currentMousePosition = Mouse.current.position.ReadValue();
-
-            // Verificamos si el ratón se ha movido desde la última vez
-            if (Vector2.Distance(currentMousePosition, lastMousePosition) > mouseMoveThreshold)
-            {
-                // El ratón se ha movido, entonces activamos el control del ratón
-                isJoystickActive = false; // Desactivar el joystick
-
-                // Actualizamos la última posición conocida del ratón
-                lastMousePosition = currentMousePosition;
-
-                // Controlar la linterna con el mouse
-                Vector3 worldMousePosition = Camera.main.ScreenToWorldPoint(currentMousePosition);
-                worldMousePosition.z = 0;
-
-                Vector3 directionToMouse = worldMousePosition - transform.position;
-                float distanceToMouse = directionToMouse.magnitude;
-
-                if (distanceToMouse > radius)
-                {
-                    // Si el mouse está fuera del radio, movemos la linterna y actualizamos la rotación
-                    directionToMouse.Normalize();
-                    float targetAngle = Mathf.Atan2(directionToMouse.y, directionToMouse.x) * Mathf.Rad2Deg;
-
-                    currentAngle = targetAngle;
-                    Vector3 newPosition = player.position + directionToMouse * radius;
-                    transform.position = newPosition;
-                    transform.rotation = Quaternion.Euler(new Vector3(0, 0, currentAngle));
-                }
-            }
-
-            // Detectar si el clic derecho está siendo presionado
-            if (Mouse.current.rightButton.isPressed)
-            {
-                
-                    isRightClickPressed = true;
-                    StartCoroutine(GrowBeam());
-                     
-            }
-            else
-            {
-                
-                    isRightClickPressed = false;
-                    StartCoroutine(RetractBeam());
-                
-            }
-            Flash();   
-
-        }
     }
 
+    #endregion
 
     // ---- MÉTODOS PÚBLICOS ----
+    
     #region Métodos públicos
     // Documentar cada método que aparece aquí con ///<summary>
     // El convenio de nombres de Unity recomienda que estos métodos
     // se nombren en formato PascalCase (palabras con primera letra
     // mayúscula, incluida la primera letra)
     // Ejemplo: GetPlayerController
-
     #endregion
 
     // ---- MÉTODOS PRIVADOS ----
+    #region Métodos privados
 
-    private void ControllerHandler()
+    // Método para apuntar la linterna hacia el ratón o joystick
+    private void AimAtInput()
     {
-        // Leer la entrada del joystick derecho (si está siendo usado)
-        Vector2 joystickInput = Gamepad.current.rightStick.ReadValue();
+        Vector2 aimInput = (Vector2)Camera.main.ScreenToWorldPoint(InputManager.Instance.AimVector) - (Vector2)transform.position;
 
-        // Si el joystick se está moviendo, desactivar el control del ratón
-        if (joystickInput.sqrMagnitude > 0.1f)
+        if (aimInput.magnitude > inputDeadzone) // Para que no haya movimientos raros cerca del pivote
         {
-            // El joystick está siendo movido, lo que hace que el mouse se ignore.
-            isJoystickActive = true; // Marcamos que el joystick está activo
+            float angle = Mathf.Atan2(aimInput.y, aimInput.x) * Mathf.Rad2Deg;
 
-            // Controlar la linterna con el joystick
-            Vector3 directionToJoystick = new Vector3(joystickInput.x, joystickInput.y, 0).normalized;
-
-            // Calcular el ángulo de la linterna basado en el movimiento del joystick
-            float targetAngle = Mathf.Atan2(directionToJoystick.y, directionToJoystick.x) * Mathf.Rad2Deg;
-
-            // Actualizar el ángulo de la linterna para que apunte en la dirección del joystick
-            currentAngle = targetAngle;
-
-            // Calcular la nueva posición de la linterna en la circunferencia alrededor del jugador
-            Vector3 newPosition = player.position + directionToJoystick * radius;
-
-            // Actualizar la posición de la linterna
-            transform.position = newPosition;
-
-            // Aplicar la rotación
-            transform.rotation = Quaternion.Euler(new Vector3(0, 0, currentAngle));
-
-            // Ocultar el cursor cuando el joystick está en uso
-            Cursor.visible = false;
+            transform.rotation = Quaternion.Euler(0, 0, angle);
         }
+    }
+
+    // Método para manejar el haz de luz basado en la entrada del usuario
+    private void HandleBeamGrowth()
+    {        
+        if (InputManager.Instance.FocusIsPressed())
+        {
+            isFocus = true;
+
+            if (!isCooldownActive)
+                StartCoroutine(FocusLight());
         }
+        else
+        {
+            // Si no se presionan los botones, se indica que el crecimiento ya no está activo.
+            isFocus = false;
+
+            // Si no hay cooldown activo, se inicia la corutina para retraer el haz de luz.
+            if (!isCooldownActive)
+                StartCoroutine(UnFocusLight());
+        }
+    }
 
     private void Flash() // Método para hacer el flash de la linterna
     {
         // No permitir el flash si el cooldown está activo
         if (isCooldownActive) return;
+
         // Verificar si el clic izquierdo del ratón o el RT del mando están siendo presionados
-        if ((Mouse.current.leftButton.isPressed && isRightClickPressed) ||
-            (Gamepad.current != null && Gamepad.current.rightTrigger.isPressed && isLTButtonPressed))
+        if ((Mouse.current.leftButton.isPressed && isFocus) ||
+             (Gamepad.current != null && Gamepad.current.rightTrigger.isPressed && Gamepad.current.leftTrigger.isPressed))
         {
-            StartCoroutine(FlashRutine());
+            StartCoroutine(FlashRoutine());
             StartCoroutine(LanternCooldown());
 
         }
     }
 
-
     // ---- MÉTODOS DE BEAM ----
 
-    private IEnumerator GrowBeam()
+    // Corutina para aumentar el largo del haz de luz (GrowBeam)
+    private IEnumerator FocusLight()
     {
-        // Aumentamos la longitud y reducimos el ancho gradualmente mientras se mantiene el clic derecho
+        // Mientras la longitud actual del haz sea menor a la máxima permitida
+        // Y el ancho actual sea mayor al mínimo permitido:
         while (beamObject.transform.localScale.x < maxBeamLength && beamObject.transform.localScale.y > minBeamWidth)
         {
-            if(isRightClickPressed == false)
-            {
-                StopCoroutine(GrowBeam());
-            }
-            // Aumentamos la longitud y reducimos el ancho gradualmente
+            // Si se suelta el botón de crecimiento (isFocus pasa a false),
+            // se termina la corutina de forma inmediata usando yield break.
+            if (!isFocus)
+                yield break;
+
+            // Se incrementa la longitud (eje X) del haz de luz en función de la velocidad de crecimiento y el tiempo transcurrido.
+            // Simultáneamente se reduce el ancho (eje Y) pero sin bajar de un ancho mínimo (minBeamWidth).
             beamObject.transform.localScale = new Vector3(
                 beamObject.transform.localScale.x + beamGrowSpeed * Time.deltaTime,
                 Mathf.Max(minBeamWidth, beamObject.transform.localScale.y - beamGrowSpeed * Time.deltaTime),
                 beamObject.transform.localScale.z
             );
+
+            // Se espera hasta el siguiente frame para continuar el ciclo.
             yield return null;
         }
     }
 
-    private IEnumerator RetractBeam()
+    private IEnumerator UnFocusLight()
     {
         // Volvemos al tamaño original gradualmente cuando se suelta el clic derecho
         while (beamObject.transform.localScale.x > initialBeamScale.x || beamObject.transform.localScale.y < initialBeamScale.y)
@@ -327,35 +166,37 @@ public class Lantern : MonoBehaviour
                 Mathf.Min(initialBeamScale.y, beamObject.transform.localScale.y + beamGrowSpeed * Time.deltaTime),
                 beamObject.transform.localScale.z
             );
+
             yield return null;
         }
     }
 
-    private IEnumerator FlashRutine()
+    private IEnumerator FlashRoutine()
     {
-     // Afectar al segundo hijo: activar SpriteRenderer y BoxCollider2D
+        // Afectar al segundo hijo: activar SpriteRenderer y BoxCollider2D
         secondChildSpriteRenderer.enabled = true;
-        secondChildBoxCollider.enabled = true;
+        secondChildPolygonCollider.enabled = true;
         yield return new WaitForSeconds(0.1f);
-     // Desactivar SpriteRenderer y BoxCollider2D del segundo hijo
+        // Desactivar SpriteRenderer y BoxCollider2D del segundo hijo
         secondChildSpriteRenderer.enabled = false;
-        secondChildBoxCollider.enabled = false;
+        secondChildPolygonCollider.enabled = false;
     }
 
     private IEnumerator LanternCooldown()
     {
         isCooldownActive = true; // Activa el cooldown
 
-        firstChildSpriteRenderer.enabled = false;  // Afectar solo al primer hijo: desactivar SpriteRenderer
+        beamObject.SetActive(false);  // Afectar solo al primer hijo: desactivar SpriteRenderer
 
         yield return new WaitForSeconds(flashCooldown);
-        firstChildSpriteRenderer.enabled = true;  // Reactivar SpriteRenderer del primer hijo
+
+        beamObject.SetActive(true);  // Reactivar SpriteRenderer del primer hijo
 
         isCooldownActive = false; // Desactiva el cooldown
     }
+
+    #endregion
+
     // class Lantern 
     // namespace
-
-
-
 }

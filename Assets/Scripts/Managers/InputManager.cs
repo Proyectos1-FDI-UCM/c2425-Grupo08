@@ -59,7 +59,7 @@ public class InputManager : MonoBehaviour
     /// la carpeta Settings
     /// </summary>
     private InputActionSettings _theController;
-    
+
     /// <summary>
     /// Acción para Fire. Si tenemos más botones tendremos que crear más
     /// acciones como esta (y crear los métodos que necesitemos para
@@ -68,6 +68,10 @@ public class InputManager : MonoBehaviour
     private InputAction _fire;
 
     private InputAction _jump;
+
+    private InputAction _focus;
+
+    private InputAction _flash;
 
     #endregion
 
@@ -156,6 +160,13 @@ public class InputManager : MonoBehaviour
     public Vector2 MovementVector { get; private set; }
 
     /// <summary>
+    /// Propiedad para acceder al vector de movimiento del cursor/joystick derecho.
+    /// Según está configurado el InputActionController,
+    /// es un vector normalizado 
+    /// </summary>
+    public Vector2 AimVector { get; private set; }
+
+    /// <summary>
     /// Método para saber si el botón de disparo (Fire) está pulsado
     /// Devolverá true en todos los frames en los que se mantenga pulsado
     /// <returns>True, si el botón está pulsado</returns>
@@ -170,6 +181,17 @@ public class InputManager : MonoBehaviour
         return _jump.IsPressed();
     }
 
+    public bool FocusIsPressed()
+    {
+        return _focus.IsPressed();
+    }
+
+    public bool FlashIsPressed()
+    {
+        return _flash.IsPressed();
+    }
+
+
     /// <summary>
     /// Método para saber si el botón de disparo (Fire) se ha pulsado en este frame
     /// <returns>Devuelve true, si el botón ha sido pulsado en este frame
@@ -180,7 +202,7 @@ public class InputManager : MonoBehaviour
     {
         return _fire.WasPressedThisFrame();
     }
-    
+
     public bool JumpWasRealeasedThisFrame()
     {
         return _jump.WasReleasedThisFrame();
@@ -193,6 +215,7 @@ public class InputManager : MonoBehaviour
     /// este frame; y false, en otro caso.
     /// </returns>
     /// </summary>
+
     public bool FireWasReleasedThisFrame()
     {
         return _fire.WasReleasedThisFrame();
@@ -220,6 +243,10 @@ public class InputManager : MonoBehaviour
         movement.performed += OnMove;
         movement.canceled += OnMove;
 
+        // SUSCRIBIRSE a la acción Aim (definida en el asset InputActionSettings)
+        _theController.Player.Aim.performed += OnAim;
+        _theController.Player.Aim.canceled += OnAim;
+
         // Para el disparo solo cacheamos la acción de disparo.
         // El estado lo consultaremos a través de los métodos públicos que 
         // tenemos (FireIsPressed, FireWasPressedThisFrame 
@@ -227,6 +254,11 @@ public class InputManager : MonoBehaviour
         _fire = _theController.Player.Fire;
 
         _jump = _theController.Player.Jump;
+
+        // Controles para la linterna (apuntado y flasheado)
+        _focus = _theController.Player.Focus;
+
+        _flash = _theController.Player.Flash;
     }
 
     /// <summary>
@@ -239,6 +271,16 @@ public class InputManager : MonoBehaviour
         MovementVector = context.ReadValue<Vector2>();
     }
 
+    /// <summary>
+    /// Método que es llamado por el controlador de input cuando se producen
+    /// eventos de movimiento del cursor/joystick derecho (relacionados con la acción Aim)
+    /// </summary>
+    /// <param name="context">Información sobre el evento de movimiento del cursor/joystick derecho</param>
+    private void OnAim(InputAction.CallbackContext context)
+    {
+        AimVector = context.ReadValue<Vector2>();
+    }
+
     #endregion
 } // class InputManager 
-// namespace
+  // namespace
