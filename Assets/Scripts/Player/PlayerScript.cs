@@ -16,13 +16,13 @@ namespace PlayerLogic
 /// Antes de cada class, descripción de qué es y para qué sirve,
 /// usando todas las líneas que sean necesarias.
 /// </summary>
-struct Movement{
-    private float maxSpeed;
-    private float acceleration;
-    private float deceleration;
-    private float decelerationThreshold;
-    private float jumpAcceleration;
-    private float jumpMultiplierDecay;
+public struct Movement{
+    [SerializeField]public float maxSpeed {get;set;}
+    [SerializeField]public float acceleration {get;set;}
+    [SerializeField]public float deceleration {get;set;}
+    [SerializeField]public float decelerationThreshold {get;set;}
+    [SerializeField]public float jumpAcceleration {get;set;}
+    [SerializeField]public float jumpMultiplierDecay {get;set;}
     public Movement(float maxSpeed, float acceleration, float deceleration, float decelerationThreshold, float jumpAcceleration, float jumpMultiplierDecay){
         this.maxSpeed = maxSpeed;
         this.acceleration = acceleration;
@@ -42,7 +42,7 @@ public class PlayerScript : MonoBehaviour
     // (palabras con primera letra mayúscula, incluida la primera letra)
     // Ejemplo: MaxHealthPoints
 
-    [SerializeField] private bool debug;
+    [SerializeField] public bool debug{get;set;}
     #endregion
 
     // ---- ATRIBUTOS PRIVADOS ----

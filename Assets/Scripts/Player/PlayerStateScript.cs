@@ -11,7 +11,7 @@ namespace PlayerLogic
 
     public abstract class PlayerState{
         PlayerScript player;
-        Movement movement;
+
         public void Move(){}
         public void NextState(){}
 

@@ -5,6 +5,8 @@
 // Proyectos 1 - Curso 2024-25
 //---------------------------------------------------------
 
+using EnemyLogic;
+using PlayerLogic;
 using UnityEngine;
 // Añadir aquí el resto de directivas using
 
@@ -13,7 +15,9 @@ using UnityEngine;
 /// Antes de cada class, descripción de qué es y para qué sirve,
 /// usando todas las líneas que sean necesarias.
 /// </summary>
-public class PlayerMovementWalkState : MonoBehaviour
+namespace PlayerLogic
+{
+class PlayerWalkState : PlayerState
 {
     // ---- ATRIBUTOS DEL INSPECTOR ----
     #region Atributos del Inspector (serialized fields)
@@ -22,23 +26,22 @@ public class PlayerMovementWalkState : MonoBehaviour
     // públicos y de inspector se nombren en formato PascalCase
     // (palabras con primera letra mayúscula, incluida la primera letra)
     // Ejemplo: MaxHealthPoints
-    [SerializeField] private float maxSpeed; // El límite de velocidad del jugador
-    [SerializeField] private float acceleration; // La aceleración positiva para moverse
-    [SerializeField] private float deceleration; // La aceleración negativa para frenar
-    [SerializeField] private float decelerationThreshold; // El límite de velocidad para parar de frenar mediante fuerzas (para evitar temblor en el jugador) SE RECOMIENDA UN MÍNIMO DE 0.15
-    [SerializeField] private bool debug; // Para ver los vectores de velocidad y aceleración
     #endregion
 
     // ---- ATRIBUTOS PRIVADOS ----
     #region Atributos Privados (private fields)
     // Documentar cada atributo que aparece aquí.
     // El convenio de nombres de Unity recomienda que los atributos
-    // privados se nombren en formato _camelCase (comienza con _, 
-    // primera palabra en minúsculas y el resto con la 
+    // privados se nombren en formato _camelCase (comienza con _,
+    // primera palabra en minúsculas y el resto con la
     // primera letra en mayúsculas)
     // Ejemplo: _maxHealthPoints
+    private PlayerScript player;
     private float joystickMaxSpeed; // El límite de velocidad con el que operará el script (en el caso del teclado no hace nada, en el caso del joystick se multiplica la velocidad máxima por el desplazamiento horizontal de este)
-    private Rigidbody2D rb;
+    private Movement movement= new Movement(0f,0f,0f,0f,0f,0f);
+    public PlayerWalkState(PlayerScript player){
+        this.player = player;
+    }
 
     #endregion
 
@@ -47,16 +50,12 @@ public class PlayerMovementWalkState : MonoBehaviour
 
     // Por defecto están los típicos (Update y Start) pero:
     // - Hay que añadir todos los que sean necesarios
-    // - Hay que borrar los que no se usen 
+    // - Hay que borrar los que no se usen
 
     /// <summary>
-    /// Start is called on the frame when a script is enabled just before 
+    /// Start is called on the frame when a script is enabled just before
     /// any of the Update methods are called the first time.
     /// </summary>
-    void Start()
-    {
-        rb = GetComponent<Rigidbody2D>();
-    }
 
     #endregion
 
@@ -71,26 +70,29 @@ public class PlayerMovementWalkState : MonoBehaviour
     {
         if (InputManager.Instance.MovementVector.x != 0)
         {
-            joystickMaxSpeed = maxSpeed * InputManager.Instance.MovementVector.x;
+            joystickMaxSpeed = this.movement.maxSpeed * InputManager.Instance.MovementVector.x;
             Walk(InputManager.Instance.MovementVector.x);
         }
-        else Decelerate(deceleration);
+        else Decelerate(movement.deceleration);
     }
     public void NextState()
     {
-        if (rb.velocity == new Vector2(0, 0))
+        if (player.rb.velocity == new Vector2(0, 0))
         {
             //player.State = new IdleState;
+            player.State = new PlayerIdleState(player);
         }
-        else if (rb.velocity.y < 0)
+        else if (player.rb.velocity.y < 0)
         {
             //player.State = new FallState;
+            player.State = new PlayerFallState(player);
         }
         else if (InputManager.Instance.JumpIsPressed())
         {
             //player.State = new JumpState;
+            player.State = new PlayerJumpState(player);
         }
-        // else if () // Aim 
+        // else if () // Aim
     }
 
     #endregion
@@ -103,50 +105,51 @@ public class PlayerMovementWalkState : MonoBehaviour
     // mayúscula, incluida la primera letra)
     private void Walk(float x) // Mueve al jugador en la dirección indicada por el signo de x y con la velocidad máxima indicada por el valor de x
     {
-        if ((x < 0 && rb.velocity.x > 0) || (x > 0 && rb.velocity.x < 0)) // Deceleración en cambio de sentido
+        if ((x < 0 && player.rb.velocity.x > 0) || (x > 0 && player.rb.velocity.x < 0)) // Deceleración en cambio de sentido
         {
-            Decelerate(deceleration);
+            Decelerate(movement.deceleration);
         }
         else // Aceleración en el sentido del movimiento
         {
-            rb.AddForce(new Vector2(x, 0).normalized * acceleration, ForceMode2D.Force);
+            player.rb.AddForce(new Vector2(x, 0).normalized * movement.acceleration, ForceMode2D.Force);
         }
 
-        if (Mathf.Abs(rb.velocity.x) > Mathf.Abs(joystickMaxSpeed)) // Limitación de la velocidad
+        if (Mathf.Abs(player.rb.velocity.x) > Mathf.Abs(joystickMaxSpeed)) // Limitación de la velocidad
         {
             if (joystickMaxSpeed == 1 || joystickMaxSpeed == -1)
             {
-                rb.velocity = rb.velocity.normalized * Mathf.Abs(joystickMaxSpeed);
+                player.rb.velocity = player.rb.velocity.normalized * Mathf.Abs(joystickMaxSpeed);
             }
             else
             {
-                Decelerate(acceleration); // En el caso (nada raro) de que el joystick pase de un valor a otro más bajo del mismo signo, se frena con el valor de la aceleración
+                Decelerate(movement.acceleration); // En el caso (nada raro) de que el joystick pase de un valor a otro más bajo del mismo signo, se frena con el valor de la aceleración
             }
         }
     }
     private void Decelerate(float decelerationValue) // Frena al jugador con la aceleración negativa indicada
     {
-        if (rb.velocity.x > decelerationThreshold) // Comprobación de signo para elegir el sentido de la fuerza
+        if (player.rb.velocity.x > movement.decelerationThreshold) // Comprobación de signo para elegir el sentido de la fuerza
         {
-            rb.AddForce(new Vector2(-decelerationValue, 0), ForceMode2D.Force);
+            player.rb.AddForce(new Vector2(-decelerationValue, 0), ForceMode2D.Force);
         }
-        else if (rb.velocity.x < -decelerationThreshold)
+       else if (player.rb.velocity.x < -movement.decelerationThreshold)
         {
-            rb.AddForce(new Vector2(decelerationValue, 0), ForceMode2D.Force);
+            player.rb.AddForce(new Vector2(decelerationValue, 0), ForceMode2D.Force);
         }
     }
     private void OnDrawGizmos()
     {
-        if (debug)
+        if (player.debug)
         {
             Gizmos.color = Color.yellow;
-            Gizmos.DrawLine(transform.position, transform.position + new Vector3(rb.velocity.x, rb.velocity.y, 0));
+            Gizmos.DrawLine(player.transform.position, player.transform.position + new Vector3(player.rb.velocity.x, player.rb.velocity.y, 0));
             Gizmos.color = Color.blue;
-            Gizmos.DrawLine(transform.position, transform.position + new Vector3(InputManager.Instance.MovementVector.x, InputManager.Instance.MovementVector.y, 0));
+            Gizmos.DrawLine(player.transform.position, player.transform.position + new Vector3(InputManager.Instance.MovementVector.x, InputManager.Instance.MovementVector.y, 0));
         }
     }
-    
-    #endregion   
 
-} // class PlayerMovementScript 
-// namespace
+    #endregion
+
+}
+
+}

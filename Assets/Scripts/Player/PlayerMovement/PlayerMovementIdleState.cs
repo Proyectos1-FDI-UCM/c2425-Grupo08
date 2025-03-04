@@ -26,8 +26,8 @@ class PlayerIdleState : PlayerState{
     // Ejemplo: _maxHealthPoints
     private PlayerScript player;
     #endregion
-    public PlayerIdleState(PlayerScript playerObject){
-        this.player = playerObject.GetComponent<PlayerScript>();
+    public PlayerIdleState(PlayerScript player){
+        this.player = player;
     }
 
 
@@ -46,16 +46,18 @@ class PlayerIdleState : PlayerState{
         if (InputManager.Instance.MovementVector.x != 0)
         {
             //player.State = new WalkState;
-            player.State = new PlayerIdleState(player); //texto de ejemplo, porfa cambiar por un estado real que cuando he creado esto no había
+            player.State = new PlayerWalkState(player);
         }
         else if (player.rb.velocity.y < 0)
 
         {
             //player.State = new FallState;
+            player.State = new PlayerFallState(player);
         }
         else if (InputManager.Instance.JumpIsPressed())
         {
             //player.State = new JumpState;
+            player.State = new PlayerJumpState(player);
         }
         // else if () // Aim
     }
