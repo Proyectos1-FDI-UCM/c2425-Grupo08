@@ -60,7 +60,7 @@ class PlayerIdleState : PlayerState {
             //player.State = new FallState;
             player.State = new PlayerFallState(playerObject);
         }
-        else if (InputManager.Instance.JumpIsPressed())
+        else if (InputManager.Instance.JumpWasPressedThisFrame())
         {
             //player.State = new JumpState;
             player.State = new PlayerJumpState(playerObject);
