@@ -80,7 +80,7 @@ public class OxigenScript : MonoBehaviour
         if (currentOxigen <= 0)
         {
             currentOxigen = 0;
-            // die
+            Destroy(gameObject);
         } 
     }
     #endregion
