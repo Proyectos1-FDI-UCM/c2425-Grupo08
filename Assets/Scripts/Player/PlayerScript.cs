@@ -32,65 +32,66 @@ public struct Movement{
         this.jumpMultiplierDecay = jumpMultiplierDecay;
     }
 }
-public class PlayerScript : MonoBehaviour
-{
-    // ---- ATRIBUTOS DEL INSPECTOR ----
-    #region Atributos del Inspector (serialized fields)
-    // Documentar cada atributo que aparece aquí.
-    // El convenio de nombres de Unity recomienda que los atributos
-    // públicos y de inspector se nombren en formato PascalCase
-    // (palabras con primera letra mayúscula, incluida la primera letra)
-    // Ejemplo: MaxHealthPoints
-
-    [SerializeField] public bool debug{get;set;}
-    #endregion
-
-    // ---- ATRIBUTOS PRIVADOS ----
-    #region Atributos Privados (private fields)
-    // Documentar cada atributo que aparece aquí.
-    // El convenio de nombres de Unity recomienda que los atributos
-    // privados se nombren en formato _camelCase (comienza con _,
-    // primera palabra en minúsculas y el resto con la
-    // primera letra en mayúsculas)
-    // Ejemplo: _maxHealthPoints
-
-    private float joystickMaxSpeed;
-    public Rigidbody2D rb {get; set;} //Estos métodos son propiedades, por debajo son públicos
-    private float jumpMultiplier = 1;
-    public PlayerState State {get;set;}
-    #endregion
-
-    // ---- MÉTODOS DE MONOBEHAVIOUR ----
-    #region Métodos de MonoBehaviour
-
-    // Por defecto están los típicos (Update y Start) pero:
-    // - Hay que añadir todos los que sean necesarios
-    // - Hay que borrar los que no se usen
-
-    /// <summary>
-    /// Start is called on the frame when a script is enabled just before
-    /// any of the Update methods are called the first time.
-    /// </summary>
-    void Start()
+    public class PlayerScript : MonoBehaviour
     {
-        rb = GetComponent<Rigidbody2D>();
-        State = new PlayerIdleState(this.gameObject);
-        Debug.Log("Player Starts");
-        Debug.Log("State: " + State);
-    }
+        // ---- ATRIBUTOS DEL INSPECTOR ----
+        #region Atributos del Inspector (serialized fields)
+        // Documentar cada atributo que aparece aquí.
+        // El convenio de nombres de Unity recomienda que los atributos
+        // públicos y de inspector se nombren en formato PascalCase
+        // (palabras con primera letra mayúscula, incluida la primera letra)
+        // Ejemplo: MaxHealthPoints
 
-    /// <summary>
-    /// Update is called every frame, if the MonoBehaviour is enabled.
-    /// </summary>
-    public void Update()
-    {
-        State.NextState();
-    }
-    public void FixedUpdate()
-    {
-        State.Move();
-    }
+        [SerializeField] public bool debug{get;set;}
         #endregion
+
+        // ---- ATRIBUTOS PRIVADOS ----
+        #region Atributos Privados (private fields)
+        // Documentar cada atributo que aparece aquí.
+        // El convenio de nombres de Unity recomienda que los atributos
+        // privados se nombren en formato _camelCase (comienza con _,
+        // primera palabra en minúsculas y el resto con la
+        // primera letra en mayúsculas)
+        // Ejemplo: _maxHealthPoints
+
+        private float joystickMaxSpeed;
+        public Rigidbody2D rb {get; set;} //Estos métodos son propiedades, por debajo son públicos
+        public bool isLanternAimed {get; set;}
+        private float jumpMultiplier = 1;
+        public PlayerState State {get;set;}
+        #endregion
+
+        // ---- MÉTODOS DE MONOBEHAVIOUR ----
+        #region Métodos de MonoBehaviour
+
+        // Por defecto están los típicos (Update y Start) pero:
+        // - Hay que añadir todos los que sean necesarios
+        // - Hay que borrar los que no se usen
+
+        /// <summary>
+        /// Start is called on the frame when a script is enabled just before
+        /// any of the Update methods are called the first time.
+        /// </summary>
+        void Start()
+        {
+            rb = GetComponent<Rigidbody2D>();
+            State = new PlayerIdleState(this.gameObject);
+            Debug.Log("Player Starts");
+            Debug.Log("State: " + State);
+        }
+
+        /// <summary>
+        /// Update is called every frame, if the MonoBehaviour is enabled.
+        /// </summary>
+        public void Update()
+        {
+            State.NextState();
+        }
+        public void FixedUpdate()
+        {
+            State.Move();
+        }
+            #endregion
 
         // ---- MÉTODOS PÚBLICOS ----
         #region Métodos públicos
@@ -110,6 +111,5 @@ public class PlayerScript : MonoBehaviour
         // mayúscula, incluida la primera letra)
 
         #endregion
-
     }
 }

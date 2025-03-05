@@ -63,17 +63,17 @@ public class PlayerAimState: PlayerState
     }
     public void NextState()
     {
-        /*if (se deja de apuntar)
+        if (!player.isLanternAimed)
         {
-            if (InputManager.MovementVector.x == 0)
+            if (InputManager.Instance.MovementVector.x == 0)
             {
-                //player.State = new IdleState;
+                player.State = new PlayerIdleState(playerObject);
             }
             else
             {
-                //player.State = new WalkState;
+                    player.State = new PlayerWalkState(playerObject);
             }
-        } */
+        } 
     }
 
     #endregion
