@@ -354,11 +354,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!61 &518302819 stripped
-BoxCollider2D:
-  m_CorrespondingSourceObject: {fileID: 1907426827182342548, guid: b0daa0d61f8842341909c13109f7ecc8, type: 3}
-  m_PrefabInstance: {fileID: 91908097}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &635131645
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -576,6 +571,63 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c64a6ffb700cb73469d4a5665abe4c1e, type: 3}
+--- !u!1001 &943012556
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 2181331470842799619, guid: 14f9a60f945227044bb05c2b5d076f5b, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2181331470842799619, guid: 14f9a60f945227044bb05c2b5d076f5b, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2181331470842799619, guid: 14f9a60f945227044bb05c2b5d076f5b, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2181331470842799619, guid: 14f9a60f945227044bb05c2b5d076f5b, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2181331470842799619, guid: 14f9a60f945227044bb05c2b5d076f5b, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2181331470842799619, guid: 14f9a60f945227044bb05c2b5d076f5b, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2181331470842799619, guid: 14f9a60f945227044bb05c2b5d076f5b, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2181331470842799619, guid: 14f9a60f945227044bb05c2b5d076f5b, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2181331470842799619, guid: 14f9a60f945227044bb05c2b5d076f5b, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2181331470842799619, guid: 14f9a60f945227044bb05c2b5d076f5b, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3190272025005498771, guid: 14f9a60f945227044bb05c2b5d076f5b, type: 3}
+      propertyPath: m_Name
+      value: Player (1)
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 14f9a60f945227044bb05c2b5d076f5b, type: 3}
 --- !u!1 &1048915243 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 8724170036447253365, guid: c64a6ffb700cb73469d4a5665abe4c1e, type: 3}
@@ -916,7 +968,7 @@ BoxCollider2D:
   m_Offset: {x: 0, y: 0}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
+    pivot: {x: 0.5, y: 0.28866667}
     oldSize: {x: 1, y: 1}
     newSize: {x: 1, y: 1}
     adaptiveTilingThreshold: 0.5
@@ -1149,7 +1201,7 @@ PrefabInstance:
     - target: {fileID: 90545323139350567, guid: 73846ec46db3ab848b40bdb6fecb500f, type: 3}
       propertyPath: flashCollider2
       value: 
-      objectReference: {fileID: 518302819}
+      objectReference: {fileID: 0}
     - target: {fileID: 90545323139350567, guid: 73846ec46db3ab848b40bdb6fecb500f, type: 3}
       propertyPath: playerTransform
       value: 
@@ -1225,7 +1277,7 @@ PrefabInstance:
     - target: {fileID: 9123215735450568011, guid: 73846ec46db3ab848b40bdb6fecb500f, type: 3}
       propertyPath: flashCollider2
       value: 
-      objectReference: {fileID: 518302819}
+      objectReference: {fileID: 0}
     - target: {fileID: 9123215735450568011, guid: 73846ec46db3ab848b40bdb6fecb500f, type: 3}
       propertyPath: playerTransform
       value: 
@@ -1249,3 +1301,4 @@ SceneRoots:
   - {fileID: 359300972}
   - {fileID: 3179987206548390157}
   - {fileID: 91908097}
+  - {fileID: 943012556}
