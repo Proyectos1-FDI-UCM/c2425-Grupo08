@@ -17,12 +17,12 @@ namespace PlayerLogic
 /// usando todas las líneas que sean necesarias.
 /// </summary>
 public struct Movement{
-    public float maxSpeed {get;set;}
-    public float acceleration {get;set;}
-    public float deceleration {get;set;}
-    public float decelerationThreshold {get;set;}
-    public float jumpAcceleration {get;set;}
-    public float jumpMultiplierDecay {get;set;}
+    [SerializeField]public float maxSpeed {get;set;}
+    [SerializeField]public float acceleration {get;set;}
+    [SerializeField]public float deceleration {get;set;}
+    [SerializeField]public float decelerationThreshold {get;set;}
+    [SerializeField]public float jumpAcceleration {get;set;}
+    [SerializeField]public float jumpMultiplierDecay {get;set;}
     public Movement(float maxSpeed, float acceleration, float deceleration, float decelerationThreshold, float jumpAcceleration, float jumpMultiplierDecay){
         this.maxSpeed = maxSpeed;
         this.acceleration = acceleration;

@@ -8,7 +8,9 @@
 using UnityEngine;
 namespace EnemyLogic
 {
-   interface EnemyState{
+   abstract class EnemyState{
+        GameObject enemy;
+
         public void Move(){}
         public void NextState(){}
    }
