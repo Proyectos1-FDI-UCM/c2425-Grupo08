@@ -239,6 +239,17 @@
                 },
                 {
                     "name": "",
+                    "id": "c1a280fe-984e-4fd2-afb7-f000c36604b7",
+                    "path": "<Gamepad>/rightTrigger",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Gamepad",
+                    "action": "Flash",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
                     "id": "7c401786-bf63-45df-ae38-2a12f2245e21",
                     "path": "<Mouse>/rightButton",
                     "interactions": "",

@@ -38,8 +38,8 @@ class PlayerJumpState: PlayerState
     private float joystickMaxSpeed; // El límite de velocidad con el que operará el script (en el caso del teclado no hace nada, en el caso del joystick se multiplica la velocidad máxima por el desplazamiento horizontal de este)
     private float jumpMultiplier = 1; // Multiplicador de la fuerza de salto para bajarla si se mantiene pulsado el botón de salto
     private Movement movement = new Movement(
-        5f, // maxSpeed
-        2f, // Acceleration
+        2f, // maxSpeed
+        4f, // Acceleration
         5f, // deceleration
         0.2f, // decelerationThreshold
         2f, // jumpAcceleration

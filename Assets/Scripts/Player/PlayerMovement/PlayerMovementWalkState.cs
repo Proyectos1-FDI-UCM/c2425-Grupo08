@@ -38,10 +38,10 @@ namespace PlayerLogic
         // Ejemplo: _maxHealthPoints
         private float joystickMaxSpeed; // El límite de velocidad con el que operará el script (en el caso del teclado no hace nada, en el caso del joystick se multiplica la velocidad máxima por el desplazamiento horizontal de este)
         private Movement movement= new Movement(
-            10f, // maxSpeed
-            8f, // Acceleration
+            3f, // maxSpeed
+            7f, // Acceleration
             7f, // deceleration
-            1f, // decelerationThreshold
+            0.2f, // decelerationThreshold
             0f, // jumpAcceleration
             0f  //jumpMultiplierDecay
             );

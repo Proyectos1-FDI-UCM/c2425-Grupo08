@@ -40,6 +40,7 @@ public class EnemyRouteScript : MonoBehaviour
     // Ejemplo: _maxHealthPoints
 
     Rigidbody2D rb;
+    SpriteRenderer spriteRenderer;
 
     private struct NodeRoute{
         private int nodeCont; //Contador que indica a que nodo se está moviendo 
@@ -88,7 +89,8 @@ public class EnemyRouteScript : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         nodeRoute = new NodeRoute(NodeArray); // Aviso. El array de nodos se crea al inicio, no es dinámico.
         MoveEnemy();
-        
+
+        spriteRenderer = GetComponentInChildren<SpriteRenderer>();
     }
 
     /// <summary>
@@ -117,7 +119,16 @@ public class EnemyRouteScript : MonoBehaviour
     // mayúscula, incluida la primera letra)
 
     private void MoveEnemy(){
-        rb.velocity = Vector3.Normalize(nodeRoute.GetNextNode().transform.position - transform.position) * Speed; 
+        rb.velocity = Vector3.Normalize(nodeRoute.GetNextNode().transform.position - transform.position) * Speed;
+
+        if (rb.velocity.x > 0)
+        {
+            transform.localScale = new Vector3(1, -1, 1);
+        }
+        else
+        {
+            transform.localScale = new Vector3(1, 1, 1);
+        }
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {

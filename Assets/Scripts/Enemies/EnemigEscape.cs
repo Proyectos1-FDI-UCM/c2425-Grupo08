@@ -81,6 +81,15 @@ public class EnemigEscape : MonoBehaviour
             // Direccion desde el jugador hacia el enemigo
             Vector2 fleeDirection = (transform.position - playerTransform.position).normalized;
 
+            if (fleeDirection.x > 0)
+            {
+                transform.localScale = new Vector3(1, -1, 1);
+            }
+            else
+            {
+                transform.localScale = new Vector3(1, 1, 1);
+            }
+
             // Asignar la velocidad de huida
             _rb.velocity = fleeDirection * fleeSpeed;
 

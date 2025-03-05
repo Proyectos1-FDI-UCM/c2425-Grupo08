@@ -5,7 +5,9 @@
 // Proyectos 1 - Curso 2024-25
 //---------------------------------------------------------
 
+using PlayerLogic;
 using System.Collections;
+using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 // Añadir aquí el resto de directivas using
 
@@ -41,7 +43,7 @@ public class EnemigAtack : MonoBehaviour
 
     [Header("Colliders Internos (enemigo)")]
     [SerializeField] private Collider2D EneVisionCollider;   // Collider de visión del enemigo
-    [SerializeField] private Collider2D EneBodycollider;     // Collider del cuerpo del enemigo
+    [SerializeField] private Collider2D EneBodyCollider;     // Collider del cuerpo del enemigo
 
     [Header("Ajuste de Orientación")]
     [SerializeField] private bool spriteLooksUp = false;     // true si el sprite está diseñado para apuntar hacia arriba (+Y), false si apunta a la derecha (+X)
@@ -90,6 +92,15 @@ public class EnemigAtack : MonoBehaviour
             Vector2 dirNormalized = direction.normalized;
             _rb.velocity = dirNormalized * PerserSpeed;
 
+            if (direction.x > 0)
+            {
+                transform.localScale = new Vector3(1, -1, 1);
+            }
+            else
+            {
+                transform.localScale = new Vector3(1, 1, 1);
+            }
+
             // Calcula el ángulo deseado usando Atan2
             float targetAngle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
             if (spriteLooksUp)
@@ -109,7 +120,7 @@ public class EnemigAtack : MonoBehaviour
     {
         // 1) Si el jugador entra en la visión => activar ataque
         if (collision == PlayerCollider)
-        {
+        {                                  
             Debug.Log("Jugador detectado => atacar");
             _isAttacking = true;
 
@@ -119,13 +130,13 @@ public class EnemigAtack : MonoBehaviour
             {
                 route.enabled = false;
                 Debug.Log("EnemyRouteScript desactivado.");
-            }
+            }                   
         }
         // 2) Si el flash choca => verificar si toca el cuerpo
         else if (collision == flashCollider)
         {
             // Usamos IsTouching para confirmar que el flash choca con el cuerpo, no con la visión
-            if (EneBodycollider != null && EneBodycollider.IsTouching(flashCollider))
+            if (EneBodyCollider != null && EneBodyCollider.IsTouching(flashCollider))
             {
                 Debug.Log("El flash iluminó el cuerpo => desactivar ataque y apagar visión.");
                 _isAttacking = false;
@@ -134,13 +145,8 @@ public class EnemigAtack : MonoBehaviour
                 // (Opcional) deshabilitar este script para que no retome la persecución
                 this.enabled = false;
             }
-        }
-
-        
+        }       
     }
-
-
-
     private void OnTriggerExit2D(Collider2D collision)
     {
         // Si el jugador sale del rango => desactivar ataque y reactivar patrulla
@@ -160,6 +166,15 @@ public class EnemigAtack : MonoBehaviour
             StartCoroutine(DisableAtackTemporary(3f));
         }
     }
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.GetComponent<PlayerScript>() != null)
+        {
+            collision.gameObject.GetComponent<OxigenScript>().PierceTank();
+            Destroy(gameObject);
+        }
+    }
+
 
     // Método para deshabilitar el collider de visión (para que no detecte al jugador mientras huye)
     private IEnumerator DisableAtackTemporary(float seconds)

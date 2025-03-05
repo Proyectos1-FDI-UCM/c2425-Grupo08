@@ -32,12 +32,12 @@ class PlayerFallState : PlayerState{
         rb = playerObject.GetComponent<Rigidbody2D>();
     }
     Movement movement = new Movement(
-        5f, // maxSpeed
-        2f, // Acceleration
+        2f, // maxSpeed
+        4f, // Acceleration
         5f, // deceleration
         0.2f, // decelerationThreshold
-        1.5f, // jumpAcceleration
-        0.13f  //jumpMultiplierDecay
+        0f, // jumpAcceleration
+        0f  //jumpMultiplierDecay
     );
     #endregion
 
