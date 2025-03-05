@@ -14,7 +14,7 @@ using UnityEngine.InputSystem;
 /// escenas.
 /// La configuración de qué controles realizan qué acciones se hace a través
 /// del asset llamado InputActionSettings que está en la carpeta Settings.
-/// 
+///
 /// A modo de ejemplo, este InputManager tiene métodos para consultar
 /// el estado de dos acciones:
 /// - Move: Permite acceder a un Vector2D llamado MovementVector que representa
@@ -28,7 +28,7 @@ using UnityEngine.InputSystem;
 /// InputManager. Para ello:
 /// - Revisar lo que se hace en Init para crear nuevas acciones
 /// - Añadir nuevos métodos para acceder al estado que estemos interesados
-///  
+///
 /// </summary>
 public class InputManager : MonoBehaviour
 {
@@ -54,7 +54,7 @@ public class InputManager : MonoBehaviour
     private static InputManager _instance;
 
     /// <summary>
-    /// Controlador de las acciones del Input. Es una instancia del asset de 
+    /// Controlador de las acciones del Input. Es una instancia del asset de
     /// InputAction que se puede configurar desde el editor y que está en
     /// la carpeta Settings
     /// </summary>
@@ -81,7 +81,7 @@ public class InputManager : MonoBehaviour
 
     /// <summary>
     /// Método llamado en un momento temprano de la inicialización.
-    /// 
+    ///
     /// En el momento de la carga, si ya hay otra instancia creada,
     /// nos destruimos (al GameObject completo)
     /// </summary>
@@ -155,14 +155,14 @@ public class InputManager : MonoBehaviour
     /// <summary>
     /// Propiedad para acceder al vector de movimiento.
     /// Según está configurado el InputActionController,
-    /// es un vector normalizado 
+    /// es un vector normalizado
     /// </summary>
     public Vector2 MovementVector { get; private set; }
 
     /// <summary>
     /// Propiedad para acceder al vector de movimiento del cursor/joystick derecho.
     /// Según está configurado el InputActionController,
-    /// es un vector normalizado 
+    /// es un vector normalizado
     /// </summary>
     public Vector2 AimVector { get; private set; }
 
@@ -202,6 +202,12 @@ public class InputManager : MonoBehaviour
     {
         return _fire.WasPressedThisFrame();
     }
+
+    public bool JumpWasPressedThisFrame()
+    {
+        return _jump.WasPressedThisFrame();
+    }
+
 
     public bool JumpWasRealeasedThisFrame()
     {
@@ -248,8 +254,8 @@ public class InputManager : MonoBehaviour
         _theController.Player.Aim.canceled += OnAim;
 
         // Para el disparo solo cacheamos la acción de disparo.
-        // El estado lo consultaremos a través de los métodos públicos que 
-        // tenemos (FireIsPressed, FireWasPressedThisFrame 
+        // El estado lo consultaremos a través de los métodos públicos que
+        // tenemos (FireIsPressed, FireWasPressedThisFrame
         // y FireWasReleasedThisFrame)
         _fire = _theController.Player.Fire;
 
@@ -282,5 +288,5 @@ public class InputManager : MonoBehaviour
     }
 
     #endregion
-} // class InputManager 
+} // class InputManager
   // namespace
