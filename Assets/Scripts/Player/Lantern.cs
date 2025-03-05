@@ -25,6 +25,8 @@ public class Lantern : MonoBehaviour
     [SerializeField] private float flashCooldown = 5f; //Cooldown del flash (linterna apagada)
     [SerializeField] private float inputDeadzone; // Umbral de movimiento para detectar si el ratón se mueve
 
+    [SerializeField] private GameObject playerSprite;
+
     // ---- ATRIBUTOS PRIVADOS ----
     private Vector3 initialBeamScale; // Para guardar la escala inicial del haz de luz
     private bool isFocus = false; // Indica si el clic derecho está presionado
@@ -83,7 +85,16 @@ public class Lantern : MonoBehaviour
     // Método para apuntar la linterna hacia el ratón o joystick
     private void AimAtInput()
     {
-        Vector2 aimInput = (Vector2)Camera.main.ScreenToWorldPoint(InputManager.Instance.AimVector) - (Vector2)transform.position;
+        Vector2 aimInput = ((Vector2)Camera.main.ScreenToWorldPoint(InputManager.Instance.AimVector) - (Vector2)transform.position).normalized;
+
+        if (aimInput.x < 0)
+        {
+            playerSprite.GetComponent<SpriteRenderer>().flipX = true;
+        }
+        else
+        {
+            playerSprite.GetComponent<SpriteRenderer>().flipX = false;
+        }
 
         if (aimInput.magnitude > inputDeadzone) // Para que no haya movimientos raros cerca del pivote
         {

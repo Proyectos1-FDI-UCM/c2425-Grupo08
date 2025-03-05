@@ -54,8 +54,6 @@ namespace PlayerLogic
             rb = playerObject.GetComponent<Rigidbody2D>();
         }
 
-            private bool isLanternAimed = false;
-
         #endregion
 
         // ---- MÉTODOS DE MONOBEHAVIOUR ----
