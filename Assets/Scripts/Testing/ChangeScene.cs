@@ -7,8 +7,6 @@
 //---------------------------------------------------------
 
 using UnityEngine;
-using UnityEngine.SceneManagement;
-
 
 /// <summary>
 /// Componente de pruebas que cambia a otra escena que se

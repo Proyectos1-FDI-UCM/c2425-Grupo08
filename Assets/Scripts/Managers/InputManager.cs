@@ -77,7 +77,6 @@ public class InputManager : MonoBehaviour
     // Del UI
     private InputAction _return;
 
-
     #endregion
 
     // ---- MÉTODOS DE MONOBEHAVIOUR ----
@@ -251,6 +250,7 @@ public class InputManager : MonoBehaviour
         // Creamos el controlador del input y activamos los controles del jugador
         _theController = new InputActionSettings();
         _theController.Player.Enable();
+        _theController.UI.Enable();
 
         // Cacheamos la acción de movimiento
         InputAction movement = _theController.Player.Move;
@@ -259,9 +259,12 @@ public class InputManager : MonoBehaviour
         movement.performed += OnMove;
         movement.canceled += OnMove;
 
+        // Cacheamos la acción de movimiento
+        InputAction aim = _theController.Player.Aim;
+
         // SUSCRIBIRSE a la acción Aim (definida en el asset InputActionSettings)
-        _theController.Player.Aim.performed += OnAim;
-        _theController.Player.Aim.canceled += OnAim;
+        aim.performed += OnAim;
+        aim.canceled += OnAim;
 
         // Para el disparo solo cacheamos la acción de disparo.
         // El estado lo consultaremos a través de los métodos públicos que

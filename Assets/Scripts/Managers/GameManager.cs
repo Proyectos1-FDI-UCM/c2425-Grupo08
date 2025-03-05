@@ -6,7 +6,6 @@
 //---------------------------------------------------------
 
 using UnityEngine;
-using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
 
 
@@ -88,12 +87,12 @@ public class GameManager : MonoBehaviour
 
     private void Update()
     {
-        if (InputManager.Instance.ReturnIsPressed() && SceneManager.GetActiveScene().buildIndex != 0)
+        if (InputManager.Instance != null && InputManager.Instance.ReturnIsPressed())
         {
             ChangeScene(0);
         }
     }
-    
+
     /// <summary>
     /// Método llamado cuando se destruye el componente.
     /// </summary>
@@ -132,7 +131,7 @@ public class GameManager : MonoBehaviour
     /// destruído antes de tiempo.
     /// </summary>
     /// <returns>Cierto si hay instancia creada.</returns>
-    public static bool HasInstance()
+    public static bool Hasinstance()
     {
         return _instance != null;
     }
@@ -157,7 +156,7 @@ public class GameManager : MonoBehaviour
         //
         // En realidad... todo esto es algo antiguo por lo que lo mismo ya está resuelto)
         System.GC.Collect();
-        UnityEngine.SceneManagement.SceneManager.LoadScene(index);
+        SceneManager.LoadScene(index);
         System.GC.Collect();
     } // ChangeScene
 
@@ -183,4 +182,4 @@ public class GameManager : MonoBehaviour
 
     #endregion
 } // class GameManager 
-// namespace
+  // namespace

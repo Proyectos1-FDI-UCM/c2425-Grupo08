@@ -381,7 +381,7 @@ namespace UnityEngine.InputSystem
                 },
                 {
                     ""name"": ""Return"",
-                    ""type"": ""Button"",
+                    ""type"": ""PassThrough"",
                     ""id"": ""6fddbb1d-d375-4a81-ba1a-2d67621e213e"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
