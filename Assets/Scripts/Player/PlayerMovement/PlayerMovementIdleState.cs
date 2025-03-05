@@ -15,70 +15,73 @@ using UnityEngine;
 /// </summary>
 namespace PlayerLogic
 {
-class PlayerIdleState : PlayerState {
-// ---- ATRIBUTOS PRIVADOS ----
-    #region Atributos Privados (private fields)
-    // Documentar cada atributo que aparece aquí.
-    // El convenio de nombres de Unity recomienda que los atributos
-    // privados se nombren en formato _camelCase (comienza con _,
-    // primera palabra en minúsculas y el resto con la
-    // primera letra en mayúsculas)
-    // Ejemplo: _maxHealthPoints
-    #endregion
-    private PlayerScript player;
-    private GameObject playerObject;
-    private Rigidbody2D rb;
-    public PlayerIdleState(GameObject playerObject){
-        this.playerObject = playerObject;
-        player = playerObject.GetComponent<PlayerScript>();
-        rb = playerObject.GetComponent<Rigidbody2D>();
-    }
-
-
-    // ---- MÉTODOS PÚBLICOS ----
-    #region Métodos públicos
-    // Documentar cada método que aparece aquí con ///<summary>
-    // El convenio de nombres de Unity recomienda que estos métodos
-    // se nombren en formato PascalCase (palabras con primera letra
-    // mayúscula, incluida la primera letra)
-    // Ejemplo: GetPlayerController
-    public void Move()
-    {
-
-    }
-     public void NextState() {
-
-        Debug.Log("State: Idle");
-        if (InputManager.Instance.MovementVector.x != 0)
-        {
-            //player.State = new WalkState;
-            player.State = new PlayerWalkState(playerObject);
+    class PlayerIdleState : PlayerState {
+    // ---- ATRIBUTOS PRIVADOS ----
+        #region Atributos Privados (private fields)
+        // Documentar cada atributo que aparece aquí.
+        // El convenio de nombres de Unity recomienda que los atributos
+        // privados se nombren en formato _camelCase (comienza con _,
+        // primera palabra en minúsculas y el resto con la
+        // primera letra en mayúsculas)
+        // Ejemplo: _maxHealthPoints
+        #endregion
+        private PlayerScript player;
+        private GameObject playerObject;
+        private Rigidbody2D rb;
+        public PlayerIdleState(GameObject playerObject){
+            this.playerObject = playerObject;
+            player = playerObject.GetComponent<PlayerScript>();
+            rb = playerObject.GetComponent<Rigidbody2D>();
         }
-        else if (player.rb.velocity.y < 0)
 
+
+        // ---- MÉTODOS PÚBLICOS ----
+        #region Métodos públicos
+        // Documentar cada método que aparece aquí con ///<summary>
+        // El convenio de nombres de Unity recomienda que estos métodos
+        // se nombren en formato PascalCase (palabras con primera letra
+        // mayúscula, incluida la primera letra)
+        // Ejemplo: GetPlayerController
+        public void Move()
         {
-            //player.State = new FallState;
-            player.State = new PlayerFallState(playerObject);
-        }
-        else if (InputManager.Instance.JumpWasPressedThisFrame())
-        {
-            //player.State = new JumpState;
-            player.State = new PlayerJumpState(playerObject);
-        }
-        // else if () // Aim
-    }
-    public void test(){
-        Debug.Log("Test");
-    }
-    #endregion
 
-    // ---- MÉTODOS PRIVADOS ----
-    #region Métodos Privados
-    // Documentar cada método que aparece aquí
-    // El convenio de nombres de Unity recomienda que estos métodos
-    // se nombren en formato PascalCase (palabras con primera letra
-    // mayúscula, incluida la primera letra)
+        }
+         public void NextState() {
 
-    #endregion
-}
+            Debug.Log("State: Idle");
+            if (InputManager.Instance.MovementVector.x != 0)
+            {
+                //player.State = new WalkState;
+                player.State = new PlayerWalkState(playerObject);
+            }
+            else if (player.rb.velocity.y < 0)
+
+            {
+                //player.State = new FallState;
+                player.State = new PlayerFallState(playerObject);
+            }
+            else if (InputManager.Instance.JumpWasPressedThisFrame())
+            {
+                //player.State = new JumpState;
+                player.State = new PlayerJumpState(playerObject);
+            }
+            else if (player.isLanternAimed)
+            {
+                player.State = new PlayerAimState(playerObject);
+            }
+        }
+        public void test(){
+            Debug.Log("Test");
+        }
+        #endregion
+
+        // ---- MÉTODOS PRIVADOS ----
+        #region Métodos Privados
+        // Documentar cada método que aparece aquí
+        // El convenio de nombres de Unity recomienda que estos métodos
+        // se nombren en formato PascalCase (palabras con primera letra
+        // mayúscula, incluida la primera letra)
+
+        #endregion
+    }
 }

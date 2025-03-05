@@ -7,6 +7,7 @@
 // Proyectos 1 - Curso 2024-25
 //---------------------------------------------------------
 
+using PlayerLogic;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -100,10 +101,15 @@ public class Lantern : MonoBehaviour
             isFocus = true;
 
             if (!isCooldownActive)
+            {
+                GetComponentInParent<PlayerScript>().isLanternAimed = true;
                 StartCoroutine(FocusLight());
+            }               
         }
         else
         {
+            GetComponentInParent<PlayerScript>().isLanternAimed = false;
+
             // Si no se presionan los botones, se indica que el crecimiento ya no está activo.
             isFocus = false;
 
@@ -122,6 +128,8 @@ public class Lantern : MonoBehaviour
         if ((Mouse.current.leftButton.isPressed && isFocus) ||
              (Gamepad.current != null && Gamepad.current.rightTrigger.isPressed && Gamepad.current.leftTrigger.isPressed))
         {
+            GetComponentInParent<PlayerScript>().isLanternAimed = false;
+
             StartCoroutine(FlashRoutine());
             StartCoroutine(LanternCooldown());
 
