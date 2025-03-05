@@ -17,7 +17,7 @@ using UnityEditorInternal;
     /// </summary>
 
     struct Movement{
-        float speed;
+        public float speed {get;set;}
         Movement(float speed){
             this.speed = speed;
         }
@@ -42,7 +42,17 @@ using UnityEditorInternal;
         // primera palabra en minúsculas y el resto con la
         // primera letra en mayúsculas)
         // Ejemplo: _maxHealthPoints
-        EnemyState State; // Contexto del estado del enemigo.
+         public Transform playerTransform {get;set;}   // Referencia al jugador
+         public SpriteRenderer spriteRenderer {get;set;} // Para visualización
+
+         public Collider2D PlayerCollider {get;set;}      // Collider que detecta al jugador
+         public Collider2D flashCollider {get;set;}       // Collider del flash
+
+         public Collider2D EneVisionCollider {get;set;}   // Collider de visión del enemigo
+         public Collider2D EneBodycollider {get;set;}     // Collider del cuerpo del enemigo
+
+        EnemyState State = new EnemyRouteState; // Contexto del estado del enemigo.
+
 
         #endregion
 
@@ -69,7 +79,7 @@ using UnityEditorInternal;
         {
             State.Move();
         }
-        void Udate()
+        void Update()
         {
             State.NextState();
         }
