@@ -60,6 +60,7 @@ public class InputManager : MonoBehaviour
     /// </summary>
     private InputActionSettings _theController;
 
+    // Del Player
     /// <summary>
     /// Acción para Fire. Si tenemos más botones tendremos que crear más
     /// acciones como esta (y crear los métodos que necesitemos para
@@ -72,6 +73,10 @@ public class InputManager : MonoBehaviour
     private InputAction _focus;
 
     private InputAction _flash;
+
+    // Del UI
+    private InputAction _return;
+
 
     #endregion
 
@@ -191,7 +196,12 @@ public class InputManager : MonoBehaviour
         return _flash.IsPressed();
     }
 
+    //Del UI
 
+    public bool ReturnIsPressed()
+    {
+        return _return.IsPressed();
+    }
     /// <summary>
     /// Método para saber si el botón de disparo (Fire) se ha pulsado en este frame
     /// <returns>Devuelve true, si el botón ha sido pulsado en este frame
@@ -265,6 +275,9 @@ public class InputManager : MonoBehaviour
         _focus = _theController.Player.Focus;
 
         _flash = _theController.Player.Flash;
+
+        // Del UI
+        _return = _theController.UI.Return;
     }
 
     /// <summary>
