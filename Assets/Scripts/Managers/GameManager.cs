@@ -88,11 +88,12 @@ public class GameManager : MonoBehaviour
 
     private void Update()
     {
-        if (Gamepad.current != null && Gamepad.current.startButton.wasPressedThisFrame || Keyboard.current != null && Keyboard.current.escapeKey.wasPressedThisFrame && SceneManager.GetActiveScene().buildIndex != 0)
+        if (InputManager.Instance.ReturnIsPressed() && SceneManager.GetActiveScene().buildIndex != 0)
         {
             ChangeScene(0);
         }
     }
+    
     /// <summary>
     /// Método llamado cuando se destruye el componente.
     /// </summary>

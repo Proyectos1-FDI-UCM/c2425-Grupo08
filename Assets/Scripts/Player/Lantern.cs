@@ -7,6 +7,7 @@
 // Proyectos 1 - Curso 2024-25
 //---------------------------------------------------------
 
+using PlayerLogic;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -23,6 +24,8 @@ public class Lantern : MonoBehaviour
     [SerializeField] private float minBeamWidth = 1f; // Ancho mínimo cuando se apunta (en el eje Y)
     [SerializeField] private float flashCooldown = 5f; //Cooldown del flash (linterna apagada)
     [SerializeField] private float inputDeadzone; // Umbral de movimiento para detectar si el ratón se mueve
+
+    [SerializeField] private GameObject playerSprite;
 
     // ---- ATRIBUTOS PRIVADOS ----
     private Vector3 initialBeamScale; // Para guardar la escala inicial del haz de luz
@@ -82,7 +85,16 @@ public class Lantern : MonoBehaviour
     // Método para apuntar la linterna hacia el ratón o joystick
     private void AimAtInput()
     {
-        Vector2 aimInput = (Vector2)Camera.main.ScreenToWorldPoint(InputManager.Instance.AimVector) - (Vector2)transform.position;
+        Vector2 aimInput = ((Vector2)Camera.main.ScreenToWorldPoint(InputManager.Instance.AimVector) - (Vector2)transform.position).normalized;
+
+        if (aimInput.x < 0)
+        {
+            playerSprite.GetComponent<SpriteRenderer>().flipX = true;
+        }
+        else
+        {
+            playerSprite.GetComponent<SpriteRenderer>().flipX = false;
+        }
 
         if (aimInput.magnitude > inputDeadzone) // Para que no haya movimientos raros cerca del pivote
         {
@@ -100,10 +112,15 @@ public class Lantern : MonoBehaviour
             isFocus = true;
 
             if (!isCooldownActive)
+            {
+                GetComponentInParent<PlayerScript>().isLanternAimed = true;
                 StartCoroutine(FocusLight());
+            }               
         }
         else
         {
+            GetComponentInParent<PlayerScript>().isLanternAimed = false;
+
             // Si no se presionan los botones, se indica que el crecimiento ya no está activo.
             isFocus = false;
 
@@ -122,6 +139,8 @@ public class Lantern : MonoBehaviour
         if ((Mouse.current.leftButton.isPressed && isFocus) ||
              (Gamepad.current != null && Gamepad.current.rightTrigger.isPressed && Gamepad.current.leftTrigger.isPressed))
         {
+            GetComponentInParent<PlayerScript>().isLanternAimed = false;
+
             StartCoroutine(FlashRoutine());
             StartCoroutine(LanternCooldown());
 
