@@ -798,6 +798,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 14f9a60f945227044bb05c2b5d076f5b, type: 3}
+--- !u!70 &943012557 stripped
+CapsuleCollider2D:
+  m_CorrespondingSourceObject: {fileID: 8958090168955497643, guid: 14f9a60f945227044bb05c2b5d076f5b, type: 3}
+  m_PrefabInstance: {fileID: 943012556}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1048915243 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 8724170036447253365, guid: c64a6ffb700cb73469d4a5665abe4c1e, type: 3}
@@ -1420,6 +1425,10 @@ PrefabInstance:
       propertyPath: playerTransform
       value: 
       objectReference: {fileID: 1336736349}
+    - target: {fileID: 90545323139350567, guid: 73846ec46db3ab848b40bdb6fecb500f, type: 3}
+      propertyPath: EneVisionCollider
+      value: 
+      objectReference: {fileID: 943012557}
     - target: {fileID: 2158409503154236154, guid: 73846ec46db3ab848b40bdb6fecb500f, type: 3}
       propertyPath: m_Name
       value: Enemigo para este prueba

@@ -2022,7 +2022,7 @@ GameObject:
   - component: {fileID: 1400959190}
   - component: {fileID: 1400959189}
   m_Layer: 0
-  m_Name: 7b539413f63abe2d1a3bc3d3a45aa3db
+  m_Name: Background
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

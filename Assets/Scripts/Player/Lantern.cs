@@ -10,6 +10,7 @@
 using PlayerLogic;
 using System.Collections;
 using UnityEngine;
+using UnityEngine.Animations;
 using UnityEngine.InputSystem;
 
 /// <summary>
@@ -25,8 +26,6 @@ public class Lantern : MonoBehaviour
     [SerializeField] private float flashCooldown = 5f; //Cooldown del flash (linterna apagada)
     [SerializeField] private float inputDeadzone; // Umbral de movimiento para detectar si el ratón se mueve
 
-    [SerializeField] private GameObject playerSprite;
-
     // ---- ATRIBUTOS PRIVADOS ----
     private Vector3 initialBeamScale; // Para guardar la escala inicial del haz de luz
     private bool isFocus = false; // Indica si el clic derecho está presionado
@@ -34,6 +33,7 @@ public class Lantern : MonoBehaviour
     private PolygonCollider2D secondChildPolygonCollider; //Collider de flash
     private bool isCooldownActive = false; // Indica si el cooldown de la linterna está activo
     private GameObject beamObject; // EL haz de luz
+    private GameObject player; //Referencia al jugador (deberia ser el padre)
 
     // ---- MÉTODOS DE MONOBEHAVIOUR ----
 
@@ -41,6 +41,9 @@ public class Lantern : MonoBehaviour
 
     private void Start()
     {
+        // Adignamos el player (siendo este el primer hijo del padre de la linterna)
+        player = GetComponentInParent<PlayerScript>().gameObject.transform.GetChild(0).gameObject;
+
         // Asignamos el hijo corrspondiente al beam (el LightBeam)
         beamObject = transform.GetChild(0).gameObject;
 
@@ -87,14 +90,7 @@ public class Lantern : MonoBehaviour
     {
         Vector2 aimInput = ((Vector2)Camera.main.ScreenToWorldPoint(InputManager.Instance.AimVector) - (Vector2)transform.position).normalized;
 
-        if (aimInput.x < 0)
-        {
-            playerSprite.GetComponent<SpriteRenderer>().flipX = true;
-        }
-        else
-        {
-            playerSprite.GetComponent<SpriteRenderer>().flipX = false;
-        }
+        player.GetComponent<SpriteRenderer>().flipX = aimInput.x < 0; // Cambiar direción según si el cursor esta a izquierda o derecha
 
         if (aimInput.magnitude > inputDeadzone) // Para que no haya movimientos raros cerca del pivote
         {
@@ -136,8 +132,7 @@ public class Lantern : MonoBehaviour
         if (isCooldownActive) return;
 
         // Verificar si el clic izquierdo del ratón o el RT del mando están siendo presionados
-        if ((Mouse.current.leftButton.isPressed && isFocus) ||
-             (Gamepad.current != null && Gamepad.current.rightTrigger.isPressed && Gamepad.current.leftTrigger.isPressed))
+        if (InputManager.Instance.FocusIsPressed() && InputManager.Instance.FlashIsPressed())
         {
             GetComponentInParent<PlayerScript>().isLanternAimed = false;
 
