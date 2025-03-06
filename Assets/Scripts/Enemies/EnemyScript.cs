@@ -5,6 +5,7 @@
 // Proyectos 1 - Curso 2024-25
 //---------------------------------------------------------
 
+using UnityEditorInternal;
     using UnityEngine;
     // Añadir aquí el resto de directivas using
 
