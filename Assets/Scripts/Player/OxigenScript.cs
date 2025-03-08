@@ -80,8 +80,7 @@ public class OxigenScript : MonoBehaviour
         if (currentOxigen <= 0)
         {
             currentOxigen = 0;
-            Destroy(gameObject);
-            AudioManager.instance.StopSFX(0);
+            Death();
         } 
     }
     #endregion
@@ -110,15 +109,21 @@ public class OxigenScript : MonoBehaviour
         tankBroken = false;
     }
 
+
     #endregion
-    
+
     // ---- MÉTODOS PRIVADOS ----
     #region Métodos Privados
     // Documentar cada método que aparece aquí
     // El convenio de nombres de Unity recomienda que estos métodos
     // se nombren en formato PascalCase (palabras con primera letra
     // mayúscula, incluida la primera letra)
-
+    private void Death()
+    {
+        Destroy(gameObject);
+        AudioManager.instance.StopSFX(0);
+        AudioManager.instance.PlaySFX(4);
+    }
     #endregion   
 
 } // class OxigenScript 
