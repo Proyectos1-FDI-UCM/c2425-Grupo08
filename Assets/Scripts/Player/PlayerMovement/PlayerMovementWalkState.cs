@@ -89,10 +89,14 @@ namespace PlayerLogic
         public void NextState()
         {
             Debug.Log("State Walk");
+           
+
             if (player.rb.velocity == new Vector2(0, 0))
             {
                 //player.State = new IdleState;
                 player.State = new PlayerIdleState(playerObject);
+                AudioManager.instance.StopLoopingSFX(1);
+
             }
             else if (player.rb.velocity.y < 0)
             {
@@ -103,6 +107,8 @@ namespace PlayerLogic
             {
                 //player.State = new JumpState;
                 player.State = new PlayerJumpState(playerObject);
+                AudioManager.instance.StopLoopingSFX(1);
+
             }
             else if (player.isLanternAimed)
             {
@@ -140,6 +146,7 @@ namespace PlayerLogic
                     Decelerate(movement.acceleration); // En el caso (nada raro) de que el joystick pase de un valor a otro más bajo del mismo signo, se frena con el valor de la aceleración
                 }
             }
+        
         }
         private void Decelerate(float decelerationValue) // Frena al jugador con la aceleración negativa indicada
         {

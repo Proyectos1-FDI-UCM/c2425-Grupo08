@@ -53,6 +53,7 @@ namespace PlayerLogic
             {
                 //player.State = new WalkState;
                 player.State = new PlayerWalkState(playerObject);
+                AudioManager.instance.PlayLoopingSFX(1);
             }
             else if (player.rb.velocity.y < 0)
 
@@ -64,6 +65,7 @@ namespace PlayerLogic
             {
                 //player.State = new JumpState;
                 player.State = new PlayerJumpState(playerObject);
+                AudioManager.instance.PlaySFX(2);
             }
             else if (player.isLanternAimed)
             {

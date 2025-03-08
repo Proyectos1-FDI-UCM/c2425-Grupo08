@@ -88,6 +88,7 @@ class PlayerFallState : PlayerState{
     {
         if (rb.velocity.y == 0)
         {
+            AudioManager.instance.PlaySFX(3);
             if (rb.velocity.x == 0)
             {
                 //player.State = new IdleState;

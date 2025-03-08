@@ -81,6 +81,7 @@ public class OxigenScript : MonoBehaviour
         {
             currentOxigen = 0;
             Destroy(gameObject);
+            AudioManager.instance.StopSFX(0);
         } 
     }
     #endregion
