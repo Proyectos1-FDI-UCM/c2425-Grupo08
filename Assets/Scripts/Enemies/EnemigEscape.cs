@@ -5,9 +5,10 @@
 // Proyectos 1 - Curso 2024-25
 //---------------------------------------------------------
 
-using System.Collections;
-using UnityEngine;
 // Añadir aquí el resto de directivas using
+using System.Collections;
+using System.Threading;
+using UnityEngine;
 
 
 /// <summary>
@@ -51,147 +52,151 @@ public class EnemigEscape : MonoBehaviour
     #endregion
 
     private Rigidbody2D _rb;
-    private bool _isFleeing = false;
-    
-    
+    private float _fleeStartTime;
+
+
     // ---- MÉTODOS DE MONOBEHAVIOUR ----
     #region Métodos de MonoBehaviour
-    
-    // Por defecto están los típicos (Update y Start) pero:
-    // - Hay que añadir todos los que sean necesarios
-    // - Hay que borrar los que no se usen 
-    
+void Start()
+    {
+        _rb = GetComponent<Rigidbody2D>();
+     
+    }
+
     /// <summary>
     /// Start is called on the frame when a script is enabled just before 
     /// any of the Update methods are called the first time.
     /// </summary>
-    void Start()
-    {
-        _rb = GetComponent<Rigidbody2D>();
-    }
+  
 
     /// <summary>
     /// Update is called every frame, if the MonoBehaviour is enabled.
     /// </summary>
     void Update()
     {
-        // Si nuestro enemigo va a huir, va a ir la direccion contraria de jugador
-        if (_isFleeing && playerTransform != null)
-        {
-            // Direccion desde el jugador hacia el enemigo
-            Vector2 fleeDirection = (transform.position - playerTransform.position).normalized;
-
-            if (fleeDirection.x > 0)
-            {
-                transform.localScale = new Vector3(1, -1, 1);
-            }
-            else
-            {
-                transform.localScale = new Vector3(1, 1, 1);
-            }
-
-            // Asignar la velocidad de huida
-            _rb.velocity = fleeDirection * fleeSpeed;
-
-            // Conserva la orientación que tenía antes de huir
-            spriteRenderer.flipX = (fleeDirection.x > 0);
-        }
+        Move();
     }
 
-    // ---- Detectar la Literna (Trigger) y huir ----
 
-    private void OnTriggerEnter2D (Collider2D collision)
-    {
 
-        Debug.Log("OnTriggerEnter2D con: " + collision.gameObject.name);
 
-        // Comparamos directamente si el collider que entró es el flashCollider
-        if (collision == flashCollider)
-        {
-            Debug.Log("¡Collider del flash detectado!");
 
-            // Desactivar la patrulla (si el enemigo la tiene)
-            EnemyRouteScript route = GetComponent<EnemyRouteScript>();
-            if (route != null)
-            {
-                route.enabled = false;
-                Debug.Log("EnemyRouteScript desactivado.");
-            }
-
-            // Activar modo huida
-            _isFleeing = true;
-            Debug.Log("Modo huida activado.");
-
-           
-        }
-
-        
-    }
-
-    // Método que se llama cuando el objeto deja de ser visible por la cámara
-    void OnBecameInvisible()
-    {
-        if (_isFleeing)
-        {
-            Debug.Log("Enemigo huido fuera de la cámara. Destruyéndolo.");
-            Destroy(gameObject);
-        }
-    }
-
+    // Método que activa la huida y comienza la lógica
 
     #endregion
+
 
 
 
     // ---- MÉTODOS PÚBLICOS ----
     #region Métodos públicos
-    // Documentar cada método que aparece aquí con ///<summary>
-    // El convenio de nombres de Unity recomienda que estos métodos
-    // se nombren en formato PascalCase (palabras con primera letra
-    // mayúscula, incluida la primera letra)
-    // Ejemplo: GetPlayerController
-
-    #endregion
-    public void ActivateEscape()
+    // Método que activa la huida y comienza la lógica
+    public void Move()
     {
-        _isFleeing = true;
-        Debug.Log("Escape ha sido activado.");
-        // Desactiva el componente de ataque para que no interfiera
-        EnemigAtack attackScript = GetComponent<EnemigAtack>();
-        if (attackScript != null)
-        {
-            attackScript.enabled = false;
-            Debug.Log("EnemigAtack ha sido deshabilitado.");
-        }
-        // Inicia la rutina para rotar 180° en Y después de rotationDelay segundos
+        _fleeStartTime = Time.time; // Guardamos el tiempo de inicio de la huida
+        Debug.Log("Modo huida activado.");
+
+        // Ejecutar la rotación 180 grados después de un retraso
         StartCoroutine(RotateYAfterDelay(rotationDelay));
-        // (Opcional) Reactiva el componente de ataque tras escapeDuracion segundos y finaliza el modo escape
-        StartCoroutine(ReactivoAttacktime(escapeDuracion));
+
+        // Ejecutamos la duración de la huida
+        StartCoroutine(FleeDuration());
+
+        Flee();
+    }
+    #endregion
+
+
+
+
+
+
+
+
+    // ---- MÉTODOS PRIVADOS ----
+    #region Métodos Privados 
+    // Método que activa la huida y aplica todo el comportamiento de movimiento
+    private void Flee()
+    {
+        // Dirección desde el jugador hacia el enemigo (huir)
+        Vector2 fleeDirection = (transform.position - playerTransform.position).normalized;
+
+        // Si ha pasado el tiempo de espera, se realiza la rotación de 180 grados en Y
+        if (Time.time - _fleeStartTime >= rotationDelay)
+        {
+            Vector3 currentEuler = transform.eulerAngles;
+            currentEuler.y += 180f;  // Giro de 180 grados en el eje Y
+            transform.eulerAngles = currentEuler;
+            Debug.Log("Rotación en Y aplicada. Nueva rotación Y: " + transform.eulerAngles.y);
+        }
+
+        // Ajustamos la dirección del sprite según la huida
+        if (fleeDirection.x > 0)
+        {
+            transform.localScale = new Vector3(1, -1, 1);
+        }
+        else
+        {
+            transform.localScale = new Vector3(1, 1, 1);
+        }
+
+
+        // Asignamos la velocidad de huida
+        _rb.velocity = fleeDirection * fleeSpeed;
+
+        // Destruimos el objeto después de un tiempo determinado (escapeDuracion)
+        if (Time.time - _fleeStartTime >= escapeDuracion)
+        {
+            Debug.Log("El enemigo ha dejado de huir.");
+            Destroy(gameObject);
+        }
     }
 
+    // Método para rotar el enemigo 180 grados después de un retraso
     private IEnumerator RotateYAfterDelay(float delay)
     {
         yield return new WaitForSeconds(delay);
-        Vector3 currentEuler = transform.eulerAngles;
-        currentEuler.y += 180f;
-        transform.eulerAngles = currentEuler;
-        Debug.Log("Rotación en Y aplicada. Nueva rotación Y: " + transform.eulerAngles.y);
-    }
+     
 
-    private IEnumerator ReactivoAttacktime(float delay)
-    {
-        yield return new WaitForSeconds(delay);
-        EnemigAtack attackScript = GetComponent<EnemigAtack>();
-        if (attackScript != null)
+        // Calculamos la dirección del jugador respecto al enemigo
+        Vector2 directionToPlayer = playerTransform.position - transform.position;
+
+        // Controla el flip horizontal (izquierda o derecha)
+        if (directionToPlayer.x > 0)
         {
-            attackScript.enabled = true;
-            Debug.Log("EnemigAtack reactivado.");
+            // El jugador está a la derecha, por lo que el sprite debe mirar a la izquierda
+            spriteRenderer.flipX = true;
         }
-        _isFleeing = false;
+        else
+        {
+            // El jugador está a la izquierda, por lo que el sprite debe mirar a la derecha
+            spriteRenderer.flipX = false;
+        }
+
+        // Controla el flip vertical (arriba o abajo)
+        if (directionToPlayer.y > 0)
+        {
+            // El jugador está por encima, el sprite debe mirar hacia abajo
+            transform.localScale = new Vector3(transform.localScale.x, -1, 1);  // Voltea el sprite en el eje Y
+        }
+        else
+        {
+            // El jugador está por debajo, el sprite debe mirar hacia arriba
+            transform.localScale = new Vector3(transform.localScale.x, 1, 1);  // Mantiene el sprite mirando hacia arriba
+        }
+
+        Debug.Log("flipX: " + spriteRenderer.flipX + ", localScaleY: " + transform.localScale.y);
+    
+}
+
+    // Método que destruye el enemigo después de un tiempo de huida
+    private IEnumerator FleeDuration() 
+    {
+        yield return new WaitForSeconds(escapeDuracion);
+      Destroy(gameObject);
+        Debug.Log("El enemigo ha dejado de huir.");
     }
 
-    // ---- MÉTODOS PRIVADOS ----
-    #region Métodos Privados
     // Documentar cada método que aparece aquí
     // El convenio de nombres de Unity recomienda que estos métodos
     // se nombren en formato PascalCase (palabras con primera letra

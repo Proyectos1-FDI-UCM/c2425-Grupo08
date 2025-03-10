@@ -1,0 +1,102 @@
+//---------------------------------------------------------
+// Breve descripción del contenido del archivo
+// Responsable de la creación de este archivo
+// Nombre del juego
+// Proyectos 1 - Curso 2024-25
+//---------------------------------------------------------
+
+using EnemyLogic;
+using UnityEngine;
+
+namespace EnemyLogic
+{
+    public class EnemyAttackState : EnemyState
+    {
+        // Atributos privados de inspector
+
+        [SerializeField] private float PerserSpeed = 3f; // Velocidad de persecución
+        [SerializeField] private float rotateSpeed = 90f; // Velocidad de giro en grados/segundo (ajústalo para suavizar)
+        [SerializeField] private bool spriteLooksUp = false; // true si el sprite está diseñado para apuntar hacia arriba (+Y), false si apunta a la derecha (+X)
+
+        // Atributos privados
+        private GameObject enemyObject;
+        private EnemyScript enemyScript;
+
+        private Rigidbody2D _rb;
+
+        private Collider2D bodyCollider;
+
+        private GameObject player;
+        private Collider2D playerCollider;
+        private Collider2D flashCollider;
+         
+        private bool flashed = false;
+
+        public EnemyAttackState(GameObject enemyObject)
+        {            
+            this.enemyScript = enemyObject.GetComponent<EnemyScript>();
+            this.enemyObject = enemyObject;
+
+            this.bodyCollider = GetComponent<Collider2D>();
+
+            this._rb = enemyObject.GetComponent<Rigidbody2D>();
+
+            this.player = GameObject.FindWithTag("Player");
+            this.playerCollider = player.GetComponent<Collider2D>();
+            this.flashCollider = player.GetComponentInChildren<Collider2D>();
+        }
+
+        // MonoBehaviour 
+
+        private void OnTriggerEnter2D(Collider2D collision)
+        {
+            if (collision.gameObject.GetComponent<Collider2D>() == flashCollider)
+            {
+                flashed = true;
+            }
+        }
+        private void OnCollisionEnter2D(Collision2D collision)
+        {
+            if (collision.gameObject.GetComponent<Collider2D>() == playerCollider)
+            {
+                collision.gameObject.GetComponent<OxigenScript>().PierceTank();
+                Destroy(gameObject);
+            }
+        }
+
+        // Métodos públicos
+        public void Move()
+        { 
+            // Se ejecuta en el FixedUpdate(), a fps
+            if (player != null)
+            {
+                // Calcula la dirección hacia el jugador
+                Vector2 direction = (player.transform.position - transform.position).normalized;
+                _rb.velocity = direction * PerserSpeed;
+
+                transform.LookAt(direction);
+
+                // Calcula el ángulo deseado usando Atan2
+                float targetAngle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
+                if (spriteLooksUp)
+                {
+                    // Si el sprite está diseñado para apuntar hacia arriba, ajustamos el ángulo restando 90°
+                    targetAngle -= 90f;
+                }
+
+                // Interpola suavemente el ángulo actual hacia el ángulo objetivo
+                float currentAngle = transform.eulerAngles.z;
+                float newAngle = Mathf.MoveTowardsAngle(currentAngle, targetAngle, rotateSpeed * Time.deltaTime);
+                transform.rotation = Quaternion.Euler(0f, 0f, newAngle);
+            }
+        }
+        public void NextState()
+        {
+            // Define las condiciones para pasar al siguiente estado
+            if (flashed)
+            {
+                //enemyScript.State = new EnemyFleeState(this.enemyObject);
+            }
+        }
+    }
+}

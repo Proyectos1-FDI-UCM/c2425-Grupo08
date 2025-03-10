@@ -41,7 +41,7 @@
         // primera palabra en minúsculas y el resto con la
         // primera letra en mayúsculas)
         // Ejemplo: _maxHealthPoints
-        EnemyState State; // Contexto del estado del enemigo.
+        public EnemyState State { get; set; } // Contexto del estado del enemigo.
 
         #endregion
 
@@ -58,7 +58,7 @@
         /// </summary>
         void Start()
         {
-
+            State = new EnemyAttackState(this.gameObject);
         }
 
         /// <summary>

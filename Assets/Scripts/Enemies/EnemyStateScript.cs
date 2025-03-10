@@ -8,9 +8,14 @@
 using UnityEngine;
 namespace EnemyLogic
 {
-   abstract class EnemyState{
-        GameObject enemy;
+   public abstract class EnemyState : MonoBehaviour{
+        private GameObject enemyObject;
+        private EnemyScript enemyScript;
 
+        /*public EnemyState(GameObject enemyObject){
+            this.enemyObject = enemyObject;
+            this.enemyScript = enemyObject.GetComponent<EnemyScript>();
+        }*/
         public void Move(){}
         public void NextState(){}
    }

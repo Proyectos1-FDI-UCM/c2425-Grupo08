@@ -10,15 +10,24 @@ using UnityEngine;
 
 namespace EnemyLogic
 {
-    class State : EnemyState{
+    public class State : EnemyState{
+        // Atributos privados de inspector
 
-        Movement movement = new Movement();
-        void Move(){
+        // Atributos privados
+        private GameObject enemyObject;
+        private EnemyScript enemyScript;
 
+        State(GameObject enemyObject){
+            this.enemyObject = enemyObject;
+            this.enemyScript = enemyObject.GetComponent<EnemyScript>();
+        }
+
+        public void Move(){
+        // Se ejecuta en el FixedUpdate(), a 100fps
 
         }
-        void NextState(){
-
+        public void NextState(){
+        // Define las condiciones para pasar al siguiente estado
         }
     }
 }

@@ -160,6 +160,28 @@ public class GameManager : MonoBehaviour
         System.GC.Collect();
     } // ChangeScene
 
+    // El nuevo metodo por mi parte
+    #region Nuevo Metodo de Oxigeno
+
+    //-------------------------------------------------------------------------
+    /// <summary>
+    /// Nuevo: Metodo para actualizar el medidor de oxigeno en el HUD.
+    /// Este metodo se ivnoca desde el oxigenScript.
+    /// REcibe un porcentaje de oxigeno (entre 0 y 1) y se lo envia al UiManager
+    /// </summary>
+    /// <param name="OxygenPorcentage">Porcentaje de oxigeno</param>
+
+    public void UpdateOxygenGM (float oxigenPercentage)
+    {
+        // Se busca el UiManager en la escena actual
+        UiManager uiManager = FindObjectOfType<UiManager>();
+        if (uiManager != null)
+        {
+            uiManager.UpdateOxygenUI(oxigenPercentage);
+        }
+    }
+    #endregion
+
     #endregion
 
     // ---- MÉTODOS PRIVADOS ----
