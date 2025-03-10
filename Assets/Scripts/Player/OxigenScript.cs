@@ -1,6 +1,6 @@
 //---------------------------------------------------------
 // Breve descripción del contenido del archivo
-// Responsable de la creación de este archivo
+// Responsable de la creación de este archivo. El original: no se sabe. (nuevo modificacion): Andrés Díaz Guerrero Soto (El sordo)
 // Nombre del juego
 // Proyectos 1 - Curso 2024-25
 //---------------------------------------------------------
@@ -81,7 +81,10 @@ public class OxigenScript : MonoBehaviour
         {
             currentOxigen = 0;
             Death();
-        } 
+        }
+
+        // Nueva integracion: Se envia el porcentaje de oxigeno al GameManager
+        OxigenPercentage();
     }
     #endregion
 
@@ -124,7 +127,19 @@ public class OxigenScript : MonoBehaviour
         AudioManager.instance.StopSFX(0);
         AudioManager.instance.PlaySFX(4);
     }
-    #endregion   
+    #endregion
 
+    #region Integracion con UI
+    /// <summary>
+    /// CAlcula el porcentaje actual de oxigeno (valor 0 y 1) y lo envia al GameManager
+    /// </summary>
+
+    private void OxigenPercentage()
+    {
+        float percentage = currentOxigen / maxOxigen;
+        GameManager.Instance.UpdateOxygenGM(percentage);
+    }
+
+    #endregion
 } // class OxigenScript 
 // namespace
