@@ -31,24 +31,7 @@ public class EnemigAtack : MonoBehaviour
     [Header("Parámetros de Ataque")]
     [SerializeField] private float PerserSpeed = 3f;       // Velocidad de persecución
     [SerializeField] private float rotateSpeed = 90f;       // Velocidad de giro en grados/segundo (ajústalo para suavizar)
-
-    [Header("Referencias")]
-    [SerializeField] private Transform playerTransform;    // Referencia al jugador
-    [SerializeField] private SpriteRenderer spriteRenderer;  // Para visualización
-
-    [Header("Colliders Externos")]
-    [SerializeField] private Collider2D PlayerCollider;      // Collider que detecta al jugador
-    [SerializeField] private Collider2D flashCollider;       // Collider del flash
-    
-
-    [Header("Colliders Internos (enemigo)")]
-    [SerializeField] private Collider2D EneVisionCollider;   // Collider de visión del enemigo
-    [SerializeField] private Collider2D EneBodyCollider;     // Collider del cuerpo del enemigo
-
-    [Header("Ajuste de Orientación")]
     [SerializeField] private bool spriteLooksUp = false;     // true si el sprite está diseñado para apuntar hacia arriba (+Y), false si apunta a la derecha (+X)
-
-
 
     // ---- ATRIBUTOS PRIVADOS ----
     #region Atributos Privados (private fields)
@@ -62,7 +45,15 @@ public class EnemigAtack : MonoBehaviour
     #endregion
 
     private Rigidbody2D _rb;
-    private bool _isAttacking = false;
+
+    private Collider2D bodyCollider;
+    private Collider2D visionCollider;
+
+    private GameObject player;
+    private Collider2D playerCollider;
+    private Collider2D flashCollider;
+
+    private bool flashed = false;
 
     // ---- MÉTODOS DE MONOBEHAVIOUR ----
     #region Métodos de MonoBehaviour
@@ -78,6 +69,13 @@ public class EnemigAtack : MonoBehaviour
     void Start()
     {
         _rb = GetComponent<Rigidbody2D>();
+
+        bodyCollider = GetComponent<Collider2D>();
+        visionCollider = GetComponentInChildren<Collider2D>();
+
+        player = GameObject.FindWithTag("Player");
+        playerCollider = player.GetComponent<Collider2D>();
+        flashCollider = player.GetComponentInChildren<Collider2D>();
     }
 
     /// <summary>
@@ -85,44 +83,15 @@ public class EnemigAtack : MonoBehaviour
     /// </summary>
     void Update()
     {
-        if (_isAttacking && playerTransform != null)
-        {
-            // Calcula la dirección hacia el jugador
-            Vector2 direction = (playerTransform.position - transform.position);
-            Vector2 dirNormalized = direction.normalized;
-            _rb.velocity = dirNormalized * PerserSpeed;
-
-            if (direction.x > 0)
-            {
-                transform.localScale = new Vector3(1, -1, 1);
-            }
-            else
-            {
-                transform.localScale = new Vector3(1, 1, 1);
-            }
-
-            // Calcula el ángulo deseado usando Atan2
-            float targetAngle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
-            if (spriteLooksUp)
-            {
-                // Si el sprite está diseñado para apuntar hacia arriba, ajustamos el ángulo restando 90°
-                targetAngle -= 90f;
-            }
-
-            // Interpola suavemente el ángulo actual hacia el ángulo objetivo
-            float currentAngle = transform.eulerAngles.z;
-            float newAngle = Mathf.MoveTowardsAngle(currentAngle, targetAngle, rotateSpeed * Time.deltaTime);
-            transform.rotation = Quaternion.Euler(0f, 0f, newAngle);
-        }
+        Move();
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
         // 1) Si el jugador entra en la visión => activar ataque
-        if (collision == PlayerCollider)
+        if (collision.gameObject == playerCollider)
         {                                  
             Debug.Log("Jugador detectado => atacar");
-            _isAttacking = true;
 
             // Desactiva la patrulla (EnemyRouteScript), si existe
             EnemyRouteScript route = GetComponent<EnemyRouteScript>();
@@ -133,21 +102,21 @@ public class EnemigAtack : MonoBehaviour
             }                   
         }
         // 2) Si el flash choca => verificar si toca el cuerpo
-        else if (collision == flashCollider)
+        else if (collision.gameObject == flashCollider)
         {
             // Usamos IsTouching para confirmar que el flash choca con el cuerpo, no con la visión
-            if (EneBodyCollider != null && EneBodyCollider.IsTouching(flashCollider))
+            if (bodyCollider.IsTouching(flashCollider))
             {
                 Debug.Log("El flash iluminó el cuerpo => desactivar ataque y apagar visión.");
-                _isAttacking = false;
-                DisableVisionCollider();
+
+                //DisableVisionCollider();
 
                 // (Opcional) deshabilitar este script para que no retome la persecución
-                this.enabled = false;
+                // this.enabled = false;
             }
         }       
     }
-    private void OnTriggerExit2D(Collider2D collision)
+    /*private void OnTriggerExit2D(Collider2D collision)
     {
         // Si el jugador sale del rango => desactivar ataque y reactivar patrulla
         if (collision == PlayerCollider)
@@ -165,7 +134,7 @@ public class EnemigAtack : MonoBehaviour
             // Deshabilita temporalmente este script por 3 segundos
             StartCoroutine(DisableAtackTemporary(3f));
         }
-    }
+    }*/
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.gameObject.GetComponent<PlayerScript>() != null)
@@ -177,7 +146,7 @@ public class EnemigAtack : MonoBehaviour
 
 
     // Método para deshabilitar el collider de visión (para que no detecte al jugador mientras huye)
-    private IEnumerator DisableAtackTemporary(float seconds)
+    /*private IEnumerator DisableAtackTemporary(float seconds)
     {
         // Deshabilitar este script
         this.enabled = false;
@@ -185,27 +154,27 @@ public class EnemigAtack : MonoBehaviour
         // Volver a habilitar
         this.enabled = true;
         Debug.Log("Ataque reactivado tras " + seconds + " seg");
-    }
+    }*/
     
     // Método para desactivar el collider de visión.
-    public void DisableVisionCollider()
+    /*public void DisableVisionCollider()
     {
         if (EneVisionCollider != null)
         {
             EneVisionCollider.enabled = false;
             Debug.Log("Collider de visión deshabilitado.");
         }
-    }
+    }*/
 
     // Método para reactivar el collider de visión (puedes llamarlo desde otro sistema si es necesario).
-    public void EnableVisionCollider()
+    /*public void EnableVisionCollider()
     {
         if (EneVisionCollider != null)
         {
             EneVisionCollider.enabled = true;
             Debug.Log("Collider de visión reactivado.");
         }
-    }
+    */
 
 
 
@@ -219,6 +188,38 @@ public class EnemigAtack : MonoBehaviour
     // se nombren en formato PascalCase (palabras con primera letra
     // mayúscula, incluida la primera letra)
     // Ejemplo: GetPlayerController
+
+    public void Move()
+    {
+        if (player != null)
+        {
+            // Calcula la dirección hacia el jugador
+            Vector2 direction = (player.transform.position - transform.position).normalized;
+            _rb.velocity = direction * PerserSpeed;
+
+            transform.LookAt(direction);
+
+            // Calcula el ángulo deseado usando Atan2
+            float targetAngle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
+            if (spriteLooksUp)
+            {
+                // Si el sprite está diseñado para apuntar hacia arriba, ajustamos el ángulo restando 90°
+                targetAngle -= 90f;
+            }
+
+            // Interpola suavemente el ángulo actual hacia el ángulo objetivo
+            float currentAngle = transform.eulerAngles.z;
+            float newAngle = Mathf.MoveTowardsAngle(currentAngle, targetAngle, rotateSpeed * Time.deltaTime);
+            transform.rotation = Quaternion.Euler(0f, 0f, newAngle);
+        }
+    }
+    public void NextState()
+    {
+        if (flashed)
+        {
+            //enemy.State = new State().EnemyState(Flee);
+        }
+    }
 
     #endregion
 

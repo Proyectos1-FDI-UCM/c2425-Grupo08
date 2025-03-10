@@ -8,7 +8,7 @@
 using UnityEngine;
 namespace EnemyLogic
 {
-   abstract class EnemyState : MonoBehaviour{
+   public abstract class EnemyState : MonoBehaviour{
         private GameObject enemyObject;
         private EnemyScript enemyScript;
 

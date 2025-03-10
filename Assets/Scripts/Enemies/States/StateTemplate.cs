@@ -10,7 +10,7 @@ using UnityEngine;
 
 namespace EnemyLogic
 {
-    class State : EnemyState{
+    public class State : EnemyState{
         // Atributos privados de inspector
 
         // Atributos privados
@@ -22,11 +22,11 @@ namespace EnemyLogic
             this.enemyScript = enemyObject.GetComponent<EnemyScript>();
         }
 
-        void Move(){
+        public void Move(){
         // Se ejecuta en el FixedUpdate(), a 100fps
 
         }
-        void NextState(){
+        public void NextState(){
         // Define las condiciones para pasar al siguiente estado
         }
     }
