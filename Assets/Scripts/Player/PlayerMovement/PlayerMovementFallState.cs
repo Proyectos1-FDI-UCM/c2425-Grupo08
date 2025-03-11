@@ -98,6 +98,7 @@ class PlayerFallState : PlayerState{
             {
                 //player.State = new WalkState;
                player.State = new PlayerWalkState(playerObject);
+               AudioManager.instance.PlayLoopingSFX(1);
             }
         }
     }

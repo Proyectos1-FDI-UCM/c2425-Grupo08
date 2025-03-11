@@ -107,6 +107,7 @@ namespace PlayerLogic
             {
                 //player.State = new JumpState;
                 player.State = new PlayerJumpState(playerObject);
+                AudioManager.instance.PlaySFX(2);
                 AudioManager.instance.StopLoopingSFX(1);
 
             }
