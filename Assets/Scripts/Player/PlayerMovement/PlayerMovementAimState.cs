@@ -73,7 +73,7 @@ public class PlayerAimState: PlayerState
             {
                     player.State = new PlayerWalkState(playerObject);
             }
-        } 
+        }
     }
 
     #endregion

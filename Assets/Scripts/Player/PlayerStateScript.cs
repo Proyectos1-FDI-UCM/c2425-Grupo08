@@ -9,7 +9,7 @@ using UnityEngine;
 namespace PlayerLogic
 {
 
-    public interface PlayerState{
+    public class PlayerState: MonoBehaviour{
         //private PlayerScript player;
 
         public void Move(){}

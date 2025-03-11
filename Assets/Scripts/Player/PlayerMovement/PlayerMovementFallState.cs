@@ -7,6 +7,7 @@
 
 using PlayerLogic;
 using UnityEngine;
+using UnityEngine.Experimental.GlobalIllumination;
 // Añadir aquí el resto de directivas using
 
 
@@ -31,14 +32,12 @@ class PlayerFallState : PlayerState{
         player = playerObject.GetComponent<PlayerScript>();
         rb = playerObject.GetComponent<Rigidbody2D>();
     }
-    Movement movement = new Movement(
-        2f, // maxSpeed
-        4f, // Acceleration
-        5f, // deceleration
-        0.2f, // decelerationThreshold
-        0f, // jumpAcceleration
-        0f  //jumpMultiplierDecay
-    );
+    [Header("FallState")]
+    [SerializeField]private float maxSpeed= 2f;
+    [SerializeField]private float acceleration= 4f;
+    [SerializeField]private float deceleration= 5f;
+    [SerializeField]private float decelerationThreshold= 0.2f;
+
     #endregion
 
     // ---- ATRIBUTOS PRIVADOS ----
@@ -79,10 +78,10 @@ class PlayerFallState : PlayerState{
     {
         if (InputManager.Instance.MovementVector.x != 0)
         {
-            joystickMaxSpeed = movement.maxSpeed * InputManager.Instance.MovementVector.x;
+            joystickMaxSpeed = maxSpeed * InputManager.Instance.MovementVector.x;
             Walk(InputManager.Instance.MovementVector.x);
         }
-        else Decelerate(movement.deceleration);
+        else Decelerate(deceleration);
     }
     public void NextState()
     {
@@ -115,11 +114,11 @@ class PlayerFallState : PlayerState{
     {
         if ((x < 0 && rb.velocity.x > 0) || (x > 0 && rb.velocity.x < 0)) // Deceleración en cambio de sentido
         {
-            Decelerate(movement.deceleration);
+            Decelerate(deceleration);
         }
         else // Aceleración en el sentido del movimiento
         {
-            rb.AddForce(new Vector2(x, 0).normalized * movement.acceleration, ForceMode2D.Force);
+            rb.AddForce(new Vector2(x, 0).normalized * acceleration, ForceMode2D.Force);
         }
 
         if (Mathf.Abs(rb.velocity.x) > Mathf.Abs(joystickMaxSpeed)) // Limitación de la velocidad
@@ -130,17 +129,17 @@ class PlayerFallState : PlayerState{
             }
             else
             {
-                Decelerate(movement.acceleration); // En el caso (nada raro) de que el joystick pase de un valor a otro más bajo del mismo signo, se frena con el valor de la aceleración
+                Decelerate(acceleration); // En el caso (nada raro) de que el joystick pase de un valor a otro más bajo del mismo signo, se frena con el valor de la aceleración
             }
         }
     }
     private void Decelerate(float decelerationValue) // Frena al jugador con la aceleración negativa indicada
     {
-        if (rb.velocity.x > movement.decelerationThreshold) // Comprobación de signo para elegir el sentido de la fuerza
+        if (rb.velocity.x > decelerationThreshold) // Comprobación de signo para elegir el sentido de la fuerza
         {
             rb.AddForce(new Vector2(-decelerationValue, 0), ForceMode2D.Force);
         }
-        else if (rb.velocity.x < -movement.decelerationThreshold)
+        else if (rb.velocity.x < -decelerationThreshold)
         {
             rb.AddForce(new Vector2(decelerationValue, 0), ForceMode2D.Force);
         }
