@@ -16,7 +16,7 @@ namespace EnemyLogic
             this.enemyObject = enemyObject;
             this.enemyScript = enemyObject.GetComponent<EnemyScript>();
         }*/
-        public void Move(){}
-        public void NextState(){}
+        public abstract void Move();
+        public abstract void NextState();
    }
 }

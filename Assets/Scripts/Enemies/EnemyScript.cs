@@ -42,7 +42,10 @@
         // primera letra en mayúsculas)
         // Ejemplo: _maxHealthPoints
         public EnemyState State { get; set; } // Contexto del estado del enemigo.
-
+        public GameObject PlayerObject{get;set;}
+        public Collider2D EnemyCollider {get; set;}
+        public Collider2D PlayerCollider {get;set;}
+        public Collider2D FlashCollider {get;set;}
         #endregion
 
         // ---- MÉTODOS DE MONOBEHAVIOUR ----
@@ -59,6 +62,10 @@
         void Start()
         {
             State = new EnemyAttackState(this.gameObject);
+            PlayerObject = GameObject.FindWithTag("Player"); // Javier esta es la cosa. No fufa.
+            EnemyCollider = this.GetComponent<Collider2D>(); // ahora todos estos componentes los tiene el enemigo defacto, es tontería que cada estado los pida.
+            PlayerCollider = PlayerObject.GetComponent<Collider2D>(); // idem
+            FlashCollider = PlayerObject.GetComponentInChildren<Collider2D>(); // idem
         }
 
         /// <summary>

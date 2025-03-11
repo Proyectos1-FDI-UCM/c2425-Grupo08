@@ -146,13 +146,13 @@ class PlayerFallState : PlayerState{
     }
     private void OnDrawGizmos()
     {
-        if (player.debug)
+ /*       if (player.debug)
         {
             Gizmos.color = Color.yellow;
             Gizmos.DrawLine(player.transform.position, player.transform.position + new Vector3(rb.velocity.x, rb.velocity.y, 0));
             Gizmos.color = Color.blue;
             Gizmos.DrawLine(player.transform.position, player.transform.position + new Vector3(InputManager.Instance.MovementVector.x, InputManager.Instance.MovementVector.y, 0));
-        }
+        }*/
     }
 
     #endregion

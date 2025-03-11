@@ -10,7 +10,7 @@ using UnityEngine;
 
 namespace EnemyLogic
 {
-    public class EnemyAttackState : EnemyState
+    class EnemyAttackState : EnemyState
     {
         // Atributos privados de inspector
 
@@ -29,24 +29,25 @@ namespace EnemyLogic
         private GameObject player;
         private Collider2D playerCollider;
         private Collider2D flashCollider;
-         
+
         private bool flashed = false;
 
         public EnemyAttackState(GameObject enemyObject)
-        {            
+        {
             this.enemyScript = enemyObject.GetComponent<EnemyScript>();
             this.enemyObject = enemyObject;
-
-            this.bodyCollider = GetComponent<Collider2D>();
-
+            //ERROR AQUÍ
+            //this.bodyCollider = GetComponent<Collider2D>(); //ERROR
             this._rb = enemyObject.GetComponent<Rigidbody2D>();
-
-            this.player = GameObject.FindWithTag("Player");
-            this.playerCollider = player.GetComponent<Collider2D>();
-            this.flashCollider = player.GetComponentInChildren<Collider2D>();
+            this.bodyCollider = enemyScript.EnemyCollider;
+            this.playerCollider = enemyScript.PlayerCollider;
+            this.flashCollider = enemyScript.FlashCollider;
+            this.player =  enemyScript.PlayerObject;
+            //this.playerCollider = player.GetComponent<Collider2D>(); //error
+            //this.flashCollider = player.GetComponentInChildren<Collider2D>(); //error
         }
 
-        // MonoBehaviour 
+        // MonoBehaviour
 
         private void OnTriggerEnter2D(Collider2D collision)
         {
@@ -65,11 +66,11 @@ namespace EnemyLogic
         }
 
         // Métodos públicos
-        public void Move()
-        { 
+        override public void Move()
+        {
             // Se ejecuta en el FixedUpdate(), a fps
-            if (player != null)
-            {
+            //if (player != null)
+            //{
                 // Calcula la dirección hacia el jugador
                 Vector2 direction = (player.transform.position - transform.position).normalized;
                 _rb.velocity = direction * PerserSpeed;
@@ -89,8 +90,8 @@ namespace EnemyLogic
                 float newAngle = Mathf.MoveTowardsAngle(currentAngle, targetAngle, rotateSpeed * Time.deltaTime);
                 transform.rotation = Quaternion.Euler(0f, 0f, newAngle);
             }
-        }
-        public void NextState()
+        //}
+        override public void NextState()
         {
             // Define las condiciones para pasar al siguiente estado
             if (flashed)

@@ -10,23 +10,23 @@ using UnityEngine;
 
 namespace EnemyLogic
 {
-    public class State : EnemyState{
+    class TemplateState : EnemyState{
         // Atributos privados de inspector
 
         // Atributos privados
         private GameObject enemyObject;
         private EnemyScript enemyScript;
 
-        State(GameObject enemyObject){
+        public TemplateState(GameObject enemyObject){
             this.enemyObject = enemyObject;
             this.enemyScript = enemyObject.GetComponent<EnemyScript>();
+            Debug.Log("State: Template");
         }
-
-        public void Move(){
+        override public void Move(){
         // Se ejecuta en el FixedUpdate(), a 100fps
-
+            Debug.Log("Moving Template");
         }
-        public void NextState(){
+        override public void NextState(){
         // Define las condiciones para pasar al siguiente estado
         }
     }
