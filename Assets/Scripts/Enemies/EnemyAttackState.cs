@@ -32,10 +32,10 @@ namespace EnemyLogic
 
         private bool flashed = false;
 
-        public EnemyAttackState(GameObject enemyObject)
+        public void Start()
         {
-            this.enemyScript = enemyObject.GetComponent<EnemyScript>();
-            this.enemyObject = enemyObject;
+            this.enemyScript = GetComponentInParent<EnemyScript>();
+            this.enemyObject = enemyScript.gameObject;
             //ERROR AQUÍ
             //this.bodyCollider = GetComponent<Collider2D>(); //ERROR
             this._rb = enemyObject.GetComponent<Rigidbody2D>();
@@ -45,6 +45,7 @@ namespace EnemyLogic
             this.player =  enemyScript.PlayerObject;
             //this.playerCollider = player.GetComponent<Collider2D>(); //error
             //this.flashCollider = player.GetComponentInChildren<Collider2D>(); //error
+            Debug.Log("a");
         }
 
         // MonoBehaviour
