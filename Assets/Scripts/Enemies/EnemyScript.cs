@@ -61,7 +61,7 @@
         /// </summary>
         void Start()
         {
-            State = new EnemyAttackState(this.gameObject);
+            State = gameObject.AddComponent<EnemyAttackState>();
             PlayerObject = GameObject.FindGameObjectWithTag("Player"); ; // Javier esta es la cosa. No fufa.
 
             Debug.Log("PlayerObject: " + PlayerObject);
