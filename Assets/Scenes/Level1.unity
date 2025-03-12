@@ -381,6 +381,10 @@ PrefabInstance:
       value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 4110250732275042765, guid: 14f9a60f945227044bb05c2b5d076f5b, type: 3}
+      propertyPath: maxOxigen
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 4110250732275042765, guid: 14f9a60f945227044bb05c2b5d076f5b, type: 3}
       propertyPath: oxigenText
       value: 
       objectReference: {fileID: 22409871}

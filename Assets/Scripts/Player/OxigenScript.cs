@@ -124,8 +124,7 @@ public class OxigenScript : MonoBehaviour
     private void Death()
     {
         Destroy(gameObject);
-        AudioManager.instance.StopLoopingSFX(0);
-        AudioManager.instance.StopLoopingSFX(1);
+        AudioManager.instance.StopSFX(0);
         AudioManager.instance.PlaySFX(4);
     }
     #endregion
