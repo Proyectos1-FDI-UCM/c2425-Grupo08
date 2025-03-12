@@ -7,6 +7,7 @@
 
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.VFX;
 // Añadir aquí el resto de directivas using
 
 
@@ -22,6 +23,13 @@ using UnityEngine.UI;
 
 public class UiManager : MonoBehaviour
 {
+    /// <summary>
+    /// Instancia unica de UiManager
+    /// </summary>
+    
+    public static UiManager Instance { get; private set; }
+
+
     // ---- ATRIBUTOS DEL INSPECTOR ----
     #region Atributos del Inspector (serialized fields)
     // Documentar cada atributo que aparece aquí.
@@ -33,9 +41,13 @@ public class UiManager : MonoBehaviour
     #endregion
 
     // Referencia de imagen de la barrade oxigeno (lo usare un circulo)
-    [SerializeField] private Image OxygenCircle;
+    [SerializeField] private RectTransform OxygenCircle;
 
+    // Tamaño maximo cuando el oxigeno esta el 100%
+    [SerializeField] private float MaxCircleSize = 100f;
 
+    // Tamaño mimido cuando el oxigeno esta al 0%
+    [SerializeField] private float MinCircleSize = 0f;
 
 
     // ---- ATRIBUTOS PRIVADOS ----
@@ -64,8 +76,7 @@ public class UiManager : MonoBehaviour
     {
         if (OxygenCircle == null)
         {
-            // Inicializa el fillamount a 1, para representar que esta 100%
-            OxygenCircle.fillAmount = 1f;
+            OxygenCircle.sizeDelta = new Vector2(MaxCircleSize, MaxCircleSize);
         }
     }
 
@@ -76,6 +87,21 @@ public class UiManager : MonoBehaviour
     {
         
     }
+
+    private void Awake()
+    {
+        if (Instance != null && Instance != null)
+        {
+            Destroy(gameObject);
+           
+        }
+        else
+        {
+            Instance = this;
+        }
+    }
+
+
     #endregion
 
     // ---- MÉTODOS PÚBLICOS ----
@@ -87,7 +113,7 @@ public class UiManager : MonoBehaviour
     // Ejemplo: GetPlayerController
 
     #endregion
-    
+
     /// <summary>
     /// Atualiza el medidor de oxigeno haceindo que el circulo se vacie gradualmente
     /// </summary>
@@ -96,8 +122,10 @@ public class UiManager : MonoBehaviour
     public void UpdateOxygenUI(float OxigenPercentage)
     {
         if (OxygenCircle == null) return;
-        // Atualiza el fillAmaunt del componetne de la imagen
-        OxygenCircle.fillAmount = OxigenPercentage;
+        
+        // Interpolamos entre tamaño minimo y maximo
+        float newSize = Mathf.Lerp(MinCircleSize, MaxCircleSize, OxigenPercentage);
+        OxygenCircle.sizeDelta = new Vector2(newSize, newSize);
     }
 
     // ---- MÉTODOS PRIVADOS ----

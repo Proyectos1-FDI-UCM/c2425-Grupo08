@@ -319,7 +319,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b1786c0646b3229489c37406bfb8ce17, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  OxygenCircle: {fileID: 1756801225}
+  OxygenCircle: {fileID: 1756801224}
+  MaxCircleSize: 100
+  MinCircleSize: 0
 --- !u!1001 &140798087
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2305,14 +2307,14 @@ RectTransform:
   m_GameObject: {fileID: 1756801223}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 18.3}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.52273, y: 0.52273, z: 0.52273}
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 69859735}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 128.4, y: -26.400024}
+  m_AnchoredPosition: {x: 124.6, y: -26.400024}
   m_SizeDelta: {x: 56.4164, y: 54.6188}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1756801225

@@ -171,16 +171,16 @@ public class GameManager : MonoBehaviour
     /// </summary>
     /// <param name="OxygenPorcentage">Porcentaje de oxigeno</param>
 
-    public void UpdateOxygenGM (float oxigenPercentage)
+    public void UpdateOxygenGM (float oxygenPercentage)
     {
-        // Se busca el UiManager en la escena actual
-        UiManager uiManager = FindObjectOfType<UiManager>();
-        if (uiManager != null)
+
+        if (UiManager.Instance != null)
         {
-            uiManager.UpdateOxygenUI(oxigenPercentage);
+            UiManager.Instance.UpdateOxygenUI(oxygenPercentage);
         }
     }
     #endregion
+
 
     #endregion
 
