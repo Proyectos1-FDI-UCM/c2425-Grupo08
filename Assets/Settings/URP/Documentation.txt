@@ -1,0 +1,19 @@
+## Documentación
+
+**Añadir Luces a la Escena: **Clic derecho en el Hierarchy, ve a *Light* y elige el tipo de luz **2D** que prefieras (Global, Point, Spot o Freeform).
+
+**Tipos de luz: **
+-Global: Ilumina todo(absolutamente todo).
+-Spot: es una luz de punto, es la más versátil (es con la que he hecho la linterna)
+- Freeform: Te permite dibujar una forma con puntos y hacer que esa forma sea la luz (está guay supongo).
+
+**Para proyectar sombras: **Añade al objeto correspondiente el componente **"ShadowCaster2D"**
+
+**Tipos de sombras: **
+-Cast Shadow: Marca esta casilla para que el objeto en cuestión haga una sombra.
+- Self Shadow: Por si quieres que tu objeto proyecte una sombra y además también tenga la suya propia (que se vea oscuro).
+
+**Cosas que tener en cuenta: **
+-Si la luz que ilumina el objeto que tenga un shadowcaster2D no tiene marcada (en su componente de Light2D) la casilla de Shadows > Strength (y este tiene un valor medianamente visible), la sombra del objeto no será visible (no se producirá vaya).
+- Se puede manipular el contorno de sombra de cualquier objeto desmarcando la casilla de "Use Render Silhouette" de su componente ShadowCaster2D.
+- Se puede cambiar la forma de la sombra (o de lo que crea sombra) de un objeto desde el botón de "Edit Shape" del componente ShadowCaster2D de dicho objeto.

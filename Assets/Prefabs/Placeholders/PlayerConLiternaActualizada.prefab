@@ -54,7 +54,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -174,7 +174,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -351,18 +351,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 60bf43236dbedd441b95201c4f161760, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player: {fileID: 3487877536795823580}
-  radius: 0.5
-  beamObject: {fileID: 7164356638061056536}
   beamGrowSpeed: 7
   maxBeamLength: 5
   minBeamWidth: 1
   flashCooldown: 5
---- !u!1 &7164356638061056536 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 8155076209313739404, guid: 830186e6762b0614eaeecb33fab35c43, type: 3}
-  m_PrefabInstance: {fileID: 1315137942875086996}
-  m_PrefabAsset: {fileID: 0}
+  inputDeadzone: 0
+  playerSprite: {fileID: 0}
 --- !u!4 &8130856916522629790 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7104100435311385098, guid: 830186e6762b0614eaeecb33fab35c43, type: 3}
