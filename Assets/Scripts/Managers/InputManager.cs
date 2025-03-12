@@ -74,6 +74,8 @@ public class InputManager : MonoBehaviour
 
     private InputAction _flash;
 
+    private InputAction _interact;
+
     // Del UI
     private InputAction _return;
 
@@ -217,6 +219,10 @@ public class InputManager : MonoBehaviour
         return _jump.WasPressedThisFrame();
     }
 
+    public bool InteractWasPressedThisFrame()
+    {
+        return _interact.WasPressedThisFrame();
+    }
 
     public bool JumpWasRealeasedThisFrame()
     {
@@ -278,6 +284,8 @@ public class InputManager : MonoBehaviour
         _focus = _theController.Player.Focus;
 
         _flash = _theController.Player.Flash;
+
+        _interact = _theController.Player.Interact;
 
         // Del UI
         _return = _theController.UI.Return;
