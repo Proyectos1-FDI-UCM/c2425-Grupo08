@@ -43,6 +43,9 @@ public class GameManager : MonoBehaviour
     /// </summary>
     private static GameManager _instance;
 
+    // Nuevo
+    private UiManager uiManager;
+
     #endregion
 
     // ---- MÉTODOS DE MONOBEHAVIOUR ----
@@ -181,6 +184,14 @@ public class GameManager : MonoBehaviour
     }
     #endregion
 
+    #region Metodo para UiManager
+
+    public void InitializeUI(UiManager uiManager)
+    {
+        this.uiManager = uiManager;
+    }
+
+    #endregion
 
     #endregion
 

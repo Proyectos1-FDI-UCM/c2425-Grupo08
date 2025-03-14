@@ -78,6 +78,13 @@ public class UiManager : MonoBehaviour
         {
             OxygenCircle.sizeDelta = new Vector2(MaxCircleSize, MaxCircleSize);
         }
+
+        // Se pasa al GameMAnager para evitar asignaciones manuales
+
+        if (GameManager.Instance != null)
+        {
+            GameManager.Instance.InitializeUI(this);
+        }
     }
 
     /// <summary>
