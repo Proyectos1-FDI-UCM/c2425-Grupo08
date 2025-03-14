@@ -74,7 +74,7 @@ public class UiManager : MonoBehaviour
     /// </summary>
     void Start()
     {
-        if (OxygenCircle == null)
+        if (OxygenCircle != null)
         {
             OxygenCircle.sizeDelta = new Vector2(MaxCircleSize, MaxCircleSize);
         }
@@ -97,7 +97,7 @@ public class UiManager : MonoBehaviour
 
     private void Awake()
     {
-        if (Instance != null && Instance != null)
+        if (Instance != null && Instance != this)
         {
             Destroy(gameObject);
            

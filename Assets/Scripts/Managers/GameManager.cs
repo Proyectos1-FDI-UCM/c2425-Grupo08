@@ -173,6 +173,7 @@ public class GameManager : MonoBehaviour
     /// REcibe un porcentaje de oxigeno (entre 0 y 1) y se lo envia al UiManager
     /// </summary>
     /// <param name="OxygenPorcentage">Porcentaje de oxigeno</param>
+   
 
     public void UpdateOxygenGM (float oxygenPercentage)
     {
@@ -182,6 +183,10 @@ public class GameManager : MonoBehaviour
             UiManager.Instance.UpdateOxygenUI(oxygenPercentage);
         }
     }
+
+
+
+
     #endregion
 
     #region Metodo para UiManager
