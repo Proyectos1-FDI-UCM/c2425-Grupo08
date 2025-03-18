@@ -15,7 +15,7 @@ using UnityEngine;
 /// Antes de cada class, descripción de qué es y para qué sirve,
 /// usando todas las líneas que sean necesarias.
 /// </summary>
-public class EnemigEscape : MonoBehaviour
+public class EnemyFleeState : MonoBehaviour
 {
     // ---- ATRIBUTOS DEL INSPECTOR ----
     #region Atributos del Inspector (serialized fields)
@@ -96,9 +96,6 @@ void Start()
         _fleeStartTime = Time.time; // Guardamos el tiempo de inicio de la huida
         //Debug.Log("Modo huida activado.");
 
-        // Ejecutar la rotación 180 grados después de un retraso
-        StartCoroutine(RotateYAfterDelay(rotationDelay));
-
         // Ejecutamos la duración de la huida
         StartCoroutine(FleeDuration());
 
@@ -140,6 +137,10 @@ void Start()
             transform.localScale = new Vector3(1, 1, 1);
         }
 
+        //Rotación vertical
+        float angle = Mathf.Atan2(fleeDirection.y, fleeDirection.x) * Mathf.Rad2Deg;
+
+        transform.rotation = Quaternion.Euler(0, 0, angle);
 
         // Asignamos la velocidad de huida
         _rb.velocity = fleeDirection * fleeSpeed;
@@ -153,41 +154,7 @@ void Start()
     }
 
     // Método para rotar el enemigo 180 grados después de un retraso
-    private IEnumerator RotateYAfterDelay(float delay)
-    {
-        yield return new WaitForSeconds(delay);
-
-
-        // Calculamos la dirección del jugador respecto al enemigo
-        Vector2 directionToPlayer = playerTransform.position - transform.position;
-
-        // Controla el flip horizontal (izquierda o derecha)
-        if (directionToPlayer.x > 0)
-        {
-            // El jugador está a la derecha, por lo que el sprite debe mirar a la izquierda
-            spriteRenderer.flipX = true;
-        }
-        else
-        {
-            // El jugador está a la izquierda, por lo que el sprite debe mirar a la derecha
-            spriteRenderer.flipX = false;
-        }
-
-        // Controla el flip vertical (arriba o abajo)
-        if (directionToPlayer.y > 0)
-        {
-            // El jugador está por encima, el sprite debe mirar hacia abajo
-            transform.localScale = new Vector3(transform.localScale.x, -1, 1);  // Voltea el sprite en el eje Y
-        }
-        else
-        {
-            // El jugador está por debajo, el sprite debe mirar hacia arriba
-            transform.localScale = new Vector3(transform.localScale.x, 1, 1);  // Mantiene el sprite mirando hacia arriba
-        }
-
-        //Debug.Log("flipX: " + spriteRenderer.flipX + ", localScaleY: " + transform.localScale.y);
-
-}
+   
 
     // Método que destruye el enemigo después de un tiempo de huida
     private IEnumerator FleeDuration()
