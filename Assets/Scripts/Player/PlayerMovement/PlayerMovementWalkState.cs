@@ -142,8 +142,8 @@ namespace PlayerLogic
             else // Aceleración en el sentido del movimiento
             {
             Debug.Log("moviendose");
-                //rb.AddForce(new Vector2(x, 0).normalized * acceleration, ForceMode2D.Force);
-                rb.AddForce(new Vector2(100,100));
+                rb.AddForce(new Vector2(x, 0).normalized * acceleration, ForceMode2D.Force);
+                //rb.AddForce(new Vector2(100,100));
             }
 
             if (Mathf.Abs(player.rb.velocity.x) > Mathf.Abs(joystickMaxSpeed)) // Limitación de la velocidad
