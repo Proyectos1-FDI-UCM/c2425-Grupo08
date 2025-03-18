@@ -8,7 +8,7 @@
 using EnemyLogic;
 using UnityEngine;
 
-namespace PlayerLogic
+/*namespace PlayerLogic
 {
     class State : PlayerState{
 
@@ -25,3 +25,4 @@ namespace PlayerLogic
         }
     }
 }
+*/

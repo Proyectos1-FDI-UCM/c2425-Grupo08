@@ -36,7 +36,7 @@ public class EnemigEscape : MonoBehaviour
     [SerializeField] private Transform playerTransform; // referencia de transform del jugador
     [SerializeField] private SpriteRenderer spriteRenderer; // Para girar el sprite
     [SerializeField] private Collider2D flashCollider;
-    
+
 
 
 
@@ -44,8 +44,8 @@ public class EnemigEscape : MonoBehaviour
     #region Atributos Privados (private fields)
     // Documentar cada atributo que aparece aquí.
     // El convenio de nombres de Unity recomienda que los atributos
-    // privados se nombren en formato _camelCase (comienza con _, 
-    // primera palabra en minúsculas y el resto con la 
+    // privados se nombren en formato _camelCase (comienza con _,
+    // primera palabra en minúsculas y el resto con la
     // primera letra en mayúsculas)
     // Ejemplo: _maxHealthPoints
 
@@ -60,14 +60,14 @@ public class EnemigEscape : MonoBehaviour
 void Start()
     {
         _rb = GetComponent<Rigidbody2D>();
-     
+
     }
 
     /// <summary>
-    /// Start is called on the frame when a script is enabled just before 
+    /// Start is called on the frame when a script is enabled just before
     /// any of the Update methods are called the first time.
     /// </summary>
-  
+
 
     /// <summary>
     /// Update is called every frame, if the MonoBehaviour is enabled.
@@ -94,7 +94,7 @@ void Start()
     public void Move()
     {
         _fleeStartTime = Time.time; // Guardamos el tiempo de inicio de la huida
-        Debug.Log("Modo huida activado.");
+        //Debug.Log("Modo huida activado.");
 
         // Ejecutar la rotación 180 grados después de un retraso
         StartCoroutine(RotateYAfterDelay(rotationDelay));
@@ -114,7 +114,7 @@ void Start()
 
 
     // ---- MÉTODOS PRIVADOS ----
-    #region Métodos Privados 
+    #region Métodos Privados
     // Método que activa la huida y aplica todo el comportamiento de movimiento
     private void Flee()
     {
@@ -127,7 +127,7 @@ void Start()
             Vector3 currentEuler = transform.eulerAngles;
             currentEuler.y += 180f;  // Giro de 180 grados en el eje Y
             transform.eulerAngles = currentEuler;
-            Debug.Log("Rotación en Y aplicada. Nueva rotación Y: " + transform.eulerAngles.y);
+            //Debug.Log("Rotación en Y aplicada. Nueva rotación Y: " + transform.eulerAngles.y);
         }
 
         // Ajustamos la dirección del sprite según la huida
@@ -147,7 +147,7 @@ void Start()
         // Destruimos el objeto después de un tiempo determinado (escapeDuracion)
         if (Time.time - _fleeStartTime >= escapeDuracion)
         {
-            Debug.Log("El enemigo ha dejado de huir.");
+            //Debug.Log("El enemigo ha dejado de huir.");
             Destroy(gameObject);
         }
     }
@@ -156,7 +156,7 @@ void Start()
     private IEnumerator RotateYAfterDelay(float delay)
     {
         yield return new WaitForSeconds(delay);
-     
+
 
         // Calculamos la dirección del jugador respecto al enemigo
         Vector2 directionToPlayer = playerTransform.position - transform.position;
@@ -185,16 +185,16 @@ void Start()
             transform.localScale = new Vector3(transform.localScale.x, 1, 1);  // Mantiene el sprite mirando hacia arriba
         }
 
-        Debug.Log("flipX: " + spriteRenderer.flipX + ", localScaleY: " + transform.localScale.y);
-    
+        //Debug.Log("flipX: " + spriteRenderer.flipX + ", localScaleY: " + transform.localScale.y);
+
 }
 
     // Método que destruye el enemigo después de un tiempo de huida
-    private IEnumerator FleeDuration() 
+    private IEnumerator FleeDuration()
     {
         yield return new WaitForSeconds(escapeDuracion);
       Destroy(gameObject);
-        Debug.Log("El enemigo ha dejado de huir.");
+        //Debug.Log("El enemigo ha dejado de huir.");
     }
 
     // Documentar cada método que aparece aquí
@@ -206,5 +206,5 @@ void Start()
 
 
 
-} // class EnemigEscape 
+} // class EnemigEscape
 // namespace

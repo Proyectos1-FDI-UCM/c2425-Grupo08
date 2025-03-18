@@ -5,6 +5,7 @@
 // Proyectos 1 - Curso 2024-25
 //---------------------------------------------------------
 
+using System;
 using PlayerLogic;
 using UnityEngine;
 using UnityEngine.Experimental.GlobalIllumination;
@@ -26,9 +27,8 @@ class PlayerFallState : PlayerState{
     // (palabras con primera letra mayúscula, incluida la primera letra)
     // Ejemplo: MaxHealthPoints
     private PlayerScript player;
-    private GameObject playerObject;
+    public GameObject playerObject;
     public PlayerFallState(GameObject playerObject){
-        this.playerObject = playerObject;
         player = playerObject.GetComponent<PlayerScript>();
         rb = playerObject.GetComponent<Rigidbody2D>();
     }
@@ -74,7 +74,13 @@ class PlayerFallState : PlayerState{
     // se nombren en formato PascalCase (palabras con primera letra
     // mayúscula, incluida la primera letra)
     // Ejemplo: GetPlayerController
-    public void Move()
+    void Start()
+    {
+            playerObject = gameObject;
+            player = playerObject.GetComponent<PlayerScript>();
+            rb = playerObject.GetComponent<Rigidbody2D>();
+    }
+    override public void Move()
     {
         if (InputManager.Instance.MovementVector.x != 0)
         {
@@ -83,20 +89,25 @@ class PlayerFallState : PlayerState{
         }
         else Decelerate(deceleration);
     }
-    public void NextState()
+    override public void SetPlayer(GameObject player){
+            playerObject = player;
+    }
+    override public void NextState()
     {
+        //Debug.Log(rb);
+        //Debug.Log(playerObject);
         if (rb.velocity.y == 0)
         {
             AudioManager.instance.PlaySFX(3);
             if (rb.velocity.x == 0)
             {
                 //player.State = new IdleState;
-                player.State = new PlayerIdleState(playerObject);
+                player.State = gameObject.AddComponent<PlayerIdleState>();
             }
             else
             {
                 //player.State = new WalkState;
-               player.State = new PlayerWalkState(playerObject);
+               player.State = gameObject.AddComponent<PlayerWalkState>();
                AudioManager.instance.PlayLoopingSFX(1);
             }
         }

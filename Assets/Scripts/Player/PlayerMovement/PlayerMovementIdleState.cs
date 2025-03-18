@@ -5,6 +5,7 @@
 // Proyectos 1 - Curso 2024-25
 //---------------------------------------------------------
 
+using UnityEditorInternal;
 using UnityEngine;
 // Añadir aquí el resto de directivas using
 
@@ -26,10 +27,12 @@ namespace PlayerLogic
         // Ejemplo: _maxHealthPoints
         #endregion
         private PlayerScript player;
-        private GameObject playerObject;
+        public GameObject playerObject;
+
+        //private PlayerScript player;
+        //private GameObject playerObject;
         private Rigidbody2D rb;
         public PlayerIdleState(GameObject playerObject){
-            this.playerObject = playerObject;
             player = playerObject.GetComponent<PlayerScript>();
             rb = playerObject.GetComponent<Rigidbody2D>();
         }
@@ -42,38 +45,47 @@ namespace PlayerLogic
         // se nombren en formato PascalCase (palabras con primera letra
         // mayúscula, incluida la primera letra)
         // Ejemplo: GetPlayerController
-        public void Move()
+        void Start()
         {
-
+            playerObject = gameObject;
+            player = playerObject.GetComponent<PlayerScript>();
+            rb = playerObject.GetComponent<Rigidbody2D>();
         }
-         public void NextState() {
+        override public void SetPlayer(GameObject player){
+            playerObject = player;
+        }
+        override public void Move()
+        {
+        }
+         override public void NextState() {
 
-            Debug.Log("State: Idle");
+            //Debug.Log(playerObject);
+            //Debug.Log(player);
+
             if (InputManager.Instance.MovementVector.x != 0)
             {
                 //player.State = new WalkState;
-                player.State = new PlayerWalkState(playerObject);
+                player.State = gameObject.AddComponent<PlayerWalkState>();
                 AudioManager.instance.PlayLoopingSFX(1);
+
             }
             else if (player.rb.velocity.y < 0)
 
             {
                 //player.State = new FallState;
-                player.State = new PlayerFallState(playerObject);
+                player.State = gameObject.AddComponent<PlayerFallState>();
             }
             else if (InputManager.Instance.JumpWasPressedThisFrame())
             {
                 //player.State = new JumpState;
-                player.State = new PlayerJumpState(playerObject);
+
+                player.State = gameObject.AddComponent<PlayerJumpState>();
                 AudioManager.instance.PlaySFX(2);
             }
             else if (player.isLanternAimed)
             {
-                player.State = new PlayerAimState(playerObject);
+                player.State = gameObject.AddComponent<PlayerAimState>();
             }
-        }
-        public void test(){
-            Debug.Log("Test");
         }
         #endregion
 

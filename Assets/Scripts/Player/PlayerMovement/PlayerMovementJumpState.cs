@@ -53,6 +53,12 @@ class PlayerJumpState: PlayerState
         player = playerObject.GetComponent<PlayerScript>();
         rb = playerObject.GetComponent<Rigidbody2D>();
     }
+    void Start()
+    {
+            playerObject = gameObject;
+            player = playerObject.GetComponent<PlayerScript>();
+            rb = playerObject.GetComponent<Rigidbody2D>();
+    }
     #endregion
 
     // ---- MÉTODOS DE MONOBEHAVIOUR ----
@@ -75,7 +81,7 @@ class PlayerJumpState: PlayerState
     // se nombren en formato PascalCase (palabras con primera letra
     // mayúscula, incluida la primera letra)
     // Ejemplo: GetPlayerController
-    public void Move()
+    override public void Move()
     {
         if (InputManager.Instance.JumpWasRealeasedThisFrame())
         {
@@ -94,12 +100,15 @@ class PlayerJumpState: PlayerState
         }
         else Decelerate(deceleration);
     }
-    public void NextState()
+        override public void SetPlayer(GameObject player){
+            playerObject = player;
+        }
+    override public void NextState()
     {
         if (player.rb.velocity.y < 0)
         {
             //player.State = new FallState;
-            player.State = new PlayerFallState(playerObject);
+            player.State = gameObject.AddComponent<PlayerFallState>();
         }
     }
 

@@ -64,7 +64,7 @@
             State = gameObject.AddComponent<EnemyAttackState>();
             PlayerObject = GameObject.FindGameObjectWithTag("Player"); ; // Javier esta es la cosa. No fufa.
 
-            Debug.Log("PlayerObject: " + PlayerObject);
+            //Debug.Log("PlayerObject: " + PlayerObject);
 
             EnemyCollider = this.GetComponent<Collider2D>(); // ahora todos estos componentes los tiene el enemigo defacto, es tontería que cada estado los pida.
             PlayerCollider = PlayerObject.GetComponent<Collider2D>(); // idem

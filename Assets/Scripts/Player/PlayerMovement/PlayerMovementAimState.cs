@@ -57,11 +57,14 @@ public class PlayerAimState: PlayerState
     // se nombren en formato PascalCase (palabras con primera letra
     // mayúscula, incluida la primera letra)
     // Ejemplo: GetPlayerController
-    public void Move()
+    override public void Move()
     {
 
     }
-    public void NextState()
+    override public void SetPlayer(GameObject player){
+            playerObject = player;
+    }
+    override public void NextState()
     {
         if (!player.isLanternAimed)
         {

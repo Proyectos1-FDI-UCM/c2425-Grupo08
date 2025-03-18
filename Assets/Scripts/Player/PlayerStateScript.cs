@@ -9,11 +9,12 @@ using UnityEngine;
 namespace PlayerLogic
 {
 
-    public class PlayerState: MonoBehaviour{
+    public abstract class PlayerState: MonoBehaviour{
         //private PlayerScript player;
-
-        public void Move(){}
-        public void NextState(){}
+        private GameObject playerObject ;
+        public abstract void Move();
+        public abstract void NextState();
+        public abstract void SetPlayer(GameObject player);
 
     }
 }

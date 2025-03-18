@@ -74,17 +74,20 @@ public struct Movement{
         void Start()
         {
             rb = GetComponent<Rigidbody2D>();
-            State = new PlayerIdleState(this.gameObject);
-            Debug.Log("Player Starts");
-            Debug.Log("State: " + State);
+            State = gameObject.AddComponent<PlayerIdleState>();
+            State.SetPlayer(this.gameObject);
+            print(GetComponent<GameObject>());
+            //Debug.Log("Player Starts");
+            //Debug.Log("State: " + State);
         }
 
         /// <summary>
         /// Update is called every frame, if the MonoBehaviour is enabled.
-        /// </summary>
+        /// </summary>:
         public void Update()
         {
             State.NextState();
+            //Debug.Log(State);
         }
         public void FixedUpdate()
         {

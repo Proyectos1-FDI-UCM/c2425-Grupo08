@@ -88,14 +88,14 @@ public class EnemigAtack : EnemyState
         // 1) Si el jugador entra en la visión => activar ataque
         if (collision.gameObject == playerCollider)
         {
-            Debug.Log("Jugador detectado => atacar");
+            //Debug.Log("Jugador detectado => atacar");
 
             // Desactiva la patrulla (EnemyRouteScript), si existe
             EnemyRouteScript route = GetComponent<EnemyRouteScript>();
             if (route != null)
             {
                 route.enabled = false;
-                Debug.Log("EnemyRouteScript desactivado.");
+                //Debug.Log("EnemyRouteScript desactivado.");
             }
         }
         // 2) Si el flash choca => verificar si toca el cuerpo
@@ -104,7 +104,7 @@ public class EnemigAtack : EnemyState
             // Usamos IsTouching para confirmar que el flash choca con el cuerpo, no con la visión
             if (bodyCollider.IsTouching(flashCollider))
             {
-                Debug.Log("El flash iluminó el cuerpo => desactivar ataque y apagar visión.");
+                //Debug.Log("El flash iluminó el cuerpo => desactivar ataque y apagar visión.");
 
                 //DisableVisionCollider();
 
