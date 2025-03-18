@@ -70,22 +70,10 @@ namespace EnemyLogic
         override public void Move()
         {
             Vector2 direction = (player.transform.position - transform.position).normalized;
+
+            transform.rotation = Quaternion.Euler(0, 0, Mathf.Rad2Deg * Mathf.Atan2(direction.y, direction.x)); 
+
             _rb.velocity = direction * PerserSpeed;
-
-            transform.LookAt(direction);
-
-            // Calcula el ángulo deseado usando Atan2
-            float targetAngle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
-            if (spriteLooksUp)
-            {
-                // Si el sprite está diseñado para apuntar hacia arriba, ajustamos el ángulo restando 90°
-                targetAngle -= 90f;
-            }
-
-            // Interpola suavemente el ángulo actual hacia el ángulo objetivo
-            float currentAngle = transform.eulerAngles.z;
-            float newAngle = Mathf.MoveTowardsAngle(currentAngle, targetAngle, rotateSpeed * Time.deltaTime);
-            transform.rotation = Quaternion.Euler(0f, 0f, newAngle);
         }
         //}
         override public void NextState()
