@@ -77,7 +77,7 @@ namespace EnemyLogic
 
             _rb.velocity = direction * PerserSpeed;
         }
-        //}
+        
         override public void NextState()
         {
             // Define las condiciones para pasar al siguiente estado
