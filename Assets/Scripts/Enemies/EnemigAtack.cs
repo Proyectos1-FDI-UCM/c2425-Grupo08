@@ -5,6 +5,7 @@
 // Proyectos 1 - Curso 2024-25
 //---------------------------------------------------------
 
+using EnemyLogic;
 using PlayerLogic;
 using System.Collections;
 
@@ -16,7 +17,7 @@ using UnityEngine;
 /// Antes de cada class, descripción de qué es y para qué sirve,
 /// usando todas las líneas que sean necesarias.
 /// </summary>
-public class EnemigAtack : MonoBehaviour
+public class EnemigAtack : EnemyState
 {
     // ---- ATRIBUTOS DEL INSPECTOR ----
     #region Atributos del Inspector (serialized fields)
@@ -37,8 +38,8 @@ public class EnemigAtack : MonoBehaviour
     #region Atributos Privados (private fields)
     // Documentar cada atributo que aparece aquí.
     // El convenio de nombres de Unity recomienda que los atributos
-    // privados se nombren en formato _camelCase (comienza con _, 
-    // primera palabra en minúsculas y el resto con la 
+    // privados se nombren en formato _camelCase (comienza con _,
+    // primera palabra en minúsculas y el resto con la
     // primera letra en mayúsculas)
     // Ejemplo: _maxHealthPoints
 
@@ -60,10 +61,10 @@ public class EnemigAtack : MonoBehaviour
 
     // Por defecto están los típicos (Update y Start) pero:
     // - Hay que añadir todos los que sean necesarios
-    // - Hay que borrar los que no se usen 
+    // - Hay que borrar los que no se usen
 
     /// <summary>
-    /// Start is called on the frame when a script is enabled just before 
+    /// Start is called on the frame when a script is enabled just before
     /// any of the Update methods are called the first time.
     /// </summary>
     void Start()
@@ -81,16 +82,12 @@ public class EnemigAtack : MonoBehaviour
     /// <summary>
     /// Update is called every frame, if the MonoBehaviour is enabled.
     /// </summary>
-    void Update()
-    {
-        Move();
-    }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
         // 1) Si el jugador entra en la visión => activar ataque
         if (collision.gameObject == playerCollider)
-        {                                  
+        {
             Debug.Log("Jugador detectado => atacar");
 
             // Desactiva la patrulla (EnemyRouteScript), si existe
@@ -99,7 +96,7 @@ public class EnemigAtack : MonoBehaviour
             {
                 route.enabled = false;
                 Debug.Log("EnemyRouteScript desactivado.");
-            }                   
+            }
         }
         // 2) Si el flash choca => verificar si toca el cuerpo
         else if (collision.gameObject == flashCollider)
@@ -114,7 +111,7 @@ public class EnemigAtack : MonoBehaviour
                 // (Opcional) deshabilitar este script para que no retome la persecución
                 // this.enabled = false;
             }
-        }       
+        }
     }
     /*private void OnTriggerExit2D(Collider2D collision)
     {
@@ -155,7 +152,7 @@ public class EnemigAtack : MonoBehaviour
         this.enabled = true;
         Debug.Log("Ataque reactivado tras " + seconds + " seg");
     }*/
-    
+
     // Método para desactivar el collider de visión.
     /*public void DisableVisionCollider()
     {
@@ -189,7 +186,7 @@ public class EnemigAtack : MonoBehaviour
     // mayúscula, incluida la primera letra)
     // Ejemplo: GetPlayerController
 
-    public void Move()
+    override public void Move()
     {
         if (player != null)
         {
@@ -213,7 +210,7 @@ public class EnemigAtack : MonoBehaviour
             transform.rotation = Quaternion.Euler(0f, 0f, newAngle);
         }
     }
-    public void NextState()
+    override public void NextState()
     {
         if (flashed)
         {
@@ -232,5 +229,5 @@ public class EnemigAtack : MonoBehaviour
 
     #endregion
 
-} // class EnemigAtack 
+} // class EnemigAtack
 // namespace

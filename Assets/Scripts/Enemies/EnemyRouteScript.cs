@@ -6,6 +6,7 @@
 //---------------------------------------------------------
 
 
+using EnemyLogic;
 using UnityEngine;
 // Añadir aquí el resto de directivas using
 
@@ -14,7 +15,7 @@ using UnityEngine;
 /// Antes de cada class, descripción de qué es y para qué sirve,
 /// usando todas las líneas que sean necesarias.
 /// </summary>
-public class EnemyRouteScript : MonoBehaviour
+public class EnemyRouteScript : EnemyState
 {
     // ---- ATRIBUTOS DEL INSPECTOR ----
     #region Atributos del Inspector (serialized fields)
@@ -29,13 +30,13 @@ public class EnemyRouteScript : MonoBehaviour
     [SerializeField] private bool Debug = false;
 
     #endregion
-    
+
     // ---- ATRIBUTOS PRIVADOS ----
     #region Atributos Privados (private fields)
     // Documentar cada atributo que aparece aquí.
     // El convenio de nombres de Unity recomienda que los atributos
-    // privados se nombren en formato _camelCase (comienza con _, 
-    // primera palabra en minúsculas y el resto con la 
+    // privados se nombren en formato _camelCase (comienza con _,
+    // primera palabra en minúsculas y el resto con la
     // primera letra en mayúsculas)
     // Ejemplo: _maxHealthPoints
 
@@ -43,7 +44,7 @@ public class EnemyRouteScript : MonoBehaviour
     SpriteRenderer spriteRenderer;
 
     private struct NodeRoute{
-        private int nodeCont; //Contador que indica a que nodo se está moviendo 
+        private int nodeCont; //Contador que indica a que nodo se está moviendo
         private GameObject[] nodeArray; //Array con todos los nodos
         private Collider2D collider;
 
@@ -53,13 +54,13 @@ public class EnemyRouteScript : MonoBehaviour
             nodeCont = 0;
             collider = nodeArray[0].GetComponent<Collider2D>();
         }
-        // Pasa al siguiente nodo 
+        // Pasa al siguiente nodo
         public void SetNextNode(){
             nodeCont ++;
             nodeCont = nodeCont % nodeArray.Length ; // Vuelve al 0 cuando se pasa del tamaño del array
             collider = nodeArray[nodeCont].GetComponent<Collider2D>();
         }
-        // Devuelve el nodo al que se dirige 
+        // Devuelve el nodo al que se dirige
         public GameObject GetNextNode(){
             return nodeArray[nodeCont];
         }
@@ -68,20 +69,20 @@ public class EnemyRouteScript : MonoBehaviour
         }
 
     };
-    
+
     NodeRoute nodeRoute;
 
     #endregion
-    
+
     // ---- MÉTODOS DE MONOBEHAVIOUR ----
     #region Métodos de MonoBehaviour
-    
+
     // Por defecto están los típicos (Update y Start) pero:
     // - Hay que añadir todos los que sean necesarios
-    // - Hay que borrar los que no se usen 
-    
+    // - Hay que borrar los que no se usen
+
     /// <summary>
-    /// Start is called on the frame when a script is enabled just before 
+    /// Start is called on the frame when a script is enabled just before
     /// any of the Update methods are called the first time.
     /// </summary>
     void Start()
@@ -96,10 +97,6 @@ public class EnemyRouteScript : MonoBehaviour
     /// <summary>
     /// Update is called every frame, if the MonoBehaviour is enabled.
     /// </summary>
-    void Update()
-    {
-    }
-    #endregion
 
     // ---- MÉTODOS PÚBLICOS ----
     #region Métodos públicos
@@ -108,9 +105,16 @@ public class EnemyRouteScript : MonoBehaviour
     // se nombren en formato PascalCase (palabras con primera letra
     // mayúscula, incluida la primera letra)
     // Ejemplo: GetPlayerController
+    public override void Move()
+    {
 
+    }
+    public override void NextState()
+    {
+
+    }
     #endregion
-    
+
     // ---- MÉTODOS PRIVADOS ----
     #region Métodos Privados
     // Documentar cada método que aparece aquí
@@ -148,8 +152,9 @@ public class EnemyRouteScript : MonoBehaviour
             Gizmos.DrawSphere(go.transform.position,0.5f);
         }
         Gizmos.color = Color.red;
-        Gizmos.DrawSphere(transform.position,0.5f);    
-        } 
+        Gizmos.DrawSphere(transform.position,0.5f);
+        }
     }
-} // class EnemieRouteScript 
+} // class EnemieRouteScript
 // namespace
+#endregion
