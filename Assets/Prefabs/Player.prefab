@@ -114,7 +114,6 @@ MonoBehaviour:
   maxOxigen: 30
   oxigenDecayHealthy: 1
   oxigenDecayBroken: 2
-  oxigenText: {fileID: 0}
 --- !u!114 &9047061665015741409
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -223,6 +222,10 @@ PrefabInstance:
       propertyPath: playerSprite
       value: 
       objectReference: {fileID: 3861456626031676602}
+    - target: {fileID: 2469161299861506518, guid: 830186e6762b0614eaeecb33fab35c43, type: 3}
+      propertyPath: maxBeamLength
+      value: 10
+      objectReference: {fileID: 0}
     - target: {fileID: 3737735768516529390, guid: 830186e6762b0614eaeecb33fab35c43, type: 3}
       propertyPath: m_Name
       value: Lantern
