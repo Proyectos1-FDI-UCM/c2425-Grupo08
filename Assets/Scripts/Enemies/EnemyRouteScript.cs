@@ -40,8 +40,20 @@ public class EnemyRouteScript : EnemyState
     // primera letra en mayúsculas)
     // Ejemplo: _maxHealthPoints
 
-    Rigidbody2D rb;
-    SpriteRenderer spriteRenderer;
+    private GameObject enemyObject;
+    private EnemyScript enemyScript;
+
+    private Rigidbody2D _rb;
+
+    private Collider2D bodyCollider;
+    private Collider2D visionCollider;
+
+    private GameObject player;
+    private Collider2D playerCollider;
+    private Collider2D flashCollider;
+
+    private bool flashed = false;
+    private bool attack = false;
 
     private struct NodeRoute{
         private int nodeCont; //Contador que indica a que nodo se está moviendo
@@ -87,11 +99,18 @@ public class EnemyRouteScript : EnemyState
     /// </summary>
     void Start()
     {
-        rb = GetComponent<Rigidbody2D>();
-        nodeRoute = new NodeRoute(NodeArray); // Aviso. El array de nodos se crea al inicio, no es dinámico.
-        MoveEnemy();
+        this.enemyScript = GetComponentInParent<EnemyScript>();
+        this.enemyObject = enemyScript.gameObject;
+        //ERROR AQUÍ
+        //this.bodyCollider = GetComponent<Collider2D>(); //ERROR
+        this._rb = enemyObject.GetComponent<Rigidbody2D>();
+        this.bodyCollider = enemyScript.EnemyCollider;
+        //this.visionCollider = enemyScript.VisionCollider;
+        this.playerCollider = enemyScript.PlayerCollider;
+        this.flashCollider = enemyScript.FlashCollider;
+        this.player = enemyScript.PlayerObject;
 
-        spriteRenderer = GetComponentInChildren<SpriteRenderer>();
+        nodeRoute = new NodeRoute(NodeArray); // Aviso. El array de nodos se crea al inicio, no es dinámico.
     }
 
     /// <summary>
@@ -107,11 +126,18 @@ public class EnemyRouteScript : EnemyState
     // Ejemplo: GetPlayerController
     public override void Move()
     {
-
+        MoveEnemy();
     }
     public override void NextState()
     {
-
+        if (flashed)
+        {
+            //enemyScript.State = new EnemyFleeState();
+        }
+        else if (attack)
+        {
+            //enemyScript.State = new EnemyAttackState();
+        }
     }
     #endregion
 
@@ -123,25 +149,36 @@ public class EnemyRouteScript : EnemyState
     // mayúscula, incluida la primera letra)
 
     private void MoveEnemy(){
-        rb.velocity = Vector3.Normalize(nodeRoute.GetNextNode().transform.position - transform.position) * Speed;
 
-        if (rb.velocity.x > 0)
-        {
-            transform.localScale = new Vector3(1, -1, 1);
-        }
-        else
-        {
-            transform.localScale = new Vector3(1, 1, 1);
-        }
+        Vector2 direction = (nodeRoute.GetNextNode().transform.position - transform.position).normalized;
+
+        transform.rotation = Quaternion.Euler(0, 0, Mathf.Rad2Deg * Mathf.Atan2(direction.y, direction.x));
+
+        _rb.velocity = direction * Speed;
+
+
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision == nodeRoute.GetCollider()){
+        if (collision == nodeRoute.GetCollider())
+        {
             nodeRoute.SetNextNode();
             MoveEnemy();
         }
+        else if (collision.gameObject.GetComponent<Collider2D>() == flashCollider)
+        {
+            flashed = true;
+        }
+        else if (collision.gameObject.GetComponent<Collider2D>() == playerCollider)
+        {
+            attack = true;
+        }
     }
 
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        
+    }
     #endregion
 
     void OnDrawGizmos()
