@@ -73,6 +73,8 @@ namespace EnemyLogic
 
             transform.rotation = Quaternion.Euler(0, 0, Mathf.Rad2Deg * Mathf.Atan2(direction.y, direction.x)); 
 
+            GetComponentInChildren<SpriteRenderer>().flipY = direction.y > 0;
+
             _rb.velocity = direction * PerserSpeed;
         }
         //}
