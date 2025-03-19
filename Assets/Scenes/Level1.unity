@@ -291,7 +291,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4110250732275042765, guid: 14f9a60f945227044bb05c2b5d076f5b, type: 3}
       propertyPath: maxOxigen
-      value: 1000
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 4110250732275042765, guid: 14f9a60f945227044bb05c2b5d076f5b, type: 3}
       propertyPath: oxigenText
@@ -501,6 +501,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b759a0d77ede09b44b871b5a6091410c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerObject: {fileID: 0}
   maxSpeed: 0
   acceleration: 0
   deceleration: 0
