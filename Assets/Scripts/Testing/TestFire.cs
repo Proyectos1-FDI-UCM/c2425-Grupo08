@@ -24,8 +24,7 @@ public class TestFire : MonoBehaviour
     /// Si está activado, se muestran todos los eventos de que
     /// la acción está siendo realizada (uno por frame)
     /// </summary>
-    [SerializeField]
-    private bool displayIsPressed = false;
+    //private bool displayIsPressed = false;
 
     #endregion
 
@@ -53,16 +52,16 @@ public class TestFire : MonoBehaviour
     /// </summary>
     void Update()
     {
-        if (InputManager.Instance.FireWasPressedThisFrame())
+        //if (InputManager.Instance.FireWasPressedThisFrame())
             //Debug.Log($"{Time.frameCount}[{Time.deltaTime}]: Fire was pressed this frame");
 
-        if (InputManager.Instance.FireWasReleasedThisFrame())
+        //if (InputManager.Instance.FireWasReleasedThisFrame())
             //Debug.Log($"{Time.frameCount}[{Time.deltaTime}]: Fire was released this frame");
 
-        if (displayIsPressed && InputManager.Instance.FireIsPressed())
-        {
+        //if (displayIsPressed && InputManager.Instance.FireIsPressed())
+
             //Debug.Log($"{Time.frameCount}[{Time.deltaTime}]: Fire was pressed");
-        }
+
     }
 
     #endregion

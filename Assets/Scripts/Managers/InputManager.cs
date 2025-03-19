@@ -177,10 +177,6 @@ public class InputManager : MonoBehaviour
     /// Devolverá true en todos los frames en los que se mantenga pulsado
     /// <returns>True, si el botón está pulsado</returns>
     /// </summary>
-    public bool FireIsPressed()
-    {
-        return _fire.IsPressed();
-    }
 
     public bool JumpIsPressed()
     {
@@ -212,10 +208,6 @@ public class InputManager : MonoBehaviour
     /// y false, en otro caso
     /// </returns>
     /// </summary>
-    public bool FireWasPressedThisFrame()
-    {
-        return _fire.WasPressedThisFrame();
-    }
 
     public bool JumpWasPressedThisFrame()
     {
@@ -244,10 +236,10 @@ public class InputManager : MonoBehaviour
     /// </returns>
     /// </summary>
 
-    public bool FireWasReleasedThisFrame()
+    /*public bool FireWasReleasedThisFrame()
     {
         return _fire.WasReleasedThisFrame();
-    }
+    }*/
 
     #endregion
 
@@ -283,7 +275,6 @@ public class InputManager : MonoBehaviour
         // El estado lo consultaremos a través de los métodos públicos que
         // tenemos (FireIsPressed, FireWasPressedThisFrame
         // y FireWasReleasedThisFrame)
-        _fire = _theController.Player.Fire;
 
         _jump = _theController.Player.Jump;
 
