@@ -40,7 +40,7 @@ namespace PlayerLogic
         [SerializeField]private float maxSpeed= 2f;
         [SerializeField]private float acceleration= 4f;
         [SerializeField]private float deceleration= 5f;
-        [SerializeField]private float decelerationThreshold= 0.2f;
+        [SerializeField]private float decelerationThreshold= 0.2f; // Unity pone esto a 0 al crear el estado.
 
 
 
@@ -141,9 +141,11 @@ namespace PlayerLogic
             }
             else // Aceleración en el sentido del movimiento
             {
-            Debug.Log("moviendose");
-                //rb.AddForce(new Vector2(x, 0).normalized * acceleration, ForceMode2D.Force);
-                rb.AddForce(new Vector2(100,100));
+            //Debug.Log("moviendose");
+            Debug.Log(acceleration);
+
+                rb.AddForce(new Vector2(x, 0).normalized * acceleration, ForceMode2D.Force);
+                //rb.AddForce(new Vector2(100,100));
             }
 
             if (Mathf.Abs(player.rb.velocity.x) > Mathf.Abs(joystickMaxSpeed)) // Limitación de la velocidad

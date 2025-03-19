@@ -320,6 +320,15 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 3190272025005498771, guid: 14f9a60f945227044bb05c2b5d076f5b, type: 3}
       insertIndex: -1
       addedObject: {fileID: 310489185}
+    - targetCorrespondingSourceObject: {fileID: 3190272025005498771, guid: 14f9a60f945227044bb05c2b5d076f5b, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 310489192}
+    - targetCorrespondingSourceObject: {fileID: 3190272025005498771, guid: 14f9a60f945227044bb05c2b5d076f5b, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 310489191}
+    - targetCorrespondingSourceObject: {fileID: 3190272025005498771, guid: 14f9a60f945227044bb05c2b5d076f5b, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 310489190}
   m_SourcePrefab: {fileID: 100100000, guid: 14f9a60f945227044bb05c2b5d076f5b, type: 3}
 --- !u!1 &140798088 stripped
 GameObject:
@@ -501,10 +510,52 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b759a0d77ede09b44b871b5a6091410c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxSpeed: 0
-  acceleration: 0
-  deceleration: 0
-  decelerationThreshold: 0
+  playerObject: {fileID: 0}
+  maxSpeed: 10
+  acceleration: 5
+  deceleration: 5
+  decelerationThreshold: 10
+--- !u!114 &310489190
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 140798088}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0a43f8717f7a4c145b567b025bca7f5f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &310489191
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 140798088}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7c74a0d30b9597e459d7071ebdb38797, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerObject: {fileID: 0}
+--- !u!114 &310489192
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 140798088}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7d30961ede2815f41bf8bcd40ca583d9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxSpeed: 100
+  acceleration: 50
+  deceleration: 5
+  decelerationThreshold: 10
 --- !u!1 &341452871
 GameObject:
   m_ObjectHideFlags: 0
