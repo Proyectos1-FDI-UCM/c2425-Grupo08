@@ -8,6 +8,7 @@
 using EnemyLogic;
 using System.Collections;
 using UnityEngine;
+using UnityEngine.UIElements;
 // Añadir aquí el resto de directivas using
 
 
@@ -25,9 +26,18 @@ public class Enemy2Sonar : MonoBehaviour
     // (palabras con primera letra mayúscula, incluida la primera letra)
     // Ejemplo: MaxHealthPoints
 
-    [SerializeField] private GameObject[] NodeArray;
-    [SerializeField] private float Speed;
-    [SerializeField] private bool Debug = false;
+    [SerializeField] private GameObject[] nodeArray;
+    [SerializeField] private float patrolSpeed;
+    [SerializeField] private float attackSpeed;
+
+    [SerializeField] private bool debug = false;
+    [SerializeField] private bool attackDebug = false;
+
+    [SerializeField] private float sonarFrequency = 3f;
+    [SerializeField] private float shadowDelay = 0.5f;
+
+    [SerializeField] private float sonarHearingDistance = 5f;
+    [SerializeField] private float sonarAttackDistance = 3f;
 
     #endregion
 
@@ -49,6 +59,8 @@ public class Enemy2Sonar : MonoBehaviour
     private Collider2D flashCollider;
 
     private bool attack = false;
+
+    private bool isInsideRadious = false;
 
     private struct NodeRoute
     {
@@ -105,6 +117,8 @@ public class Enemy2Sonar : MonoBehaviour
         player = GameObject.FindGameObjectWithTag("Player");
         playerCollider = player.GetComponent<Collider2D>();
         flashCollider = player.GetComponentInChildren<Collider2D>();
+
+        nodeRoute = new NodeRoute(nodeArray); // Aviso. El array de nodos se crea al inicio, no es dinámico.
     }
 
     /// <summary>
@@ -112,11 +126,46 @@ public class Enemy2Sonar : MonoBehaviour
     /// </summary>
     void FixedUpdate()
     {
-        Move();
+        if (attack)
+        {
+            Move((player.transform.position - transform.position).normalized, attackSpeed);
+        }
+        else
+        {
+            Move((nodeRoute.GetNextNode().transform.position - transform.position).normalized, patrolSpeed);
+        }    
     }
     void Update()
     {
-        //NextState();
+        if ((player.transform.position - transform.position).magnitude <= sonarHearingDistance && !isInsideRadious)
+        {
+            StartCoroutine(Sonar());
+            isInsideRadious = true;
+            // Activar UI
+        }
+        else if ((player.transform.position - transform.position).magnitude > sonarHearingDistance)
+        {
+            StopAllCoroutines();
+            isInsideRadious = false;
+            // Desactivar UI
+        }
+    }
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision == nodeRoute.GetCollider())
+        {
+            nodeRoute.SetNextNode();
+        }
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject == player && attack)
+        {
+            // player.GetComponent<OxigenScript>().Kill();
+            attack = false;
+            StartCoroutine(Sonar());
+        }
     }
 
     #endregion
@@ -138,20 +187,64 @@ public class Enemy2Sonar : MonoBehaviour
     // se nombren en formato PascalCase (palabras con primera letra
     // mayúscula, incluida la primera letra)
 
-    private void Move()
+    private void Move(Vector2 direction, float speed)
     {
-        Vector2 direction = (nodeRoute.GetNextNode().transform.position - transform.position).normalized;
-
         transform.rotation = Quaternion.Euler(0, 0, Mathf.Rad2Deg * Mathf.Atan2(direction.y, direction.x));
 
-        rb.velocity = direction * Speed;
+        rb.velocity = direction * speed;
     }
 
     private IEnumerator Sonar()
     {
-        yield return new WaitForSeconds(3f);     
+        yield return new WaitForSeconds(sonarFrequency);
+
+        // Hacer el sonido
+        // Hacer la animación del UI
+
+        StartCoroutine(ShadowDelay());
     }
+
+    private IEnumerator ShadowDelay()
+    {
+        attackDebug = true;
+
+        yield return new WaitForSeconds(shadowDelay);
+
+        // if ((player.transform.position - transform.position).magnitude < sonarAttackDistance && player.GetComponent<Rigidbody2D>().velocity.sqrMagnitude != 0)
+        // {
+        //     attack = true;
+        // }
+
+        attackDebug = false;
+
+        if ((player.transform.position - transform.position).magnitude < sonarAttackDistance)
+        {
+            attack = true;
+        }
+        else
+        {
+            StartCoroutine(Sonar());
+        }
+    }
+
+    private void OnDrawGizmos()
+    {
+        if (debug)
+        {
+            Gizmos.color = Color.red;
+            Gizmos.DrawWireSphere(transform.position, sonarHearingDistance);
+            Gizmos.color = Color.green;
+            Gizmos.DrawWireSphere(transform.position, sonarAttackDistance);
+
+            if (attackDebug)
+            {
+                Gizmos.color = Color.blue;
+                Gizmos.DrawLine(transform.position, player.transform.position);
+            }
+        }
+    }
+}
     #endregion   
 
-} // class Enemy2Sonar 
+// class Enemy2Sonar 
 // namespace
