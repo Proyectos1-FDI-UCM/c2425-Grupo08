@@ -123,9 +123,10 @@ public class OxigenScript : MonoBehaviour
     // mayúscula, incluida la primera letra)
     private void Death()
     {
+        AudioManager.Instance.StopSFX(SFXType.Breath);
+        AudioManager.Instance.PlaySFX(SFXType.GameOver);
         Destroy(gameObject);
-        AudioManager.instance.StopSFX(0);
-        AudioManager.instance.PlaySFX(4);
+    
     }
     #endregion
 

@@ -103,7 +103,9 @@ namespace PlayerLogic
             {
                 //player.State = new IdleState;
                 player.State = gameObject.AddComponent<PlayerIdleState>();
-                AudioManager.instance.StopLoopingSFX(1);
+                AudioManager.Instance.StopLoopingSFX(SFXType.Walk);
+
+
 
             }
             else if (player.rb.velocity.y < 0)
@@ -115,8 +117,8 @@ namespace PlayerLogic
             {
                 //player.State = new JumpState;
                 player.State = gameObject.AddComponent<PlayerJumpState>();
-                AudioManager.instance.PlaySFX(2);
-                AudioManager.instance.StopLoopingSFX(1);
+                AudioManager.Instance.StopLoopingSFX(SFXType.Walk);
+              
 
             }
             else if (player.isLanternAimed)
