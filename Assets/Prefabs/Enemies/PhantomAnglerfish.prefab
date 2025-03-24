@@ -99,7 +99,6 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1963811268816660231}
-  - {fileID: 450819485049759121}
   m_Father: {fileID: 6668080238660899341}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: -90}
 --- !u!212 &8136806925078616309
@@ -352,7 +351,8 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 781831299642971066}
+  - {fileID: 6668080238660899341}
+  - {fileID: 6503897635680713018}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &7886679526067831091
@@ -454,13 +454,13 @@ Transform:
   m_GameObject: {fileID: 8219945931817949547}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -5.4341464, y: 3.4016857, z: -0.009166434}
+  m_LocalPosition: {x: -10.868292, y: 6.8033714, z: -0.018332869}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 420805239820720840}
-  - {fileID: 6503897635680713018}
-  m_Father: {fileID: 781831299642971066}
+  - {fileID: 450819485049759121}
+  m_Father: {fileID: 4407587027861858106}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &953807110664682510
 MonoBehaviour:
@@ -513,7 +513,7 @@ Rigidbody2D:
   m_UseAutoMass: 0
   m_Mass: 1
   m_LinearDrag: 0
-  m_AngularDrag: 0.05
+  m_AngularDrag: 0
   m_GravityScale: 0
   m_Material: {fileID: 0}
   m_IncludeLayers:
@@ -629,12 +629,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8319218678143290873}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0.9659259, w: 0.25881904}
-  m_LocalPosition: {x: -1, y: 2.68, z: 0}
-  m_LocalScale: {x: 3.37, y: 3.37, z: 3.37}
+  m_LocalRotation: {x: -0, y: -0, z: -0.8660254, w: -0.5}
+  m_LocalPosition: {x: 2.6800003, y: 1, z: 0}
+  m_LocalScale: {x: 3.3700008, y: 3.3700008, z: 3.37}
   m_ConstrainProportionsScale: 1
   m_Children: []
-  m_Father: {fileID: 420805239820720840}
+  m_Father: {fileID: 6668080238660899341}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: -60}
 --- !u!212 &955771842358487161
 SpriteRenderer:
@@ -736,38 +736,6 @@ PolygonCollider2D:
       - {x: -0.5, y: -0.28866667}
       - {x: 0.5, y: -0.28866667}
   m_UseDelaunayMesh: 0
---- !u!1 &8653220066997896435
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 781831299642971066}
-  m_Layer: 10
-  m_Name: PhantomAnglerfish
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &781831299642971066
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8653220066997896435}
-  serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -5.4341464, y: 3.4016857, z: -0.009166434}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 6668080238660899341}
-  m_Father: {fileID: 4407587027861858106}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &8673466047858196708
 GameObject:
   m_ObjectHideFlags: 0
@@ -876,8 +844,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 9072246369255337252}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -10.868292, y: 6.8033714, z: -0.018332869}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -885,5 +853,5 @@ Transform:
   - {fileID: 9048758877733001390}
   - {fileID: 1875513320318376426}
   - {fileID: 1668344276458366947}
-  m_Father: {fileID: 6668080238660899341}
+  m_Father: {fileID: 4407587027861858106}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
