@@ -31,7 +31,6 @@ public class Enemy2Sonar : MonoBehaviour
     [SerializeField] private float attackSpeed;
 
     [SerializeField] private bool debug = false;
-    [SerializeField] private bool attackDebug = false;
 
     [SerializeField] private float sonarFrequency = 3f;
     [SerializeField] private float shadowDelay = 0.5f;
@@ -55,12 +54,13 @@ public class Enemy2Sonar : MonoBehaviour
     private Collider2D bodyCollider;
 
     private GameObject player;
-    private Collider2D playerCollider;
-    private Collider2D flashCollider;
+    private SonarUI sonarUI;
 
     private bool attack = false;
 
     private bool isInsideRadious = false;
+
+    private bool attackDebug = false;
 
     private struct NodeRoute
     {
@@ -115,8 +115,7 @@ public class Enemy2Sonar : MonoBehaviour
         bodyCollider = GetComponent<Collider2D>();
 
         player = GameObject.FindGameObjectWithTag("Player");
-        playerCollider = player.GetComponent<Collider2D>();
-        flashCollider = player.GetComponentInChildren<Collider2D>();
+        sonarUI = player.GetComponentInChildren<SonarUI>();
 
         nodeRoute = new NodeRoute(nodeArray); // Aviso. El array de nodos se crea al inicio, no es dinámico.
     }
@@ -141,13 +140,21 @@ public class Enemy2Sonar : MonoBehaviour
         {
             StartCoroutine(Sonar());
             isInsideRadious = true;
-            // Activar UI
+            sonarUI.ActivateSonarUI();                  
         }
         else if ((player.transform.position - transform.position).magnitude > sonarHearingDistance)
         {
             StopAllCoroutines();
             isInsideRadious = false;
-            // Desactivar UI
+            sonarUI.DeactivateSonarUI();                    
+        }
+        if ((player.transform.position - transform.position).magnitude <= sonarAttackDistance)
+        {
+            sonarUI.ActivatePulseUI();
+        }
+        else if ((player.transform.position - transform.position).magnitude > sonarAttackDistance)
+        {
+            sonarUI.DeactivatePulseUI();
         }
     }
     private void OnTriggerEnter2D(Collider2D collision)
