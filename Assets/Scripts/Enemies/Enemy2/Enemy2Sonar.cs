@@ -223,12 +223,14 @@ public class Enemy2Sonar : MonoBehaviour
         // Hacer el sonido
         // Hacer la animación del UI
 
-        StartCoroutine(ShadowDelay());
+        StartCoroutine(SonarCharge());
     }
 
     private IEnumerator SonarCharge()
     {
         yield return new WaitForSeconds(sonarFrequency);
+
+        StartCoroutine(ShadowDelay());
     }
 
     private IEnumerator ShadowDelay()
