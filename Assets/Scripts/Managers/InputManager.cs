@@ -192,7 +192,10 @@ public class InputManager : MonoBehaviour
     {
         return _flash.IsPressed();
     }
-
+    public bool InteractIsPressed()
+    {
+        return _interact.IsPressed();
+    }
     //Del UI
 
     public bool ReturnIsPressed()
@@ -219,6 +222,10 @@ public class InputManager : MonoBehaviour
     public bool JumpWasRealeasedThisFrame()
     {
         return _jump.WasReleasedThisFrame();
+    }
+    public bool InteractWasRealeasedThisFrame()
+    {
+        return _interact.WasReleasedThisFrame();
     }
 
     /// <summary>

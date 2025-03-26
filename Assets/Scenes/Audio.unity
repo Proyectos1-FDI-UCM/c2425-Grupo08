@@ -340,12 +340,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4d2d312fd10e72c48a6487816478925d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Audios:
-  - {fileID: 8300000, guid: 48b6375d3a8066b4695c8ee9f21ad294, type: 3}
-  - {fileID: 8300000, guid: d631c4719323515408bf2dd253a1c7ad, type: 3}
-  AudioOn: 1
-  Volume: 10
-  AudioIndex: 0
+  audioMixer: {fileID: 0}
+  sfxClips: []
+  _sfxSource: {fileID: 0}
+  sfxVolume: 1
 --- !u!4 &1887139748
 Transform:
   m_ObjectHideFlags: 0

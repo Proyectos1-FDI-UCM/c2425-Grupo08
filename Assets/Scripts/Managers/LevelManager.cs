@@ -41,6 +41,7 @@ public class LevelManager : MonoBehaviour
     /// Instancia única de la clase (singleton).
     /// </summary>
     private static LevelManager _instance;
+    private int motoresReparados = 0;
 
     #endregion
 
@@ -87,6 +88,11 @@ public class LevelManager : MonoBehaviour
     public static bool HasInstance()
     {
         return _instance != null;
+    }
+    public void MotorRepaired()
+    {
+        motoresReparados++;
+        Debug.Log("Motores reparados: " + motoresReparados);
     }
 
     #endregion

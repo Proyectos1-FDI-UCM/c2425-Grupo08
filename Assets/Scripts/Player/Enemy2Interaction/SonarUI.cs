@@ -1,12 +1,13 @@
 //---------------------------------------------------------
 // Breve descripción del contenido del archivo
-// Responsable de la creación de este archivo. El original: no se sabe. (nuevo modificacion): Andrés Díaz Guerrero Soto (El sordo)
+// Responsable de la creación de este archivo
 // Nombre del juego
 // Proyectos 1 - Curso 2024-25
 //---------------------------------------------------------
 
+using System.Collections;
 using UnityEngine;
-using UnityEngine.UI; 
+using UnityEngine.Rendering;
 // Añadir aquí el resto de directivas using
 
 
@@ -14,7 +15,7 @@ using UnityEngine.UI;
 /// Antes de cada class, descripción de qué es y para qué sirve,
 /// usando todas las líneas que sean necesarias.
 /// </summary>
-public class OxigenScript : MonoBehaviour
+public class SonarUI : MonoBehaviour
 {
     // ---- ATRIBUTOS DEL INSPECTOR ----
     #region Atributos del Inspector (serialized fields)
@@ -24,13 +25,8 @@ public class OxigenScript : MonoBehaviour
     // (palabras con primera letra mayúscula, incluida la primera letra)
     // Ejemplo: MaxHealthPoints
 
-    [SerializeField] private int maxOxigen; // La cantidad máxima de oxígeno que puede tener el jugador
-    [SerializeField] private float oxigenDecayHealthy; // La cantidad de oxígeno que se pierde por segundo al estar en estado "sano"
-    [SerializeField] private float oxigenDecayBroken; // La cantidad de oxígeno que se pierde por segundo al estar en estado "roto"
-    //[SerializeField] private Text oxigenText; // El texto que muestra la cantidad de oxígeno que tiene el jugador
-
     #endregion
-
+    
     // ---- ATRIBUTOS PRIVADOS ----
     #region Atributos Privados (private fields)
     // Documentar cada atributo que aparece aquí.
@@ -40,8 +36,12 @@ public class OxigenScript : MonoBehaviour
     // primera letra en mayúsculas)
     // Ejemplo: _maxHealthPoints
 
-    private float currentOxigen; // La cantidad actual de oxígeno que tiene el jugador
-    private bool tankBroken = false; // Indica si el tanque de oxígeno está roto o no
+    private Animator sonarIndicatorAnimator;
+    private SpriteRenderer pulseIndicator;
+    private Animation pulseIndicatorAnimation;
+
+    bool activate = false;
+    bool deactivate = false;
 
     #endregion
 
@@ -58,33 +58,17 @@ public class OxigenScript : MonoBehaviour
     /// </summary>
     void Start()
     {
-        currentOxigen = maxOxigen;
+        sonarIndicatorAnimator = GetComponentInChildren<Animator>();
+        pulseIndicator = GameObject.Find("pulseIndicator").GetComponent<SpriteRenderer>();
+        pulseIndicatorAnimation = GetComponentInChildren<Animation>();
     }
 
     /// <summary>
     /// Update is called every frame, if the MonoBehaviour is enabled.
     /// </summary>
-    void Update() // Cada frame se resta oxígeno al jugador y en el caso de llegar a 0 el jugador muere
+    void Update()
     {
         
-
-        if (tankBroken)
-        {
-            currentOxigen -= oxigenDecayBroken * Time.deltaTime;
-        }
-        else
-        {
-            currentOxigen -= oxigenDecayHealthy * Time.deltaTime;
-        }
-
-        if (currentOxigen <= 0)
-        {
-            currentOxigen = 0;
-            Death();
-        }
-
-        // Nueva integracion: Se envia el porcentaje de oxigeno al GameManager
-        OxigenPercentage();
     }
     #endregion
 
@@ -96,51 +80,37 @@ public class OxigenScript : MonoBehaviour
     // mayúscula, incluida la primera letra)
     // Ejemplo: GetPlayerController
 
-    public void PierceTank() // Método que se llama cuando el tanque de oxígeno recibe un impacto (si el tanque ya estaba roto, el jugador muere
+    public void ActivateSonarUI()
     {
-        if (tankBroken)
-        {
-            // die
-        }
-        else
-        {
-            tankBroken = true;
-        }      
+        sonarIndicatorAnimator.Play("SonarUIAppear");
+        pulseIndicatorAnimation.Play();
     }
-    public void RepairTank() // Método que se llama cuando el tanque de oxígeno es reparado
+    public void DeactivateSonarUI() 
     {
-        tankBroken = false;
+        sonarIndicatorAnimator.Play("SonarUIDisappear");
+        pulseIndicatorAnimation.Stop();
     }
-
+    public void ActivatePulseUI()
+    {
+        pulseIndicator.enabled = true;
+        Debug.Log("activado");
+    }
+    public void DeactivatePulseUI()
+    {
+        pulseIndicator.enabled = false;
+        Debug.Log("desactivado");
+    }
 
     #endregion
 
     // ---- MÉTODOS PRIVADOS ----
-    #region Métodos Privados
+    #region Métodos privados
     // Documentar cada método que aparece aquí
     // El convenio de nombres de Unity recomienda que estos métodos
     // se nombren en formato PascalCase (palabras con primera letra
     // mayúscula, incluida la primera letra)
-    private void Death()
-    {
-        AudioManager.Instance.StopSFX(SFXType.Breath);
-        AudioManager.Instance.PlaySFX(SFXType.GameOver);
-        Destroy(gameObject);
-    
-    }
-    #endregion
-
-    #region Integracion con UI
-    /// <summary>
-    /// CAlcula el porcentaje actual de oxigeno (valor 0 y 1) y lo envia al GameManager
-    /// </summary>
-
-    private void OxigenPercentage()
-    {
-        float percentage = currentOxigen / maxOxigen;
-        GameManager.Instance.UpdateOxygenGM(percentage);
-    }
 
     #endregion
-} // class OxigenScript 
+
+} // class SonarUI 
 // namespace
