@@ -4,9 +4,11 @@ using UnityEngine.Audio;
 
 public enum SFXType
 {
-    Explosion,
+    Breath,
+    Walk,
     Jump,
-    Shoot,
+    Fall,
+    GameOver
     // Añadir más sonidos aquí según sea necesario
 }
 
