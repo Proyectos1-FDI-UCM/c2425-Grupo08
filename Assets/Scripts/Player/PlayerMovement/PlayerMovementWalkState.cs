@@ -103,7 +103,7 @@ namespace PlayerLogic
             {
                 //player.State = new IdleState;
                 player.State = gameObject.AddComponent<PlayerIdleState>();
-                AudioManager.Instance.StopLoopingSFX(SFXType.Walk);
+                AudioManager.instance.StopLoopingSFX(SFXType.Walk);
 
 
 
@@ -117,7 +117,7 @@ namespace PlayerLogic
             {
                 //player.State = new JumpState;
                 player.State = gameObject.AddComponent<PlayerJumpState>();
-                AudioManager.Instance.StopLoopingSFX(SFXType.Walk);
+                AudioManager.instance.StopLoopingSFX(SFXType.Walk);
               
 
             }
