@@ -42,8 +42,7 @@ public class GameManager : MonoBehaviour
     /// Instancia única de la clase (singleton).
     /// </summary>
     private static GameManager _instance;
-
-    // Nuevo
+    private GameObject player;
     private UiManager uiManager;
 
     #endregion
@@ -163,19 +162,27 @@ public class GameManager : MonoBehaviour
         System.GC.Collect();
     } // ChangeScene
 
-    // El nuevo metodo por mi parte
-    #region Nuevo Metodo de Oxigeno
+    #region Métodos para obtener objetos clave
 
-    //-------------------------------------------------------------------------
+    public GameObject GetPlayerController()
+    {
+        player = FindObjectOfType<Component>()?.gameObject;
+
+        return player;
+    }
+
+    #endregion
+
+    #region Metodo para Oxigeno
+
     /// <summary>
-    /// Nuevo: Metodo para actualizar el medidor de oxigeno en el HUD.
-    /// Este metodo se ivnoca desde el oxigenScript.
-    /// REcibe un porcentaje de oxigeno (entre 0 y 1) y se lo envia al UiManager
+    /// Metodo para actualizar el medidor de oxigeno en el HUD.
+    /// Este metodo se invoca desde el oxigenScript.
+    /// Recibe un porcentaje de oxigeno (entre 0 y 1) y se lo envia al UiManager
     /// </summary>
     /// <param name="OxygenPorcentage">Porcentaje de oxigeno</param>
-   
 
-    public void UpdateOxygenGM (float oxygenPercentage)
+    public void UpdateOxygenGM(float oxygenPercentage)
     {
 
         if (UiManager.Instance != null)
@@ -183,9 +190,6 @@ public class GameManager : MonoBehaviour
             UiManager.Instance.UpdateOxygenUI(oxygenPercentage);
         }
     }
-
-
-
 
     #endregion
 
