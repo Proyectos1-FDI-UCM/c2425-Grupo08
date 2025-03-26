@@ -98,7 +98,7 @@ class PlayerFallState : PlayerState{
         //Debug.Log(playerObject);
         if (rb.velocity.y == 0)
         {
-            AudioManager.Instance.PlaySFX(SFXType.Fall);
+            AudioManager.instance.PlaySFX(SFXType.Fall);
             if (rb.velocity.x == 0)
             {
                 //player.State = new IdleState;
@@ -108,7 +108,7 @@ class PlayerFallState : PlayerState{
             {
                 //player.State = new WalkState;
                player.State = gameObject.AddComponent<PlayerWalkState>();
-               AudioManager.Instance.PlaySFX(SFXType.Walk);
+               AudioManager.instance.PlaySFX(SFXType.Walk);
             }
         }
     }
