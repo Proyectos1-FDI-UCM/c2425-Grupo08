@@ -8,30 +8,11 @@
 using UnityEngine;
 // Añadir aquí el resto de directivas using
 
-namespace PlayerLogic
-{
-
 /// <summary>
 /// Antes de cada class, descripción de qué es y para qué sirve,
 /// usando todas las líneas que sean necesarias.
 /// </summary>
-public struct Movement{
-    [SerializeField]public float maxSpeed {get;set;}
-    [SerializeField]public float acceleration {get;set;}
-    [SerializeField]public float deceleration {get;set;}
-    [SerializeField]public float decelerationThreshold {get;set;}
-    [SerializeField]public float jumpAcceleration {get;set;}
-    [SerializeField]public float jumpMultiplierDecay {get;set;}
-    public Movement(float maxSpeed, float acceleration, float deceleration, float decelerationThreshold, float jumpAcceleration, float jumpMultiplierDecay){
-        this.maxSpeed = maxSpeed;
-        this.acceleration = acceleration;
-        this.deceleration = deceleration;
-        this.decelerationThreshold = decelerationThreshold;
-        this.jumpAcceleration = jumpAcceleration;
-        this.jumpMultiplierDecay = jumpMultiplierDecay;
-    }
-}
-    public class PlayerScript : MonoBehaviour
+   public class PlayerScript : MonoBehaviour
     {
         // ---- ATRIBUTOS DEL INSPECTOR ----
         #region Atributos del Inspector (serialized fields)
@@ -40,6 +21,45 @@ public struct Movement{
         // públicos y de inspector se nombren en formato PascalCase
         // (palabras con primera letra mayúscula, incluida la primera letra)
         // Ejemplo: MaxHealthPoints
+        [Header("Walk Attributes")]
+        [SerializeField]private float WalkAcceleration;
+        [SerializeField]private float WalkDeceleration;
+        [SerializeField]private float WalkMaxSpeed;
+        [SerializeField]private float WalkDecelerationThreshold;
+        [SerializeField]private float WalkJumpAcceleration;
+        [SerializeField]private float WalkJumpMultiplierDecay;
+
+        [Header("Idle Attributes")]
+        [SerializeField]private float IdleAcceleration;
+        [SerializeField]private float IdleDeceleration;
+        [SerializeField]private float IdleMaxSpeed;
+        [SerializeField]private float IdleDecelerationThreshold;
+        [SerializeField]private float IdleJumpAcceleration;
+        [SerializeField]private float IdleJumpMultiplierDecay;
+
+        [Header("Jump Attributes")]
+        [SerializeField]private float JumpAcceleration;
+        [SerializeField]private float JumpDeceleration;
+        [SerializeField]private float JumpMaxSpeed;
+        [SerializeField]private float JumpDecelerationThreshold;
+        [SerializeField]private float JumpJumpAcceleration;
+        [SerializeField]private float JumpJumpMultiplierDecay;
+
+        [Header("Fall Attributes")]
+        [SerializeField]private float FallAcceleration;
+        [SerializeField]private float FallDeceleration;
+        [SerializeField]private float FallMaxSpeed;
+        [SerializeField]private float FallDecelerationThreshold;
+        [SerializeField]private float FallJumpAcceleration;
+        [SerializeField]private float FallJumpMultiplierDecay;
+ 
+        [Header("Aim Attributes")]
+        [SerializeField]private float AimAcceleration;
+        [SerializeField]private float AimDeceleration;
+        [SerializeField]private float AimMaxSpeed;
+        [SerializeField]private float AimDecelerationThreshold;
+        [SerializeField]private float AimJumpAcceleration;
+        [SerializeField]private float AimJumpMultiplierDecay;
 
         [SerializeField] public bool debug{get;set;}
         #endregion
@@ -53,11 +73,19 @@ public struct Movement{
         // primera letra en mayúsculas)
         // Ejemplo: _maxHealthPoints
 
+        enum States {
+            Idle,
+            Walk,
+            Fall,
+            Jump,
+            Aim
+        }
         private float joystickMaxSpeed;
-        public Rigidbody2D rb {get; set;} //Estos métodos son propiedades, por debajo son públicos
-        public bool isLanternAimed {get; set;}
+        private Rigidbody2D rb;
+        private bool isLanternAimed;
         private float jumpMultiplier = 1;
-        public PlayerState State {get;set;}
+        private States state = States.Idle;
+
         #endregion
 
         // ---- MÉTODOS DE MONOBEHAVIOUR ----
@@ -74,11 +102,6 @@ public struct Movement{
         void Start()
         {
             rb = GetComponent<Rigidbody2D>();
-            State = gameObject.AddComponent<PlayerIdleState>();
-            State.SetPlayer(this.gameObject);
-            print(GetComponent<GameObject>());
-            //Debug.Log("Player Starts");
-            //Debug.Log("State: " + State);
         }
 
         /// <summary>
@@ -86,12 +109,52 @@ public struct Movement{
         /// </summary>:
         public void Update()
         {
-            State.NextState();
-            //Debug.Log(State);
+            
         }
         public void FixedUpdate()
         {
-            State.Move();
+            switch (state){
+            case States.Idle:
+            break;
+            case States.Walk:
+                if (InputManager.Instance.MovementVector.x != 0)
+                {
+                    joystickMaxSpeed = WalkMaxSpeed * InputManager.Instance.MovementVector.x;
+                    WalkWalk(InputManager.Instance.MovementVector.x);
+                }
+                else WalkDecelerate(WalkDeceleration);
+
+            break;
+            case States.Jump:
+                if (InputManager.Instance.JumpWasRealeasedThisFrame())
+                {
+                    jumpMultiplier = 0;
+                }
+        
+                if (InputManager.Instance.JumpIsPressed() && jumpMultiplier > 0)
+                {
+                    JumpJump();
+                }
+        
+                if (InputManager.Instance.MovementVector.x != 0)
+                {
+                    joystickMaxSpeed = JumpMaxSpeed * InputManager.Instance.MovementVector.x;
+                    JumpWalk(InputManager.Instance.MovementVector.x);
+                }
+                else JumpDecelerate(JumpDeceleration);
+            break;
+            case States.Fall:
+                if (InputManager.Instance.MovementVector.x != 0)
+                {
+                    joystickMaxSpeed = FallMaxSpeed * InputManager.Instance.MovementVector.x;
+                    FallWalk(InputManager.Instance.MovementVector.x);
+                }
+                else FallDecelerate(FallDeceleration);
+
+            break;
+            case States.Aim:
+            break;
+            }
         }
             #endregion
 
@@ -112,6 +175,203 @@ public struct Movement{
         // se nombren en formato PascalCase (palabras con primera letra
         // mayúscula, incluida la primera letra)
 
+        private void CheckState(){
+
+            switch (state){
+                case States.Idle:
+
+                    if (InputManager.Instance.MovementVector.x != 0)
+                    {
+                        state = States.Walk;
+                        AudioManager.instance.PlayLoopingSFX(1);
+
+                    }
+                    else if (rb.velocity.y < 0)
+
+                    {
+                        state = States.Fall;
+                    }
+                    else if (InputManager.Instance.JumpWasPressedThisFrame())
+                    {
+
+                        state = States.Jump;
+                        AudioManager.instance.PlaySFX(2);
+                    }
+                    else if (isLanternAimed)
+                    {
+                        state = States.Aim;
+                    }
+ 
+                break;
+                case States.Walk:
+                    if (rb.velocity == new Vector2(0, 0))
+                    {
+                        state = States.Idle; 
+                        AudioManager.instance.StopLoopingSFX(1);
+         
+                    }
+                    else if (rb.velocity.y < 0)
+                    {
+                        state = States.Fall;
+                    }
+                    else if (InputManager.Instance.JumpWasPressedThisFrame())
+                    {
+                        state = States.Jump;
+                        AudioManager.instance.PlaySFX(2);
+                        AudioManager.instance.StopLoopingSFX(1);
+         
+                    }
+                    else if (isLanternAimed)
+                    {
+                        state = States.Aim;
+                    }
+                break;
+                case States.Jump:
+                    if (rb.velocity.y <0){
+                        state = States.Fall;
+                    }
+                break;
+                case States.Fall:
+                    if (rb.velocity.y == 0){
+                        AudioManager.instance.PlaySFX(3);
+                        if (rb.velocity.x == 0){
+                            state = States.Idle;
+                        }
+                        else{
+                            AudioManager.instance.PlayLoopingSFX(1);
+                            state = States.Walk;
+                        }
+                    }
+                break;
+                case States.Aim:
+                    if (!isLanternAimed){
+                        if (InputManager.Instance.MovementVector.x == 0){
+                            state = States.Idle;
+                        }
+                        else{
+                            state = States.Walk;
+                        }
+                    }
+                break;
+            
+            }
+        }
+
+
+        private void WalkWalk(float x) // Mueve al jugador en la dirección indicada por el signo de x y con la velocidad máxima indicada por el valor de x
+        {
+            if ((x < 0 && rb.velocity.x > 0) || (x > 0 && rb.velocity.x < 0)) // Deceleración en cambio de sentido
+            {
+                WalkDecelerate(WalkDeceleration);
+            }
+            else // Aceleración en el sentido del movimiento
+            {
+            Debug.Log(WalkAcceleration);
+
+            Debug.Log("moviendose");
+                rb.AddForce(new Vector2(x, 0).normalized * WalkAcceleration, ForceMode2D.Force);
+                //rb.AddForce(new Vector2(100,100));
+            }
+
+            if (Mathf.Abs(rb.velocity.x) > Mathf.Abs(joystickMaxSpeed)) // Limitación de la velocidad
+            {
+                if (joystickMaxSpeed == 1 || joystickMaxSpeed == -1)
+                {
+                    rb.velocity = rb.velocity.normalized * Mathf.Abs(joystickMaxSpeed);
+                }
+                else
+                {
+                    WalkDecelerate(WalkAcceleration); // En el caso (nada raro) de que el joystick pase de un valor a otro más bajo del mismo signo, se frena con el valor de la aceleración
+                }
+            }
+
+        }
+        private void WalkDecelerate(float decelerationValue) // Frena al jugador con la aceleración negativa indicada
+        {
+            if (rb.velocity.x > WalkDecelerationThreshold) // Comprobación de signo para elegir el sentido de la fuerza
+            {
+                rb.AddForce(new Vector2(-decelerationValue, 0), ForceMode2D.Force);
+            }
+           else if (rb.velocity.x < -WalkDecelerationThreshold)
+            {
+                rb.AddForce(new Vector2(decelerationValue, 0), ForceMode2D.Force);
+            }
+        }
+
+        private void JumpJump()
+        {
+            rb.AddForce(new Vector2(0, 1) * JumpJumpAcceleration * jumpMultiplier, ForceMode2D.Impulse);
+            jumpMultiplier -= JumpJumpMultiplierDecay;
+        }
+        private void JumpWalk(float x) // Mueve al jugador en la dirección indicada por el signo de x y con la velocidad máxima indicada por el valor de x
+        {
+            if ((x < 0 && rb.velocity.x > 0) || (x > 0 && rb.velocity.x < 0)) // Deceleración en cambio de sentido
+            {
+                JumpDecelerate(JumpDeceleration);
+            }
+            else // Aceleración en el sentido del movimiento
+            {
+                rb.AddForce(new Vector2(x, 0).normalized * JumpAcceleration, ForceMode2D.Force);
+            }
+
+            if (Mathf.Abs(rb.velocity.x) > Mathf.Abs(joystickMaxSpeed)) // Limitación de la velocidad
+            {
+                if (joystickMaxSpeed == 1 || joystickMaxSpeed == -1)
+                {
+                    rb.velocity = rb.velocity.normalized * Mathf.Abs(joystickMaxSpeed);
+                }
+                else
+                {
+                    JumpDecelerate(JumpAcceleration); // En el caso (nada raro) de que el joystick pase de un valor a otro más bajo del mismo signo, se frena con el valor de la aceleración
+                }
+            }
+        }
+        private void JumpDecelerate(float decelerationValue) // Frena al jugador con la aceleración negativa indicada
+        {
+            if (rb.velocity.x > JumpDecelerationThreshold) // Comprobación de signo para elegir el sentido de la fuerza
+            {
+                rb.AddForce(new Vector2(-decelerationValue, 0), ForceMode2D.Force);
+            }
+            else if (rb.velocity.x < - JumpDecelerationThreshold)
+            {
+                rb.AddForce(new Vector2(decelerationValue, 0), ForceMode2D.Force);
+            }
+        }
+        private void FallWalk(float x) // Mueve al jugador en la dirección indicada por el signo de x y con la velocidad máxima indicada por el valor de x
+        {
+            if ((x < 0 && rb.velocity.x > 0) || (x > 0 && rb.velocity.x < 0)) // Deceleración en cambio de sentido
+            {
+                FallDecelerate(FallDeceleration);
+            }
+            else // Aceleración en el sentido del movimiento
+            {
+                rb.AddForce(new Vector2(x, 0).normalized * FallAcceleration, ForceMode2D.Force);
+            }
+
+            if (Mathf.Abs(rb.velocity.x) > Mathf.Abs(joystickMaxSpeed)) // Limitación de la velocidad
+            {
+                if (joystickMaxSpeed == 1 || joystickMaxSpeed == -1)
+                {
+                    rb.velocity = rb.velocity.normalized * Mathf.Abs(joystickMaxSpeed);
+                }
+                else
+                {
+                    FallDecelerate(FallAcceleration); // En el caso (nada raro) de que el joystick pase de un valor a otro más bajo del mismo signo, se frena con el valor de la aceleración
+                }
+            }
+    }
+    private void FallDecelerate(float FallDecelerationValue) // Frena al jugador con la aceleración negativa indicada
+    {
+        if (rb.velocity.x > FallDecelerationThreshold) // Comprobación de signo para elegir el sentido de la fuerza
+        {
+            rb.AddForce(new Vector2(-FallDecelerationValue, 0), ForceMode2D.Force);
+        }
+        else if (rb.velocity.x < -FallDecelerationThreshold)
+        {
+            rb.AddForce(new Vector2(FallDecelerationValue, 0), ForceMode2D.Force);
+        }
+    }
+
         #endregion
     }
-}
+

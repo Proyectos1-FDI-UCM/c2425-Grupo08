@@ -71,17 +71,17 @@ namespace EnemyLogic
         {
             Vector2 direction = (player.transform.position - transform.position).normalized;
 
-            transform.rotation = Quaternion.Euler(0, 0, Mathf.Rad2Deg * Mathf.Atan2(direction.y, direction.x)); 
+            transform.rotation = Quaternion.Euler(0, 0, Mathf.Rad2Deg * Mathf.Atan2(direction.y, direction.x));
 
             _rb.velocity = direction * PerserSpeed;
         }
-        //}
+        
         override public void NextState()
         {
             // Define las condiciones para pasar al siguiente estado
-            if (flashed)
+            if (flashed) 
             {
-                //enemyScript.State = new EnemyFleeState(this.enemyObject);
+                //enemyScript.State = new EnemyFleeState();
             }
         }
     }

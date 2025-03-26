@@ -10,8 +10,7 @@
 using PlayerLogic;
 using System.Collections;
 using UnityEngine;
-using UnityEngine.Animations;
-using UnityEngine.InputSystem;
+using UnityEngine.Rendering.Universal;
 
 /// <summary>
 /// Antes de cada class, descripción de qué es y para qué sirve,
@@ -20,20 +19,25 @@ using UnityEngine.InputSystem;
 public class Lantern : MonoBehaviour
 {
     // ---- ATRIBUTOS DEL INSPECTOR ----
-    [SerializeField] private float beamGrowSpeed = 2f; // Velocidad a la que el haz crece
-    [SerializeField] private float maxBeamLength = 5f; // Longitud máxima del haz de luz
-    [SerializeField] private float minBeamWidth = 1f; // Ancho mínimo cuando se apunta (en el eje Y)
-    [SerializeField] private float flashCooldown = 5f; //Cooldown del flash (linterna apagada)
+    [SerializeField] private float beamGrowSpeed; // Velocidad a la que el haz crece
+    [SerializeField] private float maxBeamLength; // Valor objetivo para pointLightOuterAngle al enfocar
+    [SerializeField] private float minBeamWidth; // Valor objetivo para pointLightInnerAngle al enfocar
+    [SerializeField] private float flashCooldown; // Cooldown del flash (linterna apagada)
     [SerializeField] private float inputDeadzone; // Umbral de movimiento para detectar si el ratón se mueve
     [SerializeField] private GameObject playerSprite; // Sprite del jugador
+    [SerializeField] private float focusedBeamLengthMultiplier = 1.5f;
+    [SerializeField] private float flashIntensityIncrease = 1f;
 
     // ---- ATRIBUTOS PRIVADOS ----
-    private Vector3 initialBeamScale; // Para guardar la escala inicial del haz de luz
     private bool isFocus = false; // Indica si el clic derecho está presionado
-    private SpriteRenderer secondChildSpriteRenderer;//Sprite luz de flash
-    private PolygonCollider2D secondChildPolygonCollider; //Collider de flash
     private bool isCooldownActive = false; // Indica si el cooldown de la linterna está activo
-    private GameObject beamObject; // EL haz de luz
+    private GameObject beamObject; // Objeto que contiene la luz
+
+    // Nuevas variables para Light2D
+    private Light2D lanternLight;
+    private float initialInnerAngle;
+    private float initialOuterAngle;
+    private float initialOuterRadius; // nuevo campo para almacenar el radio original
 
     // ---- MÉTODOS DE MONOBEHAVIOUR ----
 
@@ -46,17 +50,11 @@ public class Lantern : MonoBehaviour
         // Asignamos el hijo corrspondiente al beam (el LightBeam)
         beamObject = transform.GetChild(0).gameObject;
 
-        // Guardamos la escala original del haz de luz cuando se inicia el juego
-        initialBeamScale = beamObject.transform.localScale;
-
-        // Obtener el segundo hijo (con SpriteRenderer y BoxCollider2D)
-        Transform secondChild = transform.GetChild(1); // El segundo hijo (índice 1)
-        secondChildSpriteRenderer = secondChild.GetComponent<SpriteRenderer>(); // Obtener SpriteRenderer
-        secondChildPolygonCollider = secondChild.GetComponent<PolygonCollider2D>(); // Obtener BoxCollider2D
-
-        // Desactivar inicialmente los componentes del segundo hijo
-        secondChildSpriteRenderer.enabled = false; // Desactivar SpriteRenderer del segundo hijo
-        secondChildPolygonCollider.enabled = false; // Desactivar BoxCollider2D del segundo hijo
+        // Obtener Light2D del beamObject
+        lanternLight = beamObject.GetComponent<Light2D>();
+        initialOuterAngle = lanternLight.pointLightOuterAngle;
+        initialInnerAngle = lanternLight.pointLightInnerAngle;
+        initialOuterRadius = lanternLight.pointLightOuterRadius; // asignación del radio original
     }
 
     private void Update()
@@ -72,7 +70,7 @@ public class Lantern : MonoBehaviour
     #endregion
 
     // ---- MÉTODOS PÚBLICOS ----
-    
+
     #region Métodos públicos
     // Documentar cada método que aparece aquí con ///<summary>
     // El convenio de nombres de Unity recomienda que estos métodos
@@ -103,7 +101,7 @@ public class Lantern : MonoBehaviour
 
     // Método para manejar el haz de luz basado en la entrada del usuario
     private void HandleBeamGrowth()
-    {        
+    {
         if (InputManager.Instance.FocusIsPressed())
         {
             isFocus = true;
@@ -112,7 +110,7 @@ public class Lantern : MonoBehaviour
             {
                 GetComponentInParent<PlayerScript>().isLanternAimed = true;
                 StartCoroutine(FocusLight());
-            }               
+            }
         }
         else
         {
@@ -138,76 +136,65 @@ public class Lantern : MonoBehaviour
             GetComponentInParent<PlayerScript>().isLanternAimed = false;
 
             StartCoroutine(FlashRoutine());
-            StartCoroutine(LanternCooldown());
+            // Se elimina el llamado al cooldown
 
         }
     }
 
     // ---- MÉTODOS DE BEAM ----
 
-    // Corutina para aumentar el largo del haz de luz (GrowBeam)
+    // Actualizada FocusLight: primero aumenta el outer radius y luego reduce el inner angle
     private IEnumerator FocusLight()
     {
-        // Mientras la longitud actual del haz sea menor a la máxima permitida
-        // Y el ancho actual sea mayor al mínimo permitido:
-        while (beamObject.transform.localScale.x < maxBeamLength && beamObject.transform.localScale.y > minBeamWidth)
+        float targetRadius = initialOuterRadius * focusedBeamLengthMultiplier;
+
+        while (lanternLight.pointLightOuterRadius < targetRadius)
         {
-            // Si se suelta el botón de crecimiento (isFocus pasa a false),
-            // se termina la corutina de forma inmediata usando yield break.
             if (!isFocus)
                 yield break;
+            lanternLight.pointLightOuterRadius += beamGrowSpeed * Time.deltaTime;
+            yield return null;
+        }
 
-            // Se incrementa la longitud (eje X) del haz de luz en función de la velocidad de crecimiento y el tiempo transcurrido.
-            // Simultáneamente se reduce el ancho (eje Y) pero sin bajar de un ancho mínimo (minBeamWidth).
-            beamObject.transform.localScale = new Vector3(
-                beamObject.transform.localScale.x + beamGrowSpeed * Time.deltaTime,
-                Mathf.Max(minBeamWidth, beamObject.transform.localScale.y - beamGrowSpeed * Time.deltaTime),
-                beamObject.transform.localScale.z
-            );
-
-            // Se espera hasta el siguiente frame para continuar el ciclo.
+        while (lanternLight.pointLightInnerAngle > minBeamWidth)
+        {
+            if (!isFocus)
+                yield break;
+            lanternLight.pointLightInnerAngle -= beamGrowSpeed * Time.deltaTime;
             yield return null;
         }
     }
 
+    // Actualizada UnFocusLight: primero restaura el inner angle y luego el outer radius a sus valores originales
     private IEnumerator UnFocusLight()
     {
-        // Volvemos al tamaño original gradualmente cuando se suelta el clic derecho
-        while (beamObject.transform.localScale.x > initialBeamScale.x || beamObject.transform.localScale.y < initialBeamScale.y)
+        // Restaurar inner angle
+        while (lanternLight.pointLightInnerAngle < initialInnerAngle)
         {
-            // Reducimos la longitud y aumentamos el ancho gradualmente hasta los valores originales
-            beamObject.transform.localScale = new Vector3(
-                Mathf.Max(initialBeamScale.x, beamObject.transform.localScale.x - beamGrowSpeed * Time.deltaTime),
-                Mathf.Min(initialBeamScale.y, beamObject.transform.localScale.y + beamGrowSpeed * Time.deltaTime),
-                beamObject.transform.localScale.z
-            );
-
+            lanternLight.pointLightInnerAngle += beamGrowSpeed * Time.deltaTime;
+            yield return null;
+        }
+        // Luego restaurar el outer radius
+        while (lanternLight.pointLightOuterRadius > initialOuterRadius)
+        {
+            lanternLight.pointLightOuterRadius -= beamGrowSpeed * Time.deltaTime;
             yield return null;
         }
     }
 
     private IEnumerator FlashRoutine()
     {
-        // Afectar al segundo hijo: activar SpriteRenderer y BoxCollider2D
-        secondChildSpriteRenderer.enabled = true;
-        secondChildPolygonCollider.enabled = true;
+        isCooldownActive = true;
+        float originalIntensity = lanternLight.intensity; 
+
+        lanternLight.intensity = flashIntensityIncrease;// Flashazo
         yield return new WaitForSeconds(0.1f);
-        // Desactivar SpriteRenderer y BoxCollider2D del segundo hijo
-        secondChildSpriteRenderer.enabled = false;
-        secondChildPolygonCollider.enabled = false;
-    }
-
-    private IEnumerator LanternCooldown()
-    {
-        isCooldownActive = true; // Activa el cooldown
-
-        beamObject.SetActive(false);  // Afectar solo al primer hijo: desactivar SpriteRenderer
-
+       
+        lanternLight.intensity = 0.5f; // Apaga la linterna o se atenúa la intensidad
         yield return new WaitForSeconds(flashCooldown);
 
-        beamObject.SetActive(true);  // Reactivar SpriteRenderer del primer hijo
-
-        isCooldownActive = false; // Desactiva el cooldown
+        lanternLight.intensity = originalIntensity;
+        isCooldownActive = false;
     }
 
     #endregion

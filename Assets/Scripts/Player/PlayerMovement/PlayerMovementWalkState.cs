@@ -144,6 +144,7 @@ namespace PlayerLogic
             //Debug.Log("moviendose");
             Debug.Log(acceleration);
 
+            Debug.Log("moviendose");
                 rb.AddForce(new Vector2(x, 0).normalized * acceleration, ForceMode2D.Force);
                 //rb.AddForce(new Vector2(100,100));
             }

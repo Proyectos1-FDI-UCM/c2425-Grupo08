@@ -121,15 +121,15 @@ class PlayerFallState : PlayerState{
     // El convenio de nombres de Unity recomienda que estos métodos
     // se nombren en formato PascalCase (palabras con primera letra
     // mayúscula, incluida la primera letra)
-    private void Walk(float x) // Mueve al jugador en la dirección indicada por el signo de x y con la velocidad máxima indicada por el valor de x
+    private void FallWalk(float x) // Mueve al jugador en la dirección indicada por el signo de x y con la velocidad máxima indicada por el valor de x
     {
         if ((x < 0 && rb.velocity.x > 0) || (x > 0 && rb.velocity.x < 0)) // Deceleración en cambio de sentido
         {
-            Decelerate(deceleration);
+            FallDecelerate(FallDeceleration);
         }
         else // Aceleración en el sentido del movimiento
         {
-            rb.AddForce(new Vector2(x, 0).normalized * acceleration, ForceMode2D.Force);
+            rb.AddForce(new Vector2(x, 0).normalized * FallAcceleration, ForceMode2D.Force);
         }
 
         if (Mathf.Abs(rb.velocity.x) > Mathf.Abs(joystickMaxSpeed)) // Limitación de la velocidad
@@ -140,19 +140,19 @@ class PlayerFallState : PlayerState{
             }
             else
             {
-                Decelerate(acceleration); // En el caso (nada raro) de que el joystick pase de un valor a otro más bajo del mismo signo, se frena con el valor de la aceleración
+                FallDecelerate(FallAcceleration); // En el caso (nada raro) de que el joystick pase de un valor a otro más bajo del mismo signo, se frena con el valor de la aceleración
             }
         }
     }
-    private void Decelerate(float decelerationValue) // Frena al jugador con la aceleración negativa indicada
+    private void FallDecelerate(float FallDecelerationValue) // Frena al jugador con la aceleración negativa indicada
     {
-        if (rb.velocity.x > decelerationThreshold) // Comprobación de signo para elegir el sentido de la fuerza
+        if (rb.velocity.x > FallDecelerationThreshold) // Comprobación de signo para elegir el sentido de la fuerza
         {
-            rb.AddForce(new Vector2(-decelerationValue, 0), ForceMode2D.Force);
+            rb.AddForce(new Vector2(-FallDecelerationValue, 0), ForceMode2D.Force);
         }
-        else if (rb.velocity.x < -decelerationThreshold)
+        else if (rb.velocity.x < -FallDecelerationThreshold)
         {
-            rb.AddForce(new Vector2(decelerationValue, 0), ForceMode2D.Force);
+            rb.AddForce(new Vector2(FallDecelerationValue, 0), ForceMode2D.Force);
         }
     }
     private void OnDrawGizmos()

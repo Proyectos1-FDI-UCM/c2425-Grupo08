@@ -130,12 +130,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 60bf43236dbedd441b95201c4f161760, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  beamGrowSpeed: 4
+  beamGrowSpeed: 100
   maxBeamLength: 6
-  minBeamWidth: 0.7
-  flashCooldown: 5
+  minBeamWidth: 4
+  flashCooldown: 4
   inputDeadzone: 0.25
   playerSprite: {fileID: 0}
+  focusedBeamLengthMultiplier: 4
+  flashIntensityIncrease: 800
 --- !u!1 &4458696160126628013
 GameObject:
   m_ObjectHideFlags: 0
