@@ -15,14 +15,16 @@ using UnityEngine.Rendering.Universal;
 /// <summary>
 /// Controla el comportamiento de la linterna del jugador, incluyendo su rotación, enfoque y flash.
 /// </summary>
-public class FlashLightManager : MonoBehaviour
+public class FlashLight : MonoBehaviour
 {
     // ---- ATRIBUTOS DEL INSPECTOR ----
     [Range(0, 1)]
     [SerializeField] private float inputDeadzone = 0.1f; // Zona muerta para la entrada del mouse respecto a la posición del jugador
 
+    [SerializeField] private SpriteRenderer playerSprite; // Referencia al objeto del jugador (TODO: Quitar esto en un futuro)
+
     // ---- ATRIBUTOS PRIVADOS ----
-    private SpriteRenderer playerSprite; // Referencia al objeto del jugador (TODO: Quitar esto en un futuro)
+
     private Light2D flashLight; // Referencia a la luz 2D de la linterna
 
     [SerializeField] private float flashIntensity = 2f;
@@ -38,9 +40,6 @@ public class FlashLightManager : MonoBehaviour
 
     private void Start()
     {
-        // Obtener la referencia al sprite renderer del jugador
-        playerSprite = GameManager.Instance.GetPlayerController().GetComponent<SpriteRenderer>(); // TODO: Quitar esto en un futuro
-
         // Obtener la referencia a la luz 2D de la linterna
         flashLight = GetComponentInChildren<Light2D>();
     }
@@ -52,11 +51,11 @@ public class FlashLightManager : MonoBehaviour
 
         if (InputManager.Instance.FocusIsPressed())
         {
-            Focus();
+            //Focus();
         }
         else
         {
-            UnFocus();
+            //UnFocus();
         }
     }
 
@@ -91,15 +90,20 @@ public class FlashLightManager : MonoBehaviour
 
     private void Focus()
     {
-        flashLight.pointLightInnerAngle = Mathf.Lerp(flashLight.pointLightInnerAngle, 0, Time.deltaTime * 5f);
-        flashLight.pointLightOuterRadius = Mathf.Lerp(flashLight.pointLightOuterRadius, 0, Time.deltaTime * 5f);
+        if (flashLight != null) {
+            flashLight.pointLightInnerAngle = Mathf.Lerp(flashLight.pointLightInnerAngle, 0, Time.deltaTime * 5f);
+            flashLight.pointLightOuterRadius = Mathf.Lerp(flashLight.pointLightOuterRadius, 0, Time.deltaTime * 5f);
+        }
+        
     }
 
     private void UnFocus()
     {
-        flashLight.pointLightInnerAngle = Mathf.Lerp(flashLight.pointLightInnerAngle, 180, Time.deltaTime * 5f);
-        flashLight.pointLightOuterRadius = Mathf.Lerp(flashLight.pointLightOuterRadius, 5, Time.deltaTime * 5f);
-
+        if (flashLight != null)
+        {
+            flashLight.pointLightInnerAngle = Mathf.Lerp(flashLight.pointLightInnerAngle, 180, Time.deltaTime * 5f);
+            flashLight.pointLightOuterRadius = Mathf.Lerp(flashLight.pointLightOuterRadius, 5, Time.deltaTime * 5f);
+        }
     }
 
     private IEnumerator Flash() // Método para hacer el flash de la linterna

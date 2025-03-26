@@ -628,6 +628,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   inputDeadzone: 0.1
+  playerSprite: {fileID: 2302555880213678727}
   flashIntensity: 2
   flashDuration: 0.2
   flashCooldown: 1
