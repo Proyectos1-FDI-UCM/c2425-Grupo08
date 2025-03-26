@@ -103,8 +103,7 @@ public class PlayerMovement : MonoBehaviour
     /// any of the Update methods are called the first time.
     /// </summary>
     void Start()
-    {
-        
+    {     
         rb = GetComponent<Rigidbody2D>();
     }
 
