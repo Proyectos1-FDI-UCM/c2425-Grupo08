@@ -7,7 +7,7 @@
 // Proyectos 1 - Curso 2024-25
 //---------------------------------------------------------
 
-using PlayerLogic;
+
 using System.Collections;
 using UnityEngine;
 using UnityEngine.Rendering.Universal;
