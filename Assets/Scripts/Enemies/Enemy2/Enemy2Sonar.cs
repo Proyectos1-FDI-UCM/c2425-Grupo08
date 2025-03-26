@@ -137,7 +137,7 @@ public class Enemy2Sonar : MonoBehaviour
         {
             if (!alreadyInsideHearingRadious)
             {
-                StartCoroutine(Sonar());
+                StartCoroutine(SonarCooldown());
                 sonarUI.ActivateSonarUI();
                 alreadyInsideHearingRadious = true;
             }                           
@@ -176,7 +176,7 @@ public class Enemy2Sonar : MonoBehaviour
         {
             // player.GetComponent<OxigenScript>().Kill();
             attack = false;
-            StartCoroutine(Sonar());
+            StartCoroutine(SonarCooldown());
         }
     }
 
@@ -251,7 +251,7 @@ public class Enemy2Sonar : MonoBehaviour
         }
         else
         {
-            StartCoroutine(Sonar());
+            StartCoroutine(SonarCooldown());
         }
     }
 
