@@ -166,7 +166,7 @@ public class GameManager : MonoBehaviour
 
     public GameObject GetPlayerController()
     {
-        player = FindObjectOfType<Component>()?.gameObject;
+        player = FindObjectOfType<PlayerMovement>()?.gameObject;
 
         return player;
     }
