@@ -119,9 +119,13 @@ GameObject:
   - component: {fileID: 8958090168955497643}
   - component: {fileID: 4710599616024909938}
   - component: {fileID: 4110250732275042765}
+<<<<<<< HEAD
+  - component: {fileID: 1801770161798782068}
+=======
   - component: {fileID: 9047061665015741409}
   - component: {fileID: 965430661426854080}
   - component: {fileID: 2822911129013704682}
+>>>>>>> 4a952f75032f0bad0b0400bec8975363caddaf09
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -224,7 +228,7 @@ MonoBehaviour:
   maxOxigen: 30
   oxigenDecayHealthy: 1
   oxigenDecayBroken: 2
---- !u!114 &9047061665015741409
+--- !u!114 &1801770161798782068
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}

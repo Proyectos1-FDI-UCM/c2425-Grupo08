@@ -8,19 +8,20 @@
 using UnityEngine;
 // Añadir aquí el resto de directivas using
 
+
 /// <summary>
 /// Antes de cada class, descripción de qué es y para qué sirve,
 /// usando todas las líneas que sean necesarias.
 /// </summary>
-   public class PlayerScript : MonoBehaviour
-    {
-        // ---- ATRIBUTOS DEL INSPECTOR ----
-        #region Atributos del Inspector (serialized fields)
-        // Documentar cada atributo que aparece aquí.
-        // El convenio de nombres de Unity recomienda que los atributos
-        // públicos y de inspector se nombren en formato PascalCase
-        // (palabras con primera letra mayúscula, incluida la primera letra)
-        // Ejemplo: MaxHealthPoints
+public class PlayerMovement : MonoBehaviour
+{
+    // ---- ATRIBUTOS DEL INSPECTOR ----
+    #region Atributos del Inspector (serialized fields)
+    // Documentar cada atributo que aparece aquí.
+    // El convenio de nombres de Unity recomienda que los atributos
+    // públicos y de inspector se nombren en formato PascalCase
+    // (palabras con primera letra mayúscula, incluida la primera letra)
+    // Ejemplo: MaxHealthPoints
         [Header("Walk Attributes")]
         [SerializeField]private float WalkAcceleration;
         [SerializeField]private float WalkDeceleration;
@@ -61,18 +62,18 @@ using UnityEngine;
         [SerializeField]private float AimJumpAcceleration;
         [SerializeField]private float AimJumpMultiplierDecay;
 
-        [SerializeField] public bool debug{get;set;}
-        #endregion
+        [SerializeField]private bool debug;
 
-        // ---- ATRIBUTOS PRIVADOS ----
-        #region Atributos Privados (private fields)
-        // Documentar cada atributo que aparece aquí.
-        // El convenio de nombres de Unity recomienda que los atributos
-        // privados se nombren en formato _camelCase (comienza con _,
-        // primera palabra en minúsculas y el resto con la
-        // primera letra en mayúsculas)
-        // Ejemplo: _maxHealthPoints
-
+    #endregion
+    
+    // ---- ATRIBUTOS PRIVADOS ----
+    #region Atributos Privados (private fields)
+    // Documentar cada atributo que aparece aquí.
+    // El convenio de nombres de Unity recomienda que los atributos
+    // privados se nombren en formato _camelCase (comienza con _, 
+    // primera palabra en minúsculas y el resto con la 
+    // primera letra en mayúsculas)
+    // Ejemplo: _maxHealthPoints
         enum States {
             Idle,
             Walk,
@@ -86,96 +87,98 @@ using UnityEngine;
         private float jumpMultiplier = 1;
         private States state = States.Idle;
 
-        #endregion
 
-        // ---- MÉTODOS DE MONOBEHAVIOUR ----
-        #region Métodos de MonoBehaviour
 
-        // Por defecto están los típicos (Update y Start) pero:
-        // - Hay que añadir todos los que sean necesarios
-        // - Hay que borrar los que no se usen
-
-        /// <summary>
-        /// Start is called on the frame when a script is enabled just before
-        /// any of the Update methods are called the first time.
-        /// </summary>
-        void Start()
-        {
-            rb = GetComponent<Rigidbody2D>();
-        }
-
-        /// <summary>
-        /// Update is called every frame, if the MonoBehaviour is enabled.
-        /// </summary>:
-        public void Update()
-        {
-            
-        }
-        public void FixedUpdate()
-        {
-            switch (state){
-            case States.Idle:
-            break;
-            case States.Walk:
-                if (InputManager.Instance.MovementVector.x != 0)
-                {
-                    joystickMaxSpeed = WalkMaxSpeed * InputManager.Instance.MovementVector.x;
-                    WalkWalk(InputManager.Instance.MovementVector.x);
-                }
-                else WalkDecelerate(WalkDeceleration);
-
-            break;
-            case States.Jump:
-                if (InputManager.Instance.JumpWasRealeasedThisFrame())
-                {
-                    jumpMultiplier = 0;
-                }
+    #endregion
+    
+    // ---- MÉTODOS DE MONOBEHAVIOUR ----
+    #region Métodos de MonoBehaviour
+    
+    // Por defecto están los típicos (Update y Start) pero:
+    // - Hay que añadir todos los que sean necesarios
+    // - Hay que borrar los que no se usen 
+    
+    /// <summary>
+    /// Start is called on the frame when a script is enabled just before 
+    /// any of the Update methods are called the first time.
+    /// </summary>
+    void Start()
+    {
         
-                if (InputManager.Instance.JumpIsPressed() && jumpMultiplier > 0)
-                {
-                    JumpJump();
-                }
-        
-                if (InputManager.Instance.MovementVector.x != 0)
-                {
-                    joystickMaxSpeed = JumpMaxSpeed * InputManager.Instance.MovementVector.x;
-                    JumpWalk(InputManager.Instance.MovementVector.x);
-                }
-                else JumpDecelerate(JumpDeceleration);
-            break;
-            case States.Fall:
-                if (InputManager.Instance.MovementVector.x != 0)
-                {
-                    joystickMaxSpeed = FallMaxSpeed * InputManager.Instance.MovementVector.x;
-                    FallWalk(InputManager.Instance.MovementVector.x);
-                }
-                else FallDecelerate(FallDeceleration);
+        rb = GetComponent<Rigidbody2D>();
+    }
 
-            break;
-            case States.Aim:
-            break;
+    /// <summary>
+    /// Update is called every frame, if the MonoBehaviour is enabled.
+    /// </summary>
+    void Update()
+    {
+        CheckState(ref state);
+    }
+    public void FixedUpdate()
+    {
+        switch (state){
+        case States.Idle:
+        break;
+        case States.Walk:
+            if (InputManager.Instance.MovementVector.x != 0)
+            {
+                joystickMaxSpeed = WalkMaxSpeed * InputManager.Instance.MovementVector.x;
+                WalkWalk(InputManager.Instance.MovementVector.x);
             }
+            else WalkDecelerate(WalkDeceleration);
+        break;
+        case States.Jump:
+            if (InputManager.Instance.JumpWasRealeasedThisFrame())
+            {
+                jumpMultiplier = 0;
+            }
+    
+            if (InputManager.Instance.JumpIsPressed() && jumpMultiplier > 0)
+            {
+                JumpJump();
+            }
+    
+            if (InputManager.Instance.MovementVector.x != 0)
+            {
+                joystickMaxSpeed = JumpMaxSpeed * InputManager.Instance.MovementVector.x;
+                JumpWalk(InputManager.Instance.MovementVector.x);
+            }
+            else JumpDecelerate(JumpDeceleration);
+        break;
+        case States.Fall:
+            if (InputManager.Instance.MovementVector.x != 0)
+            {
+                joystickMaxSpeed = FallMaxSpeed * InputManager.Instance.MovementVector.x;
+                FallWalk(InputManager.Instance.MovementVector.x);
+            }
+            else FallDecelerate(FallDeceleration);
+        break;
+        case States.Aim:
+        break;
         }
-            #endregion
+    }
 
-        // ---- MÉTODOS PÚBLICOS ----
-        #region Métodos públicos
-        // Documentar cada método que aparece aquí con ///<summary>
-        // El convenio de nombres de Unity recomienda que estos métodos
-        // se nombren en formato PascalCase (palabras con primera letra
-        // mayúscula, incluida la primera letra)
-        // Ejemplo: GetPlayerController
+    #endregion
 
-        #endregion
+    // ---- MÉTODOS PÚBLICOS ----
+    #region Métodos públicos
+    // Documentar cada método que aparece aquí con ///<summary>
+    // El convenio de nombres de Unity recomienda que estos métodos
+    // se nombren en formato PascalCase (palabras con primera letra
+    // mayúscula, incluida la primera letra)
+    // Ejemplo: GetPlayerController
 
-        // ---- MÉTODOS PRIVADOS ----
-        #region Métodos Privados
-        // Documentar cada método que aparece aquí
-        // El convenio de nombres de Unity recomienda que estos métodos
-        // se nombren en formato PascalCase (palabras con primera letra
-        // mayúscula, incluida la primera letra)
+    #endregion
+    
+    // ---- MÉTODOS PRIVADOS ----
+    #region Métodos privados
+    // Documentar cada método que aparece aquí
+    // El convenio de nombres de Unity recomienda que estos métodos
+    // se nombren en formato PascalCase (palabras con primera letra
+    // mayúscula, incluida la primera letra)
 
-        private void CheckState(){
+        private void CheckState(ref States state){
 
             switch (state){
                 case States.Idle:
@@ -183,7 +186,7 @@ using UnityEngine;
                     if (InputManager.Instance.MovementVector.x != 0)
                     {
                         state = States.Walk;
-                        AudioManager.instance.PlayLoopingSFX(1);
+                        //AudioManager.instance.PlayLoopingSFX(1);
 
                     }
                     else if (rb.velocity.y < 0)
@@ -195,7 +198,7 @@ using UnityEngine;
                     {
 
                         state = States.Jump;
-                        AudioManager.instance.PlaySFX(2);
+                        //AudioManager.instance.PlaySFX(2);
                     }
                     else if (isLanternAimed)
                     {
@@ -207,7 +210,7 @@ using UnityEngine;
                     if (rb.velocity == new Vector2(0, 0))
                     {
                         state = States.Idle; 
-                        AudioManager.instance.StopLoopingSFX(1);
+                        //AudioManager.instance.StopLoopingSFX(1);
          
                     }
                     else if (rb.velocity.y < 0)
@@ -217,8 +220,8 @@ using UnityEngine;
                     else if (InputManager.Instance.JumpWasPressedThisFrame())
                     {
                         state = States.Jump;
-                        AudioManager.instance.PlaySFX(2);
-                        AudioManager.instance.StopLoopingSFX(1);
+                        //AudioManager.instance.PlaySFX(2);
+                        //AudioManager.instance.StopLoopingSFX(1);
          
                     }
                     else if (isLanternAimed)
@@ -233,12 +236,12 @@ using UnityEngine;
                 break;
                 case States.Fall:
                     if (rb.velocity.y == 0){
-                        AudioManager.instance.PlaySFX(3);
+                        //AudioManager.instance.PlaySFX(3);
                         if (rb.velocity.x == 0){
                             state = States.Idle;
                         }
                         else{
-                            AudioManager.instance.PlayLoopingSFX(1);
+                            //AudioManager.instance.PlayLoopingSFX(1);
                             state = States.Walk;
                         }
                     }
@@ -371,7 +374,7 @@ using UnityEngine;
             rb.AddForce(new Vector2(FallDecelerationValue, 0), ForceMode2D.Force);
         }
     }
+    #endregion   
 
-        #endregion
-    }
-
+} // class PlayerMovement 
+// namespace

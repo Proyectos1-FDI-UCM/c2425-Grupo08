@@ -6,7 +6,7 @@
 //---------------------------------------------------------
 
 using EnemyLogic;
-using PlayerLogic;
+
 using System.Collections;
 
 using UnityEngine;
