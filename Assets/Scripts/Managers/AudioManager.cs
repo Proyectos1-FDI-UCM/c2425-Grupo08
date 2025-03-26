@@ -14,7 +14,7 @@ public enum SFXType
 
 public class AudioManager : MonoBehaviour
 {
-    public static AudioManager Instance;
+    public static AudioManager instance;
 
     [SerializeField] private AudioMixer audioMixer;
     [SerializeField] private AudioClip[] sfxClips;
@@ -28,9 +28,9 @@ public class AudioManager : MonoBehaviour
 
     void Awake()
     {
-        if (Instance == null)
+        if (instance == null)
         {
-            Instance = this;
+            instance = this;
             DontDestroyOnLoad(gameObject);
         }
         else

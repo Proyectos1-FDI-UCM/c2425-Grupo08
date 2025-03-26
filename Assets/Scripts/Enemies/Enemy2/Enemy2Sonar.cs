@@ -32,11 +32,11 @@ public class Enemy2Sonar : MonoBehaviour
 
     [SerializeField] private bool debug = false;
 
-    [SerializeField] private float sonarFrequency = 3f;
-    [SerializeField] private float shadowDelay = 0.5f;
+    [SerializeField] private float sonarFrequency;
+    [SerializeField] private float shadowDelay;
 
-    [SerializeField] private float sonarHearingDistance = 5f;
-    [SerializeField] private float sonarAttackDistance = 3f;
+    [SerializeField] private float sonarHearingDistance;
+    [SerializeField] private float sonarAttackDistance;
 
     #endregion
 
@@ -51,14 +51,13 @@ public class Enemy2Sonar : MonoBehaviour
 
     private Rigidbody2D rb;
 
-    private Collider2D bodyCollider;
-
     private GameObject player;
     private SonarUI sonarUI;
 
     private bool attack = false;
 
-    private bool isInsideRadious = false;
+    private bool alreadyInsideHearingRadious;
+    private bool alreadyInsideAttackRadious;
 
     private bool attackDebug = false;
 
@@ -112,8 +111,6 @@ public class Enemy2Sonar : MonoBehaviour
     {
         rb = GetComponent<Rigidbody2D>();
 
-        bodyCollider = GetComponent<Collider2D>();
-
         player = GameObject.FindGameObjectWithTag("Player");
         sonarUI = player.GetComponentInChildren<SonarUI>();
 
@@ -136,25 +133,33 @@ public class Enemy2Sonar : MonoBehaviour
     }
     void Update()
     {
-        if ((player.transform.position - transform.position).magnitude <= sonarHearingDistance && !isInsideRadious)
+        if (IsInsideHearingRadious())
         {
-            StartCoroutine(Sonar());
-            isInsideRadious = true;
-            sonarUI.ActivateSonarUI();                  
+            if (!alreadyInsideHearingRadious)
+            {
+                StartCoroutine(Sonar());
+                sonarUI.ActivateSonarUI();
+                alreadyInsideHearingRadious = true;
+            }                           
         }
-        else if ((player.transform.position - transform.position).magnitude > sonarHearingDistance)
+        else
         {
-            StopAllCoroutines();
-            isInsideRadious = false;
-            sonarUI.DeactivateSonarUI();                    
+            StopAllCoroutines();        
+            sonarUI.DeactivateSonarUI();
+            alreadyInsideHearingRadious = false;
         }
-        if ((player.transform.position - transform.position).magnitude <= sonarAttackDistance)
+        if (IsInsideAttackRadious())
         {
-            sonarUI.ActivatePulseUI();
+            if (!alreadyInsideAttackRadious)
+            {
+                sonarUI.ActivatePulseUI();
+                alreadyInsideAttackRadious = true;
+            }          
         }
-        else if ((player.transform.position - transform.position).magnitude > sonarAttackDistance)
+        else
         {
             sonarUI.DeactivatePulseUI();
+            alreadyInsideAttackRadious = false;
         }
     }
     private void OnTriggerEnter2D(Collider2D collision)
@@ -201,7 +206,17 @@ public class Enemy2Sonar : MonoBehaviour
         rb.velocity = direction * speed;
     }
 
-    private IEnumerator Sonar()
+    private bool IsInsideHearingRadious()
+    {
+        return (player.transform.position - transform.position).magnitude <= sonarHearingDistance;
+    }
+
+    private bool IsInsideAttackRadious()
+    {
+        return (player.transform.position - transform.position).magnitude <= sonarAttackDistance;
+    }
+
+    private IEnumerator SonarCooldown()
     {
         yield return new WaitForSeconds(sonarFrequency);
 
@@ -211,20 +226,26 @@ public class Enemy2Sonar : MonoBehaviour
         StartCoroutine(ShadowDelay());
     }
 
+    private IEnumerator SonarCharge()
+    {
+        yield return new WaitForSeconds(sonarFrequency);
+    }
+
     private IEnumerator ShadowDelay()
     {
         attackDebug = true;
 
         yield return new WaitForSeconds(shadowDelay);
 
-        // if ((player.transform.position - transform.position).magnitude < sonarAttackDistance && player.GetComponent<Rigidbody2D>().velocity.sqrMagnitude != 0)
+        // if ((player.transform.position - transform.position).magnitude < sonarAttackDistance &&
+        // (InputManager.Instance.IsWalkPressed() || InputManager.Instance.IsRepairPressed()))
         // {
         //     attack = true;
         // }
 
         attackDebug = false;
 
-        if ((player.transform.position - transform.position).magnitude < sonarAttackDistance)
+        if (IsInsideAttackRadious())
         {
             attack = true;
         }
