@@ -7,6 +7,8 @@
 //---------------------------------------------------------
 
 using UnityEngine;
+using UnityEngine.Rendering.Universal; // Necesario para Light2D
+
 
 /// <summary>
 /// Componente que se encarga de la gestión de un nivel concreto.
@@ -41,7 +43,12 @@ public class LevelManager : MonoBehaviour
     /// Instancia única de la clase (singleton).
     /// </summary>
     private static LevelManager _instance;
+    [SerializeField]
     private int motoresReparados = 0;
+    [SerializeField]
+    private int motorNeed;
+    [SerializeField]
+    private Light2D completionLight; // Referencia a la luz
 
     #endregion
 
@@ -93,21 +100,38 @@ public class LevelManager : MonoBehaviour
     {
         motoresReparados++;
         Debug.Log("Motores reparados: " + motoresReparados);
+        if (LevelCompleted())
+        {
+            if (completionLight != null)
+                completionLight.enabled = true; // Encender la luz
+        }
     }
+
+    public bool LevelCompleted()
+    {
+        if (motoresReparados == motorNeed)
+        {
+            Debug.Log("Puedes abandonar el nivel");
+            return true;
+        }
+        return false;
+    }
+
 
     #endregion
 
     // ---- MÉTODOS PRIVADOS ----
 
+    private void Init()
+    {
+        if (completionLight != null)
+            completionLight.enabled = false; // Asegurar que la luz empieza apagada
+    }
     #region Métodos Privados
 
     /// <summary>
     /// Dispara la inicialización.
     /// </summary>
-    private void Init()
-    {
-        // De momento no hay nada que inicializar
-    }
 
     #endregion
 } // class LevelManager 
