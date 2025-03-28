@@ -221,7 +221,10 @@ public class Enemy2Sonar : MonoBehaviour
     {
         return (player.transform.position - transform.position).magnitude <= sonarAttackDistance;
     }
-
+    /// <summary>
+    /// Cooldown del sonar (su frecuencia menos el tiempo de carga y menos el delay del final)
+    /// </summary>
+    /// <returns></returns>
     private IEnumerator SonarCooldown()
     {
         yield return new WaitForSeconds(sonarCooldownTime);
@@ -231,7 +234,10 @@ public class Enemy2Sonar : MonoBehaviour
 
         StartCoroutine(SonarCharge());
     }
-
+    /// <summary>
+    /// Tiempo que tarda la animación del UI en llegar a su máxima escala
+    /// </summary>
+    /// <returns></returns>
     private IEnumerator SonarCharge()
     {
         sonarUI.PlayAnimation();
@@ -240,7 +246,10 @@ public class Enemy2Sonar : MonoBehaviour
 
         StartCoroutine(ShadowDelay());
     }
-
+    /// <summary>
+    /// Pequeño delay para dar tiempo de reacción al jugador (el sonido del sonar tendría que llegar al jugador justo antes de este delay)
+    /// </summary>
+    /// <returns></returns>
     private IEnumerator ShadowDelay()
     {
         attackDebug = true;
@@ -264,7 +273,9 @@ public class Enemy2Sonar : MonoBehaviour
             StartCoroutine(SonarCooldown());
         }
     }
-
+    /// <summary>
+    /// Método que dibuja el debug en el editor 
+    /// </summary>
     private void OnDrawGizmos()
     {
         if (debug)
