@@ -8,6 +8,7 @@
 using EnemyLogic;
 using System.Collections;
 using UnityEngine;
+using UnityEngine.Rendering;
 using UnityEngine.UIElements;
 // Añadir aquí el resto de directivas using
 
@@ -34,6 +35,7 @@ public class Enemy2Sonar : MonoBehaviour
 
     [SerializeField] private float sonarFrequency;
     [SerializeField] private float shadowDelay;
+    [SerializeField] private float sonarChargeTime;
 
     [SerializeField] private float sonarHearingDistance;
     [SerializeField] private float sonarAttackDistance;
@@ -60,6 +62,8 @@ public class Enemy2Sonar : MonoBehaviour
     private bool alreadyInsideAttackRadious;
 
     private bool attackDebug = false;
+
+    private float sonarCooldownTime;
 
     private struct NodeRoute
     {
@@ -115,6 +119,8 @@ public class Enemy2Sonar : MonoBehaviour
         sonarUI = player.GetComponentInChildren<SonarUI>();
 
         nodeRoute = new NodeRoute(nodeArray); // Aviso. El array de nodos se crea al inicio, no es dinámico.
+
+        sonarCooldownTime = sonarFrequency - sonarChargeTime - shadowDelay;
     }
 
     /// <summary>
@@ -218,7 +224,7 @@ public class Enemy2Sonar : MonoBehaviour
 
     private IEnumerator SonarCooldown()
     {
-        yield return new WaitForSeconds(sonarFrequency);
+        yield return new WaitForSeconds(sonarCooldownTime);
 
         // Hacer el sonido
         // Hacer la animación del UI
@@ -228,7 +234,9 @@ public class Enemy2Sonar : MonoBehaviour
 
     private IEnumerator SonarCharge()
     {
-        yield return new WaitForSeconds(sonarFrequency);
+        sonarUI.PlayAnimation();
+
+        yield return new WaitForSeconds(sonarChargeTime);
 
         StartCoroutine(ShadowDelay());
     }

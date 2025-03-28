@@ -82,13 +82,11 @@ public class SonarUI : MonoBehaviour
 
     public void ActivateSonarUI()
     {
-        sonarIndicatorAnimator.Play("SonarUIAppear");
-        pulseIndicatorAnimation.Play();
+        sonarIndicatorAnimator.Play("SonarUIAppear");      
     }
     public void DeactivateSonarUI() 
     {
         sonarIndicatorAnimator.Play("SonarUIDisappear");
-        pulseIndicatorAnimation.Stop();
     }
     public void ActivatePulseUI()
     {
@@ -99,6 +97,10 @@ public class SonarUI : MonoBehaviour
     {
         pulseIndicator.enabled = false;
         Debug.Log("desactivado");
+    }
+    public void PlayAnimation()
+    {
+        pulseIndicatorAnimation.Play();
     }
 
     #endregion
