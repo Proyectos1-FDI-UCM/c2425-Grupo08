@@ -85,23 +85,26 @@ using UnityEngine;
         private bool isLanternAimed;
         private float jumpMultiplier = 1;
         private States state = States.Idle;
+        private AudioSource audioSource;
 
-        #endregion
 
-        // ---- MÉTODOS DE MONOBEHAVIOUR ----
-        #region Métodos de MonoBehaviour
+    #endregion
 
-        // Por defecto están los típicos (Update y Start) pero:
-        // - Hay que añadir todos los que sean necesarios
-        // - Hay que borrar los que no se usen
+    // ---- MÉTODOS DE MONOBEHAVIOUR ----
+    #region Métodos de MonoBehaviour
 
-        /// <summary>
-        /// Start is called on the frame when a script is enabled just before
-        /// any of the Update methods are called the first time.
-        /// </summary>
-        void Start()
+    // Por defecto están los típicos (Update y Start) pero:
+    // - Hay que añadir todos los que sean necesarios
+    // - Hay que borrar los que no se usen
+
+    /// <summary>
+    /// Start is called on the frame when a script is enabled just before
+    /// any of the Update methods are called the first time.
+    /// </summary>
+    void Start()
         {
             rb = GetComponent<Rigidbody2D>();
+            audioSource= GetComponent<AudioSource>();
         }
 
         /// <summary>
@@ -183,7 +186,7 @@ using UnityEngine;
                     if (InputManager.Instance.MovementVector.x != 0)
                     {
                         state = States.Walk;
-                        AudioManager.instance.PlaySFX(SFXType.Walk, true);
+                        AudioManager.instance.PlaySFX(SFXType.Walk,audioSource, true);
                     }
                 else if (rb.velocity.y < 0)
 
@@ -194,7 +197,7 @@ using UnityEngine;
                     {
 
                         state = States.Jump;
-                        AudioManager.instance.PlaySFX(SFXType.Jump);
+                        AudioManager.instance.PlaySFX(SFXType.Jump, audioSource);
                     }
                     else if (isLanternAimed)
                     {
@@ -206,7 +209,7 @@ using UnityEngine;
                     if (rb.velocity == new Vector2(0, 0))
                     {
                         state = States.Idle; 
-                        AudioManager.instance.StopLoopingSFX(SFXType.Walk);
+                        AudioManager.instance.StopSFX(audioSource);
          
                     }
                     else if (rb.velocity.y < 0)
@@ -216,10 +219,10 @@ using UnityEngine;
                     else if (InputManager.Instance.JumpWasPressedThisFrame())
                     {
                         state = States.Jump;
-                        AudioManager.instance.PlaySFX(SFXType.Jump);
-                        AudioManager.instance.StopLoopingSFX(SFXType.Walk);
-         
-                    }
+                        AudioManager.instance.StopSFX(audioSource);
+                        AudioManager.instance.PlaySFX(SFXType.Jump, audioSource);
+
+                }
                     else if (isLanternAimed)
                     {
                         state = States.Aim;
@@ -232,12 +235,12 @@ using UnityEngine;
                 break;
                 case States.Fall:
                     if (rb.velocity.y == 0){
-                        AudioManager.instance.PlaySFX(SFXType.Fall);
+                        AudioManager.instance.PlaySFX(SFXType.Fall, audioSource);
                         if (rb.velocity.x == 0){
                             state = States.Idle;
                         }
                         else{
-                            AudioManager.instance.PlaySFX(SFXType.Walk, true);
+                            AudioManager.instance.PlaySFX(SFXType.Walk, audioSource, true);
                             state = States.Walk;
                         }
                     }

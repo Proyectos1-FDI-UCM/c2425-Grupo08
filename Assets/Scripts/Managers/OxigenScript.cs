@@ -27,6 +27,7 @@ public class OxigenScript : MonoBehaviour
     [SerializeField] private int maxOxigen; // La cantidad máxima de oxígeno que puede tener el jugador
     [SerializeField] private float oxigenDecayHealthy; // La cantidad de oxígeno que se pierde por segundo al estar en estado "sano"
     [SerializeField] private float oxigenDecayBroken; // La cantidad de oxígeno que se pierde por segundo al estar en estado "roto"
+
     //[SerializeField] private Text oxigenText; // El texto que muestra la cantidad de oxígeno que tiene el jugador
 
     #endregion
@@ -42,7 +43,7 @@ public class OxigenScript : MonoBehaviour
 
     private float currentOxigen; // La cantidad actual de oxígeno que tiene el jugador
     private bool tankBroken = false; // Indica si el tanque de oxígeno está roto o no
-
+    private AudioSource audioSource;
     #endregion
 
     // ---- MÉTODOS DE MONOBEHAVIOUR ----
@@ -59,6 +60,7 @@ public class OxigenScript : MonoBehaviour
     void Start()
     {
         currentOxigen = maxOxigen;
+        audioSource= GetComponent<AudioSource>();
     }
 
     /// <summary>
@@ -123,8 +125,8 @@ public class OxigenScript : MonoBehaviour
     // mayúscula, incluida la primera letra)
     private void Death()
     {
-        AudioManager.instance.StopSFX(SFXType.Breath);
-        AudioManager.instance.PlaySFX(SFXType.GameOver);
+        AudioManager.instance.StopSFX(audioSource);
+        AudioManager.instance.PlaySFX(SFXType.GameOver, audioSource);
         Destroy(gameObject);
     
     }
