@@ -200,7 +200,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6828508868009096725}
-  - component: {fileID: 2166600894173717961}
   m_Layer: 0
   m_Name: Lantern
   m_TagString: Untagged
@@ -227,26 +226,6 @@ Transform:
   - {fileID: 7185569902785466202}
   m_Father: {fileID: 2181331470842799619}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &2166600894173717961
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1119834961152876785}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 60bf43236dbedd441b95201c4f161760, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  beamGrowSpeed: 100
-  maxBeamLength: 10
-  minBeamWidth: 4
-  flashCooldown: 4
-  inputDeadzone: 0.25
-  playerSprite: {fileID: 3861456626031676602}
-  focusedBeamLengthMultiplier: 4
-  flashIntensityIncrease: 800
 --- !u!1 &3190272025005498771
 GameObject:
   m_ObjectHideFlags: 0
@@ -260,6 +239,7 @@ GameObject:
   - component: {fileID: 4710599616024909938}
   - component: {fileID: 4110250732275042765}
   - component: {fileID: 2822911129013704682}
+  - component: {fileID: 2739619821466049772}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -374,6 +354,49 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c8597e0e46deb0f408d632413ac8e7cf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &2739619821466049772
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3190272025005498771}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eb9aa9d810b93c7e681dfd934d0620cf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  WalkAcceleration: 10
+  WalkDeceleration: 5
+  WalkMaxSpeed: 10
+  WalkDecelerationThreshold: 5
+  WalkJumpAcceleration: 5
+  WalkJumpMultiplierDecay: 5
+  IdleAcceleration: 0
+  IdleDeceleration: 0
+  IdleMaxSpeed: 0
+  IdleDecelerationThreshold: 0
+  IdleJumpAcceleration: 0
+  IdleJumpMultiplierDecay: 0
+  JumpAcceleration: 5
+  JumpDeceleration: 4
+  JumpMaxSpeed: 5
+  JumpDecelerationThreshold: 0
+  JumpJumpAcceleration: 0
+  JumpJumpMultiplierDecay: 0
+  FallAcceleration: 0
+  FallDeceleration: 0
+  FallMaxSpeed: 0
+  FallDecelerationThreshold: 0
+  FallJumpAcceleration: 0
+  FallJumpMultiplierDecay: 0
+  AimAcceleration: 0
+  AimDeceleration: 0
+  AimMaxSpeed: 0
+  AimDecelerationThreshold: 0
+  AimJumpAcceleration: 0
+  AimJumpMultiplierDecay: 0
+  debug: 0
 --- !u!1 &3376318906932479519
 GameObject:
   m_ObjectHideFlags: 0
