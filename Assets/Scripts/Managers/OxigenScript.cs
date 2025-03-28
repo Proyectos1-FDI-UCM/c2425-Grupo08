@@ -5,9 +5,10 @@
 // Proyectos 1 - Curso 2024-25
 //---------------------------------------------------------
 
+using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI; 
-// Añadir aquí el resto de directivas using
+using UnityEngine.UI;
+using System.Collections;
 
 
 /// <summary>
@@ -41,7 +42,7 @@ public class OxigenScript : MonoBehaviour
     // primera letra en mayúsculas)
     // Ejemplo: _maxHealthPoints
 
-    private float currentOxigen; // La cantidad actual de oxígeno que tiene el jugador
+    public float currentOxigen; // La cantidad actual de oxígeno que tiene el jugador
     private bool tankBroken = false; // Indica si el tanque de oxígeno está roto o no
     private AudioSource audioSource;
     #endregion
@@ -61,6 +62,7 @@ public class OxigenScript : MonoBehaviour
     {
         currentOxigen = maxOxigen;
         audioSource= GetComponent<AudioSource>();
+        AudioManager.instance.PlaySFX(SFXType.Breath, audioSource, true);
     }
 
     /// <summary>
@@ -79,11 +81,13 @@ public class OxigenScript : MonoBehaviour
             currentOxigen -= oxigenDecayHealthy * Time.deltaTime;
         }
 
+
         if (currentOxigen <= 0)
         {
             currentOxigen = 0;
             Death();
         }
+     
 
         // Nueva integracion: Se envia el porcentaje de oxigeno al GameManager
         OxigenPercentage();
@@ -123,13 +127,24 @@ public class OxigenScript : MonoBehaviour
     // El convenio de nombres de Unity recomienda que estos métodos
     // se nombren en formato PascalCase (palabras con primera letra
     // mayúscula, incluida la primera letra)
+    private bool isDead = false;
+
     private void Death()
     {
+        if (isDead) return; // Evitar múltiples ejecuciones
+
+        isDead = true;
         AudioManager.instance.StopSFX(audioSource);
         AudioManager.instance.PlaySFX(SFXType.GameOver, audioSource);
-        Destroy(gameObject);
-    
+
+        StartCoroutine(DestroyAfterDelay());
     }
+    private IEnumerator DestroyAfterDelay()
+    {
+        yield return new WaitForSeconds(2f);
+        Destroy(gameObject);
+    }
+
     #endregion
 
     #region Integracion con UI
