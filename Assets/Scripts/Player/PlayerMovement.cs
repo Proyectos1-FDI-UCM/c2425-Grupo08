@@ -1,42 +1,28 @@
 //---------------------------------------------------------
-// Breve descripción del contenido del archivo
-// Responsable de la creación de este archivo
-// Nombre del juego
+// Lógica del movimiento del jugador. Tiene dos switch, uno para cambiar de estado y otro para ejecutar la lógica específica de cada estado
+// Miguel Ángel González López
+// Project Abyss
 // Proyectos 1 - Curso 2024-25
 //---------------------------------------------------------
 
 using UnityEngine;
-// Añadir aquí el resto de directivas using
 
 
 /// <summary>
-/// Antes de cada class, descripción de qué es y para qué sirve,
-/// usando todas las líneas que sean necesarias.
+/// Clase heredara del MonoBehaviour que lleva la lógica del movimiento y estados del jugador
 /// </summary>
 public class PlayerMovement : MonoBehaviour
 {
     // ---- ATRIBUTOS DEL INSPECTOR ----
     #region Atributos del Inspector (serialized fields)
-    // Documentar cada atributo que aparece aquí.
-    // El convenio de nombres de Unity recomienda que los atributos
-    // públicos y de inspector se nombren en formato PascalCase
-    // (palabras con primera letra mayúscula, incluida la primera letra)
-    // Ejemplo: MaxHealthPoints
+
         [Header("Walk Attributes")]
         [SerializeField]private float WalkAcceleration;
         [SerializeField]private float WalkDeceleration;
         [SerializeField]private float WalkMaxSpeed;
         [SerializeField]private float WalkDecelerationThreshold;
-        [SerializeField]private float WalkJumpAcceleration;
-        [SerializeField]private float WalkJumpMultiplierDecay;
 
         [Header("Idle Attributes")]
-        [SerializeField]private float IdleAcceleration;
-        [SerializeField]private float IdleDeceleration;
-        [SerializeField]private float IdleMaxSpeed;
-        [SerializeField]private float IdleDecelerationThreshold;
-        [SerializeField]private float IdleJumpAcceleration;
-        [SerializeField]private float IdleJumpMultiplierDecay;
 
         [Header("Jump Attributes")]
         [SerializeField]private float JumpAcceleration;
@@ -51,16 +37,8 @@ public class PlayerMovement : MonoBehaviour
         [SerializeField]private float FallDeceleration;
         [SerializeField]private float FallMaxSpeed;
         [SerializeField]private float FallDecelerationThreshold;
-        [SerializeField]private float FallJumpAcceleration;
-        [SerializeField]private float FallJumpMultiplierDecay;
  
         [Header("Aim Attributes")]
-        [SerializeField]private float AimAcceleration;
-        [SerializeField]private float AimDeceleration;
-        [SerializeField]private float AimMaxSpeed;
-        [SerializeField]private float AimDecelerationThreshold;
-        [SerializeField]private float AimJumpAcceleration;
-        [SerializeField]private float AimJumpMultiplierDecay;
 
         [SerializeField]private bool debug;
 
@@ -68,12 +46,9 @@ public class PlayerMovement : MonoBehaviour
     
     // ---- ATRIBUTOS PRIVADOS ----
     #region Atributos Privados (private fields)
-    // Documentar cada atributo que aparece aquí.
-    // El convenio de nombres de Unity recomienda que los atributos
-    // privados se nombren en formato _camelCase (comienza con _, 
-    // primera palabra en minúsculas y el resto con la 
-    // primera letra en mayúsculas)
-    // Ejemplo: _maxHealthPoints
+        /// <summary>
+        /// Enum con los estados del jugador.
+        /// </summary>
         enum States {
             Idle,
             Walk,
@@ -81,11 +56,26 @@ public class PlayerMovement : MonoBehaviour
             Jump,
             Aim
         }
-        private float joystickMaxSpeed;
-        private Rigidbody2D rb;
-        private bool isLanternAimed;
-        private float jumpMultiplier = 1;
-        private States state = States.Idle;
+        /// <summary>
+        ///  Limitador de la velocidad máxima según el desplazamiento del joystick (desplazamiento analógico).
+        /// </summary>
+        private float _joystickMaxSpeed;
+        /// <summary>
+        /// RigidBody2D del objeto jugador.
+        /// </summary>
+        private Rigidbody2D _rb;
+        /// <summary>
+        ///  True si el jugador está apuntando, False si el jugador no está apuntando.
+        /// </summary>
+        private bool _isLanternAimed;
+        /// <summary>
+        /// Multiplicador del salto del jugador que se aplica a la aceleración vertical al saltar y que decrementa mientras se pulsa el botón de salto.
+        /// </summary>
+        private float _jumpMultiplier = 1;
+        /// <summary>
+        /// Estado del jugador. Inicializa en Idle.
+        /// </summary>
+        private States _state = States.Idle;
 
 
 
@@ -94,17 +84,13 @@ public class PlayerMovement : MonoBehaviour
     // ---- MÉTODOS DE MONOBEHAVIOUR ----
     #region Métodos de MonoBehaviour
     
-    // Por defecto están los típicos (Update y Start) pero:
-    // - Hay que añadir todos los que sean necesarios
-    // - Hay que borrar los que no se usen 
-    
     /// <summary>
     /// Start is called on the frame when a script is enabled just before 
     /// any of the Update methods are called the first time.
     /// </summary>
     void Start()
     {     
-        rb = GetComponent<Rigidbody2D>();
+        _rb = GetComponent<Rigidbody2D>();
     }
 
     /// <summary>
@@ -112,17 +98,17 @@ public class PlayerMovement : MonoBehaviour
     /// </summary>
     void Update()
     {
-        CheckState(ref state);
+        CheckState(ref _state);
     }
     public void FixedUpdate()
     {
-        switch (state){
+        switch (_state){
         case States.Idle:
         break;
         case States.Walk:
             if (InputManager.Instance.MovementVector.x != 0)
             {
-                joystickMaxSpeed = WalkMaxSpeed * InputManager.Instance.MovementVector.x;
+                _joystickMaxSpeed = WalkMaxSpeed * InputManager.Instance.MovementVector.x;
                 WalkWalk(InputManager.Instance.MovementVector.x);
             }
             else WalkDecelerate(WalkDeceleration);
@@ -130,17 +116,17 @@ public class PlayerMovement : MonoBehaviour
         case States.Jump:
             if (InputManager.Instance.JumpWasRealeasedThisFrame())
             {
-                jumpMultiplier = 0;
+                _jumpMultiplier = 0;
             }
     
-            if (InputManager.Instance.JumpIsPressed() && jumpMultiplier > 0)
+            if (InputManager.Instance.JumpIsPressed() && _jumpMultiplier > 0)
             {
-                JumpJump();
+                Jump();
             }
     
             if (InputManager.Instance.MovementVector.x != 0)
             {
-                joystickMaxSpeed = JumpMaxSpeed * InputManager.Instance.MovementVector.x;
+                _joystickMaxSpeed = JumpMaxSpeed * InputManager.Instance.MovementVector.x;
                 JumpWalk(InputManager.Instance.MovementVector.x);
             }
             else JumpDecelerate(JumpDeceleration);
@@ -148,7 +134,7 @@ public class PlayerMovement : MonoBehaviour
         case States.Fall:
             if (InputManager.Instance.MovementVector.x != 0)
             {
-                joystickMaxSpeed = FallMaxSpeed * InputManager.Instance.MovementVector.x;
+                _joystickMaxSpeed = FallMaxSpeed * InputManager.Instance.MovementVector.x;
                 FallWalk(InputManager.Instance.MovementVector.x);
             }
             else FallDecelerate(FallDeceleration);
@@ -162,97 +148,91 @@ public class PlayerMovement : MonoBehaviour
 
     // ---- MÉTODOS PÚBLICOS ----
     #region Métodos públicos
-    // Documentar cada método que aparece aquí con ///<summary>
-    // El convenio de nombres de Unity recomienda que estos métodos
-    // se nombren en formato PascalCase (palabras con primera letra
-    // mayúscula, incluida la primera letra)
-    // Ejemplo: GetPlayerController
 
     #endregion
     
     // ---- MÉTODOS PRIVADOS ----
     #region Métodos privados
-    // Documentar cada método que aparece aquí
-    // El convenio de nombres de Unity recomienda que estos métodos
-    // se nombren en formato PascalCase (palabras con primera letra
-    // mayúscula, incluida la primera letra)
+    /// <summary>
+    /// Comprueba los parámetros actuales del jugador y cambia de estado dependiendo de ellos. El estado cambia en _state.
+    /// </summary>
+    /// <param name="_state">Estado pasado por referencia del jugador.</param>
+        private void CheckState(ref States _state){
 
-        private void CheckState(ref States state){
-
-            switch (state){
+            switch (_state){
                 case States.Idle:
 
                     if (InputManager.Instance.MovementVector.x != 0)
                     {
-                        state = States.Walk;
-                        //AudioManager.instance.PlaySFX(SFXType.Walk, true);
+                        _state = States.Walk;
+                        AudioManager.instance.PlaySFX(SFXType.Walk, true);
 
                     }
-                    else if (rb.velocity.y < 0)
+                    else if (_rb.velocity.y < 0)
 
                     {
-                        state = States.Fall;
+                        _state = States.Fall;
                     }
                     else if (InputManager.Instance.JumpWasPressedThisFrame())
                     {
 
-                        state = States.Jump;
-                        //AudioManager.instance.PlaySFX(SFXType.Jump);
+                        _state = States.Jump;
+                        AudioManager.instance.PlaySFX(SFXType.Jump);
                     
                     }
-                    else if (isLanternAimed)
+                    else if (_isLanternAimed)
                     {
-                        state = States.Aim;
+                        _state = States.Aim;
                     }
  
                 break;
                 case States.Walk:
-                    if (rb.velocity == new Vector2(0, 0))
+                    if (_rb.velocity == new Vector2(0, 0))
                     {
-                        state = States.Idle; 
-                        //AudioManager.instance.StopLoopingSFX(SFXType.Walk);
+                        _state = States.Idle; 
+                        AudioManager.instance.StopLoopingSFX(SFXType.Walk);
          
                     }
-                    else if (rb.velocity.y < 0)
+                    else if (_rb.velocity.y < 0)
                     {
-                        state = States.Fall;
+                        _state = States.Fall;
                     }
                     else if (InputManager.Instance.JumpWasPressedThisFrame())
                     {
-                        state = States.Jump;
-                        //AudioManager.instance.PlaySFX(SFXType.Jump);
-                        //AudioManager.instance.StopLoopingSFX(SFXType.Walk);
+                        _state = States.Jump;
+                        AudioManager.instance.PlaySFX(SFXType.Jump);
+                        AudioManager.instance.StopLoopingSFX(SFXType.Walk);
          
                     }
-                    else if (isLanternAimed)
+                    else if (_isLanternAimed)
                     {
-                        state = States.Aim;
+                        _state = States.Aim;
                     }
                 break;
                 case States.Jump:
-                    if (rb.velocity.y <0){
-                        state = States.Fall;
+                    if (_rb.velocity.y <0){
+                        _state = States.Fall;
                     }
                 break;
                 case States.Fall:
-                    if (rb.velocity.y == 0){
-                        //AudioManager.instance.PlaySFX(SFXType.Fall);
-                        if (rb.velocity.x == 0){
-                            state = States.Idle;
+                    if (_rb.velocity.y == 0){
+                        AudioManager.instance.PlaySFX(SFXType.Fall);
+                        if (_rb.velocity.x == 0){
+                            _state = States.Idle;
                         }
                         else{
-                            //AudioManager.instance.PlaySFX(SFXType.Walk, true);
-                            state = States.Walk;
+                            AudioManager.instance.PlaySFX(SFXType.Walk, true);
+                            _state = States.Walk;
                         }
                     }
                 break;
                 case States.Aim:
-                    if (!isLanternAimed){
+                    if (!_isLanternAimed){
                         if (InputManager.Instance.MovementVector.x == 0){
-                            state = States.Idle;
+                            _state = States.Idle;
                         }
                         else{
-                            state = States.Walk;
+                            _state = States.Walk;
                         }
                     }
                 break;
@@ -260,10 +240,13 @@ public class PlayerMovement : MonoBehaviour
             }
         }
 
-
+        /// <summary>
+        /// Método que se encarga de la lógica de mover al jugador.
+        /// </summary>
+        /// <param name="x">Velocidad en eje x</param>
         private void WalkWalk(float x) // Mueve al jugador en la dirección indicada por el signo de x y con la velocidad máxima indicada por el valor de x
         {
-            if ((x < 0 && rb.velocity.x > 0) || (x > 0 && rb.velocity.x < 0)) // Deceleración en cambio de sentido
+            if ((x < 0 && _rb.velocity.x > 0) || (x > 0 && _rb.velocity.x < 0)) // Deceleración en cambio de sentido
             {
                 WalkDecelerate(WalkDeceleration);
             }
@@ -272,15 +255,14 @@ public class PlayerMovement : MonoBehaviour
             Debug.Log(WalkAcceleration);
 
             Debug.Log("moviendose");
-                rb.AddForce(new Vector2(x, 0).normalized * WalkAcceleration, ForceMode2D.Force);
-                //rb.AddForce(new Vector2(100,100));
+                _rb.AddForce(new Vector2(x, 0).normalized * WalkAcceleration, ForceMode2D.Force);
             }
 
-            if (Mathf.Abs(rb.velocity.x) > Mathf.Abs(joystickMaxSpeed)) // Limitación de la velocidad
+            if (Mathf.Abs(_rb.velocity.x) > Mathf.Abs(_joystickMaxSpeed)) // Limitación de la velocidad
             {
-                if (joystickMaxSpeed == 1 || joystickMaxSpeed == -1)
+                if (_joystickMaxSpeed == 1 || _joystickMaxSpeed == -1)
                 {
-                    rb.velocity = rb.velocity.normalized * Mathf.Abs(joystickMaxSpeed);
+                    _rb.velocity = _rb.velocity.normalized * Mathf.Abs(_joystickMaxSpeed);
                 }
                 else
                 {
@@ -289,39 +271,50 @@ public class PlayerMovement : MonoBehaviour
             }
 
         }
+        /// <summary>
+        /// Método que decelera al jugador cuando deja de moverse.
+        /// </summary>
+        /// <param name="decelerationValue">Valor de deceleración del jugador al dejar de moverse</param>
         private void WalkDecelerate(float decelerationValue) // Frena al jugador con la aceleración negativa indicada
         {
-            if (rb.velocity.x > WalkDecelerationThreshold) // Comprobación de signo para elegir el sentido de la fuerza
+            if (_rb.velocity.x > WalkDecelerationThreshold) // Comprobación de signo para elegir el sentido de la fuerza
             {
-                rb.AddForce(new Vector2(-decelerationValue, 0), ForceMode2D.Force);
+                _rb.AddForce(new Vector2(-decelerationValue, 0), ForceMode2D.Force);
             }
-           else if (rb.velocity.x < -WalkDecelerationThreshold)
+           else if (_rb.velocity.x < -WalkDecelerationThreshold)
             {
-                rb.AddForce(new Vector2(decelerationValue, 0), ForceMode2D.Force);
+                _rb.AddForce(new Vector2(decelerationValue, 0), ForceMode2D.Force);
             }
         }
 
-        private void JumpJump()
+        /// <summary>
+        /// Método que se encarga de la lógica de las físicas cuando el jugador salta.
+        /// </summary>
+        private void Jump()
         {
-            rb.AddForce(new Vector2(0, 1) * JumpJumpAcceleration * jumpMultiplier, ForceMode2D.Impulse);
-            jumpMultiplier -= JumpJumpMultiplierDecay;
+            _rb.AddForce(new Vector2(0, 1) * JumpJumpAcceleration * _jumpMultiplier, ForceMode2D.Impulse);
+            _jumpMultiplier -= JumpJumpMultiplierDecay;
         }
+        /// <summary>
+        /// Método que se encarga de la lógica del movimiento en el eje x cuando el jugador está saltando
+        /// </summary>
+        /// <param name="x">Velocidad en el eje x</param>
         private void JumpWalk(float x) // Mueve al jugador en la dirección indicada por el signo de x y con la velocidad máxima indicada por el valor de x
         {
-            if ((x < 0 && rb.velocity.x > 0) || (x > 0 && rb.velocity.x < 0)) // Deceleración en cambio de sentido
+            if ((x < 0 && _rb.velocity.x > 0) || (x > 0 && _rb.velocity.x < 0)) // Deceleración en cambio de sentido
             {
                 JumpDecelerate(JumpDeceleration);
             }
             else // Aceleración en el sentido del movimiento
             {
-                rb.AddForce(new Vector2(x, 0).normalized * JumpAcceleration, ForceMode2D.Force);
+                _rb.AddForce(new Vector2(x, 0).normalized * JumpAcceleration, ForceMode2D.Force);
             }
 
-            if (Mathf.Abs(rb.velocity.x) > Mathf.Abs(joystickMaxSpeed)) // Limitación de la velocidad
+            if (Mathf.Abs(_rb.velocity.x) > Mathf.Abs(_joystickMaxSpeed)) // Limitación de la velocidad
             {
-                if (joystickMaxSpeed == 1 || joystickMaxSpeed == -1)
+                if (_joystickMaxSpeed == 1 || _joystickMaxSpeed == -1)
                 {
-                    rb.velocity = rb.velocity.normalized * Mathf.Abs(joystickMaxSpeed);
+                    _rb.velocity = _rb.velocity.normalized * Mathf.Abs(_joystickMaxSpeed);
                 }
                 else
                 {
@@ -329,33 +322,41 @@ public class PlayerMovement : MonoBehaviour
                 }
             }
         }
+        /// <summary>
+        /// Reduce el impulso del salto.
+        /// </summary>
+        /// <param name="decelerationValue">Valor de deceleración del jugador</param>
         private void JumpDecelerate(float decelerationValue) // Frena al jugador con la aceleración negativa indicada
         {
-            if (rb.velocity.x > JumpDecelerationThreshold) // Comprobación de signo para elegir el sentido de la fuerza
+            if (_rb.velocity.x > JumpDecelerationThreshold) // Comprobación de signo para elegir el sentido de la fuerza
             {
-                rb.AddForce(new Vector2(-decelerationValue, 0), ForceMode2D.Force);
+                _rb.AddForce(new Vector2(-decelerationValue, 0), ForceMode2D.Force);
             }
-            else if (rb.velocity.x < - JumpDecelerationThreshold)
+            else if (_rb.velocity.x < - JumpDecelerationThreshold)
             {
-                rb.AddForce(new Vector2(decelerationValue, 0), ForceMode2D.Force);
+                _rb.AddForce(new Vector2(decelerationValue, 0), ForceMode2D.Force);
             }
         }
+        /// <summary>
+        /// Método que se encarga de la lógica del movimiento del jugador en el eje x cuando está en estado de caida.
+        /// </summary>
+        /// <param name="x">Velocidad en el eje x</param>
         private void FallWalk(float x) // Mueve al jugador en la dirección indicada por el signo de x y con la velocidad máxima indicada por el valor de x
         {
-            if ((x < 0 && rb.velocity.x > 0) || (x > 0 && rb.velocity.x < 0)) // Deceleración en cambio de sentido
+            if ((x < 0 && _rb.velocity.x > 0) || (x > 0 && _rb.velocity.x < 0)) // Deceleración en cambio de sentido
             {
                 FallDecelerate(FallDeceleration);
             }
             else // Aceleración en el sentido del movimiento
             {
-                rb.AddForce(new Vector2(x, 0).normalized * FallAcceleration, ForceMode2D.Force);
+                _rb.AddForce(new Vector2(x, 0).normalized * FallAcceleration, ForceMode2D.Force);
             }
 
-            if (Mathf.Abs(rb.velocity.x) > Mathf.Abs(joystickMaxSpeed)) // Limitación de la velocidad
+            if (Mathf.Abs(_rb.velocity.x) > Mathf.Abs(_joystickMaxSpeed)) // Limitación de la velocidad
             {
-                if (joystickMaxSpeed == 1 || joystickMaxSpeed == -1)
+                if (_joystickMaxSpeed == 1 || _joystickMaxSpeed == -1)
                 {
-                    rb.velocity = rb.velocity.normalized * Mathf.Abs(joystickMaxSpeed);
+                    _rb.velocity = _rb.velocity.normalized * Mathf.Abs(_joystickMaxSpeed);
                 }
                 else
                 {
@@ -363,15 +364,19 @@ public class PlayerMovement : MonoBehaviour
                 }
             }
     }
+    /// <summary>
+    /// Método que se encarga de decelerar al jugador durante la caida.
+    /// </summary>
+    /// <param name="FallDecelerationValue">Valor de deceleración</param>
     private void FallDecelerate(float FallDecelerationValue) // Frena al jugador con la aceleración negativa indicada
     {
-        if (rb.velocity.x > FallDecelerationThreshold) // Comprobación de signo para elegir el sentido de la fuerza
+        if (_rb.velocity.x > FallDecelerationThreshold) // Comprobación de signo para elegir el sentido de la fuerza
         {
-            rb.AddForce(new Vector2(-FallDecelerationValue, 0), ForceMode2D.Force);
+            _rb.AddForce(new Vector2(-FallDecelerationValue, 0), ForceMode2D.Force);
         }
-        else if (rb.velocity.x < -FallDecelerationThreshold)
+        else if (_rb.velocity.x < -FallDecelerationThreshold)
         {
-            rb.AddForce(new Vector2(FallDecelerationValue, 0), ForceMode2D.Force);
+            _rb.AddForce(new Vector2(FallDecelerationValue, 0), ForceMode2D.Force);
         }
     }
     #endregion   
