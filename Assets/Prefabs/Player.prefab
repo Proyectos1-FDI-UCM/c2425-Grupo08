@@ -381,9 +381,9 @@ MonoBehaviour:
   JumpAcceleration: 5
   JumpDeceleration: 4
   JumpMaxSpeed: 5
-  JumpDecelerationThreshold: 0
-  JumpJumpAcceleration: 0
-  JumpJumpMultiplierDecay: 0
+  JumpDecelerationThreshold: 0.2
+  JumpJumpAcceleration: 5
+  JumpJumpMultiplierDecay: 1
   FallAcceleration: 0
   FallDeceleration: 0
   FallMaxSpeed: 0
