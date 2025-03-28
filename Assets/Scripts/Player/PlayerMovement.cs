@@ -185,7 +185,7 @@ public class PlayerMovement : MonoBehaviour
                     if (InputManager.Instance.MovementVector.x != 0)
                     {
                         state = States.Walk;
-                        AudioManager.instance.PlaySFX(SFXType.Walk, true);
+                        //AudioManager.instance.PlaySFX(SFXType.Walk, true);
 
                     }
                     else if (rb.velocity.y < 0)
@@ -197,7 +197,7 @@ public class PlayerMovement : MonoBehaviour
                     {
 
                         state = States.Jump;
-                        AudioManager.instance.PlaySFX(SFXType.Jump);
+                        //AudioManager.instance.PlaySFX(SFXType.Jump);
                     
                     }
                     else if (isLanternAimed)
@@ -210,7 +210,7 @@ public class PlayerMovement : MonoBehaviour
                     if (rb.velocity == new Vector2(0, 0))
                     {
                         state = States.Idle; 
-                        AudioManager.instance.StopLoopingSFX(SFXType.Walk);
+                        //AudioManager.instance.StopLoopingSFX(SFXType.Walk);
          
                     }
                     else if (rb.velocity.y < 0)
@@ -220,8 +220,8 @@ public class PlayerMovement : MonoBehaviour
                     else if (InputManager.Instance.JumpWasPressedThisFrame())
                     {
                         state = States.Jump;
-                        AudioManager.instance.PlaySFX(SFXType.Jump);
-                        AudioManager.instance.StopLoopingSFX(SFXType.Walk);
+                        //AudioManager.instance.PlaySFX(SFXType.Jump);
+                        //AudioManager.instance.StopLoopingSFX(SFXType.Walk);
          
                     }
                     else if (isLanternAimed)
@@ -236,12 +236,12 @@ public class PlayerMovement : MonoBehaviour
                 break;
                 case States.Fall:
                     if (rb.velocity.y == 0){
-                        AudioManager.instance.PlaySFX(SFXType.Fall);
+                        //AudioManager.instance.PlaySFX(SFXType.Fall);
                         if (rb.velocity.x == 0){
                             state = States.Idle;
                         }
                         else{
-                            AudioManager.instance.PlaySFX(SFXType.Walk, true);
+                            //AudioManager.instance.PlaySFX(SFXType.Walk, true);
                             state = States.Walk;
                         }
                     }
