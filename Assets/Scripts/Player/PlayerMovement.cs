@@ -215,9 +215,9 @@ public class PlayerMovement : MonoBehaviour
                     }
                 break;
                 case States.Fall:
-                    if (_rb.velocity.y == 0){
+                    if (/*_rb.velocity.y == 0*/){ 
                         AudioManager.instance.PlaySFX(SFXType.Fall);
-                        if (_rb.velocity.x == 0){
+                        if (/*_rb.velocity.y == 0*/){
                             _state = States.Idle;
                         }
                         else{
