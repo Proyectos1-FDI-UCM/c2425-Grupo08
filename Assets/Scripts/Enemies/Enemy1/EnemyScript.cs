@@ -78,7 +78,7 @@
         {
             State.Move();
         }
-        void Udate()
+        void Update()
         {
             State.NextState();
         }
