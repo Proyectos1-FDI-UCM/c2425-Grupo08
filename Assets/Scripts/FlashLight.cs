@@ -59,13 +59,8 @@ public class FlashLight : MonoBehaviour
         flashLight = GetComponentInChildren<Light2D>();
 
         if (flashLight != null)
-        {
-            flashLight.color = lightColor; // Establecer el color de la luz inicial
-            flashLight.intensity = unfocusIntensity; // Establecer la intensidad por defecto de la luz
-            flashLight.pointLightInnerAngle = unfocusRadius; // Establecer el ángulo interno por defecto de la luz
-            flashLight.pointLightOuterAngle = unfocusRadius + lightDiffusion; // Establecer el ángulo externo por defecto de la luz
-            flashLight.pointLightOuterRadius = unfocusLength; // Establecer el radio externo por defecto de la luz
-        }
+
+            SetDefaults(); // Establecer los valores por defecto de la linterna
 
         else
 
@@ -127,6 +122,23 @@ public class FlashLight : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Método para establecer los valores por defecto de la linterna.
+    /// Este método establece la intensidad, el color y los ángulos de la luz de la linterna.
+    /// </summary>
+    private void SetDefaults()
+    {
+        flashLight.color = lightColor; // Establecer el color de la luz inicial
+        flashLight.intensity = unfocusIntensity; // Establecer la intensidad por defecto de la luz
+        flashLight.pointLightInnerAngle = unfocusRadius; // Establecer el ángulo interno por defecto de la luz
+        flashLight.pointLightOuterAngle = unfocusRadius + lightDiffusion; // Establecer el ángulo externo por defecto de la luz
+        flashLight.pointLightOuterRadius = unfocusLength; // Establecer el radio externo por defecto de la luz
+    }
+
+    /// <summary>
+    /// Método para desactivar el enfoque de la linterna.
+    /// Este método ajusta la intensidad, el radio y los ángulos de la luz de la linterna para simular un efecto de desenfoque.
+    /// </summary>
     private void LightUnFocus()
     {
         flashLight.pointLightInnerAngle = Mathf.Lerp(flashLight.pointLightInnerAngle, unfocusRadius, Time.deltaTime * transitionSpeed);
@@ -137,6 +149,10 @@ public class FlashLight : MonoBehaviour
         flashLight.pointLightOuterRadius = Mathf.Lerp(flashLight.pointLightOuterRadius, unfocusLength, Time.deltaTime * transitionSpeed);
     }
 
+    /// <summary>
+    /// Método para activar el enfoque de la linterna.
+    /// Este método ajusta la intensidad, el radio y los ángulos de la luz de la linterna para simular un efecto de enfoque.
+    /// </summary>
     private void LightFocus()
     {
         flashLight.pointLightInnerAngle = Mathf.Lerp(flashLight.pointLightInnerAngle, focusRadius, Time.deltaTime * transitionSpeed);
@@ -147,6 +163,10 @@ public class FlashLight : MonoBehaviour
         flashLight.pointLightOuterRadius = Mathf.Lerp(flashLight.pointLightOuterRadius, focusLength, Time.deltaTime * transitionSpeed);
     }
 
+    /// <summary>
+    /// Método para realizar un flashazo con la linterna.
+    /// Este método ajusta la intensidad, el color y los ángulos de la luz de la linterna para simular un efecto de flash.
+    /// </summary>
     private IEnumerator LightFlash()
     {
         // Initial flash setup
@@ -174,23 +194,24 @@ public class FlashLight : MonoBehaviour
             yield return null;
         }
 
-        // Reset to normal values
-        flashLight.color = lightColor;
-        flashLight.intensity = unfocusIntensity;
-        flashLight.pointLightInnerAngle = unfocusRadius;
-        flashLight.pointLightOuterAngle = unfocusRadius + lightDiffusion;
+        // Reset to default values
+        SetDefaults(); 
 
         // Cooldown period
         yield return new WaitForSeconds(flashCooldown);
         isFlashAvailable = true;
     }
-
+    
+    /// <summary>
+    /// Método para simular un parpadeo de la linterna.
+    /// Este método ajusta la intensidad y el radio de la luz de la linterna para simular un efecto de parpadeo.
+    /// </summary>
     private IEnumerator LightFlicker()
     {
         flashLight.intensity = minIntensity;
         flashLight.pointLightOuterRadius = unfocusLength * 0.3f;
         yield return new WaitForSeconds(1f);
-            
+
         flashLight.intensity = 0f;
         flashLight.pointLightOuterRadius = unfocusLength * 0.1f;
         yield return new WaitForSeconds(0.5f);
@@ -198,6 +219,6 @@ public class FlashLight : MonoBehaviour
 
     #endregion
 
-    // class Lantern 
+    // class FlashLight 
     // namespace
 }
