@@ -26,7 +26,7 @@ public class Door : MonoBehaviour
     // (palabras con primera letra mayúscula, incluida la primera letra)
     // Ejemplo: MaxHealthPoints
     [SerializeField] private Canvas canvas;
-
+    [SerializeField] private int sceneIndex;
     #endregion
 
     // ---- ATRIBUTOS PRIVADOS ----
@@ -37,6 +37,8 @@ public class Door : MonoBehaviour
     // primera palabra en minúsculas y el resto con la 
     // primera letra en mayúsculas)
     // Ejemplo: _maxHealthPoints
+    private bool levelCompleted = false;
+
     private bool hasEnter = false;
     #endregion
     
@@ -54,6 +56,8 @@ public class Door : MonoBehaviour
     void Start()
     {
         canvas.gameObject.SetActive(false);
+        levelCompleted = LevelManager.Instance.LevelCompleted();
+
     }
 
     /// <summary>
@@ -61,9 +65,9 @@ public class Door : MonoBehaviour
     /// </summary>
     void Update()
     {
-        if (hasEnter && InputManager.Instance.InteractWasPressedThisFrame())
+        if (hasEnter && levelCompleted && InputManager.Instance.InteractWasPressedThisFrame())
         {
-            GameManager.Instance.ChangeScene(3);
+            GameManager.Instance.ChangeScene(sceneIndex);
         }
     }
     #endregion
@@ -75,7 +79,7 @@ public class Door : MonoBehaviour
     // se nombren en formato PascalCase (palabras con primera letra
     // mayúscula, incluida la primera letra)
     // Ejemplo: GetPlayerController
-
+        
 
     #endregion
 
@@ -92,6 +96,8 @@ public class Door : MonoBehaviour
         {
             hasEnter = true;
             canvas.gameObject.SetActive(true);
+                        levelCompleted = LevelManager.Instance.LevelCompleted(); // Actualiza estado
+
         }
     }
     private void OnTriggerExit2D(Collider2D other)
@@ -100,6 +106,7 @@ public class Door : MonoBehaviour
         {
             hasEnter = false;
             canvas.gameObject.SetActive(false);
+
         }
     }
 
