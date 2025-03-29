@@ -47,12 +47,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   audioMixer: {fileID: 24100000, guid: d9ba9ad2464024c4bbc029a8f7607cf9, type: 2}
   sfxClips:
-  - {fileID: 8300000, guid: 48b6375d3a8066b4695c8ee9f21ad294, type: 3}
-  - {fileID: 8300000, guid: 08043556946c0344aac15e85d3bf90f4, type: 3}
-  - {fileID: 8300000, guid: e525f8e872ff9104e90eee674907b158, type: 3}
-  - {fileID: 8300000, guid: b58a51f84306156418111a3aa7f95d80, type: 3}
-  - {fileID: 8300000, guid: 2d0ab3f3c8851a549b48e03b758f975d, type: 3}
-  _sfxSource: {fileID: 6630299840179239462}
+  - type: 3
+    clip: {fileID: 0}
+  - type: 3
+    clip: {fileID: 0}
+  - type: 3
+    clip: {fileID: 0}
+  - type: 3
+    clip: {fileID: 0}
+  - type: 3
+    clip: {fileID: 0}
+  - type: 3
+    clip: {fileID: 0}
   sfxVolume: 1
 --- !u!82 &6630299840179239462
 AudioSource:

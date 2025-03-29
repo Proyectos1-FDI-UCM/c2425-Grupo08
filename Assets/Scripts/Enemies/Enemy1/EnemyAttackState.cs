@@ -32,6 +32,9 @@ namespace EnemyLogic
 
         private bool flashed = false;
 
+        //Audio
+        private AudioSource audioSource; // Fuente de audio para reproducir sonidos
+
         public void Start()
         {
             this.enemyScript = GetComponentInParent<EnemyScript>();
@@ -45,6 +48,10 @@ namespace EnemyLogic
             this.player =  enemyScript.PlayerObject;
             //this.playerCollider = player.GetComponent<Collider2D>(); //error
             //this.flashCollider = player.GetComponentInChildren<Collider2D>(); //error
+
+            // Inicializa la fuente de audio
+            audioSource = GetComponent<AudioSource>();
+
             Debug.Log("a");
         }
 
@@ -74,7 +81,11 @@ namespace EnemyLogic
             transform.rotation = Quaternion.Euler(0, 0, Mathf.Rad2Deg * Mathf.Atan2(direction.y, direction.x));
 
             _rb.velocity = direction * PerserSpeed;
+
+            // Llamar al AudioManager para reproducir sonido de ataque
+            AudioManager.instance.PlaySFX(SFXType.AttackEnemy1, audioSource, player.transform.position, true);
         }
+        
         
         override public void NextState()
         {
