@@ -5,8 +5,8 @@
 // Proyectos 1 - Curso 2024-25
 //---------------------------------------------------------
 
-    using UnityEngine;
-    // Añadir aquí el resto de directivas using
+using UnityEngine;
+// Añadir aquí el resto de directivas using
 
     namespace EnemyLogic{
 
@@ -46,7 +46,11 @@
         public Collider2D EnemyCollider {get; set;}
         public Collider2D PlayerCollider {get;set;}
         public Collider2D FlashCollider {get;set;}
+
+        private AudioSource audioSource; // Fuente de audio para reproducir sonidos
         #endregion
+
+
 
         // ---- MÉTODOS DE MONOBEHAVIOUR ----
         #region Métodos de MonoBehaviour
@@ -69,6 +73,12 @@
             EnemyCollider = this.GetComponent<Collider2D>(); // ahora todos estos componentes los tiene el enemigo defacto, es tontería que cada estado los pida.
             PlayerCollider = PlayerObject.GetComponent<Collider2D>(); // idem
             FlashCollider = PlayerObject.GetComponentInChildren<Collider2D>(); // idem
+
+            // Inicializamos el AudioSource
+            audioSource = GetComponent<AudioSource>();
+
+            // Reproducir sonido de patrullaje (si no está sonando)
+            PlayPatrolSound();
         }
 
         /// <summary>
@@ -77,6 +87,8 @@
         void FixedUpdate()
         {
             State.Move();
+
+            CalculateVolume(PlayerObject.transform.position); // Ajustar volumen en función de la distancia al jugador
         }
         void Update()
         {
@@ -101,6 +113,24 @@
         // se nombren en formato PascalCase (palabras con primera letra
         // mayúscula, incluida la primera letra)
 
+        private void PlayPatrolSound()
+        {
+            // Obtener el clip de sonido de patrullaje desde el AudioManager
+            AudioManager.instance.PlaySFX(SFXType.PatrolEnemy1, audioSource);  // Cambiar a SFXType adecuado para patrullaje
+
+            // Configurar el AudioSource para que repita el sonido mientras patrulla
+            audioSource.loop = true;
+            audioSource.Play();
+        }
+
+        // Calcular volumen en función de la distancia entre el enemigo y el jugador
+        private float CalculateVolume(Vector3 targetPosition)
+        {
+            float distance = Vector3.Distance(targetPosition, transform.position);
+            // Cuanto más cerca esté el jugador, más fuerte será el sonido
+            float volume = Mathf.Clamp01(1 - (distance / 20)); // Ajusta el divisor para que el volumen se incremente a medida que el jugador se acerque
+            return volume;
+        }
         #endregion
 
     } // class EnemyScript

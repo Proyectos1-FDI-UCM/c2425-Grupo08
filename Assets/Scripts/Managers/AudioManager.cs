@@ -11,7 +11,7 @@ public enum SFXType
     GameOver,
     AttackEnemy1,
     PatrolEnemy1,
-    FleeEnemy
+    FleeEnemy1
 
     // Añadir más sonidos aquí según sea necesario
 }
@@ -59,20 +59,6 @@ public class AudioManager : MonoBehaviour
         source.Play();
     }
 
-    // Métodos para reproducir el sonido con la distancia al jugador
-    public void PlaySFX(SFXType type, AudioSource source, Vector3 playerPosition, bool loop = false)
-    {
-        if (source == null) return;
-
-        AudioClip clip = GetSFXClip(type);
-        if (clip == null) return;
-
-        source.clip = clip;
-        source.loop = loop;
-        source.volume = CalculateVolume(playerPosition);
-        source.outputAudioMixerGroup = audioMixer.FindMatchingGroups("SFX")[0];
-        source.Play();
-    }
 
     public void StopSFX(AudioSource source)
     {
@@ -96,15 +82,6 @@ public class AudioManager : MonoBehaviour
                 return sfx.clip;
         }
         return null;
-    }
-
-    private float CalculateVolume(Vector3 playerPosition)
-    {
-        // Distancia máxima para oír el sonido es 20 unidades
-        float distance = Vector3.Distance(playerPosition, transform.position);
-        // La fórmula para el volumen puede variar, pero esta es un ejemplo
-        float volume = Mathf.Clamp01(1 / (distance / 20));
-        return volume;
     }
 }
 

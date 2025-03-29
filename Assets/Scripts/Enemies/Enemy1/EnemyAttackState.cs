@@ -52,6 +52,9 @@ namespace EnemyLogic
             // Inicializa la fuente de audio
             audioSource = GetComponent<AudioSource>();
 
+            // Reproducir el sonido de ataque si no está sonando
+            PlayAttackSound();
+
             Debug.Log("a");
         }
 
@@ -82,8 +85,8 @@ namespace EnemyLogic
 
             _rb.velocity = direction * PerserSpeed;
 
-            // Llamar al AudioManager para reproducir sonido de ataque
-            AudioManager.instance.PlaySFX(SFXType.AttackEnemy1, audioSource, player.transform.position, true);
+            // Ajustar volumen en función de la distancia al jugador
+            audioSource.volume = CalculateVolume(player.transform.position);
         }
         
         
@@ -94,6 +97,30 @@ namespace EnemyLogic
             {
                 //enemyScript.State = new EnemyFleeState();
             }
+        }
+
+        // Métodos privados
+
+        private void PlayAttackSound()
+        {
+            // Obtener el clip de sonido de ataque desde el AudioManager
+            AudioManager.instance.PlaySFX(SFXType.AttackEnemy1, audioSource); // Cambiar a SFXType adecuado para ataque
+         
+               // Ajustar volumen en función de la distancia al jugador
+                audioSource.volume = CalculateVolume(player.transform.position);
+
+                // Configurar el AudioSource para que repita el sonido mientras esté en estado de ataque
+                audioSource.loop = false; // O ajustarlo como necesites
+                audioSource.Play();
+            
+        }
+
+        // Calcular volumen en función de la distancia
+        private float CalculateVolume(Vector3 targetPosition)
+        {
+            float distance = Vector3.Distance(targetPosition, transform.position);
+            float volume = Mathf.Clamp01(1 - (distance / 15));  // Ajusta el divisor para que el volumen disminuya a la distancia que prefieras
+            return volume;
         }
     }
 }
