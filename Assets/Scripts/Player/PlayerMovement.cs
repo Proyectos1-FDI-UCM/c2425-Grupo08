@@ -79,7 +79,10 @@ public class PlayerMovement : MonoBehaviour
 
         private AudioSource audioSource;
 
-
+    /// <summary>
+    /// Un bool que representa si el jugador está reparando. Tiene un setter y un getter como métodos públicos
+    /// </summary>
+    private bool isRepairing = false;
 
     #endregion
 
@@ -151,6 +154,15 @@ public class PlayerMovement : MonoBehaviour
 
     // ---- MÉTODOS PÚBLICOS ----
     #region Métodos públicos
+
+    public void SetIsRepairing(bool isRepairing)
+    {
+        this.isRepairing = isRepairing;
+    }
+    public bool GetIsRepairing()
+    {
+        return isRepairing;
+    }
 
     #endregion
     

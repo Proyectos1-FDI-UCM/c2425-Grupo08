@@ -1,7 +1,7 @@
 //---------------------------------------------------------
-// Breve descripción del contenido del archivo
-// Responsable de la creación de este archivo
-// Nombre del juego
+// Este archivo se encarga del funcionamiento del UI del jugador, concretamente de la parte del sonar
+// Javier Zazo Morillo
+// Project Abyss
 // Proyectos 1 - Curso 2024-25
 //---------------------------------------------------------
 
@@ -36,12 +36,12 @@ public class SonarUI : MonoBehaviour
     // primera letra en mayúsculas)
     // Ejemplo: _maxHealthPoints
 
-    private Animator sonarIndicatorAnimator;
-    private SpriteRenderer pulseIndicator;
+    private Animation sonarIndicatorAnimation;
     private Animation pulseIndicatorAnimation;
 
-    bool activate = false;
-    bool deactivate = false;
+    private Animation[] indicatorsAnimation;
+
+    private SpriteRenderer pulseIndicator;
 
     #endregion
 
@@ -58,18 +58,14 @@ public class SonarUI : MonoBehaviour
     /// </summary>
     void Start()
     {
-        sonarIndicatorAnimator = GetComponentInChildren<Animator>();
+        indicatorsAnimation = GetComponentsInChildren<Animation>();
+
+        sonarIndicatorAnimation = indicatorsAnimation[0];       
+        pulseIndicatorAnimation = indicatorsAnimation[1];
+
         pulseIndicator = GameObject.Find("pulseIndicator").GetComponent<SpriteRenderer>();
-        pulseIndicatorAnimation = GetComponentInChildren<Animation>();
     }
 
-    /// <summary>
-    /// Update is called every frame, if the MonoBehaviour is enabled.
-    /// </summary>
-    void Update()
-    {
-        
-    }
     #endregion
 
     // ---- MÉTODOS PÚBLICOS ----
@@ -80,24 +76,39 @@ public class SonarUI : MonoBehaviour
     // mayúscula, incluida la primera letra)
     // Ejemplo: GetPlayerController
 
+    /// <summary>
+    /// Activa la parte de la circunferencia del UI
+    /// </summary>
     public void ActivateSonarUI()
     {
-        sonarIndicatorAnimator.Play("SonarUIAppear");      
+        sonarIndicatorAnimation.Play("SonarUIAppear");
     }
+    /// <summary>
+    /// Desactiva la parte de la circunferencia del UI
+    /// </summary>
     public void DeactivateSonarUI() 
     {
-        sonarIndicatorAnimator.Play("SonarUIDisappear");
+        sonarIndicatorAnimation.Play("SonarUIDisappear");
     }
+    /// <summary>
+    /// Activa la parte del pulso del UI
+    /// </summary>
     public void ActivatePulseUI()
     {
         pulseIndicator.enabled = true;
         Debug.Log("activado");
     }
+    /// <summary>
+    /// Desactiva la parte del pulso del UI
+    /// </summary>
     public void DeactivatePulseUI()
     {
         pulseIndicator.enabled = false;
         Debug.Log("desactivado");
     }
+    /// <summary>
+    /// Ejecuta la animación del pulso del UI
+    /// </summary>
     public void PlayAnimation()
     {
         pulseIndicatorAnimation.Play();

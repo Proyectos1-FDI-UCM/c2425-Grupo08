@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4745823647860908554}
   - component: {fileID: 6747677847836429814}
-  - component: {fileID: 3688544198341842395}
+  - component: {fileID: 6046740637315154089}
   m_Layer: 0
   m_Name: sonarIndicator
   m_TagString: Untagged
@@ -86,27 +86,23 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!95 &3688544198341842395
-Animator:
-  serializedVersion: 5
+--- !u!111 &6046740637315154089
+Animation:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 822467147522256279}
   m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: b7c2400da05da7643870be9553954d09, type: 2}
-  m_CullingMode: 2
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_StabilizeFeet: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorStateOnDisable: 0
-  m_WriteDefaultValuesOnDisable: 0
+  serializedVersion: 3
+  m_Animation: {fileID: 0}
+  m_Animations:
+  - {fileID: 7400000, guid: ebe20697bda5a814aa54f878e5bfe233, type: 2}
+  - {fileID: 7400000, guid: faf97c94cb443f94c836899329c606c9, type: 2}
+  m_WrapMode: 0
+  m_PlayAutomatically: 0
+  m_AnimatePhysics: 0
+  m_CullingType: 0
 --- !u!1 &3190272025005498771
 GameObject:
   m_ObjectHideFlags: 0
@@ -118,8 +114,7 @@ GameObject:
   - component: {fileID: 2181331470842799619}
   - component: {fileID: 8958090168955497643}
   - component: {fileID: 4710599616024909938}
-  - component: {fileID: 4110250732275042765}
-  - component: {fileID: 2822911129013704682}
+  - component: {fileID: 1909514070656860094}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -207,22 +202,7 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
---- !u!114 &4110250732275042765
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3190272025005498771}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 79e102ee1d109544882c3e15ef85d9a8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  maxOxigen: 30
-  oxigenDecayHealthy: 1
-  oxigenDecayBroken: 2
---- !u!114 &2822911129013704682
+--- !u!114 &1909514070656860094
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -231,9 +211,24 @@ MonoBehaviour:
   m_GameObject: {fileID: 3190272025005498771}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c8597e0e46deb0f408d632413ac8e7cf, type: 3}
+  m_Script: {fileID: 11500000, guid: e704a827d56bbd94aa3336a84df7ea2e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  WalkAcceleration: 0
+  WalkDeceleration: 0
+  WalkMaxSpeed: 0
+  WalkDecelerationThreshold: 0
+  JumpAcceleration: 0
+  JumpDeceleration: 0
+  JumpMaxSpeed: 0
+  JumpDecelerationThreshold: 0
+  JumpJumpAcceleration: 0
+  JumpJumpMultiplierDecay: 0
+  FallAcceleration: 0
+  FallDeceleration: 0
+  FallMaxSpeed: 0
+  FallDecelerationThreshold: 0
+  debug: 0
 --- !u!1 &3861456626031676602
 GameObject:
   m_ObjectHideFlags: 0
@@ -389,7 +384,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5665065024054337854}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0, y: 0, z: 0}
   m_ConstrainProportionsScale: 1
@@ -461,7 +456,7 @@ Animation:
   m_Animations:
   - {fileID: 7400000, guid: a4ee242dd3679e049a4fd7847e5e44e3, type: 2}
   m_WrapMode: 0
-  m_PlayAutomatically: 1
+  m_PlayAutomatically: 0
   m_AnimatePhysics: 0
   m_CullingType: 0
 --- !u!1 &8189232099357333950

@@ -52,8 +52,7 @@ public class Motor : MonoBehaviour
     // Referencia a la corrutina de carga para poder detenerla si es necesario
     private Coroutine loadCoroutine;
 
-    // Variable de control para determinar si el sonido de carga debe reproducirse
-    private bool noise = false;
+    private GameObject player;
 
     #endregion
 
@@ -69,6 +68,8 @@ public class Motor : MonoBehaviour
         canva.gameObject.SetActive(false);  // Oculta el Canvas al inicio
         progressBar.gameObject.SetActive(false);  // Oculta la barra de progreso
         progressBar.value = currentLoadProgress;  // Inicializa la barra en el progreso actual (0)
+
+        player = GameObject.FindGameObjectWithTag("Player");
     }
 
     /// <summary>
@@ -131,7 +132,7 @@ public class Motor : MonoBehaviour
             loadCoroutine = null; // Limpia la referencia
         }
         progressBar.gameObject.SetActive(false); // Oculta la barra de progreso
-        noise = false; // Desactiva el sonido de carga
+        player.GetComponent<PlayerMovement>().SetIsRepairing(false);
     }
 
     /// <summary>
@@ -140,11 +141,11 @@ public class Motor : MonoBehaviour
     /// </summary>
     private IEnumerator LoadProgress()
     {
+        player.GetComponent<PlayerMovement>().SetIsRepairing(true);
         while (currentLoadProgress < 1f) // Mientras la carga no esté completa
         {
             currentLoadProgress += Time.deltaTime / loadTime; // Incrementa el progreso
             progressBar.value = currentLoadProgress; // Actualiza la barra de progreso
-            noise = true; // Activa el sonido de carga (si se usa)
 
             if (currentLoadProgress >= 1f) // Si la carga se completa
             {
@@ -165,7 +166,7 @@ public class Motor : MonoBehaviour
         isRepaired = true; // Marca el motor como reparado
         progressBar.gameObject.SetActive(false); // Oculta la barra de progreso
         canva.gameObject.SetActive(false); // Oculta el Canvas de interacción
-        noise = false; // Detiene el sonido de carga
+        player.GetComponent<PlayerMovement>().SetIsRepairing(false);
 
         // Cambia el color del motor a verde para indicar que está reparado
         if (motorSprite != null)
@@ -183,7 +184,7 @@ public class Motor : MonoBehaviour
     /// </summary>
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.CompareTag("Player") && !isRepaired) // Si el objeto que entra es el jugador y el motor no está reparado
+        if (other.gameObject == player && !isRepaired) // Si el objeto que entra es el jugador y el motor no está reparado
         {
             hasEnter = true; // Permite la interacción
             canva.gameObject.SetActive(true); // Muestra la UI de carga
@@ -196,7 +197,7 @@ public class Motor : MonoBehaviour
     /// </summary>
     private void OnTriggerExit2D(Collider2D other)
     {
-        if (other.CompareTag("Player")) // Si el objeto que sale es el jugador
+        if (other.gameObject == player) // Si el objeto que sale es el jugador
         {
             hasEnter = false; // Desactiva la interacción
             canva.gameObject.SetActive(false); // Oculta la UI de carga
