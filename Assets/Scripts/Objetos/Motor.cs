@@ -1,178 +1,209 @@
 //---------------------------------------------------------
-// Breve descripción del contenido del archivo
-// Responsable de la creación de este archivo
-// Nombre del juego
-// Proyectos 1 - Curso 2024-25
+// Este archivo gestiona la lógica del motor dentro del juego, 
+// incluyendo su reparación y el progreso de carga visual.
+//
+// Responsable: [Nombre del creador]
+// Nombre del juego: [Nombre del juego]
+// Proyecto 1 - Curso 2024-25
 //---------------------------------------------------------
+
 using System;
 using UnityEngine;
 using System.Collections;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
-// Añadir aquí el resto de directivas using
-
+// Aquí podrían añadirse más directivas using según sea necesario
 
 /// <summary>
-/// Antes de cada class, descripción de qué es y para qué sirve,
-/// usando todas las líneas que sean necesarias.
+/// Clase que maneja la interacción del jugador con el motor,
+/// permitiendo su reparación a través de un sistema de carga progresiva.
 /// </summary>
 public class Motor : MonoBehaviour
 {
     // ---- ATRIBUTOS DEL INSPECTOR ----
     #region Atributos del Inspector (serialized fields)
-    // Documentar cada atributo que aparece aquí.
-    // El convenio de nombres de Unity recomienda que los atributos
-    // públicos y de inspector se nombren en formato PascalCase
-    // (palabras con primera letra mayúscula, incluida la primera letra)
-    // Ejemplo: MaxHealthPoints
+
+    // Referencia al Canvas que mostrará la interfaz de carga
     [SerializeField] private Canvas canva;
-    [SerializeField] private Slider progressBar; // Barra de carga
+
+    // Barra de progreso que representa el avance en la reparación del motor
+    [SerializeField] private Slider progressBar;
+
+    // Tiempo total requerido para completar la carga (en segundos)
     [SerializeField] private float loadTime = 4f;
+
+    // Referencia al SpriteRenderer del motor, usado para cambiar su color al repararlo
     [SerializeField] private SpriteRenderer motorSprite;
 
     #endregion
 
     // ---- ATRIBUTOS PRIVADOS ----
     #region Atributos Privados (private fields)
-    // Documentar cada atributo que aparece aquí.
-    // El convenio de nombres de Unity recomienda que los atributos
-    // privados se nombren en formato _camelCase (comienza con _, 
-    // primera palabra en minúsculas y el resto con la 
-    // primera letra en mayúsculas)
-    // Ejemplo: _maxHealthPoints
+
+    // Indica si el jugador ha entrado en la zona de interacción del motor
     private bool hasEnter = false;
-    private bool isRepaired = false;    
-    private float currentLoadProgress = 0f; // Progreso guardado
+
+    // Indica si el motor ya ha sido reparado
+    private bool isRepaired = false;
+
+    // Almacena el progreso actual de la reparación del motor
+    private float currentLoadProgress = 0f;
+
+    // Referencia a la corrutina de carga para poder detenerla si es necesario
     private Coroutine loadCoroutine;
+
+    // Variable de control para determinar si el sonido de carga debe reproducirse
     private bool noise = false;
-    
+
     #endregion
 
     // ---- MÉTODOS DE MONOBEHAVIOUR ----
     #region Métodos de MonoBehaviour
 
-    // Por defecto están los típicos (Update y Start) pero:
-    // - Hay que añadir todos los que sean necesarios
-    // - Hay que borrar los que no se usen 
-
     /// <summary>
-    /// Start is called on the frame when a script is enabled just before 
-    /// any of the Update methods are called the first time.
+    /// Start se ejecuta una vez al inicio del juego.
+    /// Configura los elementos UI desactivándolos inicialmente.
     /// </summary>
     void Start()
     {
-        canva.gameObject.SetActive(false);
-        progressBar.gameObject.SetActive(false);
-        progressBar.value = currentLoadProgress;
+        canva.gameObject.SetActive(false);  // Oculta el Canvas al inicio
+        progressBar.gameObject.SetActive(false);  // Oculta la barra de progreso
+        progressBar.value = currentLoadProgress;  // Inicializa la barra en el progreso actual (0)
     }
 
     /// <summary>
-    /// Update is called every frame, if the MonoBehaviour is enabled.
+    /// Update se ejecuta en cada frame.
+    /// Verifica si el jugador ha ingresado en la zona de interacción del motor
+    /// y permite iniciar/detener la reparación con la tecla de interacción.
     /// </summary>
     void Update()
     {
+        // Solo permite la interacción si el jugador está en la zona y el motor no ha sido reparado
         if (hasEnter && !isRepaired)
         {
+            // Si el jugador mantiene presionada la tecla de interacción, comienza la carga
             if (InputManager.Instance.InteractIsPressed())
             {
                 StartLoading();
             }
+            // Si el jugador suelta la tecla de interacción, se detiene la carga
             if (InputManager.Instance.InteractWasRealeasedThisFrame())
             {
                 StopLoading();
             }
         }
     }
+
     #endregion
 
     // ---- MÉTODOS PÚBLICOS ----
     #region Métodos públicos
-    // Documentar cada método que aparece aquí con ///<summary>
-    // El convenio de nombres de Unity recomienda que estos métodos
-    // se nombren en formato PascalCase (palabras con primera letra
-    // mayúscula, incluida la primera letra)
-    // Ejemplo: GetPlayerController
 
+    // (No hay métodos públicos en esta versión del código)
 
     #endregion
 
     // ---- MÉTODOS PRIVADOS ----
     #region Métodos privados
-    // Documentar cada método que aparece aquí
-    // El convenio de nombres de Unity recomienda que estos métodos
-    // se nombren en formato PascalCase (palabras con primera letra
-    // mayúscula, incluida la primera letra)
+
+    /// <summary>
+    /// Inicia el proceso de reparación del motor activando la barra de progreso.
+    /// Se asegura de que la corrutina solo se inicie si no se está ejecutando otra.
+    /// </summary>
     private void StartLoading()
     {
-        if (loadCoroutine == null) // Evitar que se inicie múltiples veces
+        if (loadCoroutine == null) // Evita iniciar múltiples instancias de la corrutina
         {
-            progressBar.gameObject.SetActive(true);
-            loadCoroutine = StartCoroutine(LoadProgress());
+            progressBar.gameObject.SetActive(true); // Muestra la barra de progreso
+            loadCoroutine = StartCoroutine(LoadProgress()); // Inicia la carga
         }
     }
 
+    /// <summary>
+    /// Detiene el proceso de reparación si el jugador deja de interactuar.
+    /// Oculta la barra de progreso y resetea variables de control.
+    /// </summary>
     private void StopLoading()
     {
         if (loadCoroutine != null)
         {
-            StopCoroutine(loadCoroutine);
-            loadCoroutine = null;
+            StopCoroutine(loadCoroutine); // Detiene la corrutina de carga
+            loadCoroutine = null; // Limpia la referencia
         }
-        progressBar.gameObject.SetActive(false);
-        noise = false;
+        progressBar.gameObject.SetActive(false); // Oculta la barra de progreso
+        noise = false; // Desactiva el sonido de carga
     }
 
+    /// <summary>
+    /// Corrutina que maneja la carga progresiva de la reparación del motor.
+    /// Aumenta el progreso de carga con el tiempo hasta completarlo.
+    /// </summary>
     private IEnumerator LoadProgress()
     {
-        while (currentLoadProgress < 1f)
+        while (currentLoadProgress < 1f) // Mientras la carga no esté completa
         {
-            currentLoadProgress += Time.deltaTime / loadTime;
-            progressBar.value = currentLoadProgress;
-            noise = true;
-            if (currentLoadProgress >= 1f)
+            currentLoadProgress += Time.deltaTime / loadTime; // Incrementa el progreso
+            progressBar.value = currentLoadProgress; // Actualiza la barra de progreso
+            noise = true; // Activa el sonido de carga (si se usa)
+
+            if (currentLoadProgress >= 1f) // Si la carga se completa
             {
-                CompleteRepair();
-                yield break; // Salimos de la corrutina al completar la carga
+                CompleteRepair(); // Finaliza la reparación
+                yield break; // Termina la corrutina
             }
-            yield return null;
+            yield return null; // Espera un frame antes de continuar
         }
     }
+
+    /// <summary>
+    /// Finaliza el proceso de reparación cuando la barra de carga llega al 100%.
+    /// Oculta los elementos UI y cambia el color del motor a verde.
+    /// Informa al LevelManager que el motor ha sido reparado.
+    /// </summary>
     private void CompleteRepair()
     {
-        isRepaired = true;
-        progressBar.gameObject.SetActive(false);
-        canva.gameObject.SetActive(false);
-        noise = false;
-        // Cambia el color del motor a verde
+        isRepaired = true; // Marca el motor como reparado
+        progressBar.gameObject.SetActive(false); // Oculta la barra de progreso
+        canva.gameObject.SetActive(false); // Oculta el Canvas de interacción
+        noise = false; // Detiene el sonido de carga
+
+        // Cambia el color del motor a verde para indicar que está reparado
         if (motorSprite != null)
         {
             motorSprite.color = Color.green;
         }
 
-        // Llama a LevelManager para registrar el motor reparado
+        // Notifica al LevelManager que el motor ha sido reparado
         LevelManager.Instance.MotorRepaired();
     }
 
+    /// <summary>
+    /// Detecta cuando el jugador entra en la zona de interacción del motor.
+    /// Activa la interfaz de carga si el motor no ha sido reparado aún.
+    /// </summary>
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.CompareTag("Player") && !isRepaired)
+        if (other.CompareTag("Player") && !isRepaired) // Si el objeto que entra es el jugador y el motor no está reparado
         {
-            hasEnter = true;
-            canva.gameObject.SetActive(true);
+            hasEnter = true; // Permite la interacción
+            canva.gameObject.SetActive(true); // Muestra la UI de carga
         }
     }
 
+    /// <summary>
+    /// Detecta cuando el jugador sale de la zona de interacción del motor.
+    /// Desactiva la interfaz de carga y detiene el progreso.
+    /// </summary>
     private void OnTriggerExit2D(Collider2D other)
     {
-        if (other.CompareTag("Player"))
+        if (other.CompareTag("Player")) // Si el objeto que sale es el jugador
         {
-            hasEnter = false;
-            canva.gameObject.SetActive(false);
-            StopLoading();
+            hasEnter = false; // Desactiva la interacción
+            canva.gameObject.SetActive(false); // Oculta la UI de carga
+            StopLoading(); // Detiene la carga si estaba en progreso
         }
     }
 
     #endregion
 
-} // class DoorScript 
-// namespace
+} // Fin de la clase Motor
