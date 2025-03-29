@@ -54,13 +54,21 @@ public class EnemyFleeState : MonoBehaviour
     private Rigidbody2D _rb;
     private float _fleeStartTime;
 
+    // Audio
+    private AudioSource audioSource; // Fuente de audio para reproducir sonidos
+
 
     // ---- MÉTODOS DE MONOBEHAVIOUR ----
     #region Métodos de MonoBehaviour
-void Start()
+    void Start()
     {
         _rb = GetComponent<Rigidbody2D>();
 
+        // Inicializar el AudioSource
+        audioSource = GetComponent<AudioSource>();
+
+        // Reproducir el sonido de huida si no está sonando
+        PlayFleeSound();
     }
 
     /// <summary>
@@ -100,6 +108,9 @@ void Start()
         StartCoroutine(FleeDuration());
 
         Flee();
+        // Ajustar volumen en función de la distancia al jugador
+
+        audioSource.volume = CalculateVolume(playerTransform.position);
     }
     #endregion
 
@@ -153,8 +164,28 @@ void Start()
         }
     }
 
+    // Método para calcular el volumen en función de la distancia
+    private float CalculateVolume(Vector3 targetPosition)
+    {
+        float distance = Vector3.Distance(targetPosition, transform.position);
+        // Cuanto más cerca esté el enemigo, más fuerte será el sonido
+        float volume = Mathf.Clamp01(1 - (distance / 15)); // Ajusta el divisor para que el volumen se incremente a medida que el enemigo se acerca
+        return volume;
+    }
+
+    // Reproducir el sonido de huida
+    private void PlayFleeSound()
+    {
+        // Obtener el clip de sonido de huida desde el AudioManager
+        AudioManager.instance.PlaySFX(SFXType.FleeEnemy1, audioSource);  // Cambiar a SFXType adecuado para huida
+
+        // Configurar el AudioSource para que repita el sonido mientras esté en estado de huida
+        audioSource.loop = false;
+        audioSource.Play();
+    }
+
     // Método para rotar el enemigo 180 grados después de un retraso
-   
+
 
     // Método que destruye el enemigo después de un tiempo de huida
     private IEnumerator FleeDuration()

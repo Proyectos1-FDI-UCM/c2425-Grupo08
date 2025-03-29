@@ -132,7 +132,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 2181331470842799619, guid: 10a2a23cb1a6fc344864f80da2c1702d, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 4.43
+      value: 6.41
       objectReference: {fileID: 0}
     - target: {fileID: 2181331470842799619, guid: 10a2a23cb1a6fc344864f80da2c1702d, type: 3}
       propertyPath: m_LocalPosition.y
@@ -170,13 +170,13 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 2803114078111985681, guid: a66a18b1313a6f94fbefe0e9b5acd33b, type: 3}
-      propertyPath: m_PlayAutomatically
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 3190272025005498771, guid: 10a2a23cb1a6fc344864f80da2c1702d, type: 3}
       propertyPath: m_Name
       value: Player
+      objectReference: {fileID: 0}
+    - target: {fileID: 2803114078111985681, guid: a66a18b1313a6f94fbefe0e9b5acd33b, type: 3}
+      propertyPath: m_PlayAutomatically
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -478,6 +478,23 @@ MonoBehaviour:
     m_MipBias: 0
     m_VarianceClampScale: 0.9
     m_ContrastAdaptiveSharpening: 0
+--- !u!1 &1877940272 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5545616874980445185, guid: 09abd798506a1434aa37ccf6fa305a11, type: 3}
+  m_PrefabInstance: {fileID: 6020788550633536986}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1877940278
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1877940272}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: de65d19c4cfcf91408acc23e92a9b586, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &6020788550633536986
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -528,12 +545,17 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9011611149896735518, guid: 09abd798506a1434aa37ccf6fa305a11, type: 3}
       propertyPath: m_Name
-      value: EnemigocompletoSonar
+      value: Enemigo
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 3056946944993718379, guid: 09abd798506a1434aa37ccf6fa305a11, type: 3}
+    - {fileID: 8766738122226178611, guid: 09abd798506a1434aa37ccf6fa305a11, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 5545616874980445185, guid: 09abd798506a1434aa37ccf6fa305a11, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1877940278}
   m_SourcePrefab: {fileID: 100100000, guid: 09abd798506a1434aa37ccf6fa305a11, type: 3}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
