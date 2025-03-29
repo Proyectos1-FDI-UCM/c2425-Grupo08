@@ -114,7 +114,7 @@ GameObject:
   - component: {fileID: 2181331470842799619}
   - component: {fileID: 8958090168955497643}
   - component: {fileID: 4710599616024909938}
-  - component: {fileID: 1909514070656860094}
+  - component: {fileID: 9061657711664675695}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -190,7 +190,7 @@ Rigidbody2D:
   m_Mass: 1
   m_LinearDrag: 0
   m_AngularDrag: 0
-  m_GravityScale: 1
+  m_GravityScale: 0.5
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
@@ -202,7 +202,7 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
---- !u!114 &1909514070656860094
+--- !u!114 &9061657711664675695
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -214,20 +214,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e704a827d56bbd94aa3336a84df7ea2e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  WalkAcceleration: 0
-  WalkDeceleration: 0
-  WalkMaxSpeed: 0
-  WalkDecelerationThreshold: 0
-  JumpAcceleration: 0
-  JumpDeceleration: 0
-  JumpMaxSpeed: 0
-  JumpDecelerationThreshold: 0
-  JumpJumpAcceleration: 0
-  JumpJumpMultiplierDecay: 0
-  FallAcceleration: 0
-  FallDeceleration: 0
-  FallMaxSpeed: 0
-  FallDecelerationThreshold: 0
+  WalkAcceleration: 5
+  WalkDeceleration: 8
+  WalkMaxSpeed: 6
+  WalkDecelerationThreshold: 0.2
+  JumpAcceleration: 3
+  JumpDeceleration: 8
+  JumpMaxSpeed: 6
+  JumpDecelerationThreshold: 0.2
+  JumpJumpAcceleration: 1
+  JumpJumpMultiplierDecay: 0.15
+  FallAcceleration: 3
+  FallDeceleration: 8
+  FallMaxSpeed: 6
+  FallDecelerationThreshold: 0.2
   debug: 0
 --- !u!1 &3861456626031676602
 GameObject:
