@@ -1,7 +1,7 @@
 //---------------------------------------------------------
-// Breve descripción del contenido del archivo
-// Responsable de la creación de este archivo
-// Nombre del juego
+// Este archivo se encarga del funcionamiento del enemigo 2 (sonar)
+// Javier Zazo Morillo
+// Project Abyss
 // Proyectos 1 - Curso 2024-25
 //---------------------------------------------------------
 
@@ -33,8 +33,17 @@ public class Enemy2Sonar : MonoBehaviour
 
     [SerializeField] private bool debug = false;
 
+    /// <summary>
+    /// Frecuencia con la que el enemigo utiliza su sonar
+    /// </summary>
     [SerializeField] private float sonarFrequency;
+    /// <summary>
+    /// Pequeño delay en el que el jugador aún no es detectado por el sonar a pesar de haberle llegado el pulso
+    /// </summary>
     [SerializeField] private float shadowDelay;
+    /// <summary>
+    /// Tiempo que tarda la animación del UI del sonar en rellenar la circunferencia
+    /// </summary>
     [SerializeField] private float sonarChargeTime;
 
     [SerializeField] private float sonarHearingDistance;
@@ -56,13 +65,28 @@ public class Enemy2Sonar : MonoBehaviour
     private GameObject player;
     private SonarUI sonarUI;
 
+    /// <summary>
+    /// Bool que se activa cuando el enemigo detecta al jugador
+    /// </summary>
     private bool attack = false;
 
+    /// <summary>
+    /// Bool de control para saber si el jugador estaba ya en el radio de escucha
+    /// </summary>
     private bool alreadyInsideHearingRadious;
+    /// <summary>
+    /// Bool de control para saber si el jugador estaba ya en el radio de ataque
+    /// </summary>
     private bool alreadyInsideAttackRadious;
 
+    /// <summary>
+    /// Bool que le dice al OnDrawGizmos que represente el ataque inminente en el editor
+    /// </summary>
     private bool attackDebug = false;
 
+    /// <summary>
+    /// Delay de la corrutina del cooldown del sonar
+    /// </summary>
     private float sonarCooldownTime;
 
     private struct NodeRoute
@@ -148,7 +172,7 @@ public class Enemy2Sonar : MonoBehaviour
                 alreadyInsideHearingRadious = true;
             }                           
         }
-        else
+        else if (alreadyInsideHearingRadious)
         {
             StopAllCoroutines();        
             sonarUI.DeactivateSonarUI();
@@ -162,7 +186,7 @@ public class Enemy2Sonar : MonoBehaviour
                 alreadyInsideAttackRadious = true;
             }          
         }
-        else
+        else if (alreadyInsideAttackRadious)
         {
             sonarUI.DeactivatePulseUI();
             alreadyInsideAttackRadious = false;
@@ -205,18 +229,29 @@ public class Enemy2Sonar : MonoBehaviour
     // se nombren en formato PascalCase (palabras con primera letra
     // mayúscula, incluida la primera letra)
 
+    /// <summary>
+    /// Mueve al enemigo según su estado (patrulla o ataque) representado en los parámetros que le llegan
+    /// </summary>
+    /// <param name="direction">La dirección a la que se tiene que mover</param>
+    /// <param name="speed">La velocidad a la que se tiene que mover</param>
     private void Move(Vector2 direction, float speed)
     {
         transform.rotation = Quaternion.Euler(0, 0, Mathf.Rad2Deg * Mathf.Atan2(direction.y, direction.x));
 
         rb.velocity = direction * speed;
     }
-
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <returns>Si se está dentro del radio de escucha</returns>
     private bool IsInsideHearingRadious()
     {
         return (player.transform.position - transform.position).magnitude <= sonarHearingDistance;
     }
-
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <returns>Si se está dentro del radio de ataque</returns>
     private bool IsInsideAttackRadious()
     {
         return (player.transform.position - transform.position).magnitude <= sonarAttackDistance;
@@ -256,11 +291,11 @@ public class Enemy2Sonar : MonoBehaviour
 
         yield return new WaitForSeconds(shadowDelay);
 
-        // if ((player.transform.position - transform.position).magnitude < sonarAttackDistance &&
-        // (InputManager.Instance.IsWalkPressed() || InputManager.Instance.IsRepairPressed()))
-        // {
-        //     attack = true;
-        // }
+        if ((IsInsideAttackRadious()) &&
+        (InputManager.Instance.MovementVector.x != 0 || player.GetComponent<PlayerMovement>().GetIsRepairing())) // Hace falta cambiar el interact por un bool de si se está reparando el motor
+        {
+            attack = true;
+        }
 
         attackDebug = false;
 

@@ -32,6 +32,9 @@ namespace EnemyLogic
 
         private bool flashed = false;
 
+        //Audio
+        private AudioSource audioSource; // Fuente de audio para reproducir sonidos
+
         public void Start()
         {
             this.enemyScript = GetComponentInParent<EnemyScript>();
@@ -45,6 +48,13 @@ namespace EnemyLogic
             this.player =  enemyScript.PlayerObject;
             //this.playerCollider = player.GetComponent<Collider2D>(); //error
             //this.flashCollider = player.GetComponentInChildren<Collider2D>(); //error
+
+            // Inicializa la fuente de audio
+            audioSource = GetComponent<AudioSource>();
+
+            // Reproducir el sonido de ataque si no está sonando
+            PlayAttackSound();
+
             Debug.Log("a");
         }
 
@@ -74,7 +84,11 @@ namespace EnemyLogic
             transform.rotation = Quaternion.Euler(0, 0, Mathf.Rad2Deg * Mathf.Atan2(direction.y, direction.x));
 
             _rb.velocity = direction * PerserSpeed;
+
+            // Ajustar volumen en función de la distancia al jugador
+            audioSource.volume = CalculateVolume(player.transform.position);
         }
+        
         
         override public void NextState()
         {
@@ -83,6 +97,30 @@ namespace EnemyLogic
             {
                 //enemyScript.State = new EnemyFleeState();
             }
+        }
+
+        // Métodos privados
+
+        private void PlayAttackSound()
+        {
+            // Obtener el clip de sonido de ataque desde el AudioManager
+            AudioManager.instance.PlaySFX(SFXType.AttackEnemy1, audioSource); // Cambiar a SFXType adecuado para ataque
+         
+               // Ajustar volumen en función de la distancia al jugador
+                audioSource.volume = CalculateVolume(player.transform.position);
+
+                // Configurar el AudioSource para que repita el sonido mientras esté en estado de ataque
+                audioSource.loop = false; // O ajustarlo como necesites
+                audioSource.Play();
+            
+        }
+
+        // Calcular volumen en función de la distancia
+        private float CalculateVolume(Vector3 targetPosition)
+        {
+            float distance = Vector3.Distance(targetPosition, transform.position);
+            float volume = Mathf.Clamp01(1 - (distance / 15));  // Ajusta el divisor para que el volumen disminuya a la distancia que prefieras
+            return volume;
         }
     }
 }

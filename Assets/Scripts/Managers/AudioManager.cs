@@ -1,81 +1,147 @@
+//---------------------------------------------------------
+// AudioManager que controla los sonidos, los almacena, los reproduce y los para
+// Tomás Arévalo Almagro
+// Project Abyss
+// Proyectos 1 - Curso 2024-25
+//---------------------------------------------------------
+
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Audio;
 
+// Enum que define los diferentes tipos de efectos de sonido disponibles en el juego
 public enum SFXType
 {
     Breath,
     Walk,
     Jump,
     Fall,
-    GameOver
-    // Añadir más sonidos aquí según sea necesario
+    GameOver,
+    AttackEnemy1,
+    PatrolEnemy1,
+    FleeEnemy1
+    // Se pueden añadir más sonidos según sea necesario
 }
-
+/// <summary>
+/// Clase heredara del MonoBehaviour que lleva la lógica del movimiento y estados del jugador
+/// </summary>
 public class AudioManager : MonoBehaviour
 {
+    // Instancia estática para implementar el patrón Singleton
     public static AudioManager instance;
-
+    #region Atributos del Inspector (serialized fields)
+    // Referencia al AudioMixer para controlar el volumen de los efectos de sonido
     [SerializeField] private AudioMixer audioMixer;
+
+    // Lista de clips de sonido asociados a los tipos de SFX
     [SerializeField] private List<SFXClip> sfxClips;
-    [Range(0f, 1f)] [SerializeField] private float sfxVolume = 1f;
+
+    // Control del volumen general de los efectos de sonido, con un rango entre 0 y 1
+    [Range(0f, 1f)][SerializeField] private float sfxVolume = 1f;
+
+    // Estructura que asocia un tipo de sonido con su correspondiente clip de audio
+    #endregion
 
     [System.Serializable]
     public struct SFXClip
     {
-        public SFXType type;
-        public AudioClip clip;
+        public SFXType type;  // Tipo de sonido
+        public AudioClip clip; // Clip de audio asociado
     }
+    // ---- MÉTODOS DE MONOBEHAVIOUR ----
+    #region Métodos de MonoBehaviour
+    /// <summary>
+    /// Start is called on the frame when a script is enabled just before 
+    /// any of the Update methods are called the first time.
+    /// </summary>
 
     void Awake()
     {
+        // Implementación del Singleton: Si no hay una instancia previa, esta se convierte en la única
         if (instance == null)
         {
             instance = this;
-            DontDestroyOnLoad(gameObject);
+            DontDestroyOnLoad(gameObject); // Evita que el objeto se destruya al cambiar de escena
         }
         else
         {
-            Destroy(gameObject);
+            Destroy(gameObject); // Si ya existe una instancia, se destruye esta duplicada
             return;
         }
     }
-
-    public void PlaySFX(SFXType type, AudioSource source, bool loop = false)
-    {
-        if (source == null) return;
-        
-        AudioClip clip = GetSFXClip(type);
-        if (clip == null) return;
-        
-        source.clip = clip;
-        source.loop = loop;
-        source.volume = sfxVolume;
-        source.outputAudioMixerGroup = audioMixer.FindMatchingGroups("SFX")[0];
-        source.Play();
-    }
-
-    public void StopSFX(AudioSource source)
-    {
-        if (source == null) return;
-        
-        source.Stop();
-        source.clip = null;
-    }
-
-    public void SetSFXVolume(float volume)
-    {
-        sfxVolume = volume;
-        audioMixer.SetFloat("SFXVolume", Mathf.Log10(volume) * 20);
-    }
-
+    #endregion
+    // ---- ATRIBUTOS PRIVADOS ----
+    #region Atributos Privados (private fields) 
+    // Método privado para obtener el clip de sonido correspondiente a un tipo de SFX
     private AudioClip GetSFXClip(SFXType type)
     {
         foreach (var sfx in sfxClips)
         {
-            if (sfx.type == type)
+            if (sfx.type == type) // Si el tipo coincide, devuelve el clip asociado
                 return sfx.clip;
         }
-        return null;
+        return null; // Si no se encuentra, devuelve null
     }
+    // Método privado para calcular el volumen en función de la distancia al jugador
+    private float CalculateVolume(Vector3 playerPosition)
+    {
+        // Calcula la distancia entre el jugador y la fuente del sonido
+        float distance = Vector3.Distance(playerPosition, transform.position);
+        // Ajusta el volumen en base a la distancia, asegurando que nunca sea menor que 0
+        float volume = Mathf.Clamp01(1 / (distance / 20));
+        return volume;
+    }
+    #endregion
+    // ---- MÉTODOS PÚBLICOS ----
+    #region Métodos públicos
+
+    // Método para reproducir un efecto de sonido en un AudioSource específico
+    public void PlaySFX(SFXType type, AudioSource source, bool loop = false)
+    {
+        if (source == null) return; // Si el AudioSource es nulo, no se hace nada
+
+        AudioClip clip = GetSFXClip(type); // Obtiene el clip de sonido correspondiente
+        if (clip == null) return; // Si el clip no se encuentra, no se reproduce nada
+
+        source.clip = clip; // Asigna el clip al AudioSource
+        source.loop = loop; // Define si el sonido debe repetirse en bucle
+        source.volume = sfxVolume; // Aplica el volumen general de los SFX
+        source.outputAudioMixerGroup = audioMixer.FindMatchingGroups("SFX")[0]; // Asigna el grupo de mezcla del AudioMixer
+        source.Play(); // Reproduce el sonido
+    }
+
+    // Sobrecarga del método PlaySFX que ajusta el volumen según la distancia al jugador
+    public void PlaySFX(SFXType type, AudioSource source, Vector3 playerPosition, bool loop = false)
+    {
+        if (source == null) return; // Si el AudioSource es nulo, no se hace nada
+
+        AudioClip clip = GetSFXClip(type); // Obtiene el clip de sonido correspondiente
+        if (clip == null) return; // Si el clip no existe, no se reproduce
+
+        source.clip = clip; // Asigna el clip al AudioSource
+        source.loop = loop; // Define si el sonido debe repetirse en bucle
+        source.volume = CalculateVolume(playerPosition); // Calcula el volumen basado en la distancia
+        source.outputAudioMixerGroup = audioMixer.FindMatchingGroups("SFX")[0]; // Asigna el grupo del AudioMixer
+        source.Play(); // Reproduce el sonido
+    }
+
+    // Método para detener un sonido en reproducción
+    public void StopSFX(AudioSource source)
+    {
+        if (source == null) return; // Si el AudioSource es nulo, no se hace nada
+
+        source.Stop(); // Detiene la reproducción del sonido
+        source.clip = null; // Elimina el clip asignado al AudioSource
+    }
+
+    // Método para ajustar el volumen de los efectos de sonido
+    public void SetSFXVolume(float volume)
+    {
+        sfxVolume = volume; // Actualiza la variable del volumen general
+        // Convierte el volumen a escala logarítmica y lo aplica al AudioMixer
+        audioMixer.SetFloat("SFXVolume", Mathf.Log10(volume) * 20);
+    }
+
+
+    #endregion   
 }
