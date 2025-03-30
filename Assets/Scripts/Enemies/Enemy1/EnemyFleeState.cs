@@ -31,14 +31,10 @@ public class EnemyFleeState : MonoBehaviour
     [SerializeField] private float rotationDelay = 2f; // Tiempo en segundos antes de aplicar la rotación en Y
     [SerializeField] private float escapeDuracion = 10f; // Duración de escape (para reactivar ataque, etc.)
 
-
     [Header("Referencia para comunicar")]
     [SerializeField] private Transform playerTransform; // referencia de transform del jugador
     [SerializeField] private SpriteRenderer spriteRenderer; // Para girar el sprite
     [SerializeField] private Collider2D flashCollider;
-
-
-
 
     // ---- ATRIBUTOS PRIVADOS ----
     #region Atributos Privados (private fields)
@@ -49,14 +45,13 @@ public class EnemyFleeState : MonoBehaviour
     // primera letra en mayúsculas)
     // Ejemplo: _maxHealthPoints
 
-    #endregion
-
     private Rigidbody2D _rb;
     private float _fleeStartTime;
 
     // Audio
     private AudioSource audioSource; // Fuente de audio para reproducir sonidos
 
+    #endregion
 
     // ---- MÉTODOS DE MONOBEHAVIOUR ----
     #region Métodos de MonoBehaviour
@@ -93,9 +88,6 @@ public class EnemyFleeState : MonoBehaviour
 
     #endregion
 
-
-
-
     // ---- MÉTODOS PÚBLICOS ----
     #region Métodos públicos
     // Método que activa la huida y comienza la lógica
@@ -113,13 +105,6 @@ public class EnemyFleeState : MonoBehaviour
         audioSource.volume = CalculateVolume(playerTransform.position);
     }
     #endregion
-
-
-
-
-
-
-
 
     // ---- MÉTODOS PRIVADOS ----
     #region Métodos Privados
@@ -186,7 +171,6 @@ public class EnemyFleeState : MonoBehaviour
 
     // Método para rotar el enemigo 180 grados después de un retraso
 
-
     // Método que destruye el enemigo después de un tiempo de huida
     private IEnumerator FleeDuration()
     {
@@ -201,8 +185,6 @@ public class EnemyFleeState : MonoBehaviour
     // mayúscula, incluida la primera letra)
 
     #endregion
-
-
 
 } // class EnemigEscape
 // namespace

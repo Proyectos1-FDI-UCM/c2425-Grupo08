@@ -431,15 +431,11 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6668080238660899341}
-  - component: {fileID: 953807110664682510}
-  - component: {fileID: 7912447043181486119}
   - component: {fileID: 1868242033368191876}
   - component: {fileID: 4165333666734722784}
-  - component: {fileID: 6596958995431797447}
-  - component: {fileID: 6405971610919867663}
-  - component: {fileID: 6195226437273082988}
+  - component: {fileID: 575618274310059476}
   m_Layer: 10
-  m_Name: Enemigo para este prueba
+  m_Name: PhantomAnglerfishEnemy
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -462,43 +458,6 @@ Transform:
   - {fileID: 450819485049759121}
   m_Father: {fileID: 4407587027861858106}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &953807110664682510
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8219945931817949547}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f947ee450ff8260d6b1784f3f4bc92ba, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  NodeArray:
-  - {fileID: 225838465837623342}
-  - {fileID: 5381095882163978516}
-  - {fileID: 6207426212874547778}
-  - {fileID: 7886679526067831091}
-  Speed: 2
-  Debug: 1
---- !u!114 &7912447043181486119
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8219945931817949547}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: da3588ec3128f284db1b985477014cd9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  fleeSpeed: 5
-  rotationDelay: 2
-  escapeDuracion: 10
-  playerTransform: {fileID: 0}
-  spriteRenderer: {fileID: 8136806925078616309}
-  flashCollider: {fileID: 0}
 --- !u!50 &1868242033368191876
 Rigidbody2D:
   serializedVersion: 4
@@ -561,7 +520,7 @@ CapsuleCollider2D:
   m_Offset: {x: 0, y: 0}
   m_Size: {x: 2, y: 1}
   m_Direction: 1
---- !u!114 &6596958995431797447
+--- !u!114 &575618274310059476
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -570,39 +529,19 @@ MonoBehaviour:
   m_GameObject: {fileID: 8219945931817949547}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: de65d19c4cfcf91408acc23e92a9b586, type: 3}
+  m_Script: {fileID: 11500000, guid: 1f9d5eee9b80dac41ad6426ed7ba33ae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &6405971610919867663
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8219945931817949547}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7ad6f3a0ee39c7c488267f4ce1ae5a9a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  PerserSpeed: 3
-  rotateSpeed: 90
-  spriteLooksUp: 0
---- !u!114 &6195226437273082988
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8219945931817949547}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f947ee450ff8260d6b1784f3f4bc92ba, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  NodeArray: []
-  Speed: 0
-  Debug: 0
+  nodeArray:
+  - {fileID: 225838465837623342}
+  - {fileID: 5381095882163978516}
+  - {fileID: 6207426212874547778}
+  - {fileID: 7886679526067831091}
+  patrolSpeed: 3
+  attackSpeed: 5
+  fleeSpeed: 4
+  disintegrationDelay: 1
+  debug: 0
 --- !u!1 &8319218678143290873
 GameObject:
   m_ObjectHideFlags: 0
