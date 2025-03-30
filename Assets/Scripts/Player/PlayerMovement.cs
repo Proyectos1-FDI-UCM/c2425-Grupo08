@@ -77,13 +77,15 @@ public class PlayerMovement : MonoBehaviour
         /// </summary>
         private States _state = States.Idle;
 
+        private AudioSource audioSource;
+
 
 
     #endregion
-    
+
     // ---- MÉTODOS DE MONOBEHAVIOUR ----
     #region Métodos de MonoBehaviour
-    
+
     /// <summary>
     /// Start is called on the frame when a script is enabled just before 
     /// any of the Update methods are called the first time.
@@ -91,6 +93,7 @@ public class PlayerMovement : MonoBehaviour
     void Start()
     {     
         _rb = GetComponent<Rigidbody2D>();
+        audioSource = GetComponent<AudioSource>();
     }
 
     /// <summary>
@@ -165,10 +168,10 @@ public class PlayerMovement : MonoBehaviour
                     if (InputManager.Instance.MovementVector.x != 0)
                     {
                         _state = States.Walk;
-                        AudioManager.instance.PlaySFX(SFXType.Walk, true);
+                        AudioManager.instance.PlaySFX(SFXType.Walk, audioSource, true);
 
-                    }
-                    else if (_rb.velocity.y < 0)
+                }
+                else if (_rb.velocity.y < 0)
 
                     {
                         _state = States.Fall;
@@ -177,10 +180,10 @@ public class PlayerMovement : MonoBehaviour
                     {
 
                         _state = States.Jump;
-                        AudioManager.instance.PlaySFX(SFXType.Jump);
-                    
+                        AudioManager.instance.PlaySFX(SFXType.Jump, audioSource);
+
                     }
-                    else if (_isLanternAimed)
+                else if (_isLanternAimed)
                     {
                         _state = States.Aim;
                     }
@@ -190,7 +193,7 @@ public class PlayerMovement : MonoBehaviour
                     if (_rb.velocity == new Vector2(0, 0))
                     {
                         _state = States.Idle; 
-                        AudioManager.instance.StopLoopingSFX(SFXType.Walk);
+                        AudioManager.instance.StopSFX(audioSource);
          
                     }
                     else if (_rb.velocity.y < 0)
@@ -200,11 +203,12 @@ public class PlayerMovement : MonoBehaviour
                     else if (InputManager.Instance.JumpWasPressedThisFrame())
                     {
                         _state = States.Jump;
-                        AudioManager.instance.PlaySFX(SFXType.Jump);
-                        AudioManager.instance.StopLoopingSFX(SFXType.Walk);
-         
-                    }
-                    else if (_isLanternAimed)
+                        AudioManager.instance.StopSFX(audioSource);
+                        AudioManager.instance.PlaySFX(SFXType.Jump, audioSource);
+
+
+                }
+                else if (_isLanternAimed)
                     {
                         _state = States.Aim;
                     }
@@ -215,13 +219,13 @@ public class PlayerMovement : MonoBehaviour
                     }
                 break;
                 case States.Fall:
-                    if (/*_rb.velocity.y == 0*/){ 
-                        AudioManager.instance.PlaySFX(SFXType.Fall);
-                        if (/*_rb.velocity.y == 0*/){
+                    if (_rb.velocity.y == 0){
+                        AudioManager.instance.PlaySFX(SFXType.Fall, audioSource);
+                        if (_rb.velocity.x == 0){
                             _state = States.Idle;
                         }
                         else{
-                            AudioManager.instance.PlaySFX(SFXType.Walk, true);
+                            AudioManager.instance.PlaySFX(SFXType.Walk, audioSource, true);
                             _state = States.Walk;
                         }
                     }

@@ -18,13 +18,7 @@ public class AudioManager : MonoBehaviour
 
     [SerializeField] private AudioMixer audioMixer;
     [SerializeField] private List<SFXClip> sfxClips;
-    [SerializeField] private AudioSource _sfxSource;
-
-    [Range(0f, 1f)]
-    [SerializeField] private float sfxVolume = 1f;
-
-    private List<AudioSource> loopingSources = new List<AudioSource>();
-    private List<SFXType> activeLoopingSFX = new List<SFXType>();
+    [Range(0f, 1f)] [SerializeField] private float sfxVolume = 1f;
 
     [System.Serializable]
     public struct SFXClip
@@ -47,73 +41,26 @@ public class AudioManager : MonoBehaviour
         }
     }
 
-    public void PlaySFX(SFXType type, bool loop = false)
+    public void PlaySFX(SFXType type, AudioSource source, bool loop = false)
     {
+        if (source == null) return;
+        
         AudioClip clip = GetSFXClip(type);
         if (clip == null) return;
-
-        if (loop)
-        {
-            PlayLoopingSFX(type);
-            return;
-        }
-
-        AudioSource newSource = gameObject.AddComponent<AudioSource>();
-        newSource.clip = clip;
-        newSource.outputAudioMixerGroup = _sfxSource.outputAudioMixerGroup;
-        newSource.volume = sfxVolume;
-        newSource.Play();
+        
+        source.clip = clip;
+        source.loop = loop;
+        source.volume = sfxVolume;
+        source.outputAudioMixerGroup = audioMixer.FindMatchingGroups("SFX")[0];
+        source.Play();
     }
 
-    public void StopSFX(SFXType type)
+    public void StopSFX(AudioSource source)
     {
-        AudioClip clip = GetSFXClip(type);
-        if (clip == null) return;
-
-        foreach (AudioSource source in GetComponents<AudioSource>())
-        {
-            if (source.clip == clip)
-            {
-                source.Stop();
-                Destroy(source);
-            }
-        }
-    }
-
-    private void PlayLoopingSFX(SFXType type)
-    {
-        if (activeLoopingSFX.Contains(type)) return;
-
-        AudioClip clip = GetSFXClip(type);
-        if (clip == null) return;
-
-        AudioSource newSource = gameObject.AddComponent<AudioSource>();
-        newSource.clip = clip;
-        newSource.loop = true;
-        newSource.volume = sfxVolume;
-        newSource.outputAudioMixerGroup = _sfxSource.outputAudioMixerGroup;
-        newSource.Play();
-
-        loopingSources.Add(newSource);
-        activeLoopingSFX.Add(type);
-    }
-
-    public void StopLoopingSFX(SFXType type)
-    {
-        AudioClip clip = GetSFXClip(type);
-        if (clip == null) return;
-
-        for (int i = loopingSources.Count - 1; i >= 0; i--)
-        {
-            if (loopingSources[i].clip == clip)
-            {
-                loopingSources[i].Stop();
-                Destroy(loopingSources[i]);
-                loopingSources.RemoveAt(i);
-                activeLoopingSFX.Remove(type);
-                break;
-            }
-        }
+        if (source == null) return;
+        
+        source.Stop();
+        source.clip = null;
     }
 
     public void SetSFXVolume(float volume)
