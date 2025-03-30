@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7142411053063242153}
   m_Layer: 0
-  m_Name: Motor
+  m_Name: Engine
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
