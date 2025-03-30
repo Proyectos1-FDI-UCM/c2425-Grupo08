@@ -55,7 +55,6 @@ namespace EnemyLogic
             // Reproducir el sonido de ataque si no está sonando
             PlayAttackSound();
 
-            Debug.Log("a");
         }
 
         // MonoBehaviour

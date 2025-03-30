@@ -144,6 +144,7 @@ public class PlayerMovement : MonoBehaviour
                 FallWalk(InputManager.Instance.MovementVector.x);
             }
             else FallDecelerate(FallDeceleration);
+            _jumpMultiplier = 1;
         break;
         case States.Aim:
         break;
@@ -173,7 +174,10 @@ public class PlayerMovement : MonoBehaviour
     /// </summary>
     /// <param name="_state">Estado pasado por referencia del jugador.</param>
         private void CheckState(ref States _state){
-
+            //Debug.Log(_state);
+            
+            //Debug.Log(_rb.velocity.y);
+            Debug.Log(_jumpMultiplier);
             switch (_state){
                 case States.Idle:
 
@@ -184,7 +188,7 @@ public class PlayerMovement : MonoBehaviour
 
                 }
                 else if (_rb.velocity.y < 0)
-
+ 
                     {
                         _state = States.Fall;
                     }
@@ -226,7 +230,7 @@ public class PlayerMovement : MonoBehaviour
                     }
                 break;
                 case States.Jump:
-                    if (_rb.velocity.y <0){
+                    if (_rb.velocity.y < 0){
                         _state = States.Fall;
                     }
                 break;
