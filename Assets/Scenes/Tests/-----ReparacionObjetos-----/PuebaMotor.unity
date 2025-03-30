@@ -270,6 +270,10 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 982502975117708365, guid: 8c0a26a4016db1f4da055ae016bf56f8, type: 3}
+      propertyPath: sfxClips.Array.size
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 982502975117708365, guid: 8c0a26a4016db1f4da055ae016bf56f8, type: 3}
       propertyPath: sfxClips.Array.data[0].clip
       value: 
       objectReference: {fileID: 8300000, guid: 48b6375d3a8066b4695c8ee9f21ad294, type: 3}
