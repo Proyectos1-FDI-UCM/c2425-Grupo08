@@ -620,7 +620,7 @@ PolygonCollider2D:
   m_AutoTiling: 0
   m_Points:
     m_Paths:
-    - - {x: -0.08427477, y: 0.044888496}
+    - - {x: 0, y: 0}
       - {x: 0.6765183, y: 12.7031765}
       - {x: -0.7544175, y: 12.701894}
   m_UseDelaunayMesh: 0
@@ -685,5 +685,5 @@ MonoBehaviour:
   flashColor: {r: 1, g: 1, b: 1, a: 1}
   flashIntensity: 500
   flashDuration: 1
-  flashCooldown: 4
+  flashCooldown: 3
   playerSprite: {fileID: 2302555880213678727}

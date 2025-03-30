@@ -10,6 +10,7 @@
 
 using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine.Rendering.Universal;
 
 /// <summary>
@@ -18,36 +19,78 @@ using UnityEngine.Rendering.Universal;
 public class FlashLight : MonoBehaviour
 {
     // ---- ATRIBUTOS DEL INSPECTOR ----
-    [Header("Input Settings")][Space]
-    [Range(0, 1)][SerializeField] private float inputDeadzone = 0.1f; // Deadzone para el joystick o ratón
+    [Header("Configuración de Entrada")]
+    [Space]
+    [Tooltip("Zona muerta para joystick o ratón (entre 0 y 1)")]
+    [Range(0, 1)]
+    [SerializeField] private float inputDeadzone = 0.1f; // Zona muerta para el joystick o ratón
 
-    [Space][Header("General Settings")][Space]
+    [Space]
+    [Header("Configuración General")]
+    [Space]
+    [Tooltip("Color inicial de la luz")]
     [SerializeField] private Color32 lightColor = new Color32(0x00, 0x23, 0x4B, 0xFF);
-    [Range(1, 50)][SerializeField] private int transitionSpeed = 15;
-    [Range(0, 100)][SerializeField] private float lightDiffusion = 10f;
-    [Range(0, 5)][SerializeField] private float minIntensity = 0.5f;
+    [Tooltip("Velocidad de transición de la linterna")]
+    [Range(1, 50)]
+    [SerializeField] private int transitionSpeed = 15;
+    [Tooltip("Difusión de la luz")]
+    [Range(0, 100)]
+    [SerializeField] private float lightDiffusion = 10f;
+    [Tooltip("Intensidad mínima de la luz")]
+    [Range(0, 5)]
+    [SerializeField] private float minIntensity = 0.5f;
 
-    [Space][Header("UnFocus Settings")][Space]
-    [Range(1, 180)][SerializeField] private float unfocusRadius = 70f;
-    [Range(0, 20)][SerializeField] private float unfocusLength = 6f;
-    [Range(1, 150)][SerializeField] private float unfocusIntensity = 30f;
+    [Space]
+    [Header("Configuración Desenfoque")]
+    [Space]
+    [Tooltip("Radio de desenfoque")]
+    [Range(1, 180)]
+    [SerializeField] private float unfocusRadius = 70f;
+    [Tooltip("Longitud en modo desenfoque")]
+    [Range(0, 20)]
+    [SerializeField] private float unfocusLength = 6f;
+    [Tooltip("Intensidad de la luz en modo desenfoque")]
+    [Range(1, 150)]
+    [SerializeField] private float unfocusIntensity = 30f;
 
-    [Space][Header("Focus Settings")][Space]
-    [Range(1, 180)][SerializeField] private float focusRadius = 10f;
-    [Range(0, 20)][SerializeField] private float focusLength = 10f;
-    [Range(1, 300)][SerializeField] private float focusIntensity = 180f;
+    [Space]
+    [Header("Configuración Enfoque")]
+    [Space]
+    [Tooltip("Radio de enfoque")]
+    [Range(1, 180)]
+    [SerializeField] private float focusRadius = 10f;
+    [Tooltip("Longitud en modo enfoque")]
+    [Range(0, 20)]
+    [SerializeField] private float focusLength = 10f;
+    [Tooltip("Intensidad de la luz en modo enfoque")]
+    [Range(1, 300)]
+    [SerializeField] private float focusIntensity = 180f;
 
-    [Space][Header("Flash Settings")][Space]
+    [Space]
+    [Header("Configuración Flash")]
+    [Space]
+    [Tooltip("Color del flash")]
     [SerializeField] private Color flashColor = Color.white;
-    [Range(1, 1000)][SerializeField] private float flashIntensity = 500f;
-    [Range(0, 0.1f)][SerializeField] private float flashDuration = 1f;
-    [Range(0, 10)][SerializeField] private float flashCooldown = 4f;
-    
-    [Space][Header("References")][Space]
+    [Tooltip("Intensidad del flash")]
+    [Range(1, 1000)]
+    [SerializeField] private float flashIntensity = 500f;
+    [Tooltip("Duración del flash")]
+    [Range(0, 0.1f)]
+    [SerializeField] private float flashDuration = 1f;
+    [Tooltip("Tiempo de recarga del flash")]
+    [Range(0, 10)]
+    [SerializeField] private float flashCooldown = 4f;
+
+    [Space]
+    [Header("Referencias")]
+    [Space]
+    [Tooltip("Sprite del jugador")]
     [SerializeField] private SpriteRenderer playerSprite; // Referencia al objeto del jugador (TODO: Quitar esto en un futuro)
 
     // ---- ATRIBUTOS PRIVADOS ----
     private Light2D flashLight; // Referencia a la luz 2D de la linterna
+    private PolygonCollider2D flashCollider; // Referencia al polygon collider de la luz 2D
+
     private bool isFlashAvailable = true;
 
     // ---- MÉTODOS DE MONOBEHAVIOUR ----
@@ -58,20 +101,30 @@ public class FlashLight : MonoBehaviour
         // Obtener la referencia a la luz 2D de la linterna
         flashLight = GetComponentInChildren<Light2D>();
 
-        if (flashLight != null)
+        // Obtener la referencia a la luz 2D de la linterna
+        flashCollider = GetComponentInChildren<PolygonCollider2D>();
 
-            SetDefaults(); // Establecer los valores por defecto de la linterna
+        if (flashLight != null && flashCollider != null)
+
+            SetDefaults(); // Configura la luz y su collider
 
         else
+        {
+            if (flashLight == null)
 
-            Debug.LogError("No se ha encontrado la luz 2D en el objeto linterna.");
+                Debug.LogError("No se ha encontrado la luz 2D en el objeto linterna.");
+
+            if (flashCollider == null)
+
+                Debug.LogError("No se ha encontrado el PolygonCollider2D en el objeto linterna.");
+        }
     }
 
     private void Update()
     {
         LookAtInput(); // Control del movimiento de la linterna con el joystick o el ratón
 
-        if (flashLight != null)
+        if (flashLight != null && flashCollider != null)
         {
             if (isFlashAvailable)
             {
@@ -133,6 +186,27 @@ public class FlashLight : MonoBehaviour
         flashLight.pointLightInnerAngle = unfocusRadius; // Establecer el ángulo interno por defecto de la luz
         flashLight.pointLightOuterAngle = unfocusRadius + lightDiffusion; // Establecer el ángulo externo por defecto de la luz
         flashLight.pointLightOuterRadius = unfocusLength; // Establecer el radio externo por defecto de la luz
+
+        SetCollider(); // Ajustar el collider de la luz a su tamaño en modo focus
+    }
+
+    /// <summary>
+    /// Método para establecer el collider de la linterna.
+    /// Este método calcula los puntos del collider en función de la longitud y el ángulo de la luz de la linterna.
+    /// </summary>
+    private void SetCollider()
+    {
+        flashCollider.enabled = false; // Desactivar el collider al inicio
+
+        float outerAngle = focusRadius + lightDiffusion;
+        float halfOuterAngle = outerAngle * 0.5f;
+
+        // Los dos puntos en los extremos del cono (asumiendo que la linterna apunta a la derecha)
+        Vector2 point1 = Quaternion.Euler(0, 0, halfOuterAngle) * Vector2.right * focusLength;
+        Vector2 point2 = Quaternion.Euler(0, 0, -halfOuterAngle) * Vector2.right * focusLength;
+
+        // Asignamos los 3 puntos: origen y los dos extremos
+        flashCollider.points = new Vector2[] { Vector2.zero, point1, point2 };
     }
 
     /// <summary>
@@ -169,39 +243,27 @@ public class FlashLight : MonoBehaviour
     /// </summary>
     private IEnumerator LightFlash()
     {
-        // Initial flash setup
+        // Cambiar el color y la intensidad a los valores del flash
         flashLight.color = flashColor;
         flashLight.intensity = flashIntensity;
         flashLight.pointLightOuterRadius = focusLength * 2f;
         flashLight.pointLightInnerAngle = focusRadius * 2f;
 
-        // Disable flash availability
-        isFlashAvailable = false;
+        isFlashAvailable = false; // Desactivar el flash hasta que termine la animación
 
-        // Hold flash effect briefly
+        flashCollider.enabled = true; // Activar el collider para que la luz pueda colisionar con los objetos
+
         yield return new WaitForSeconds(flashDuration);
 
-        // Gradually reduce intensity
-        float elapsedTime = 0f;
-        float fadeDuration = 0.5f;
-        float startIntensity = flashIntensity;
+        flashCollider.enabled = false; // Desactivar el collider después del flash
 
-        while (elapsedTime < fadeDuration)
-        {
-            elapsedTime += Time.deltaTime;
-            float t = elapsedTime / fadeDuration;
-            flashLight.intensity = Mathf.Lerp(startIntensity, 0f, t);
-            yield return null;
-        }
+        SetDefaults(); /// Volver a los valores por defecto de la linterna
 
-        // Reset to default values
-        SetDefaults(); 
-
-        // Cooldown period
+        // Esperar el tiempo de recarga del flash
         yield return new WaitForSeconds(flashCooldown);
         isFlashAvailable = true;
     }
-    
+
     /// <summary>
     /// Método para simular un parpadeo de la linterna.
     /// Este método ajusta la intensidad y el radio de la luz de la linterna para simular un efecto de parpadeo.
