@@ -55,6 +55,11 @@ public class Enemy1PhantomAnglerfish : MonoBehaviour
     private bool attack = false;
     private bool flee = false;
 
+    private AudioSource audioSource;
+
+    private bool attackSoundPlaying = false;
+    private bool fleeSoundPlaying = false;
+
     private struct NodeRoute
     {
         private int nodeCont; //Contador que indica a que nodo se está moviendo
@@ -103,6 +108,8 @@ public class Enemy1PhantomAnglerfish : MonoBehaviour
     /// </summary>
     void Start()
     {
+        audioSource = GetComponent<AudioSource>();
+
         player = GameObject.FindGameObjectWithTag("Player");
 
         playerCollider = player.GetComponent<Collider2D>();
@@ -123,10 +130,20 @@ public class Enemy1PhantomAnglerfish : MonoBehaviour
         if (flee)
         {
             Move((transform.position - player.transform.position).normalized, fleeSpeed);
+            if (!fleeSoundPlaying)
+            {
+                PlayFleeSound();
+                fleeSoundPlaying = true;
+            }
         } 
         else if (attack)
         {
             Move((player.transform.position - transform.position).normalized, attackSpeed);
+            if (!attackSoundPlaying)
+            {
+                PlayAttackSound();
+                attackSoundPlaying = true;
+            }
         }
         else
         {
@@ -161,6 +178,7 @@ public class Enemy1PhantomAnglerfish : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
+        Debug.Log("COLISIÓN CON: " + collision.gameObject);
         if (enemyCollider.IsTouching(nodeRoute.GetCollider()))
         {
             nodeRoute.SetNextNode();
@@ -192,6 +210,36 @@ public class Enemy1PhantomAnglerfish : MonoBehaviour
     {
         yield return new WaitForSeconds(disintegrationDelay);
         Destroy(gameObject);
+    }
+
+    private void PlayFleeSound()
+    {
+        // Obtener el clip de sonido de huida desde el AudioManager
+        AudioManager.instance.PlaySFX(SFXType.FleeEnemy1, audioSource);  // Cambiar a SFXType adecuado para huida
+
+        // Configurar el AudioSource para que repita el sonido mientras esté en estado de huida
+        audioSource.loop = false;
+        audioSource.Play();
+    }
+
+    private void PlayAttackSound()
+    {
+        // Obtener el clip de sonido de ataque desde el AudioManager
+        AudioManager.instance.PlaySFX(SFXType.AttackEnemy1, audioSource); // Cambiar a SFXType adecuado para ataque
+
+        // Ajustar volumen en función de la distancia al jugador
+        audioSource.volume = CalculateVolume(player.transform.position);
+
+        // Configurar el AudioSource para que repita el sonido mientras esté en estado de ataque
+        audioSource.loop = false; // O ajustarlo como necesites
+        audioSource.Play();
+    }
+
+    private float CalculateVolume(Vector3 targetPosition)
+    {
+        float distance = Vector3.Distance(targetPosition, transform.position);
+        float volume = Mathf.Clamp01(1 - (distance / 15));  // Ajusta el divisor para que el volumen disminuya a la distancia que prefieras
+        return volume;
     }
 
     #endregion   
