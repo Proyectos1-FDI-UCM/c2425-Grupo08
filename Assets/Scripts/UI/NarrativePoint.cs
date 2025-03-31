@@ -1,84 +1,140 @@
 //---------------------------------------------------------
-// Breve descripción del contenido del archivo
-// Responsable de la creación de este archivo
-// Nombre del juego
+// Este archivo contiene la clase NarrativePoint, que representa un punto narrativo en la interfaz de usuario.
+// Carlos Dochao Moreno
+// Proyect Abyss
 // Proyectos 1 - Curso 2024-25
 //---------------------------------------------------------
 
 using UnityEngine;
-// Añadir aquí el resto de directivas using
-
+using UnityEngine.EventSystems;
 
 /// <summary>
-/// Antes de cada class, descripción de qué es y para qué sirve,
-/// usando todas las líneas que sean necesarias.
+/// Clase que representa un punto narrativo en la interfaz de usuario.
+/// Permite mostrar un texto narrativo al hacer clic en el objeto.
 /// </summary>
-public class NarrativePoint : MonoBehaviour
+public class NarrativePoint : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, ISelectHandler, IDeselectHandler, IPointerClickHandler
 {
     // ---- ATRIBUTOS DEL INSPECTOR ----
-    #region Atributos del Inspector (serialized fields)
-    // Documentar cada atributo que aparece aquí.
-    // El convenio de nombres de Unity recomienda que los atributos
-    // públicos y de inspector se nombren en formato PascalCase
-    // (palabras con primera letra mayúscula, incluida la primera letra)
-    // Ejemplo: MaxHealthPoints
+    #region Atributos del Inspector
+
+    [Header("Scale Settings")]
+    [Space]
+    [Range(1f, 3f)]
+    [SerializeField] private float scaleMultiplier = 1.2f; // Factor de aumento al hacer highlight
+
+    [Header("Text Settings")]
+    [Space]
+    [SerializeField] private string narrativeTitle; // Texto narrativo del punto
+    [Space]
+    [TextArea(3, 10)]
+    [SerializeField] private string narrativeText; // Texto narrativo del punto
 
     #endregion
-    
+
     // ---- ATRIBUTOS PRIVADOS ----
-    #region Atributos Privados (private fields)
-    // Documentar cada atributo que aparece aquí.
-    // El convenio de nombres de Unity recomienda que los atributos
-    // privados se nombren en formato _camelCase (comienza con _, 
-    // primera palabra en minúsculas y el resto con la 
-    // primera letra en mayúsculas)
-    // Ejemplo: _maxHealthPoints
+    #region Atributos Privados
+
+    private float lerpSpeed = 10f; // Velocidad del Lerp
+
+    private Vector3 _defaultScale = Vector3.one; // Escala original del objeto
+    private Vector3 _targetScale;
+
+    private GameObject textPanel; // Referencia al componente "panel de texto"
 
     #endregion
-    
+
     // ---- MÉTODOS DE MONOBEHAVIOUR ----
     #region Métodos de MonoBehaviour
-    
-    // Por defecto están los típicos (Update y Start) pero:
-    // - Hay que añadir todos los que sean necesarios
-    // - Hay que borrar los que no se usen 
-    
+
     /// <summary>
-    /// Start is called on the frame when a script is enabled just before 
-    /// any of the Update methods are called the first time.
+    /// Se utiliza para obtener la referencia al componente TextPanel y establecer la escala objetivo.
     /// </summary>
     void Start()
     {
-        
+        textPanel = UIManager.Instance.GetTextPanel(); // Obtiene la referencia al componente Textpanel
+
+        _targetScale = _defaultScale; // Inicializa la escala objetivo
+
     }
 
     /// <summary>
-    /// Update is called every frame, if the MonoBehaviour is enabled.
+    /// Se utiliza para actualizar la escala del objeto suavemente en cada frame.
     /// </summary>
     void Update()
     {
-        
+        // Actualiza la escala suavemente
+        transform.localScale = Vector3.Lerp(transform.localScale, _targetScale, lerpSpeed * Time.deltaTime);
     }
+
     #endregion
 
     // ---- MÉTODOS PÚBLICOS ----
     #region Métodos públicos
-    // Documentar cada método que aparece aquí con ///<summary>
-    // El convenio de nombres de Unity recomienda que estos métodos
-    // se nombren en formato PascalCase (palabras con primera letra
-    // mayúscula, incluida la primera letra)
-    // Ejemplo: GetPlayerController
+
+    /// <summary>
+    /// Método que se llama cuando el puntero entra en el objeto. Cambia la escala del objeto.
+    /// </summary>
+    /// <param name="eventData"></param>
+    public void OnPointerEnter(PointerEventData eventData)
+    {
+        _targetScale = _defaultScale * scaleMultiplier;
+    }
+
+    /// <summary>
+    /// Método que se llama cuando el puntero sale del objeto. Cambia la escala del objeto.
+    /// </summary>
+    /// <param name="eventData"></param>
+    public void OnPointerExit(PointerEventData eventData)
+    {
+        _targetScale = _defaultScale;
+    }
+
+    /// <summary>
+    /// Método que se llama cuando el objeto es seleccionado. Cambia la escala del objeto.
+    /// </summary>
+    /// <param name="eventData"></param>
+    public void OnSelect(BaseEventData eventData)
+    {
+        _targetScale = _defaultScale * scaleMultiplier;
+    }
+
+    /// <summary>
+    /// Método que se llama cuando el objeto es deseleccionado. Cambia la escala del objeto.
+    /// </summary>
+    /// <param name="eventData"></param>
+    public void OnDeselect(BaseEventData eventData)
+    {
+        _targetScale = _defaultScale;
+    }
+
+    /// <summary>
+    /// Método que se llama cuando el objeto es clicado. Cambia el texto del panel de texto.
+    /// Si el panel de texto está visible, lo oculta; si no, lo muestra.
+    /// </summary>
+    /// <param name="eventData"></param>
+    public void OnPointerClick(PointerEventData eventData)
+    {
+        if (textPanel != null)
+        {
+            var textPanelComponent = textPanel.GetComponent<TextPanel>();
+
+            if (textPanelComponent.IsVisible())
+            {
+                textPanelComponent.SetText(narrativeTitle, narrativeText);
+            }
+            else
+            {
+                textPanelComponent.SetText(narrativeTitle, narrativeText);
+                textPanelComponent.TogglePanel();
+            }
+        }
+    }
 
     #endregion
-    
+
     // ---- MÉTODOS PRIVADOS ----
     #region Métodos Privados
-    // Documentar cada método que aparece aquí
-    // El convenio de nombres de Unity recomienda que estos métodos
-    // se nombren en formato PascalCase (palabras con primera letra
-    // mayúscula, incluida la primera letra)
+    #endregion
 
-    #endregion   
-
-} // class NarrativePoint 
+} // class NarrativePoint
 // namespace

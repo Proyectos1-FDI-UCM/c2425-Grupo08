@@ -21,13 +21,13 @@ using UnityEngine.VFX;
 /// medidor de oxigeno, que se muestre la pantalla
 /// </summary>
 
-public class UiManager : MonoBehaviour
+public class UIManager : MonoBehaviour
 {
     /// <summary>
     /// Instancia unica de UiManager
     /// </summary>
     
-    public static UiManager Instance { get; private set; }
+    public static UIManager Instance { get; private set; }
 
 
     // ---- ATRIBUTOS DEL INSPECTOR ----
@@ -37,6 +37,9 @@ public class UiManager : MonoBehaviour
     // públicos y de inspector se nombren en formato PascalCase
     // (palabras con primera letra mayúscula, incluida la primera letra)
     // Ejemplo: MaxHealthPoints
+
+    // Referencia al panel de texto
+    private GameObject textPanel;
 
     #endregion
 
@@ -113,11 +116,13 @@ public class UiManager : MonoBehaviour
 
     // ---- MÉTODOS PÚBLICOS ----
     #region Métodos públicos
-    // Documentar cada método que aparece aquí con ///<summary>
-    // El convenio de nombres de Unity recomienda que estos métodos
-    // se nombren en formato PascalCase (palabras con primera letra
-    // mayúscula, incluida la primera letra)
-    // Ejemplo: GetPlayerController
+
+    public GameObject GetTextPanel()
+    {
+        textPanel = FindObjectOfType<TextPanel>()?.gameObject;
+
+        return textPanel;
+    }
 
     #endregion
 

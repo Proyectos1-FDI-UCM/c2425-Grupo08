@@ -43,7 +43,7 @@ public class GameManager : MonoBehaviour
     /// </summary>
     private static GameManager _instance;
     private GameObject player;
-    private UiManager uiManager;
+    private UIManager uiManager;
 
     #endregion
 
@@ -185,9 +185,9 @@ public class GameManager : MonoBehaviour
     public void UpdateOxygenGM(float oxygenPercentage)
     {
 
-        if (UiManager.Instance != null)
+        if (UIManager.Instance != null)
         {
-            UiManager.Instance.UpdateOxygenUI(oxygenPercentage);
+            UIManager.Instance.UpdateOxygenUI(oxygenPercentage);
         }
     }
 
@@ -195,7 +195,7 @@ public class GameManager : MonoBehaviour
 
     #region Metodo para UiManager
 
-    public void InitializeUI(UiManager uiManager)
+    public void InitializeUI(UIManager uiManager)
     {
         this.uiManager = uiManager;
     }
