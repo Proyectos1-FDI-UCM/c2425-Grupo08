@@ -63,6 +63,7 @@ MonoBehaviour:
   narrativeTitle: "T\xEDtulo Narrativo"
   narrativeText: "Aqu\xED va el texto narrativo correspondiente\n\nfjsgkdfkgadfgjnakdgnaslkdnflsakjdfnlaskdjfnlaskjnd
     fkjasd fkjasndfkjasndf\xF1kjandkljadjnfalkjdnflaskjdnfas"
+  dynamicTitle: {fileID: 6259923886479271969, guid: 76b2da22e500ed543bb0dde58f24a670, type: 3}
 --- !u!114 &953349871452640889
 MonoBehaviour:
   m_ObjectHideFlags: 0

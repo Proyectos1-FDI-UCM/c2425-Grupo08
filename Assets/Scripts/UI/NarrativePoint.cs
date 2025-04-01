@@ -40,6 +40,7 @@ public class NarrativePoint : MonoBehaviour, IPointerEnterHandler, IPointerExitH
     private Vector3 _targetScale;
 
     private GameObject textPanel; // Referencia al componente "panel de texto"
+    private GameObject dynamicTitle; // Referencia al componente "panel de texto"
 
     #endregion
 
@@ -52,6 +53,16 @@ public class NarrativePoint : MonoBehaviour, IPointerEnterHandler, IPointerExitH
     void Start()
     {
         textPanel = UIManager.Instance.GetTextPanel(); // Obtiene la referencia al componente Textpanel
+
+        if (textPanel == null)
+
+            Debug.LogError("No se ha encontrado el objeto TextPanel en la escena.");
+
+        dynamicTitle = FindObjectOfType<DynamicTitle>()?.gameObject; // Busca el objeto DynamicTitle en la escena
+
+        if (dynamicTitle == null)
+
+            Debug.LogError("No se ha encontrado el objeto DynamicTitle en la escena.");
 
         _targetScale = _defaultScale; // Inicializa la escala objetivo
 
@@ -78,6 +89,9 @@ public class NarrativePoint : MonoBehaviour, IPointerEnterHandler, IPointerExitH
     public void OnPointerEnter(PointerEventData eventData)
     {
         _targetScale = _defaultScale * scaleMultiplier;
+
+        dynamicTitle.GetComponent<DynamicTitle>().SetTitle(narrativeTitle); // Cambia el texto del panel de texto
+        dynamicTitle.GetComponent<DynamicTitle>().FadeIn(); // Inicia la transición de fade in del texto
     }
 
     /// <summary>
@@ -87,6 +101,8 @@ public class NarrativePoint : MonoBehaviour, IPointerEnterHandler, IPointerExitH
     public void OnPointerExit(PointerEventData eventData)
     {
         _targetScale = _defaultScale;
+
+        dynamicTitle.GetComponent<DynamicTitle>().FadeOut(); // Inicia la transición de fade out del texto
     }
 
     /// <summary>
@@ -96,6 +112,9 @@ public class NarrativePoint : MonoBehaviour, IPointerEnterHandler, IPointerExitH
     public void OnSelect(BaseEventData eventData)
     {
         _targetScale = _defaultScale * scaleMultiplier;
+
+        dynamicTitle.GetComponent<DynamicTitle>().SetTitle(narrativeTitle); // Cambia el texto del panel de texto
+        dynamicTitle.GetComponent<DynamicTitle>().FadeIn(); // Inicia la transición de fade in del texto
     }
 
     /// <summary>
@@ -105,6 +124,8 @@ public class NarrativePoint : MonoBehaviour, IPointerEnterHandler, IPointerExitH
     public void OnDeselect(BaseEventData eventData)
     {
         _targetScale = _defaultScale;
+
+        dynamicTitle.GetComponent<DynamicTitle>().FadeOut(); // Inicia la transición de fade out del texto
     }
 
     /// <summary>
