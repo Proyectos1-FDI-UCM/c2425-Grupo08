@@ -55,10 +55,15 @@ public class Enemy1PhantomAnglerfish : MonoBehaviour
     private bool attack = false;
     private bool flee = false;
 
+    //Audio
     private AudioSource audioSource;
+    private float patrolSoundCooldown = 0f; // Tiempo que ha pasado desde la última vez que se reprodujo el sonido
+    private float patrolSoundInterval; // Intervalo aleatorio para ejecutar el sonido
 
     private bool attackSoundPlaying = false;
     private bool fleeSoundPlaying = false;
+
+  
 
     private struct NodeRoute
     {
@@ -108,6 +113,7 @@ public class Enemy1PhantomAnglerfish : MonoBehaviour
     /// </summary>
     void Start()
     {
+        // Inicializar el AudioSource
         audioSource = GetComponent<AudioSource>();
 
         player = GameObject.FindGameObjectWithTag("Player");
@@ -123,6 +129,9 @@ public class Enemy1PhantomAnglerfish : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();      
 
         nodeRoute = new NodeRoute(nodeArray); // Aviso. El array de nodos se crea al inicio, no es dinámico.
+
+        // Inicializa el intervalo de tiempo aleatorio para el ataque
+        patrolSoundInterval = Random.Range(10f, 20f); //Rango entre 10 y 20 segundos 
     }
 
     private void FixedUpdate()
@@ -148,6 +157,19 @@ public class Enemy1PhantomAnglerfish : MonoBehaviour
         else
         {
             Move((nodeRoute.GetNextNode().transform.position - transform.position).normalized, patrolSpeed);
+
+            // Incrementar el temporizador del sonido de patrullaje
+            patrolSoundCooldown += Time.fixedDeltaTime;
+            audioSource.volume = CalculateVolume(player.transform.position);
+
+            // Comprobar si ha pasado suficiente tiempo para reproducir el sonido de patrullaje
+            if (patrolSoundCooldown >= patrolSoundInterval)
+            {
+      
+                PlayPatrolSound();
+                patrolSoundCooldown = 0f; // Reiniciar el temporizador
+                patrolSoundInterval = Random.Range(10f, 20f); // Establecer un nuevo intervalo aleatorio entre 10 y 20 segundos
+            }
         }
     }
     #endregion
@@ -233,6 +255,20 @@ public class Enemy1PhantomAnglerfish : MonoBehaviour
         // Configurar el AudioSource para que repita el sonido mientras esté en estado de ataque
         audioSource.loop = false; // O ajustarlo como necesites
         audioSource.Play();
+    }
+
+    private void PlayPatrolSound()
+    {
+        // Obtener el clip de sonido de patrulla desde el AudioManager
+        AudioManager.instance.PlaySFX(SFXType.PatrolEnemy1, audioSource); // Cambiar a SFXType adecuado para patrullar
+
+        // Ajustar volumen en función de la distancia al jugador
+        audioSource.volume = CalculateVolume(player.transform.position);
+
+        // Configurar el AudioSource para que repita el sonido mientras esté en estado de patrulla
+        audioSource.loop = false; // O ajustarlo como necesites
+        audioSource.Play();
+        Debug.Log("Sonido de patrulla reproducido");
     }
 
     private float CalculateVolume(Vector3 targetPosition)
