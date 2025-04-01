@@ -10,8 +10,8 @@
 
 using UnityEngine;
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine.Rendering.Universal;
+using UnityEditorInternal;
 
 /// <summary>
 /// Controla el comportamiento de la linterna del jugador, incluyendo su rotación, enfoque y flash.
@@ -72,11 +72,11 @@ public class FlashLight : MonoBehaviour
     [Tooltip("Color del flash")]
     [SerializeField] private Color flashColor = Color.white;
     [Tooltip("Intensidad del flash")]
-    [Range(1, 1000)]
-    [SerializeField] private float flashIntensity = 500f;
+    [Range(1, 2000)]
+    [SerializeField] private float flashIntensity = 1000f;
     [Tooltip("Duración del flash")]
     [Range(0, 0.1f)]
-    [SerializeField] private float flashDuration = 1f;
+    [SerializeField] private float flashDuration = 0.05f;
     [Tooltip("Tiempo de recarga del flash")]
     [Range(0, 10)]
     [SerializeField] private float flashCooldown = 4f;
@@ -85,13 +85,34 @@ public class FlashLight : MonoBehaviour
     [Header("Referencias")]
     [Space]
     [Tooltip("Sprite del jugador")]
-    [SerializeField] private SpriteRenderer playerSprite; // Referencia al objeto del jugador (TODO: Quitar esto en un futuro)
+    [SerializeField] private SpriteRenderer playerSprite; // Referencia al objeto del jugador (TODO: Quitar esto en un futuro?)
 
     // ---- ATRIBUTOS PRIVADOS ----
+
+    /// <summary>
+    /// Enum con los estados de la linterna.
+    /// </summary>
+    enum State { Unfocus, Focus, Flash, Cooldown };
+
+    private State _state = State.Unfocus; // Estado inicial de la linterna
+
     private Light2D flashLight; // Referencia a la luz 2D de la linterna
     private PolygonCollider2D flashCollider; // Referencia al polygon collider de la luz 2D
 
     private bool isFlashAvailable = true;
+    private float flashTimer;
+
+    private struct LightValues
+    {
+        public float intensity;
+        public float innerAngle;
+        public float outerAngle;
+        public float outerRadius;
+        public Color color;
+    }
+
+    private LightValues currentValues;
+    private LightValues targetValues;
 
     // ---- MÉTODOS DE MONOBEHAVIOUR ----
     #region Métodos de MonoBehaviour
@@ -101,21 +122,21 @@ public class FlashLight : MonoBehaviour
         // Obtener la referencia a la luz 2D de la linterna
         flashLight = GetComponentInChildren<Light2D>();
 
-        // Obtener la referencia a la luz 2D de la linterna
+        // Obtener la referencia al collider de la linterna
         flashCollider = GetComponentInChildren<PolygonCollider2D>();
 
         if (flashLight != null && flashCollider != null)
-
+        {
             SetDefaults(); // Configura la luz y su collider
-
+            currentValues = GetCurrentLightValues();
+            targetValues = currentValues;
+        }
         else
         {
             if (flashLight == null)
-
                 Debug.LogError("No se ha encontrado la luz 2D en el objeto linterna.");
 
             if (flashCollider == null)
-
                 Debug.LogError("No se ha encontrado el PolygonCollider2D en el objeto linterna.");
         }
     }
@@ -124,29 +145,50 @@ public class FlashLight : MonoBehaviour
     {
         LookAtInput(); // Control del movimiento de la linterna con el joystick o el ratón
 
+        // Actualizar cooldown
+        if (!isFlashAvailable)
+        {
+            flashTimer -= Time.deltaTime;
+
+            if (flashTimer <= 0f)
+            {
+                isFlashAvailable = true;
+                flashTimer = 0f;
+            }
+        }
+
         if (flashLight != null && flashCollider != null)
         {
-            if (isFlashAvailable)
-            {
-                if (InputManager.Instance.FocusIsPressed())
-                {
-                    if (InputManager.Instance.FlashIsPressed())
+            LerpValues(); // Interpolar los valores de la luz
 
-                        StartCoroutine(LightFlash());
+            ChangeState(); // Cambiar el estado de la linterna según la entrada del jugador
+        }
 
-                    else
+        switch (_state) // Cambiar el estado de la linterna según la entrada del jugador
+        {
+            case State.Unfocus:
 
-                        LightFocus();
-                }
+                LightUnfocus();
 
-                else
+                break;
 
-                    LightUnFocus();
-            }
+            case State.Focus:
 
-            else
+                LightFocus();
 
-                StartCoroutine(LightFlicker());
+                break;
+
+            case State.Flash:
+
+                LightFlash();
+
+                break;
+
+            case State.Cooldown:
+
+                LightFlicker();
+
+                break;
         }
     }
 
@@ -155,6 +197,31 @@ public class FlashLight : MonoBehaviour
     // ---- MÉTODOS PRIVADOS ----
     #region Métodos privados
 
+    private void ChangeState()
+    {
+        if (isFlashAvailable)
+        {
+            if (InputManager.Instance.FocusIsPressed())
+            {
+                if (InputManager.Instance.FlashIsPressed())
+
+                    _state = State.Flash; // Cambiar el estado a Flash
+
+                else
+
+                    _state = State.Focus; // Cambiar el estado a Focus
+            }
+
+            else
+
+                _state = State.Unfocus; // Cambiar el estado a Unfocus
+        }
+
+        else
+
+            _state = State.Cooldown; // Cambiar el estado a Cooldown
+    }
+
     /// <summary>
     /// Método para manejar la entrada del ratón o joystick derecho y rotar la linterna.
     /// Este método calcula la dirección del cursor respecto al jugador y ajusta la rotación de la linterna en consecuencia.
@@ -162,7 +229,6 @@ public class FlashLight : MonoBehaviour
     private void LookAtInput()
     {
         Vector2 aimInput = ((Vector2)Camera.main.ScreenToWorldPoint(InputManager.Instance.AimVector) - (Vector2)transform.position).normalized;
-        //Vector2 aimInput = InputManager.Instance.AimVector;
 
         // Cambiar direción según si el cursor esta a izquierda o derecha
         playerSprite.flipX = aimInput.x < 0; //TODO: Cambiar esta lógica al PlayerController
@@ -170,7 +236,6 @@ public class FlashLight : MonoBehaviour
         if (aimInput.magnitude > inputDeadzone) // Para que no haya movimientos raros cerca del pivote
         {
             float angle = Mathf.Atan2(aimInput.y, aimInput.x) * Mathf.Rad2Deg;
-
             transform.rotation = Quaternion.Euler(0, 0, angle);
         }
     }
@@ -181,102 +246,113 @@ public class FlashLight : MonoBehaviour
     /// </summary>
     private void SetDefaults()
     {
-        flashLight.color = lightColor; // Establecer el color de la luz inicial
-        flashLight.intensity = unfocusIntensity; // Establecer la intensidad por defecto de la luz
-        flashLight.pointLightInnerAngle = unfocusRadius; // Establecer el ángulo interno por defecto de la luz
-        flashLight.pointLightOuterAngle = unfocusRadius + lightDiffusion; // Establecer el ángulo externo por defecto de la luz
-        flashLight.pointLightOuterRadius = unfocusLength; // Establecer el radio externo por defecto de la luz
+        targetValues = new LightValues
+        {
+            intensity = unfocusIntensity,
+            innerAngle = unfocusRadius,
+            outerAngle = unfocusRadius + lightDiffusion,
+            outerRadius = unfocusLength,
+            color = lightColor
+        };
 
-        SetCollider(); // Ajustar el collider de la luz a su tamaño en modo focus
+        currentValues = targetValues;
+
+        flashLight.color = lightColor;
+        flashLight.intensity = unfocusIntensity;
+        flashLight.pointLightInnerAngle = unfocusRadius;
+        flashLight.pointLightOuterAngle = unfocusRadius + lightDiffusion;
+        flashLight.pointLightOuterRadius = unfocusLength;
+        flashCollider.enabled = false;
     }
 
-    /// <summary>
-    /// Método para establecer el collider de la linterna.
-    /// Este método calcula los puntos del collider en función de la longitud y el ángulo de la luz de la linterna.
-    /// </summary>
-    private void SetCollider()
+    private LightValues GetCurrentLightValues()
     {
-        flashCollider.enabled = false; // Desactivar el collider al inicio
-
-        float outerAngle = focusRadius + lightDiffusion;
-        float halfOuterAngle = outerAngle * 0.5f;
-
-        // Los dos puntos en los extremos del cono (asumiendo que la linterna apunta a la derecha)
-        Vector2 point1 = Quaternion.Euler(0, 0, halfOuterAngle) * Vector2.right * focusLength;
-        Vector2 point2 = Quaternion.Euler(0, 0, -halfOuterAngle) * Vector2.right * focusLength;
-
-        // Asignamos los 3 puntos: origen y los dos extremos
-        flashCollider.points = new Vector2[] { Vector2.zero, point1, point2 };
+        return new LightValues
+        {
+            intensity = flashLight.intensity,
+            innerAngle = flashLight.pointLightInnerAngle,
+            outerAngle = flashLight.pointLightOuterAngle,
+            outerRadius = flashLight.pointLightOuterRadius,
+            color = flashLight.color
+        };
     }
 
-    /// <summary>
-    /// Método para desactivar el enfoque de la linterna.
-    /// Este método ajusta la intensidad, el radio y los ángulos de la luz de la linterna para simular un efecto de desenfoque.
-    /// </summary>
-    private void LightUnFocus()
+    private void LerpValues()
     {
-        flashLight.pointLightInnerAngle = Mathf.Lerp(flashLight.pointLightInnerAngle, unfocusRadius, Time.deltaTime * transitionSpeed);
-        flashLight.pointLightOuterAngle = Mathf.Lerp(flashLight.pointLightOuterAngle, unfocusRadius + lightDiffusion, Time.deltaTime * transitionSpeed);
+        float currentTransitionSpeed = _state == State.Cooldown ? transitionSpeed * 0.3f : transitionSpeed;
 
-        flashLight.intensity = Mathf.Lerp(flashLight.intensity, unfocusIntensity, Time.deltaTime * transitionSpeed);
+        currentValues.intensity = Mathf.Lerp(currentValues.intensity, targetValues.intensity, Time.deltaTime * currentTransitionSpeed);
+        currentValues.innerAngle = Mathf.Lerp(currentValues.innerAngle, targetValues.innerAngle, Time.deltaTime * currentTransitionSpeed);
+        currentValues.outerAngle = Mathf.Lerp(currentValues.outerAngle, targetValues.outerAngle, Time.deltaTime * currentTransitionSpeed);
+        currentValues.outerRadius = Mathf.Lerp(currentValues.outerRadius, targetValues.outerRadius, Time.deltaTime * currentTransitionSpeed);
 
-        flashLight.pointLightOuterRadius = Mathf.Lerp(flashLight.pointLightOuterRadius, unfocusLength, Time.deltaTime * transitionSpeed);
+        flashLight.intensity = currentValues.intensity;
+        flashLight.pointLightInnerAngle = currentValues.innerAngle;
+        flashLight.pointLightOuterAngle = currentValues.outerAngle;
+        flashLight.pointLightOuterRadius = currentValues.outerRadius;
+        flashLight.color = targetValues.color;
     }
 
-    /// <summary>
-    /// Método para activar el enfoque de la linterna.
-    /// Este método ajusta la intensidad, el radio y los ángulos de la luz de la linterna para simular un efecto de enfoque.
-    /// </summary>
+    private void LightUnfocus()
+    {
+        targetValues.intensity = unfocusIntensity;
+        targetValues.innerAngle = unfocusRadius;
+        targetValues.outerAngle = unfocusRadius + lightDiffusion;
+        targetValues.outerRadius = unfocusLength;
+        targetValues.color = lightColor;
+
+        flashCollider.enabled = false;
+    }
+
     private void LightFocus()
     {
-        flashLight.pointLightInnerAngle = Mathf.Lerp(flashLight.pointLightInnerAngle, focusRadius, Time.deltaTime * transitionSpeed);
-        flashLight.pointLightOuterAngle = Mathf.Lerp(flashLight.pointLightOuterAngle, focusRadius + lightDiffusion, Time.deltaTime * transitionSpeed);
+        targetValues.intensity = focusIntensity;
+        targetValues.innerAngle = focusRadius;
+        targetValues.outerAngle = focusRadius + lightDiffusion;
+        targetValues.outerRadius = focusLength;
+        targetValues.color = lightColor;
 
-        flashLight.intensity = Mathf.Lerp(flashLight.intensity, focusIntensity, Time.deltaTime * transitionSpeed);
-
-        flashLight.pointLightOuterRadius = Mathf.Lerp(flashLight.pointLightOuterRadius, focusLength, Time.deltaTime * transitionSpeed);
+        flashCollider.enabled = false;
     }
 
-    /// <summary>
-    /// Método para realizar un flashazo con la linterna.
-    /// Este método ajusta la intensidad, el color y los ángulos de la luz de la linterna para simular un efecto de flash.
-    /// </summary>
-    private IEnumerator LightFlash()
+    private void LightFlash()
     {
-        // Cambiar el color y la intensidad a los valores del flash
-        flashLight.color = flashColor;
-        flashLight.intensity = flashIntensity;
-        flashLight.pointLightOuterRadius = focusLength * 2f;
-        flashLight.pointLightInnerAngle = focusRadius * 2f;
+        targetValues.intensity = flashIntensity;
+        targetValues.innerAngle = focusRadius * 3f;
+        targetValues.outerAngle = (focusRadius * 3f) + lightDiffusion;
+        targetValues.outerRadius = focusLength * 3.5f;
+        targetValues.color = flashColor;
 
-        isFlashAvailable = false; // Desactivar el flash hasta que termine la animación
+        flashCollider.enabled = true;
 
-        flashCollider.enabled = true; // Activar el collider para que la luz pueda colisionar con los objetos
-
-        yield return new WaitForSeconds(flashDuration);
-
-        flashCollider.enabled = false; // Desactivar el collider después del flash
-
-        SetDefaults(); /// Volver a los valores por defecto de la linterna
-
-        // Esperar el tiempo de recarga del flash
-        yield return new WaitForSeconds(flashCooldown);
-        isFlashAvailable = true;
+        isFlashAvailable = false;
+        flashTimer = flashCooldown;
+        _state = State.Cooldown;
     }
 
-    /// <summary>
-    /// Método para simular un parpadeo de la linterna.
-    /// Este método ajusta la intensidad y el radio de la luz de la linterna para simular un efecto de parpadeo.
-    /// </summary>
-    private IEnumerator LightFlicker()
+    private void LightFlicker()
     {
-        flashLight.intensity = minIntensity;
-        flashLight.pointLightOuterRadius = unfocusLength * 0.3f;
-        yield return new WaitForSeconds(1f);
+        float normalizedTime = flashTimer / flashCooldown;
+        float flickerSpeed = 12f;
 
-        flashLight.intensity = 0f;
-        flashLight.pointLightOuterRadius = unfocusLength * 0.1f;
-        yield return new WaitForSeconds(0.5f);
+        // Mantener la linterna apagada durante el primer segundo después del flash
+        if (normalizedTime > 0.75f)
+        {
+            targetValues.intensity = 0f;
+        }
+
+        else
+        {
+            bool isFlickerOn = Mathf.Sin(Time.time * flickerSpeed) > Mathf.Lerp(-0.2f, 0.8f, normalizedTime);
+            targetValues.intensity = isFlickerOn ? minIntensity : 0f;
+        }
+
+        targetValues.innerAngle = unfocusRadius;
+        targetValues.outerAngle = unfocusRadius + lightDiffusion;
+        targetValues.outerRadius = unfocusLength;
+        targetValues.color = lightColor;
+        
+        flashCollider.enabled = false;
     }
 
     #endregion
