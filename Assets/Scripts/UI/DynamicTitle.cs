@@ -45,7 +45,11 @@ public class DynamicTitle : MonoBehaviour
 
     void Update()
     {
-        _titleText.color = Color.Lerp(_titleText.color, _targetAlpha, fadeSpeed * Time.deltaTime);
+        Color currentColor = _titleText.color;
+
+        currentColor.a = Mathf.MoveTowards(currentColor.a, _targetAlpha.a, fadeSpeed * Time.deltaTime);
+        
+        _titleText.color = currentColor;
     }
 
     #endregion
