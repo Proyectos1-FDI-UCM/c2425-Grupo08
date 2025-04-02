@@ -40,15 +40,16 @@ public class TextPanel : MonoBehaviour
     // ---- ATRIBUTOS PRIVADOS ----
     #region Atributos Privados
 
-    private float _openPosition = 770f; // Posición abierta del panel
-    private float _closedPosition = 1280f; // Posición cerrada del panel
+    private float openPos = 0f; // Posición abierta del panel (X)
+    private float closedPos = 390f; // Posición cerrada del panel (X)
 
-    private Vector3 _targetPosition; // Posición objetivo del panel
+    private Vector2 targetPos; // Posición objetivo del panel
+    private RectTransform rectTransform; // Referencia al RectTransform
 
-    private bool visible = false; // Estado del panel (abierto o cerrado)
+    private bool isVisible = false; // Estado del panel (abierto o cerrado)
 
     private bool isTyping = false; // Estado del efecto typewriter
-    
+
     private Coroutine typewriterCoroutine; // Referencia a la coroutine del efecto typewriter
 
     #endregion
@@ -64,7 +65,7 @@ public class TextPanel : MonoBehaviour
         if (Instance != null && Instance != this)
 
             Destroy(this);
-
+            
         else
 
             Instance = this;
@@ -75,8 +76,15 @@ public class TextPanel : MonoBehaviour
     /// </summary>
     void Start()
     {
+        // Obtiene la referencia al RectTransform del panel
+        rectTransform = GetComponent<RectTransform>();
+
+        if (rectTransform == null)
+
+            Debug.LogError("No se ha encontrado el RectTransform del panel de texto");
+
         // Establece la posición inicial del panel en la posición cerrada
-        transform.position = _targetPosition = new Vector3(_closedPosition, transform.position.y, 0);
+        rectTransform.anchoredPosition = targetPos = new Vector2(closedPos, 0f);
     }
 
     /// <summary>
@@ -85,7 +93,7 @@ public class TextPanel : MonoBehaviour
     void Update()
     {
         // Actualiza la posición del panel suavemente
-        transform.position = Vector3.Lerp(transform.position, _targetPosition, lerpSpeed * Time.deltaTime);
+        rectTransform.anchoredPosition = Vector2.Lerp(rectTransform.anchoredPosition, targetPos, lerpSpeed * Time.deltaTime);
     }
 
     #endregion
@@ -99,7 +107,7 @@ public class TextPanel : MonoBehaviour
     /// </summary>
     public void TogglePanel()
     {
-        if (visible)
+        if (isVisible)
 
             ClosePanel();
 
@@ -113,9 +121,8 @@ public class TextPanel : MonoBehaviour
     /// </summary>
     public void OpenPanel()
     {
-        _targetPosition = new Vector3(_openPosition, transform.position.y, 0);
-
-        visible = true;
+        targetPos = new Vector2(openPos, rectTransform.anchoredPosition.y);
+        isVisible = true;
     }
 
     /// <summary>
@@ -123,17 +130,16 @@ public class TextPanel : MonoBehaviour
     /// </summary>
     public void ClosePanel()
     {
-        _targetPosition = new Vector3(_closedPosition, transform.position.y, 0);
-
-        visible = false;
+        targetPos = new Vector2(closedPos, rectTransform.anchoredPosition.y);
+        isVisible = false;
     }
 
     /// <summary>
     /// Método para establecer el texto del panel.
     /// Se utiliza un efecto typewriter para mostrar el texto de forma gradual.
     /// </summary>
-    /// <param name="title"></param>
-    /// <param name="text"></param>
+    /// <param name="title">Título</param>
+    /// <param name="text">Texto Narrativo</param>
     public void SetText(string title, string text)
     {
         if (textChild != null && titleChild != null)
@@ -157,7 +163,7 @@ public class TextPanel : MonoBehaviour
     /// <summary>
     /// Método para comprobar si el panel está visible.
     /// </summary>
-    /// <returns></returns>
+    /// <returns>Cierto si se está haciendo la animación de escribir</returns>
     public bool IsTyping()
     {
         return isTyping;
@@ -166,10 +172,10 @@ public class TextPanel : MonoBehaviour
     /// <summary>
     /// Método para comprobar si el panel está visible.
     /// </summary>
-    /// <returns></returns>
+    /// <returns>Cierto si se ve el panel en pantalla</returns>
     public bool IsVisible()
     {
-        return visible;
+        return isVisible;
     }
 
     #endregion
@@ -180,9 +186,9 @@ public class TextPanel : MonoBehaviour
     /// <summary>
     /// Efecto typewriter para mostrar el texto de forma gradual.
     /// </summary>
-    /// <param name="title"></param>
-    /// <param name="text"></param>
-    /// <returns></returns>
+    /// <param name="title">Título</param>
+    /// <param name="text">Texto Narrativo</param>
+    /// <returns>Cierto si se está realizando la corrutina</returns>
     private IEnumerator TypeWriterEffect(string title, string text)
     {
         isTyping = true;

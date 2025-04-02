@@ -1026,8 +1026,8 @@ MonoBehaviour:
   m_DeselectOnBackgroundClick: 1
   m_PointerBehavior: 0
   m_CursorLockBehavior: 0
---- !u!4 &1681168417 stripped
-Transform:
+--- !u!224 &1681168417 stripped
+RectTransform:
   m_CorrespondingSourceObject: {fileID: 8883760195634273982, guid: 7dc3aae4b5aa95e4db11e000be605a83, type: 3}
   m_PrefabInstance: {fileID: 1911855488}
   m_PrefabAsset: {fileID: 0}
@@ -1155,7 +1155,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1358825697040491576, guid: 7dc3aae4b5aa95e4db11e000be605a83, type: 3}
       propertyPath: m_Name
-      value: Text Panel
+      value: TextPanel
       objectReference: {fileID: 0}
     - target: {fileID: 2610472080131622557, guid: 7dc3aae4b5aa95e4db11e000be605a83, type: 3}
       propertyPath: typingSpeed
@@ -1163,11 +1163,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8883760195634273982, guid: 7dc3aae4b5aa95e4db11e000be605a83, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 335
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8883760195634273982, guid: 7dc3aae4b5aa95e4db11e000be605a83, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -60
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8883760195634273982, guid: 7dc3aae4b5aa95e4db11e000be605a83, type: 3}
       propertyPath: m_LocalPosition.z
