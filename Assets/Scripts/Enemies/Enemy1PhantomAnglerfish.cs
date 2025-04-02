@@ -1,7 +1,7 @@
 //---------------------------------------------------------
-// Breve descripción del contenido del archivo
-// Responsable de la creación de este archivo
-// Nombre del juego
+// Este archivo se encarga del funcionamiento del enemigo 1 (rape fantasma)
+// Javier Zazo Morillo
+// Project abyss
 // Proyectos 1 - Curso 2024-25
 //---------------------------------------------------------
 
@@ -11,8 +11,7 @@ using UnityEngine;
 
 
 /// <summary>
-/// Antes de cada class, descripción de qué es y para qué sirve,
-/// usando todas las líneas que sean necesarias.
+/// Este archivo se encarga del funcionamiento del enemigo 1 (rape fantasma)
 /// </summary>
 public class Enemy1PhantomAnglerfish : MonoBehaviour
 {
@@ -24,7 +23,6 @@ public class Enemy1PhantomAnglerfish : MonoBehaviour
     // (palabras con primera letra mayúscula, incluida la primera letra)
     // Ejemplo: MaxHealthPoints
 
-    [SerializeField] private GameObject[] nodeArray;
     [SerializeField] private float patrolSpeed;
     [SerializeField] private float attackSpeed;
     [SerializeField] private float fleeSpeed;
@@ -44,6 +42,8 @@ public class Enemy1PhantomAnglerfish : MonoBehaviour
     // primera letra en mayúsculas)
     // Ejemplo: _maxHealthPoints
 
+    private GameObject[] nodeArray;
+
     private Rigidbody2D rb;
 
     private GameObject player;
@@ -62,8 +62,6 @@ public class Enemy1PhantomAnglerfish : MonoBehaviour
 
     private bool attackSoundPlaying = false;
     private bool fleeSoundPlaying = false;
-
-  
 
     private struct NodeRoute
     {
@@ -113,6 +111,8 @@ public class Enemy1PhantomAnglerfish : MonoBehaviour
     /// </summary>
     void Start()
     {
+        SetNodeArray();
+
         // Inicializar el AudioSource
         audioSource = GetComponent<AudioSource>();
 
@@ -182,6 +182,19 @@ public class Enemy1PhantomAnglerfish : MonoBehaviour
     // mayúscula, incluida la primera letra)
     // Ejemplo: GetPlayerController
 
+    /// <summary>
+    /// Método que se llama desde el Awake de EnemyNodes para pasarle los nodos al enemigo
+    /// </summary>
+    /// <param name="nodes"></param>
+    public void SetNodeArray()
+    {
+        nodeArray = GetComponentsInParent<Transform>()[1].GetComponentInChildren<EnemyNodes>().GetNodeArray();
+    }
+    public void SetAttack(bool attack)
+    {
+        this.attack = attack;
+    }
+
     #endregion
 
     // ---- MÉTODOS PRIVADOS ----
@@ -224,6 +237,7 @@ public class Enemy1PhantomAnglerfish : MonoBehaviour
         if (collision.gameObject.GetComponent<Collider2D>() == playerCollider)
         {
             collision.gameObject.GetComponent<OxigenScript>().PierceTank();
+            GetComponentInParent<Respawner>().EnemyDead(player);
             Destroy(gameObject);
         }
     }
@@ -231,6 +245,7 @@ public class Enemy1PhantomAnglerfish : MonoBehaviour
     IEnumerator DisintegrationDelay()
     {
         yield return new WaitForSeconds(disintegrationDelay);
+        GetComponentInParent<Respawner>().EnemyDead(player);
         Destroy(gameObject);
     }
 

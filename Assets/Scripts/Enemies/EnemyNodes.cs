@@ -1,20 +1,19 @@
 //---------------------------------------------------------
-// Este archivo se encarga del funcionamiento del UI del jugador, concretamente de la parte del sonar
+// Este script gestiona la obtención de la referencia a los nodos de los enemigos
 // Javier Zazo Morillo
 // Project Abyss
 // Proyectos 1 - Curso 2024-25
 //---------------------------------------------------------
 
-using System.Collections;
+using TreeEditor;
 using UnityEngine;
-using UnityEngine.Rendering;
 // Añadir aquí el resto de directivas using
 
 
 /// <summary>
-/// Este archivo se encarga del funcionamiento del UI del jugador, concretamente de la parte del sonar
+/// Este script gestiona la obtención de la referencia a los nodos de los enemigos
 /// </summary>
-public class SonarUI : MonoBehaviour
+public class EnemyNodes : MonoBehaviour
 {
     // ---- ATRIBUTOS DEL INSPECTOR ----
     #region Atributos del Inspector (serialized fields)
@@ -25,7 +24,7 @@ public class SonarUI : MonoBehaviour
     // Ejemplo: MaxHealthPoints
 
     #endregion
-    
+
     // ---- ATRIBUTOS PRIVADOS ----
     #region Atributos Privados (private fields)
     // Documentar cada atributo que aparece aquí.
@@ -35,12 +34,7 @@ public class SonarUI : MonoBehaviour
     // primera letra en mayúsculas)
     // Ejemplo: _maxHealthPoints
 
-    private Animation sonarIndicatorAnimation;
-    private Animation pulseIndicatorAnimation;
-
-    private Animation[] indicatorsAnimation;
-
-    private SpriteRenderer pulseIndicator;
+    private GameObject[] nodeArray;
 
     #endregion
 
@@ -55,14 +49,16 @@ public class SonarUI : MonoBehaviour
     /// Start is called on the frame when a script is enabled just before 
     /// any of the Update methods are called the first time.
     /// </summary>
-    void Start()
+    void Awake()
     {
-        indicatorsAnimation = GetComponentsInChildren<Animation>();
+        Transform[] nodesTransform = GetComponentsInChildren<Transform>(); // Se desprecia el [0] porque es el propio objeto
+        GameObject[] nodes = new GameObject[nodesTransform.Length - 1];
 
-        sonarIndicatorAnimation = indicatorsAnimation[0];       
-        pulseIndicatorAnimation = indicatorsAnimation[1];
-
-        pulseIndicator = GameObject.Find("pulseIndicator").GetComponent<SpriteRenderer>();
+        for (int i = 1; i < nodesTransform.Length; i++) 
+        {
+            nodes[i - 1] = nodesTransform[i].gameObject;
+        }
+        nodeArray = nodes;
     }
 
     #endregion
@@ -75,48 +71,15 @@ public class SonarUI : MonoBehaviour
     // mayúscula, incluida la primera letra)
     // Ejemplo: GetPlayerController
 
-    /// <summary>
-    /// Activa la parte de la circunferencia del UI
-    /// </summary>
-    public void ActivateSonarUI()
+    public GameObject[] GetNodeArray()
     {
-        sonarIndicatorAnimation.Play("SonarUIAppear");
-    }
-    /// <summary>
-    /// Desactiva la parte de la circunferencia del UI
-    /// </summary>
-    public void DeactivateSonarUI() 
-    {
-        sonarIndicatorAnimation.Play("SonarUIDisappear");
-    }
-    /// <summary>
-    /// Activa la parte del pulso del UI
-    /// </summary>
-    public void ActivatePulseUI()
-    {
-        pulseIndicator.enabled = true;
-        Debug.Log("activado");
-    }
-    /// <summary>
-    /// Desactiva la parte del pulso del UI
-    /// </summary>
-    public void DeactivatePulseUI()
-    {
-        pulseIndicator.enabled = false;
-        Debug.Log("desactivado");
-    }
-    /// <summary>
-    /// Ejecuta la animación del pulso del UI
-    /// </summary>
-    public void PlayAnimation()
-    {
-        pulseIndicatorAnimation.Play();
+        return nodeArray;
     }
 
     #endregion
 
     // ---- MÉTODOS PRIVADOS ----
-    #region Métodos privados
+    #region Métodos Privados
     // Documentar cada método que aparece aquí
     // El convenio de nombres de Unity recomienda que estos métodos
     // se nombren en formato PascalCase (palabras con primera letra
@@ -124,5 +87,5 @@ public class SonarUI : MonoBehaviour
 
     #endregion
 
-} // class SonarUI 
+} // class Enemy1Nodes 
 // namespace

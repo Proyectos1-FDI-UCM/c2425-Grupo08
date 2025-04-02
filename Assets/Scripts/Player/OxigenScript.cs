@@ -1,7 +1,7 @@
 //---------------------------------------------------------
 // Breve descripción del contenido del archivo
-// Responsable de la creación de este archivo. El original: no se sabe. (nuevo modificacion): Andrés Díaz Guerrero Soto (El sordo)
-// Nombre del juego
+// Responsable de la creación de este archivo. El original: Javier Zazo Morillo (nuevo modificacion): Andrés Díaz Guerrero Soto (El sordo)
+// Project Abyss
 // Proyectos 1 - Curso 2024-25
 //---------------------------------------------------------
 

@@ -13,8 +13,7 @@ using UnityEngine.UIElements;
 
 
 /// <summary>
-/// Antes de cada class, descripción de qué es y para qué sirve,
-/// usando todas las líneas que sean necesarias.
+/// Este archivo se encarga del funcionamiento del enemigo 2 (sonar)
 /// </summary>
 public class Enemy2Sonar : MonoBehaviour
 {
@@ -26,7 +25,6 @@ public class Enemy2Sonar : MonoBehaviour
     // (palabras con primera letra mayúscula, incluida la primera letra)
     // Ejemplo: MaxHealthPoints
 
-    [SerializeField] private GameObject[] nodeArray;
     [SerializeField] private float patrolSpeed;
     [SerializeField] private float attackSpeed;
 
@@ -58,6 +56,8 @@ public class Enemy2Sonar : MonoBehaviour
     // primera palabra en minúsculas y el resto con la 
     // primera letra en mayúsculas)
     // Ejemplo: _maxHealthPoints
+
+    private GameObject[] nodeArray;
 
     private Rigidbody2D rb;
 
@@ -218,6 +218,16 @@ public class Enemy2Sonar : MonoBehaviour
     // se nombren en formato PascalCase (palabras con primera letra
     // mayúscula, incluida la primera letra)
     // Ejemplo: GetPlayerController
+
+    /// <summary>
+    /// Método que se llama desde el Awake de EnemyNodes para pasarle los nodos al enemigo
+    /// </summary>
+    /// <param name="nodes"></param>
+    public void SetNodeArray(GameObject[] nodes)
+    {
+        nodeArray = new GameObject[nodes.Length];
+        nodes.CopyTo(nodeArray, 0);
+    }
 
     #endregion
 

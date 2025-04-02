@@ -109,7 +109,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 221bb2460754bab438c988511efd9c7d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  nodeArray: []
   patrolSpeed: 3
   attackSpeed: 7
   debug: 1
@@ -194,6 +193,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4982166103895426144}
+  - component: {fileID: 3870024763811333433}
   m_Layer: 0
   m_Name: RouteNodes
   m_TagString: Untagged
@@ -220,6 +220,19 @@ Transform:
   - {fileID: 7350022693225152997}
   m_Father: {fileID: 7021066473263563394}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &3870024763811333433
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1618407561230026119}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 501cdb0010d348d47b515825b5d86525, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enemyType: 1
 --- !u!1 &4751165608475235843
 GameObject:
   m_ObjectHideFlags: 0
@@ -467,8 +480,8 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 4375701561960913892}
   - {fileID: 4982166103895426144}
+  - {fileID: 4375701561960913892}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &8722113768358137561

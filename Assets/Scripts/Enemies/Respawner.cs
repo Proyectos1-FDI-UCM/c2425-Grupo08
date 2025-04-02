@@ -1,20 +1,20 @@
 //---------------------------------------------------------
-// Este archivo se encarga del funcionamiento del UI del jugador, concretamente de la parte del sonar
-// Javier Zazo Morillo
-// Project Abyss
+// Breve descripción del contenido del archivo
+// Responsable de la creación de este archivo
+// Nombre del juego
 // Proyectos 1 - Curso 2024-25
 //---------------------------------------------------------
 
-using System.Collections;
+using TreeEditor;
 using UnityEngine;
-using UnityEngine.Rendering;
 // Añadir aquí el resto de directivas using
 
 
 /// <summary>
-/// Este archivo se encarga del funcionamiento del UI del jugador, concretamente de la parte del sonar
+/// Antes de cada class, descripción de qué es y para qué sirve,
+/// usando todas las líneas que sean necesarias.
 /// </summary>
-public class SonarUI : MonoBehaviour
+public class Respawner : MonoBehaviour
 {
     // ---- ATRIBUTOS DEL INSPECTOR ----
     #region Atributos del Inspector (serialized fields)
@@ -24,8 +24,15 @@ public class SonarUI : MonoBehaviour
     // (palabras con primera letra mayúscula, incluida la primera letra)
     // Ejemplo: MaxHealthPoints
 
-    #endregion
+    [SerializeField] float minRespawnTime;
+    [SerializeField] float maxRespawnTime;
+
+    [SerializeField] float respawnDistance;
+
+    [SerializeField] GameObject enemyPrefab;
     
+    #endregion
+
     // ---- ATRIBUTOS PRIVADOS ----
     #region Atributos Privados (private fields)
     // Documentar cada atributo que aparece aquí.
@@ -35,12 +42,10 @@ public class SonarUI : MonoBehaviour
     // primera letra en mayúsculas)
     // Ejemplo: _maxHealthPoints
 
-    private Animation sonarIndicatorAnimation;
-    private Animation pulseIndicatorAnimation;
-
-    private Animation[] indicatorsAnimation;
-
-    private SpriteRenderer pulseIndicator;
+    private bool canRespawn = true;
+    private float respawnTime;
+    private bool isDead = false;
+    private GameObject player;
 
     #endregion
 
@@ -52,19 +57,20 @@ public class SonarUI : MonoBehaviour
     // - Hay que borrar los que no se usen 
 
     /// <summary>
-    /// Start is called on the frame when a script is enabled just before 
-    /// any of the Update methods are called the first time.
+    /// Update is called every frame, if the MonoBehaviour is enabled.
     /// </summary>
-    void Start()
+    void Update()
     {
-        indicatorsAnimation = GetComponentsInChildren<Animation>();
-
-        sonarIndicatorAnimation = indicatorsAnimation[0];       
-        pulseIndicatorAnimation = indicatorsAnimation[1];
-
-        pulseIndicator = GameObject.Find("pulseIndicator").GetComponent<SpriteRenderer>();
+        if (isDead)
+        {
+            respawnTime -= Time.deltaTime;
+            if (respawnTime <= 0 && (player.transform.position - transform.position).magnitude > respawnDistance)
+            {
+                Instantiate(enemyPrefab, transform);
+                isDead = false;
+            }
+        }
     }
-
     #endregion
 
     // ---- MÉTODOS PÚBLICOS ----
@@ -76,53 +82,43 @@ public class SonarUI : MonoBehaviour
     // Ejemplo: GetPlayerController
 
     /// <summary>
-    /// Activa la parte de la circunferencia del UI
+    /// Método que se llama cuando un enemigo muere para que se active el respawn
     /// </summary>
-    public void ActivateSonarUI()
+    public void EnemyDead(GameObject player)
     {
-        sonarIndicatorAnimation.Play("SonarUIAppear");
+        if (!canRespawn)
+        {
+            Destroy(gameObject);
+        }
+        else if (!isDead)
+        {
+            respawnTime = Random.Range(minRespawnTime, maxRespawnTime);
+            isDead = true;
+            this.player = player;
+        }
     }
-    /// <summary>
-    /// Desactiva la parte de la circunferencia del UI
-    /// </summary>
-    public void DeactivateSonarUI() 
+
+    public void CanNotRespawn()
     {
-        sonarIndicatorAnimation.Play("SonarUIDisappear");
-    }
-    /// <summary>
-    /// Activa la parte del pulso del UI
-    /// </summary>
-    public void ActivatePulseUI()
-    {
-        pulseIndicator.enabled = true;
-        Debug.Log("activado");
-    }
-    /// <summary>
-    /// Desactiva la parte del pulso del UI
-    /// </summary>
-    public void DeactivatePulseUI()
-    {
-        pulseIndicator.enabled = false;
-        Debug.Log("desactivado");
-    }
-    /// <summary>
-    /// Ejecuta la animación del pulso del UI
-    /// </summary>
-    public void PlayAnimation()
-    {
-        pulseIndicatorAnimation.Play();
+        canRespawn = false;
     }
 
     #endregion
 
     // ---- MÉTODOS PRIVADOS ----
-    #region Métodos privados
+    #region Métodos Privados
     // Documentar cada método que aparece aquí
     // El convenio de nombres de Unity recomienda que estos métodos
     // se nombren en formato PascalCase (palabras con primera letra
     // mayúscula, incluida la primera letra)
 
-    #endregion
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireSphere(transform.position, respawnDistance);
+    }
 
-} // class SonarUI 
+    #endregion   
+
+} // class Respawner 
 // namespace
