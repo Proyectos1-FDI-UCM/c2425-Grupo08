@@ -18,7 +18,7 @@ EditorBuildSettings:
     path: Assets/Scenes/Tests/Test DE Huir.unity
     guid: 63c818a89ce0ed94fadec88bf338acb2
   - enabled: 1
-    path: Assets/Scenes/Tests/Enemies/Test De Ataque (No modificar).unity
+    path: Assets/Scenes/Tests/Enemies/PhantomAnglerfishEnemy.unity
     guid: bbeb0a8fb71e6954f8a38b875f2aac23
   - enabled: 1
     path: Assets/Scenes/Tests/Shelter/Interludio_Refugio.unity

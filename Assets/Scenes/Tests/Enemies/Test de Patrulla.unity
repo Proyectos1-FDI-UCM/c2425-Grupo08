@@ -766,30 +766,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 982502975117708365, guid: 8c0a26a4016db1f4da055ae016bf56f8, type: 3}
-      propertyPath: sfxClips.Array.size
-      value: 7
-      objectReference: {fileID: 0}
-    - target: {fileID: 982502975117708365, guid: 8c0a26a4016db1f4da055ae016bf56f8, type: 3}
-      propertyPath: sfxClips.Array.data[0].type
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 982502975117708365, guid: 8c0a26a4016db1f4da055ae016bf56f8, type: 3}
-      propertyPath: sfxClips.Array.data[5].clip
-      value: 
-      objectReference: {fileID: 8300000, guid: d1ffd23492a6a514b932753c82631702, type: 3}
-    - target: {fileID: 982502975117708365, guid: 8c0a26a4016db1f4da055ae016bf56f8, type: 3}
-      propertyPath: sfxClips.Array.data[5].type
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 982502975117708365, guid: 8c0a26a4016db1f4da055ae016bf56f8, type: 3}
-      propertyPath: sfxClips.Array.data[6].clip
-      value: 
-      objectReference: {fileID: 8300000, guid: eaaccc7bc662db44185e8b049130992f, type: 3}
-    - target: {fileID: 982502975117708365, guid: 8c0a26a4016db1f4da055ae016bf56f8, type: 3}
-      propertyPath: sfxClips.Array.data[6].type
-      value: 6
-      objectReference: {fileID: 0}
     - target: {fileID: 1629052527552472779, guid: 8c0a26a4016db1f4da055ae016bf56f8, type: 3}
       propertyPath: m_LocalPosition.x
       value: 767.3101
