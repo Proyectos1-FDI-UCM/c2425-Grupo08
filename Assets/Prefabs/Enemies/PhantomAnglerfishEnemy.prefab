@@ -245,10 +245,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   patrolSpeed: 3
-  attackSpeed: 5
+  attackSpeed: 8
   fleeSpeed: 4
   disintegrationDelay: 1
-  debug: 0
+  maxHearingDistance: 15
 --- !u!82 &4454189796470735763
 AudioSource:
   m_ObjectHideFlags: 0

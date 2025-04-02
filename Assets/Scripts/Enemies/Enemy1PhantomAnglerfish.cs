@@ -27,9 +27,9 @@ public class Enemy1PhantomAnglerfish : MonoBehaviour
     [SerializeField] private float attackSpeed;
     [SerializeField] private float fleeSpeed;
 
-    [SerializeField] private float disintegrationDelay = 1f;
+    [SerializeField] private float disintegrationDelay;
 
-    [SerializeField] private bool debug = false;
+    [SerializeField] private float maxHearingDistance;
 
     #endregion
 
@@ -134,7 +134,12 @@ public class Enemy1PhantomAnglerfish : MonoBehaviour
         patrolSoundInterval = Random.Range(10f, 20f); //Rango entre 10 y 20 segundos 
     }
 
-    private void FixedUpdate()
+    private void Update()
+    {
+        audioSource.volume = CalculateVolume(player.transform.position);
+    }
+
+    void FixedUpdate()
     {
         if (flee)
         {
@@ -265,7 +270,7 @@ public class Enemy1PhantomAnglerfish : MonoBehaviour
         AudioManager.instance.PlaySFX(SFXType.AttackEnemy1, audioSource); // Cambiar a SFXType adecuado para ataque
 
         // Ajustar volumen en función de la distancia al jugador
-        audioSource.volume = CalculateVolume(player.transform.position);
+        //audioSource.volume = CalculateVolume(player.transform.position);
 
         // Configurar el AudioSource para que repita el sonido mientras esté en estado de ataque
         audioSource.loop = false; // O ajustarlo como necesites
@@ -278,7 +283,7 @@ public class Enemy1PhantomAnglerfish : MonoBehaviour
         AudioManager.instance.PlaySFX(SFXType.PatrolEnemy1, audioSource); // Cambiar a SFXType adecuado para patrullar
 
         // Ajustar volumen en función de la distancia al jugador
-        audioSource.volume = CalculateVolume(player.transform.position);
+        //audioSource.volume = CalculateVolume(player.transform.position);
 
         // Configurar el AudioSource para que repita el sonido mientras esté en estado de patrulla
         audioSource.loop = false; // O ajustarlo como necesites
@@ -289,7 +294,7 @@ public class Enemy1PhantomAnglerfish : MonoBehaviour
     private float CalculateVolume(Vector3 targetPosition)
     {
         float distance = Vector3.Distance(targetPosition, transform.position);
-        float volume = Mathf.Clamp01(1 - (distance / 15));  // Ajusta el divisor para que el volumen disminuya a la distancia que prefieras
+        float volume = Mathf.Clamp01(1 - (distance / maxHearingDistance));  // Ajusta el divisor para que el volumen disminuya a la distancia que prefieras
         return volume;
     }
 
