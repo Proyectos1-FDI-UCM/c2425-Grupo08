@@ -74,9 +74,9 @@ public class FlashLight : MonoBehaviour
     [Tooltip("Intensidad del flash")]
     [Range(1, 2000)]
     [SerializeField] private float flashIntensity = 1000f;
-    [Tooltip("Duración del flash")]
-    [Range(0, 0.1f)]
-    [SerializeField] private float flashDuration = 0.05f;
+    //[Tooltip("Duración del flash")]
+    //[Range(0, 0.1f)]
+    //[SerializeField] private float flashDuration = 0.05f;
     [Tooltip("Tiempo de recarga del flash")]
     [Range(0, 10)]
     [SerializeField] private float flashCooldown = 4f;
