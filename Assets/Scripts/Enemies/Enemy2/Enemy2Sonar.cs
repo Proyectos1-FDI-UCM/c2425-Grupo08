@@ -296,17 +296,12 @@ public class Enemy2Sonar : MonoBehaviour
         {
             attack = true;
         }
-
-        attackDebug = false;
-
-        if (IsInsideAttackRadious())
-        {
-            attack = true;
-        }
         else
         {
             StartCoroutine(SonarCooldown());
         }
+
+        attackDebug = false;     
     }
     /// <summary>
     /// Método que dibuja el debug en el editor 
