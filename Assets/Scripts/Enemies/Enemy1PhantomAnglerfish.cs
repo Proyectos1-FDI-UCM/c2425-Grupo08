@@ -260,8 +260,8 @@ public class Enemy1PhantomAnglerfish : MonoBehaviour
         AudioManager.instance.PlaySFX(SFXType.FleeEnemy1, audioSource);  // Cambiar a SFXType adecuado para huida
 
         // Configurar el AudioSource para que repita el sonido mientras esté en estado de huida
-        audioSource.loop = false;
-        audioSource.Play();
+        //audioSource.loop = false;
+        //audioSource.Play();
     }
 
     private void PlayAttackSound()
@@ -273,8 +273,8 @@ public class Enemy1PhantomAnglerfish : MonoBehaviour
         //audioSource.volume = CalculateVolume(player.transform.position);
 
         // Configurar el AudioSource para que repita el sonido mientras esté en estado de ataque
-        audioSource.loop = false; // O ajustarlo como necesites
-        audioSource.Play();
+        //audioSource.loop = false; // O ajustarlo como necesites
+        //audioSource.Play();
     }
 
     private void PlayPatrolSound()
@@ -286,8 +286,8 @@ public class Enemy1PhantomAnglerfish : MonoBehaviour
         //audioSource.volume = CalculateVolume(player.transform.position);
 
         // Configurar el AudioSource para que repita el sonido mientras esté en estado de patrulla
-        audioSource.loop = false; // O ajustarlo como necesites
-        audioSource.Play();
+        //audioSource.loop = false; // O ajustarlo como necesites
+        //audioSource.Play();
         Debug.Log("Sonido de patrulla reproducido");
     }
 

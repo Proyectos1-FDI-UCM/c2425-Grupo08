@@ -61,7 +61,7 @@ public class OxigenScript : MonoBehaviour
     void Start()
     {
         currentOxigen = maxOxigen;
-        audioSource= GetComponent<AudioSource>();
+        audioSource= AudioManager.instance.GetComponent<AudioSource>();
         AudioManager.instance.PlaySFX(SFXType.Breath, audioSource, true);
     }
 

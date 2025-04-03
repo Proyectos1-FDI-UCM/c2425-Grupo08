@@ -42,6 +42,12 @@ public class AudioManager : MonoBehaviour
     // Estructura que asocia un tipo de sonido con su correspondiente clip de audio
     #endregion
 
+    // ---- ATRIBUTOS PRIVADOS ----
+    #region Atributos Privados (private fields)
+
+    // Audiosource del audio manager para poder superponer la respiración con las demás acciones del personaje
+    private AudioSource audiosource;
+    #endregion
     [System.Serializable]
     public struct SFXClip
     {
@@ -57,6 +63,7 @@ public class AudioManager : MonoBehaviour
 
     void Awake()
     {
+        audiosource = GetComponent<AudioSource>();
         // Implementación del Singleton: Si no hay una instancia previa, esta se convierte en la única
         if (instance == null)
         {
@@ -70,36 +77,15 @@ public class AudioManager : MonoBehaviour
         }
     }
     #endregion
-    // ---- ATRIBUTOS PRIVADOS ----
-    #region Atributos Privados (private fields) 
-    // Método privado para obtener el clip de sonido correspondiente a un tipo de SFX
-    private AudioClip GetSFXClip(SFXType type)
-    {
-        foreach (var sfx in sfxClips)
-        {
-            if (sfx.type == type) // Si el tipo coincide, devuelve el clip asociado
-                return sfx.clip;
-        }
-        return null; // Si no se encuentra, devuelve null
-    }
-    // Método privado para calcular el volumen en función de la distancia al jugador
-    private float CalculateVolume(Vector3 playerPosition)
-    {
-        // Calcula la distancia entre el jugador y la fuente del sonido
-        float distance = Vector3.Distance(playerPosition, transform.position);
-        // Ajusta el volumen en base a la distancia, asegurando que nunca sea menor que 0
-        float volume = Mathf.Clamp01(1 / (distance / 20));
-        return volume;
-    }
-    #endregion
+    
     // ---- MÉTODOS PÚBLICOS ----
     #region Métodos públicos
 
     // Método para reproducir un efecto de sonido en un AudioSource específico
     public void PlaySFX(SFXType type, AudioSource source, bool loop = false)
     {
+        
         if (source == null) return; // Si el AudioSource es nulo, no se hace nada
-
         AudioClip clip = GetSFXClip(type); // Obtiene el clip de sonido correspondiente
         if (clip == null) return; // Si el clip no se encuentra, no se reproduce nada
 
@@ -144,4 +130,27 @@ public class AudioManager : MonoBehaviour
 
 
     #endregion   
+
+    // ---- MÉTODOS PRIVADOS ----
+    #region Métodos Privados
+    // Método privado para obtener el clip de sonido correspondiente a un tipo de SFX
+    private AudioClip GetSFXClip(SFXType type)
+    {
+        foreach (var sfx in sfxClips)
+        {
+            if (sfx.type == type) // Si el tipo coincide, devuelve el clip asociado
+                return sfx.clip;
+        }
+        return null; // Si no se encuentra, devuelve null
+    }
+    // Método privado para calcular el volumen en función de la distancia al jugador
+    private float CalculateVolume(Vector3 playerPosition)
+    {
+        // Calcula la distancia entre el jugador y la fuente del sonido
+        float distance = Vector3.Distance(playerPosition, transform.position);
+        // Ajusta el volumen en base a la distancia, asegurando que nunca sea menor que 0
+        float volume = Mathf.Clamp01(1 / (distance / 20));
+        return volume;
+    }
+    #endregion
 }
