@@ -3187,6 +3187,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: CanvasSlider
       objectReference: {fileID: 0}
+    - target: {fileID: 364305429417284690, guid: e6197a9281f8d354fa7347841cf52b64, type: 3}
+      propertyPath: m_RenderMode
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1261487715922940856, guid: e6197a9281f8d354fa7347841cf52b64, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 275
+      objectReference: {fileID: 0}
     - target: {fileID: 2134357116842498010, guid: e6197a9281f8d354fa7347841cf52b64, type: 3}
       propertyPath: m_Pivot.x
       value: 0
@@ -3229,7 +3237,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2134357116842498010, guid: e6197a9281f8d354fa7347841cf52b64, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0.41155836
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2134357116842498010, guid: e6197a9281f8d354fa7347841cf52b64, type: 3}
       propertyPath: m_LocalRotation.w
@@ -3237,23 +3245,23 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2134357116842498010, guid: e6197a9281f8d354fa7347841cf52b64, type: 3}
       propertyPath: m_LocalRotation.x
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2134357116842498010, guid: e6197a9281f8d354fa7347841cf52b64, type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2134357116842498010, guid: e6197a9281f8d354fa7347841cf52b64, type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2134357116842498010, guid: e6197a9281f8d354fa7347841cf52b64, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 30.970238
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2134357116842498010, guid: e6197a9281f8d354fa7347841cf52b64, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -3.0802755
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2134357116842498010, guid: e6197a9281f8d354fa7347841cf52b64, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -3269,6 +3277,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7537100514210155806, guid: e6197a9281f8d354fa7347841cf52b64, type: 3}
       propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8453081407412989492, guid: e6197a9281f8d354fa7347841cf52b64, type: 3}
+      propertyPath: m_PresetInfoIsWorld
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
@@ -5058,7 +5070,7 @@ Canvas:
   m_PrefabAsset: {fileID: 0}
 --- !u!4 &1503472683 stripped
 Transform:
-  m_CorrespondingSourceObject: {fileID: 8324246634142231826, guid: 6e51a46098cbfdd4b921c33777076d36, type: 3}
+  m_CorrespondingSourceObject: {fileID: 320063604007316157, guid: 6e51a46098cbfdd4b921c33777076d36, type: 3}
   m_PrefabInstance: {fileID: 31518012}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1524535351
