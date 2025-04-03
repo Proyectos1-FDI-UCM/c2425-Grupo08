@@ -115,6 +115,7 @@ public class Motor : MonoBehaviour
     {
         if (loadCoroutine == null) // Evita iniciar múltiples instancias de la corrutina
         {
+            GetComponent<GeneratorEnemySpawner>().SetCanRespawn(true); // Permite el respawn de enemigos
             progressBar.gameObject.SetActive(true); // Muestra la barra de progreso
             loadCoroutine = StartCoroutine(LoadProgress()); // Inicia la carga
         }
@@ -133,6 +134,7 @@ public class Motor : MonoBehaviour
         }
         progressBar.gameObject.SetActive(false); // Oculta la barra de progreso
         player.GetComponent<PlayerMovement>().SetIsRepairing(false);
+        GetComponent<GeneratorEnemySpawner>().SetCanRespawn(false);
     }
 
     /// <summary>
@@ -167,6 +169,7 @@ public class Motor : MonoBehaviour
         progressBar.gameObject.SetActive(false); // Oculta la barra de progreso
         canva.gameObject.SetActive(false); // Oculta el Canvas de interacción
         player.GetComponent<PlayerMovement>().SetIsRepairing(false);
+        GetComponent<GeneratorEnemySpawner>().SetCanRespawn(false);
 
         // Cambia el color del motor a verde para indicar que está reparado
         if (motorSprite != null)

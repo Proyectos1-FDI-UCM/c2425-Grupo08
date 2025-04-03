@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 698779695296939925}
   - component: {fileID: 1508216552932043561}
   - component: {fileID: 6074269146551735336}
+  - component: {fileID: 5662521674927045181}
   m_Layer: 0
   m_Name: Motor
   m_TagString: Untagged
@@ -29,7 +30,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 11.800177, y: -0.8153518, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1.5908, y: 1.7251, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -115,7 +116,7 @@ BoxCollider2D:
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0.047768116, y: 0.5015608}
@@ -145,5 +146,23 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   canva: {fileID: 0}
   progressBar: {fileID: 0}
-  loadTime: 4
-  motorSprite: {fileID: 0}
+  loadTime: 30
+  motorSprite: {fileID: 698779695296939925}
+--- !u!114 &5662521674927045181
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5648041793416255924}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 08c6efa3e37f5e243897b67438a04817, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxRespawnRadious: 20
+  minRespawnRadious: 15
+  minRespawnHeight: 5
+  minRespawnCooldown: 10
+  maxRespawnCooldown: 20
+  enemyPrefab: {fileID: 6928249760915936609, guid: 5c5031b787e12754280e922baf0d1b2f, type: 3}

@@ -51,7 +51,7 @@ public class GeneratorEnemySpawner : MonoBehaviour
     // Ejemplo: _maxHealthPoints
 
     private float currentRespawnCooldown;
-    private bool canRespawn = true;
+    private bool canRespawn = false;
 
     #endregion
 
