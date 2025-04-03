@@ -136,6 +136,8 @@ public class Enemy2Sonar : MonoBehaviour
     /// </summary>
     void Start()
     {
+        SetNodeArray();
+
         rb = GetComponent<Rigidbody2D>();
 
         player = GameObject.FindGameObjectWithTag("Player");
@@ -219,16 +221,6 @@ public class Enemy2Sonar : MonoBehaviour
     // mayúscula, incluida la primera letra)
     // Ejemplo: GetPlayerController
 
-    /// <summary>
-    /// Método que se llama desde el Awake de EnemyNodes para pasarle los nodos al enemigo
-    /// </summary>
-    /// <param name="nodes"></param>
-    public void SetNodeArray(GameObject[] nodes)
-    {
-        nodeArray = new GameObject[nodes.Length];
-        nodes.CopyTo(nodeArray, 0);
-    }
-
     #endregion
 
     // ---- MÉTODOS PRIVADOS ----
@@ -237,6 +229,14 @@ public class Enemy2Sonar : MonoBehaviour
     // El convenio de nombres de Unity recomienda que estos métodos
     // se nombren en formato PascalCase (palabras con primera letra
     // mayúscula, incluida la primera letra)
+
+    /// <summary>
+    /// Método que se llama desde el Start para conseguir los nodos del enemigo
+    /// </summary>
+    private void SetNodeArray()
+    {
+        nodeArray = GetComponentsInParent<Transform>()[1].GetComponentInChildren<EnemyNodes>().GetNodeArray();
+    }
 
     /// <summary>
     /// Mueve al enemigo según su estado (patrulla o ataque) representado en los parámetros que le llegan

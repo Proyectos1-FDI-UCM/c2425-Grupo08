@@ -187,14 +187,6 @@ public class Enemy1PhantomAnglerfish : MonoBehaviour
     // mayúscula, incluida la primera letra)
     // Ejemplo: GetPlayerController
 
-    /// <summary>
-    /// Método que se llama desde el Awake de EnemyNodes para pasarle los nodos al enemigo
-    /// </summary>
-    /// <param name="nodes"></param>
-    public void SetNodeArray()
-    {
-        nodeArray = GetComponentsInParent<Transform>()[1].GetComponentInChildren<EnemyNodes>().GetNodeArray();
-    }
     public void SetAttack(bool attack)
     {
         this.attack = attack;
@@ -208,6 +200,14 @@ public class Enemy1PhantomAnglerfish : MonoBehaviour
     // El convenio de nombres de Unity recomienda que estos métodos
     // se nombren en formato PascalCase (palabras con primera letra
     // mayúscula, incluida la primera letra)
+
+    /// <summary>
+    /// Método que se llama desde el Start para conseguir los nodos del enemigo
+    /// </summary>
+    private void SetNodeArray()
+    {
+        nodeArray = GetComponentsInParent<Transform>()[1].GetComponentInChildren<EnemyNodes>().GetNodeArray();
+    }
 
     private void Move(Vector2 direction, float speed)
     {
