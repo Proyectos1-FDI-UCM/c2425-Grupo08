@@ -23,7 +23,10 @@ public class FlashLight : MonoBehaviour
     [Space]
     [Tooltip("Zona muerta para joystick o ratón (entre 0 y 1)")]
     [Range(0, 1)]
-    [SerializeField] private float inputDeadzone = 0.1f; // Zona muerta para el joystick o ratón
+    [SerializeField] private float inputDeadzone = 0.1f;
+    [Tooltip("Velocidad de rotación de la linterna")]
+    [Range(1, 50)]
+    [SerializeField] private int lookSpeed = 15;
 
     [Space]
     [Header("Configuración General")]
@@ -236,7 +239,7 @@ public class FlashLight : MonoBehaviour
         if (aimInput.magnitude > inputDeadzone) // Para que no haya movimientos raros cerca del pivote
         {
             float angle = Mathf.Atan2(aimInput.y, aimInput.x) * Mathf.Rad2Deg;
-            transform.rotation = Quaternion.Euler(0, 0, angle);
+            transform.rotation = Quaternion.Euler(0, 0, Mathf.LerpAngle(transform.rotation.eulerAngles.z, angle, Time.deltaTime * lookSpeed));
         }
     }
 
