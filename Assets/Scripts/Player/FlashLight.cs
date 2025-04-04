@@ -317,14 +317,24 @@ public class FlashLight : MonoBehaviour
 
     private void LightFlash()
     {
+        // Aplicar intensidad máxima inmediatamente
+        flashLight.intensity = flashIntensity;    // Aplicar directamente al flashLight
+        flashLight.pointLightInnerAngle = focusRadius * 2.5f;
+        flashLight.pointLightOuterAngle = (focusRadius * 2.5f) + (lightDiffusion * 2f);
+        flashLight.pointLightOuterRadius = focusLength * 2.5f;
+        flashLight.color = Color.white;
+        
+        // Actualizar valores objetivo para la transición posterior
         targetValues.intensity = flashIntensity;
-        targetValues.innerAngle = focusRadius * 3f;
-        targetValues.outerAngle = (focusRadius * 3f) + lightDiffusion;
-        targetValues.outerRadius = focusLength * 3.5f;
-        targetValues.color = flashColor;
+        targetValues.innerAngle = focusRadius * 2.5f;
+        targetValues.outerAngle = (focusRadius * 2.5f) + (lightDiffusion * 2f);
+        targetValues.outerRadius = focusLength * 2.5f;
+        targetValues.color = Color.white;
+        
+        // Actualizar valores actuales para evitar interpolación
+        currentValues = targetValues;
 
         flashCollider.enabled = true;
-
         isFlashAvailable = false;
         flashTimer = flashCooldown;
         _state = State.Cooldown;
