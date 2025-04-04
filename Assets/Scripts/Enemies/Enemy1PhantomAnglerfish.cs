@@ -146,7 +146,7 @@ public class Enemy1PhantomAnglerfish : MonoBehaviour
             Move((transform.position - player.transform.position).normalized, fleeSpeed);
             if (!fleeSoundPlaying)
             {
-                PlayFleeSound();
+                AudioManager.instance.PlaySFX(SFXType.FleeEnemy1, audioSource);
                 fleeSoundPlaying = true;
             }
         } 
@@ -155,7 +155,7 @@ public class Enemy1PhantomAnglerfish : MonoBehaviour
             Move((player.transform.position - transform.position).normalized, attackSpeed);
             if (!attackSoundPlaying)
             {
-                PlayAttackSound();
+                AudioManager.instance.PlaySFX(SFXType.AttackEnemy1, audioSource);
                 attackSoundPlaying = true;
             }
         }
@@ -170,8 +170,8 @@ public class Enemy1PhantomAnglerfish : MonoBehaviour
             // Comprobar si ha pasado suficiente tiempo para reproducir el sonido de patrullaje
             if (patrolSoundCooldown >= patrolSoundInterval)
             {
-      
-                PlayPatrolSound();
+
+                AudioManager.instance.PlaySFX(SFXType.PatrolEnemy1, audioSource); //se reproduce sonido de patrulla
                 patrolSoundCooldown = 0f; // Reiniciar el temporizador
                 patrolSoundInterval = Random.Range(10f, 20f); // Establecer un nuevo intervalo aleatorio entre 10 y 20 segundos
             }
@@ -252,43 +252,6 @@ public class Enemy1PhantomAnglerfish : MonoBehaviour
         yield return new WaitForSeconds(disintegrationDelay);
         GetComponentInParent<Respawner>().EnemyDead(player);
         Destroy(gameObject);
-    }
-
-    private void PlayFleeSound()
-    {
-        // Obtener el clip de sonido de huida desde el AudioManager
-        AudioManager.instance.PlaySFX(SFXType.FleeEnemy1, audioSource);  // Cambiar a SFXType adecuado para huida
-
-        // Configurar el AudioSource para que repita el sonido mientras esté en estado de huida
-        //audioSource.loop = false;
-        //audioSource.Play();
-    }
-
-    private void PlayAttackSound()
-    {
-        // Obtener el clip de sonido de ataque desde el AudioManager
-        AudioManager.instance.PlaySFX(SFXType.AttackEnemy1, audioSource); // Cambiar a SFXType adecuado para ataque
-
-        // Ajustar volumen en función de la distancia al jugador
-        //audioSource.volume = CalculateVolume(player.transform.position);
-
-        // Configurar el AudioSource para que repita el sonido mientras esté en estado de ataque
-        //audioSource.loop = false; // O ajustarlo como necesites
-        //audioSource.Play();
-    }
-
-    private void PlayPatrolSound()
-    {
-        // Obtener el clip de sonido de patrulla desde el AudioManager
-        AudioManager.instance.PlaySFX(SFXType.PatrolEnemy1, audioSource); // Cambiar a SFXType adecuado para patrullar
-
-        // Ajustar volumen en función de la distancia al jugador
-        //audioSource.volume = CalculateVolume(player.transform.position);
-
-        // Configurar el AudioSource para que repita el sonido mientras esté en estado de patrulla
-        //audioSource.loop = false; // O ajustarlo como necesites
-        //audioSource.Play();
-        Debug.Log("Sonido de patrulla reproducido");
     }
 
     private float CalculateVolume(Vector3 targetPosition)

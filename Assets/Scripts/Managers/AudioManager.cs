@@ -103,21 +103,6 @@ public class AudioManager : MonoBehaviour
             source.PlayOneShot(clip);
     }
 
-    // Sobrecarga del método PlaySFX que ajusta el volumen según la distancia al jugador
-    /*public void PlaySFX(SFXType type, AudioSource source, Vector3 playerPosition, bool loop = false)
-    {
-        if (source == null) return; // Si el AudioSource es nulo, no se hace nada
-
-        AudioClip clip = GetSFXClip(type); // Obtiene el clip de sonido correspondiente
-        if (clip == null) return; // Si el clip no existe, no se reproduce
-
-        source.clip = clip; // Asigna el clip al AudioSource
-        source.loop = loop; // Define si el sonido debe repetirse en bucle
-        source.volume = CalculateVolume(playerPosition); // Calcula el volumen basado en la distancia
-        source.outputAudioMixerGroup = audioMixer.FindMatchingGroups("SFX")[0]; // Asigna el grupo del AudioMixer
-        source.Play(); // Reproduce el sonido
-    }*/
-
     // Método para detener un sonido en reproducción
     public void StopSFX(AudioSource source)
     {
