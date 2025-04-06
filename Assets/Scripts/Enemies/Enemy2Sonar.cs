@@ -28,7 +28,7 @@ public class Enemy2Sonar : MonoBehaviour
     [SerializeField] private float patrolSpeed;
     [SerializeField] private float attackSpeed;
 
-    [SerializeField] private bool debug = false;
+    [SerializeField] private bool debug;
 
     /// <summary>
     /// Frecuencia con la que el enemigo utiliza su sonar
@@ -46,6 +46,15 @@ public class Enemy2Sonar : MonoBehaviour
     [SerializeField] private float sonarHearingDistance;
     [SerializeField] private float sonarAttackDistance;
 
+    /// <summary>
+    /// Velocidad de la animación de patrullaje
+    /// </summary>
+    [SerializeField] private float patrolAnimaitonSpeed;
+    /// <summary>
+    /// Velocidad de la animación de ataque
+    /// </summary>
+    [SerializeField] private float attackAnimationSpeed;
+
     #endregion
 
     // ---- ATRIBUTOS PRIVADOS ----
@@ -56,6 +65,10 @@ public class Enemy2Sonar : MonoBehaviour
     // primera palabra en minúsculas y el resto con la 
     // primera letra en mayúsculas)
     // Ejemplo: _maxHealthPoints
+
+    private SpriteRenderer spriteRenderer;
+
+    private Animator animator;
 
     private GameObject[] nodeArray;
 
@@ -136,6 +149,12 @@ public class Enemy2Sonar : MonoBehaviour
     /// </summary>
     void Start()
     {
+        spriteRenderer = GetComponentInChildren<SpriteRenderer>();
+
+        animator = GetComponentInChildren<Animator>();
+
+        animator.speed = patrolAnimaitonSpeed;
+
         SetNodeArray();
 
         rb = GetComponent<Rigidbody2D>();
@@ -192,6 +211,17 @@ public class Enemy2Sonar : MonoBehaviour
             sonarUI.DeactivatePulseUI();
             alreadyInsideAttackRadious = false;
         }
+
+        if (rb.velocity.x < 0)
+        {
+            spriteRenderer.flipY = true;
+            spriteRenderer.gameObject.transform.localPosition = new Vector3(0, 0.6f, 0);
+        }
+        else if (rb.velocity.x >= 0)
+        {
+            spriteRenderer.flipY = false;
+            spriteRenderer.gameObject.transform.localPosition = new Vector3(0, -0.6f, 0);
+        }
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
@@ -206,7 +236,11 @@ public class Enemy2Sonar : MonoBehaviour
         if (collision.gameObject == player && attack)
         {
             // player.GetComponent<OxigenScript>().Kill();
+
             attack = false;
+            animator.SetBool("Attack", false);
+            animator.speed = patrolAnimaitonSpeed;
+
             StartCoroutine(SonarCooldown());
         }
     }
@@ -304,6 +338,8 @@ public class Enemy2Sonar : MonoBehaviour
         (InputManager.Instance.MovementVector.x != 0 || player.GetComponent<PlayerMovement>().GetIsRepairing())) // Hace falta cambiar el interact por un bool de si se está reparando el motor
         {
             attack = true;
+            animator.SetBool("Attack", true);
+            animator.speed = attackAnimationSpeed;
         }
         else
         {
