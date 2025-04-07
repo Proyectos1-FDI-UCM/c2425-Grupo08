@@ -42,6 +42,10 @@ public class Enemy1PhantomAnglerfish : MonoBehaviour
     // primera letra en mayúsculas)
     // Ejemplo: _maxHealthPoints
 
+    private SpriteRenderer spriteRenderer;
+
+    private Animator animator;
+
     private GameObject[] nodeArray;
 
     private Rigidbody2D rb;
@@ -111,6 +115,12 @@ public class Enemy1PhantomAnglerfish : MonoBehaviour
     /// </summary>
     void Start()
     {
+        spriteRenderer = GetComponentInChildren<SpriteRenderer>();
+
+        animator = GetComponentInChildren<Animator>();
+
+        animator.speed = patrolSpeed / 10;
+
         SetNodeArray();
 
         // Inicializar el AudioSource
@@ -137,6 +147,17 @@ public class Enemy1PhantomAnglerfish : MonoBehaviour
     private void Update()
     {
         audioSource.volume = CalculateVolume(player.transform.position);
+
+        if (rb.velocity.x < 0)
+        {
+            spriteRenderer.flipY = true;
+            spriteRenderer.gameObject.transform.localPosition = new Vector3(0, 0.5f, 0);
+        }
+        else if (rb.velocity.x >= 0)
+        {
+            spriteRenderer.flipY = false;
+            spriteRenderer.gameObject.transform.localPosition = new Vector3(0, -0.5f, 0);
+        }
     }
 
     void FixedUpdate()
@@ -190,6 +211,11 @@ public class Enemy1PhantomAnglerfish : MonoBehaviour
     public void SetAttack(bool attack)
     {
         this.attack = attack;
+
+        if (attack)
+        {
+            animator.SetTrigger("Attack");
+        }
     }
 
     #endregion
@@ -226,6 +252,9 @@ public class Enemy1PhantomAnglerfish : MonoBehaviour
         else if (enemyCollider.IsTouching(flashCollider))
         {
             flee = true;
+
+            animator.SetTrigger("Flee");
+
             Debug.Log("Huida");
             Debug.Log(collision.gameObject);
             StartCoroutine(DisintegrationDelay());
@@ -233,6 +262,9 @@ public class Enemy1PhantomAnglerfish : MonoBehaviour
         else if (collision.gameObject.GetComponent<Collider2D>() == playerCollider)
         {
             attack = true;
+
+            animator.SetTrigger("Attack");
+
             Debug.Log("Ataque");
             Debug.Log(collision.gameObject);
         }
