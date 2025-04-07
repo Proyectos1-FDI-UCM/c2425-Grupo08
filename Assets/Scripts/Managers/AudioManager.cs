@@ -19,7 +19,9 @@ public enum SFXType
     GameOver,
     AttackEnemy1,
     PatrolEnemy1,
-    FleeEnemy1
+    FleeEnemy1,
+    Sonar1,
+    Sonar2
     // Se pueden añadir más sonidos según sea necesario
 }
 /// <summary>
