@@ -49,7 +49,7 @@ public class Enemy2Sonar : MonoBehaviour
     /// <summary>
     /// Velocidad de la animación de patrullaje
     /// </summary>
-    [SerializeField] private float patrolAnimaitonSpeed;
+    [SerializeField] private float patrolAnimationSpeed;
     /// <summary>
     /// Velocidad de la animación de ataque
     /// </summary>
@@ -157,7 +157,7 @@ public class Enemy2Sonar : MonoBehaviour
 
         animator = GetComponentInChildren<Animator>();
 
-        animator.speed = patrolAnimaitonSpeed;
+        animator.speed = patrolAnimationSpeed;
 
         SetNodeArray();
 
@@ -250,7 +250,7 @@ public class Enemy2Sonar : MonoBehaviour
 
             attack = false;
             animator.SetBool("Attack", false);
-            animator.speed = patrolAnimaitonSpeed;
+            animator.speed = patrolAnimationSpeed;
 
             StartCoroutine(SonarCooldown());
         }

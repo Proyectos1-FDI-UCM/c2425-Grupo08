@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 220ac395b1fdc0d4cb2451f38fc6080f
+guid: bed07f1b6b1cb914aa69d8f408772fc7
 ScriptedImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -35,7 +35,7 @@ ScriptedImporter:
     spriteMeshType: 1
     alignment: 0
     spritePivot: {x: 0.5, y: 0.5}
-    spritePixelsToUnits: 100
+    spritePixelsToUnits: 16
     spriteBorder: {x: 0, y: 0, z: 0, w: 0}
     spriteGenerateFallbackPhysicsShape: 0
     generateCubemap: 6
@@ -97,7 +97,7 @@ ScriptedImporter:
     addSortingGroup: 1
     addShadowCasters: 0
   importFileNodeState: 1
-  platformSettingsDirtyTick: 0
+  platformSettingsDirtyTick: 638796523236534290
   textureAssetName: 
   singleSpriteImportData:
   - name: 
@@ -121,7 +121,7 @@ ScriptedImporter:
     tessellationDetail: 0
     uvTransform: {x: 0, y: 0}
   animatedSpriteImportData:
-  - name: pezanimation_Frame_0
+  - name: AnglerFish_Frame_0
     originalName: 
     pivot: {x: 0.53333336, y: -0.16666667}
     alignment: 9
@@ -132,7 +132,7 @@ ScriptedImporter:
       y: 25
       width: 15
       height: 12
-    spriteID: 94de650e25bee494f91f3e74efcac6c4
+    spriteID: f9cd0da45ec807248966f18cdac30851
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -141,7 +141,7 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     uvTransform: {x: 28, y: 25}
-  - name: pezanimation_Frame_1
+  - name: AnglerFish_Frame_1
     originalName: 
     pivot: {x: 0.53333336, y: -0.16666667}
     alignment: 9
@@ -152,7 +152,7 @@ ScriptedImporter:
       y: 25
       width: 15
       height: 12
-    spriteID: b57e7db0be916d043927592831ead7fc
+    spriteID: 451771e93edba664bb0445e5e6e66d2b
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -161,7 +161,7 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     uvTransform: {x: 51, y: 25}
-  - name: pezanimation_Frame_2
+  - name: AnglerFish_Frame_2
     originalName: 
     pivot: {x: 0.53333336, y: -0.16666667}
     alignment: 9
@@ -172,7 +172,7 @@ ScriptedImporter:
       y: 25
       width: 15
       height: 12
-    spriteID: 954e1ddbfebf17646a1a1de8997545d3
+    spriteID: 279c1bcd2b988a74a97ccc975bc8ac81
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -181,7 +181,7 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     uvTransform: {x: 74, y: 25}
-  - name: pezanimation_Frame_3
+  - name: AnglerFish_Frame_3
     originalName: 
     pivot: {x: 0.53333336, y: -0.16666667}
     alignment: 9
@@ -192,7 +192,7 @@ ScriptedImporter:
       y: 25
       width: 15
       height: 12
-    spriteID: 1f6f7fd5919ec0449b03c9aea751da44
+    spriteID: 2ed40e26950ca5d40aa9263eab8e1488
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -201,7 +201,7 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     uvTransform: {x: 97, y: 25}
-  - name: pezanimation_Frame_4
+  - name: AnglerFish_Frame_4
     originalName: 
     pivot: {x: 0.53333336, y: -0.16666667}
     alignment: 9
@@ -212,7 +212,7 @@ ScriptedImporter:
       y: 45
       width: 15
       height: 12
-    spriteID: a1b27d8fe6bc2c74091a6f0c2b09c63a
+    spriteID: 7dd5f201e53469646a862f11696941e9
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -221,7 +221,7 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     uvTransform: {x: 4, y: 45}
-  - name: pezanimation_Frame_5
+  - name: AnglerFish_Frame_5
     originalName: 
     pivot: {x: 0.53333336, y: -0.16666667}
     alignment: 9
@@ -232,7 +232,7 @@ ScriptedImporter:
       y: 45
       width: 15
       height: 12
-    spriteID: a92fb4901e18f384a9a39928898565e8
+    spriteID: 8309894eb97a561429a1936e64a10871
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -241,7 +241,7 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     uvTransform: {x: 27, y: 45}
-  - name: pezanimation_Frame_6
+  - name: AnglerFish_Frame_6
     originalName: 
     pivot: {x: 0.53333336, y: -0.16666667}
     alignment: 9
@@ -252,7 +252,7 @@ ScriptedImporter:
       y: 45
       width: 15
       height: 12
-    spriteID: 05a2a5e562d77894fa81e838ec5b4329
+    spriteID: 198e0cccb72442444a49f432c2b98f05
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -261,7 +261,7 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     uvTransform: {x: 50, y: 45}
-  - name: pezanimation_Frame_7
+  - name: AnglerFish_Frame_7
     originalName: 
     pivot: {x: 0.53333336, y: -0.15384616}
     alignment: 9
@@ -272,7 +272,7 @@ ScriptedImporter:
       y: 4
       width: 15
       height: 13
-    spriteID: 6d10dc29465a0d342841da88ae41735c
+    spriteID: 7b4c0024096131946b4011ee8d2d9f14
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -281,7 +281,7 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     uvTransform: {x: 28, y: 4}
-  - name: pezanimation_Frame_8
+  - name: AnglerFish_Frame_8
     originalName: 
     pivot: {x: 0.53333336, y: -0.15384616}
     alignment: 9
@@ -292,7 +292,7 @@ ScriptedImporter:
       y: 4
       width: 15
       height: 13
-    spriteID: 4dbf85bfaaa7b4548828c70ac566ae20
+    spriteID: ba70ecfe110833c4fa823fc04da99ddb
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -301,7 +301,7 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     uvTransform: {x: 51, y: 4}
-  - name: pezanimation_Frame_9
+  - name: AnglerFish_Frame_9
     originalName: 
     pivot: {x: 0.4666667, y: -0.07692308}
     alignment: 9
@@ -312,7 +312,7 @@ ScriptedImporter:
       y: 4
       width: 15
       height: 13
-    spriteID: f95c854df649a4344b9a327a0c71558f
+    spriteID: fef08f7516fb5a24b8aacfeff1dc6f51
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -321,7 +321,7 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     uvTransform: {x: 74, y: 4}
-  - name: pezanimation_Frame_10
+  - name: AnglerFish_Frame_10
     originalName: 
     pivot: {x: 0.5, y: -0.16666667}
     alignment: 9
@@ -332,7 +332,7 @@ ScriptedImporter:
       y: 25
       width: 16
       height: 12
-    spriteID: c9239809a9803cc4f87ebac2659a66a3
+    spriteID: 03b98d33f714b6d418f7a17be2f740b0
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -341,7 +341,7 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     uvTransform: {x: 4, y: 25}
-  - name: pezanimation_Frame_11
+  - name: AnglerFish_Frame_11
     originalName: 
     pivot: {x: 0.4666667, y: -0.07692308}
     alignment: 9
@@ -352,7 +352,7 @@ ScriptedImporter:
       y: 4
       width: 15
       height: 13
-    spriteID: 385fcd18e91664c428036e965725b843
+    spriteID: e54754e339ca86049b18ff74cebb4df7
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -361,7 +361,7 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     uvTransform: {x: 97, y: 4}
-  - name: pezanimation_Frame_12
+  - name: AnglerFish_Frame_12
     originalName: 
     pivot: {x: 0.5, y: -0.07692308}
     alignment: 9
@@ -372,7 +372,7 @@ ScriptedImporter:
       y: 4
       width: 16
       height: 13
-    spriteID: 158c0adfbe4887a41bd04c570eeb9d0a
+    spriteID: 777d4e7703620e546ba9c3b78a2e9b2c
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -384,13 +384,13 @@ ScriptedImporter:
   spriteSheetImportData: []
   asepriteLayers:
   - layerIndex: 0
-    guid: 49606553
-    name: pezanimation
+    guid: -1337324085
+    name: AnglerFish
     layerFlags: 0
     layerType: 0
     blendMode: 0
     cells:
-    - name: pezanimation_Frame_0
+    - name: AnglerFish_Frame_0
       frameIndex: 0
       additiveSortOrder: 0
       cellRect:
@@ -398,8 +398,8 @@ ScriptedImporter:
         y: 2
         width: 15
         height: 12
-      spriteId: 94de650e25bee494f91f3e74efcac6c4
-    - name: pezanimation_Frame_1
+      spriteId: f9cd0da45ec807248966f18cdac30851
+    - name: AnglerFish_Frame_1
       frameIndex: 1
       additiveSortOrder: 0
       cellRect:
@@ -407,8 +407,8 @@ ScriptedImporter:
         y: 2
         width: 15
         height: 12
-      spriteId: b57e7db0be916d043927592831ead7fc
-    - name: pezanimation_Frame_2
+      spriteId: 451771e93edba664bb0445e5e6e66d2b
+    - name: AnglerFish_Frame_2
       frameIndex: 2
       additiveSortOrder: 0
       cellRect:
@@ -416,8 +416,8 @@ ScriptedImporter:
         y: 2
         width: 15
         height: 12
-      spriteId: 954e1ddbfebf17646a1a1de8997545d3
-    - name: pezanimation_Frame_3
+      spriteId: 279c1bcd2b988a74a97ccc975bc8ac81
+    - name: AnglerFish_Frame_3
       frameIndex: 3
       additiveSortOrder: 0
       cellRect:
@@ -425,8 +425,8 @@ ScriptedImporter:
         y: 2
         width: 15
         height: 12
-      spriteId: 1f6f7fd5919ec0449b03c9aea751da44
-    - name: pezanimation_Frame_4
+      spriteId: 2ed40e26950ca5d40aa9263eab8e1488
+    - name: AnglerFish_Frame_4
       frameIndex: 4
       additiveSortOrder: 0
       cellRect:
@@ -434,8 +434,8 @@ ScriptedImporter:
         y: 2
         width: 15
         height: 12
-      spriteId: a1b27d8fe6bc2c74091a6f0c2b09c63a
-    - name: pezanimation_Frame_5
+      spriteId: 7dd5f201e53469646a862f11696941e9
+    - name: AnglerFish_Frame_5
       frameIndex: 5
       additiveSortOrder: 0
       cellRect:
@@ -443,8 +443,8 @@ ScriptedImporter:
         y: 2
         width: 15
         height: 12
-      spriteId: a92fb4901e18f384a9a39928898565e8
-    - name: pezanimation_Frame_6
+      spriteId: 8309894eb97a561429a1936e64a10871
+    - name: AnglerFish_Frame_6
       frameIndex: 6
       additiveSortOrder: 0
       cellRect:
@@ -452,8 +452,8 @@ ScriptedImporter:
         y: 2
         width: 15
         height: 12
-      spriteId: 05a2a5e562d77894fa81e838ec5b4329
-    - name: pezanimation_Frame_7
+      spriteId: 198e0cccb72442444a49f432c2b98f05
+    - name: AnglerFish_Frame_7
       frameIndex: 7
       additiveSortOrder: 0
       cellRect:
@@ -461,8 +461,8 @@ ScriptedImporter:
         y: 2
         width: 15
         height: 13
-      spriteId: 6d10dc29465a0d342841da88ae41735c
-    - name: pezanimation_Frame_8
+      spriteId: 7b4c0024096131946b4011ee8d2d9f14
+    - name: AnglerFish_Frame_8
       frameIndex: 8
       additiveSortOrder: 0
       cellRect:
@@ -470,8 +470,8 @@ ScriptedImporter:
         y: 2
         width: 15
         height: 13
-      spriteId: 4dbf85bfaaa7b4548828c70ac566ae20
-    - name: pezanimation_Frame_9
+      spriteId: ba70ecfe110833c4fa823fc04da99ddb
+    - name: AnglerFish_Frame_9
       frameIndex: 9
       additiveSortOrder: 0
       cellRect:
@@ -479,8 +479,8 @@ ScriptedImporter:
         y: 1
         width: 15
         height: 13
-      spriteId: f95c854df649a4344b9a327a0c71558f
-    - name: pezanimation_Frame_10
+      spriteId: fef08f7516fb5a24b8aacfeff1dc6f51
+    - name: AnglerFish_Frame_10
       frameIndex: 10
       additiveSortOrder: 0
       cellRect:
@@ -488,8 +488,8 @@ ScriptedImporter:
         y: 2
         width: 16
         height: 12
-      spriteId: c9239809a9803cc4f87ebac2659a66a3
-    - name: pezanimation_Frame_11
+      spriteId: 03b98d33f714b6d418f7a17be2f740b0
+    - name: AnglerFish_Frame_11
       frameIndex: 11
       additiveSortOrder: 0
       cellRect:
@@ -497,8 +497,8 @@ ScriptedImporter:
         y: 1
         width: 15
         height: 13
-      spriteId: 385fcd18e91664c428036e965725b843
-    - name: pezanimation_Frame_12
+      spriteId: e54754e339ca86049b18ff74cebb4df7
+    - name: AnglerFish_Frame_12
       frameIndex: 12
       additiveSortOrder: 0
       cellRect:
@@ -506,10 +506,46 @@ ScriptedImporter:
         y: 1
         width: 16
         height: 13
-      spriteId: 158c0adfbe4887a41bd04c570eeb9d0a
+      spriteId: 777d4e7703620e546ba9c3b78a2e9b2c
     linkedCells: []
     parentIndex: -1
-  platformSettings: []
+  platformSettings:
+  - name: DefaultTexturePlatform
+    overridden: 0
+    ignorePlatformSupport: 0
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    androidETC2FallbackOverride: 0
+  - name: Standalone
+    overridden: 0
+    ignorePlatformSupport: 0
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    androidETC2FallbackOverride: 0
+  - name: Windows Store Apps
+    overridden: 0
+    ignorePlatformSupport: 0
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    androidETC2FallbackOverride: 0
   generatePhysicsShape: 0
   secondarySpriteTextures: []
   spritePackingTag: 
