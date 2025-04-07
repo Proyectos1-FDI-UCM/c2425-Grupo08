@@ -59,6 +59,7 @@ GameObject:
   - component: {fileID: 7992471628462401874}
   - component: {fileID: 2472142990487990649}
   - component: {fileID: 5141495823849015549}
+  - component: {fileID: 8560972864351180450}
   m_Layer: 0
   m_Name: Floor
   m_TagString: Untagged
@@ -290,7 +291,7 @@ Tilemap:
   - m_RefCount: 12
     m_Data: {r: 1, g: 1, b: 1, a: 1}
   - m_RefCount: 1
-    m_Data: {r: 0.9177323, g: 0.44198835, b: 0.54000103, a: 1}
+    m_Data: {r: 0.7073641, g: 0.4651548, b: 0.5058975, a: 1}
   m_TileObjectToInstantiateArray: []
   m_AnimationFrameRate: 1
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -502,6 +503,19 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+--- !u!114 &8560972864351180450
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9127189208446000176}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 38f48a8d66b2adc46887f23a3a88ac01, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_ShadowGroup: 0
 --- !u!114 &7057859962112233942
 MonoBehaviour:
   m_ObjectHideFlags: 0
