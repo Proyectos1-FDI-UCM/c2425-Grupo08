@@ -32,8 +32,7 @@ public class Motor : MonoBehaviour
     // Tiempo total requerido para completar la carga (en segundos)
     [SerializeField] private float loadTime = 4f;
 
-    // Referencia al SpriteRenderer del motor, usado para cambiar su color al repararlo
-    [SerializeField] private SpriteRenderer motorSprite;
+ 
 
     #endregion
 
@@ -53,6 +52,7 @@ public class Motor : MonoBehaviour
     private Coroutine loadCoroutine;
 
     private GameObject player;
+    private Animator motorAnimator;
 
     #endregion
 
@@ -70,6 +70,7 @@ public class Motor : MonoBehaviour
         progressBar.value = currentLoadProgress;  // Inicializa la barra en el progreso actual (0)
 
         player = GameObject.FindGameObjectWithTag("Player");
+        motorAnimator = GetComponent<Animator>();
     }
 
     /// <summary>
@@ -144,10 +145,20 @@ public class Motor : MonoBehaviour
     private IEnumerator LoadProgress()
     {
         player.GetComponent<PlayerMovement>().SetIsRepairing(true);
+
+        if (motorAnimator != null)
+            motorAnimator.speed = 0.5f;
+
         while (currentLoadProgress < 1f) // Mientras la carga no esté completa
         {
             currentLoadProgress += Time.deltaTime / loadTime; // Incrementa el progreso
             progressBar.value = currentLoadProgress; // Actualiza la barra de progreso
+
+            if (motorAnimator != null)
+            {
+                float speedMultiplier = Mathf.Lerp(0.5f, 3f, currentLoadProgress);
+                motorAnimator.speed = speedMultiplier;
+            }
 
             if (currentLoadProgress >= 1f) // Si la carga se completa
             {
@@ -172,10 +183,12 @@ public class Motor : MonoBehaviour
         GetComponent<GeneratorEnemySpawner>().SetCanRespawn(false);
 
         // Cambia el color del motor a verde para indicar que está reparado
-        if (motorSprite != null)
+        if (motorAnimator != null)
         {
-            motorSprite.color = Color.green;
+            motorAnimator.speed = 1f;
+            motorAnimator.SetTrigger("MotorIdle"); // Activa el trigger
         }
+
 
         // Notifica al LevelManager que el motor ha sido reparado
         LevelManager.Instance.MotorRepaired();
