@@ -45,6 +45,8 @@ public class OxigenScript : MonoBehaviour
     public float currentOxigen; // La cantidad actual de oxígeno que tiene el jugador
     private bool tankBroken = false; // Indica si el tanque de oxígeno está roto o no
     private AudioSource audioSource;
+    private bool isDead = false;
+
     #endregion
 
     // ---- MÉTODOS DE MONOBEHAVIOUR ----
@@ -117,19 +119,15 @@ public class OxigenScript : MonoBehaviour
     {
         tankBroken = false;
     }
-
-
-    #endregion
-
-    // ---- MÉTODOS PRIVADOS ----
-    #region Métodos Privados
-    // Documentar cada método que aparece aquí
-    // El convenio de nombres de Unity recomienda que estos métodos
-    // se nombren en formato PascalCase (palabras con primera letra
-    // mayúscula, incluida la primera letra)
-    private bool isDead = false;
-
-    private void Death()
+    /// <summary>
+    /// Método que devuelve el estado del tanque de oxígeno
+    /// </summary>
+    /// <returns></returns>
+    public bool IsTankBroken() 
+    {
+        return tankBroken;
+    }
+    public void Death()
     {
         if (isDead) return; // Evitar múltiples ejecuciones
 
@@ -139,6 +137,17 @@ public class OxigenScript : MonoBehaviour
 
         StartCoroutine(DestroyAfterDelay());
     }
+
+    #endregion
+
+    // ---- MÉTODOS PRIVADOS ----
+    #region Métodos Privados
+    // Documentar cada método que aparece aquí
+    // El convenio de nombres de Unity recomienda que estos métodos
+    // se nombren en formato PascalCase (palabras con primera letra
+    // mayúscula, incluida la primera letra)
+    
+
     private IEnumerator DestroyAfterDelay()
     {
         yield return new WaitForSeconds(2f);

@@ -187,9 +187,6 @@ public class Enemy2Sonar : MonoBehaviour
         {
             Move((nodeRoute.GetNextNode().transform.position - transform.position).normalized, patrolSpeed);
         }
-
-       
-
     }
     void Update()
     {
@@ -249,7 +246,7 @@ public class Enemy2Sonar : MonoBehaviour
     {
         if (collision.gameObject == player && attack)
         {
-            // player.GetComponent<OxigenScript>().Kill();
+            player.GetComponent<OxigenScript>().Death();
 
             attack = false;
             animator.SetBool("Attack", false);

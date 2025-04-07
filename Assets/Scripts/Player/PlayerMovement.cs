@@ -79,6 +79,8 @@ public class PlayerMovement : MonoBehaviour
 
         private AudioSource audioSource;
 
+    private Animator animator;
+
     /// <summary>
     /// Un bool que representa si el jugador está reparando. Tiene un setter y un getter como métodos públicos
     /// </summary>
@@ -94,7 +96,8 @@ public class PlayerMovement : MonoBehaviour
     /// any of the Update methods are called the first time.
     /// </summary>
     void Start()
-    {     
+    {
+        animator = GetComponentInChildren<Animator>();
         _rb = GetComponent<Rigidbody2D>();
         audioSource = GetComponent<AudioSource>();
     }
@@ -105,6 +108,17 @@ public class PlayerMovement : MonoBehaviour
     void Update()
     {
         CheckState(ref _state);
+
+        if (GetComponent<OxigenScript>().IsTankBroken())
+        {
+            animator.Play(_state.ToString() + "Damaged");
+        }
+        else
+        {
+            animator.Play(_state.ToString());
+        }    
+
+        animator.speed = _rb.velocity.magnitude / 10;
     }
     public void FixedUpdate()
     {
