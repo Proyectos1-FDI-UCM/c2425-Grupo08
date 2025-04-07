@@ -191,7 +191,7 @@ public class PlayerMovement : MonoBehaviour
             //Debug.Log(_state);
             
             //Debug.Log(_rb.velocity.y);
-            Debug.Log(_jumpMultiplier);
+            //Debug.Log(_jumpMultiplier);
             switch (_state){
                 case States.Idle:
 
@@ -286,9 +286,9 @@ public class PlayerMovement : MonoBehaviour
             }
             else // Aceleración en el sentido del movimiento
             {
-            Debug.Log(WalkAcceleration);
+            //Debug.Log(WalkAcceleration);
 
-            Debug.Log("moviendose");
+            //Debug.Log("moviendose");
                 _rb.AddForce(new Vector2(x, 0).normalized * WalkAcceleration, ForceMode2D.Force);
             }
 

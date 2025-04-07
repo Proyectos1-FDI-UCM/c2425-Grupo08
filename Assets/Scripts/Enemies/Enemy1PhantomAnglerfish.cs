@@ -121,8 +121,8 @@ public class Enemy1PhantomAnglerfish : MonoBehaviour
         playerCollider = player.GetComponent<Collider2D>();
         flashCollider = player.GetComponentInChildren<FlashLight>().GetComponentInChildren<Collider2D>();
 
-        Debug.Log(playerCollider);
-        Debug.Log(flashCollider);
+        //Debug.Log(playerCollider);
+        //Debug.Log(flashCollider);
 
         enemyCollider = GetComponent<Collider2D>();
 
@@ -218,7 +218,7 @@ public class Enemy1PhantomAnglerfish : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        Debug.Log("COLISIÓN CON: " + collision.gameObject);
+        //Debug.Log("COLISIÓN CON: " + collision.gameObject);
         if (enemyCollider.IsTouching(nodeRoute.GetCollider()))
         {
             nodeRoute.SetNextNode();
