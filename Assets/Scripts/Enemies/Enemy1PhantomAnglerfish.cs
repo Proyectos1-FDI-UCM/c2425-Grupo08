@@ -131,9 +131,6 @@ public class Enemy1PhantomAnglerfish : MonoBehaviour
         playerCollider = player.GetComponent<Collider2D>();
         flashCollider = player.GetComponentInChildren<FlashLight>().GetComponentInChildren<Collider2D>();
 
-        //Debug.Log(playerCollider);
-        //Debug.Log(flashCollider);
-
         enemyCollider = GetComponent<Collider2D>();
 
         rb = GetComponent<Rigidbody2D>();      
@@ -150,13 +147,11 @@ public class Enemy1PhantomAnglerfish : MonoBehaviour
 
         if (rb.velocity.x < 0)
         {
-            spriteRenderer.flipY = true;
-            spriteRenderer.gameObject.transform.localPosition = new Vector3(0, 0.5f, 0);
+            transform.localScale = new Vector3(1, -1, 1);
         }
         else if (rb.velocity.x >= 0)
         {
-            spriteRenderer.flipY = false;
-            spriteRenderer.gameObject.transform.localPosition = new Vector3(0, -0.5f, 0);
+            transform.localScale = new Vector3(1, 1, 1);
         }
     }
 
@@ -255,8 +250,6 @@ public class Enemy1PhantomAnglerfish : MonoBehaviour
 
             animator.SetTrigger("Flee");
 
-            Debug.Log("Huida");
-            Debug.Log(collision.gameObject);
             StartCoroutine(DisintegrationDelay());
         }
         else if (collision.gameObject.GetComponent<Collider2D>() == playerCollider)
@@ -264,9 +257,6 @@ public class Enemy1PhantomAnglerfish : MonoBehaviour
             attack = true;
 
             animator.SetTrigger("Attack");
-
-            Debug.Log("Ataque");
-            Debug.Log(collision.gameObject);
         }
     }
     private void OnCollisionEnter2D(Collision2D collision)

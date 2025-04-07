@@ -201,7 +201,7 @@ public class PlayerMovement : MonoBehaviour
                     AudioManager.instance.PlaySFX(SFXType.Walk, audioSource, true);
 
                 }
-                else if (_rb.velocity.y < 0.1)
+                else if (_rb.velocity.y < -0.1)
  
                     {
                         _state = States.Fall;
@@ -226,7 +226,7 @@ public class PlayerMovement : MonoBehaviour
                         AudioManager.instance.StopSFX(audioSource);
          
                     }
-                    else if (_rb.velocity.y < 0.1)
+                    else if (_rb.velocity.y < -0.1)
                     {
                         _state = States.Fall;
                     }
@@ -244,12 +244,12 @@ public class PlayerMovement : MonoBehaviour
                     }
                 break;
                 case States.Jump:
-                    if (_rb.velocity.y < 0.1){
+                    if (_rb.velocity.y < -0.1){
                         _state = States.Fall;
                     }
                 break;
                 case States.Fall:
-                    if (Mathf.Approximately(_rb.velocity.y, 0))
+                    if (_rb.velocity.y >= -0.1)
                     {
                         AudioManager.instance.PlaySFX(SFXType.Fall, audioSource);
                         if (_rb.velocity.x == 0){
