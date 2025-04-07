@@ -77,6 +77,8 @@ public class Enemy2Sonar : MonoBehaviour
     private GameObject player;
     private SonarUI sonarUI;
 
+    private AudioSource audioSource;
+
     /// <summary>
     /// Bool que se activa cuando el enemigo detecta al jugador
     /// </summary>
@@ -321,6 +323,17 @@ public class Enemy2Sonar : MonoBehaviour
         sonarUI.PlayAnimation();
 
         yield return new WaitForSeconds(sonarChargeTime);
+
+        // Elige aleatoriamente entre Sonar1 y Sonar2
+        int randomSonar = Random.Range(0, 2);  // 0 o 1
+        if (randomSonar == 0)
+        {
+            AudioManager.instance.PlaySFX(SFXType.Sonar1, audioSource);
+        }
+        else
+        {
+            AudioManager.instance.PlaySFX(SFXType.Sonar2, audioSource);
+        }
 
         StartCoroutine(ShadowDelay());
     }
