@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 220ac395b1fdc0d4cb2451f38fc6080f
+guid: f0b714d9b98e2c045a6de5cbb64318a1
 ScriptedImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -121,18 +121,18 @@ ScriptedImporter:
     tessellationDetail: 0
     uvTransform: {x: 0, y: 0}
   animatedSpriteImportData:
-  - name: pezanimation_Frame_0
+  - name: Algaes_Frame_0
     originalName: 
-    pivot: {x: 0.53333336, y: -0.16666667}
+    pivot: {x: 0.4, y: 0}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
       serializedVersion: 2
-      x: 28
-      y: 25
-      width: 15
-      height: 12
-    spriteID: 94de650e25bee494f91f3e74efcac6c4
+      x: 19
+      y: 27
+      width: 5
+      height: 14
+    spriteID: 8d23b42b4ab76c144a1c66b375a6d2fa
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -140,19 +140,19 @@ ScriptedImporter:
     indices: 
     edges: []
     tessellationDetail: 0
-    uvTransform: {x: 28, y: 25}
-  - name: pezanimation_Frame_1
+    uvTransform: {x: 19, y: 27}
+  - name: Algaes_Frame_1
     originalName: 
-    pivot: {x: 0.53333336, y: -0.16666667}
+    pivot: {x: 0.25, y: 0}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
       serializedVersion: 2
-      x: 51
-      y: 25
-      width: 15
-      height: 12
-    spriteID: b57e7db0be916d043927592831ead7fc
+      x: 46
+      y: 4
+      width: 4
+      height: 13
+    spriteID: 000658a3d9aa7624ab5b15353739a1b6
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -160,19 +160,19 @@ ScriptedImporter:
     indices: 
     edges: []
     tessellationDetail: 0
-    uvTransform: {x: 51, y: 25}
-  - name: pezanimation_Frame_2
+    uvTransform: {x: 46, y: 4}
+  - name: Algaes_Frame_2
     originalName: 
-    pivot: {x: 0.53333336, y: -0.16666667}
+    pivot: {x: 0.6, y: 0}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
       serializedVersion: 2
-      x: 74
-      y: 25
-      width: 15
+      x: 32
+      y: 24
+      width: 5
       height: 12
-    spriteID: 954e1ddbfebf17646a1a1de8997545d3
+    spriteID: c4c11d173263c48448b7a6bb0521a3c0
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -180,19 +180,19 @@ ScriptedImporter:
     indices: 
     edges: []
     tessellationDetail: 0
-    uvTransform: {x: 74, y: 25}
-  - name: pezanimation_Frame_3
+    uvTransform: {x: 32, y: 24}
+  - name: Algaes_Frame_3
     originalName: 
-    pivot: {x: 0.53333336, y: -0.16666667}
+    pivot: {x: 0.2, y: 0}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
       serializedVersion: 2
-      x: 97
-      y: 25
-      width: 15
+      x: 32
+      y: 44
+      width: 5
       height: 12
-    spriteID: 1f6f7fd5919ec0449b03c9aea751da44
+    spriteID: 8410dc3cae846e745b751c43f9e6691d
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -200,19 +200,59 @@ ScriptedImporter:
     indices: 
     edges: []
     tessellationDetail: 0
-    uvTransform: {x: 97, y: 25}
-  - name: pezanimation_Frame_4
+    uvTransform: {x: 32, y: 44}
+  - name: Algaes_Frame_4
     originalName: 
-    pivot: {x: 0.53333336, y: -0.16666667}
+    pivot: {x: 0.33333334, y: 0}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 32
+      y: 4
+      width: 6
+      height: 12
+    spriteID: b585e77bf6c423144abfcbb11a2f9b53
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 32, y: 4}
+  - name: Algaes_Frame_5
+    originalName: 
+    pivot: {x: 0.6, y: 0}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 19
+      y: 49
+      width: 5
+      height: 11
+    spriteID: 5b4ed9e96b2ddec4bac293a6c1c4d16c
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 19, y: 49}
+  - name: Algaes_Frame_6
+    originalName: 
+    pivot: {x: 0.33333334, y: 0}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
       serializedVersion: 2
       x: 4
-      y: 45
-      width: 15
-      height: 12
-    spriteID: a1b27d8fe6bc2c74091a6f0c2b09c63a
+      y: 28
+      width: 6
+      height: 16
+    spriteID: 10c6f2cf805e0d2439a84d9d00a156dd
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -220,59 +260,19 @@ ScriptedImporter:
     indices: 
     edges: []
     tessellationDetail: 0
-    uvTransform: {x: 4, y: 45}
-  - name: pezanimation_Frame_5
+    uvTransform: {x: 4, y: 28}
+  - name: Algaes_Frame_7
     originalName: 
-    pivot: {x: 0.53333336, y: -0.16666667}
+    pivot: {x: 0.6, y: 0}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
       serializedVersion: 2
-      x: 27
-      y: 45
-      width: 15
-      height: 12
-    spriteID: a92fb4901e18f384a9a39928898565e8
-    spriteBone: []
-    spriteOutline: []
-    vertices: []
-    spritePhysicsOutline: []
-    indices: 
-    edges: []
-    tessellationDetail: 0
-    uvTransform: {x: 27, y: 45}
-  - name: pezanimation_Frame_6
-    originalName: 
-    pivot: {x: 0.53333336, y: -0.16666667}
-    alignment: 9
-    border: {x: 0, y: 0, z: 0, w: 0}
-    rect:
-      serializedVersion: 2
-      x: 50
-      y: 45
-      width: 15
-      height: 12
-    spriteID: 05a2a5e562d77894fa81e838ec5b4329
-    spriteBone: []
-    spriteOutline: []
-    vertices: []
-    spritePhysicsOutline: []
-    indices: 
-    edges: []
-    tessellationDetail: 0
-    uvTransform: {x: 50, y: 45}
-  - name: pezanimation_Frame_7
-    originalName: 
-    pivot: {x: 0.53333336, y: -0.15384616}
-    alignment: 9
-    border: {x: 0, y: 0, z: 0, w: 0}
-    rect:
-      serializedVersion: 2
-      x: 28
+      x: 19
       y: 4
-      width: 15
-      height: 13
-    spriteID: 6d10dc29465a0d342841da88ae41735c
+      width: 5
+      height: 15
+    spriteID: fc76f739fb5365d4e88952f484477e4c
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -280,99 +280,19 @@ ScriptedImporter:
     indices: 
     edges: []
     tessellationDetail: 0
-    uvTransform: {x: 28, y: 4}
-  - name: pezanimation_Frame_8
+    uvTransform: {x: 19, y: 4}
+  - name: Algaes_Frame_8
     originalName: 
-    pivot: {x: 0.53333336, y: -0.15384616}
-    alignment: 9
-    border: {x: 0, y: 0, z: 0, w: 0}
-    rect:
-      serializedVersion: 2
-      x: 51
-      y: 4
-      width: 15
-      height: 13
-    spriteID: 4dbf85bfaaa7b4548828c70ac566ae20
-    spriteBone: []
-    spriteOutline: []
-    vertices: []
-    spritePhysicsOutline: []
-    indices: 
-    edges: []
-    tessellationDetail: 0
-    uvTransform: {x: 51, y: 4}
-  - name: pezanimation_Frame_9
-    originalName: 
-    pivot: {x: 0.4666667, y: -0.07692308}
-    alignment: 9
-    border: {x: 0, y: 0, z: 0, w: 0}
-    rect:
-      serializedVersion: 2
-      x: 74
-      y: 4
-      width: 15
-      height: 13
-    spriteID: f95c854df649a4344b9a327a0c71558f
-    spriteBone: []
-    spriteOutline: []
-    vertices: []
-    spritePhysicsOutline: []
-    indices: 
-    edges: []
-    tessellationDetail: 0
-    uvTransform: {x: 74, y: 4}
-  - name: pezanimation_Frame_10
-    originalName: 
-    pivot: {x: 0.5, y: -0.16666667}
-    alignment: 9
-    border: {x: 0, y: 0, z: 0, w: 0}
-    rect:
-      serializedVersion: 2
-      x: 4
-      y: 25
-      width: 16
-      height: 12
-    spriteID: c9239809a9803cc4f87ebac2659a66a3
-    spriteBone: []
-    spriteOutline: []
-    vertices: []
-    spritePhysicsOutline: []
-    indices: 
-    edges: []
-    tessellationDetail: 0
-    uvTransform: {x: 4, y: 25}
-  - name: pezanimation_Frame_11
-    originalName: 
-    pivot: {x: 0.4666667, y: -0.07692308}
-    alignment: 9
-    border: {x: 0, y: 0, z: 0, w: 0}
-    rect:
-      serializedVersion: 2
-      x: 97
-      y: 4
-      width: 15
-      height: 13
-    spriteID: 385fcd18e91664c428036e965725b843
-    spriteBone: []
-    spriteOutline: []
-    vertices: []
-    spritePhysicsOutline: []
-    indices: 
-    edges: []
-    tessellationDetail: 0
-    uvTransform: {x: 97, y: 4}
-  - name: pezanimation_Frame_12
-    originalName: 
-    pivot: {x: 0.5, y: -0.07692308}
+    pivot: {x: 0.5714286, y: 0}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
       serializedVersion: 2
       x: 4
       y: 4
-      width: 16
-      height: 13
-    spriteID: 158c0adfbe4887a41bd04c570eeb9d0a
+      width: 7
+      height: 16
+    spriteID: b0ccda1a3982567499ec66a2b489eb2d
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -384,129 +304,93 @@ ScriptedImporter:
   spriteSheetImportData: []
   asepriteLayers:
   - layerIndex: 0
-    guid: 49606553
-    name: pezanimation
+    guid: 229472553
+    name: Algaes
     layerFlags: 0
     layerType: 0
     blendMode: 0
     cells:
-    - name: pezanimation_Frame_0
+    - name: Algaes_Frame_0
       frameIndex: 0
       additiveSortOrder: 0
       cellRect:
-        x: 0
-        y: 2
-        width: 15
-        height: 12
-      spriteId: 94de650e25bee494f91f3e74efcac6c4
-    - name: pezanimation_Frame_1
+        x: 6
+        y: 0
+        width: 5
+        height: 14
+      spriteId: 8d23b42b4ab76c144a1c66b375a6d2fa
+    - name: Algaes_Frame_1
       frameIndex: 1
       additiveSortOrder: 0
       cellRect:
-        x: 0
-        y: 2
-        width: 15
-        height: 12
-      spriteId: b57e7db0be916d043927592831ead7fc
-    - name: pezanimation_Frame_2
+        x: 7
+        y: 0
+        width: 4
+        height: 13
+      spriteId: 000658a3d9aa7624ab5b15353739a1b6
+    - name: Algaes_Frame_2
       frameIndex: 2
       additiveSortOrder: 0
       cellRect:
-        x: 0
-        y: 2
-        width: 15
+        x: 5
+        y: 0
+        width: 5
         height: 12
-      spriteId: 954e1ddbfebf17646a1a1de8997545d3
-    - name: pezanimation_Frame_3
+      spriteId: c4c11d173263c48448b7a6bb0521a3c0
+    - name: Algaes_Frame_3
       frameIndex: 3
       additiveSortOrder: 0
       cellRect:
-        x: 0
-        y: 2
-        width: 15
+        x: 7
+        y: 0
+        width: 5
         height: 12
-      spriteId: 1f6f7fd5919ec0449b03c9aea751da44
-    - name: pezanimation_Frame_4
+      spriteId: 8410dc3cae846e745b751c43f9e6691d
+    - name: Algaes_Frame_4
       frameIndex: 4
       additiveSortOrder: 0
       cellRect:
-        x: 0
-        y: 2
-        width: 15
+        x: 6
+        y: 0
+        width: 6
         height: 12
-      spriteId: a1b27d8fe6bc2c74091a6f0c2b09c63a
-    - name: pezanimation_Frame_5
+      spriteId: b585e77bf6c423144abfcbb11a2f9b53
+    - name: Algaes_Frame_5
       frameIndex: 5
       additiveSortOrder: 0
       cellRect:
-        x: 0
-        y: 2
-        width: 15
-        height: 12
-      spriteId: a92fb4901e18f384a9a39928898565e8
-    - name: pezanimation_Frame_6
+        x: 5
+        y: 0
+        width: 5
+        height: 11
+      spriteId: 5b4ed9e96b2ddec4bac293a6c1c4d16c
+    - name: Algaes_Frame_6
       frameIndex: 6
       additiveSortOrder: 0
       cellRect:
-        x: 0
-        y: 2
-        width: 15
-        height: 12
-      spriteId: 05a2a5e562d77894fa81e838ec5b4329
-    - name: pezanimation_Frame_7
+        x: 6
+        y: 0
+        width: 6
+        height: 16
+      spriteId: 10c6f2cf805e0d2439a84d9d00a156dd
+    - name: Algaes_Frame_7
       frameIndex: 7
       additiveSortOrder: 0
       cellRect:
-        x: 0
-        y: 2
-        width: 15
-        height: 13
-      spriteId: 6d10dc29465a0d342841da88ae41735c
-    - name: pezanimation_Frame_8
+        x: 5
+        y: 0
+        width: 5
+        height: 15
+      spriteId: fc76f739fb5365d4e88952f484477e4c
+    - name: Algaes_Frame_8
       frameIndex: 8
       additiveSortOrder: 0
       cellRect:
-        x: 0
-        y: 2
-        width: 15
-        height: 13
-      spriteId: 4dbf85bfaaa7b4548828c70ac566ae20
-    - name: pezanimation_Frame_9
-      frameIndex: 9
-      additiveSortOrder: 0
-      cellRect:
-        x: 1
-        y: 1
-        width: 15
-        height: 13
-      spriteId: f95c854df649a4344b9a327a0c71558f
-    - name: pezanimation_Frame_10
-      frameIndex: 10
-      additiveSortOrder: 0
-      cellRect:
-        x: 0
-        y: 2
-        width: 16
-        height: 12
-      spriteId: c9239809a9803cc4f87ebac2659a66a3
-    - name: pezanimation_Frame_11
-      frameIndex: 11
-      additiveSortOrder: 0
-      cellRect:
-        x: 1
-        y: 1
-        width: 15
-        height: 13
-      spriteId: 385fcd18e91664c428036e965725b843
-    - name: pezanimation_Frame_12
-      frameIndex: 12
-      additiveSortOrder: 0
-      cellRect:
-        x: 0
-        y: 1
-        width: 16
-        height: 13
-      spriteId: 158c0adfbe4887a41bd04c570eeb9d0a
+        x: 4
+        y: 0
+        width: 7
+        height: 16
+      spriteId: b0ccda1a3982567499ec66a2b489eb2d
     linkedCells: []
     parentIndex: -1
   platformSettings: []
