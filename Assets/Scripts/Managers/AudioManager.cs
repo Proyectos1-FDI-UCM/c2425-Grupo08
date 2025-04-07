@@ -79,9 +79,16 @@ public class AudioManager : MonoBehaviour
         }
     }
     #endregion
-    
+
     // ---- MÉTODOS PÚBLICOS ----
     #region Métodos públicos
+
+    public float CalculateVolume(Vector3 targetPosition, int maxHearingDistance)
+    {
+        float distance = Vector3.Distance(targetPosition, transform.position);
+        float volume = Mathf.Clamp01(1 - (distance / maxHearingDistance));  // Ajusta el divisor para que el volumen disminuya a la distancia que prefieras
+        return volume;
+    }
 
     // Método para reproducir un efecto de sonido en un AudioSource específico
     public void PlaySFX(SFXType type, AudioSource source, bool loop = false)
@@ -146,5 +153,7 @@ public class AudioManager : MonoBehaviour
         float volume = Mathf.Clamp01(1 / (distance / 20));
         return volume;
     }*/
+
+    
     #endregion
 }

@@ -55,6 +55,8 @@ public class Enemy2Sonar : MonoBehaviour
     /// </summary>
     [SerializeField] private float attackAnimationSpeed;
 
+    [SerializeField] int maxHearingDistance;
+
     #endregion
 
     // ---- ATRIBUTOS PRIVADOS ----
@@ -167,7 +169,10 @@ public class Enemy2Sonar : MonoBehaviour
         nodeRoute = new NodeRoute(nodeArray); // Aviso. El array de nodos se crea al inicio, no es dinámico.
 
         sonarCooldownTime = sonarFrequency - sonarChargeTime - shadowDelay;
-    }
+
+        audioSource = GetComponent<AudioSource>();
+    
+}
 
     /// <summary>
     /// Update is called every frame, if the MonoBehaviour is enabled.
@@ -181,7 +186,10 @@ public class Enemy2Sonar : MonoBehaviour
         else
         {
             Move((nodeRoute.GetNextNode().transform.position - transform.position).normalized, patrolSpeed);
-        }    
+        }
+
+       
+
     }
     void Update()
     {
@@ -224,6 +232,10 @@ public class Enemy2Sonar : MonoBehaviour
             spriteRenderer.flipY = false;
             spriteRenderer.gameObject.transform.localPosition = new Vector3(0, -0.6f, 0);
         }
+
+        audioSource.volume = CalculateVolume(player.transform.position);
+
+
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
@@ -379,6 +391,13 @@ public class Enemy2Sonar : MonoBehaviour
                 Gizmos.DrawLine(transform.position, player.transform.position);
             }
         }
+    }
+
+    private float CalculateVolume(Vector3 targetPosition)
+    {
+        float distance = Vector3.Distance(targetPosition, transform.position);
+        float volume = Mathf.Clamp01(1 - (distance / maxHearingDistance));  // Ajusta el divisor para que el volumen disminuya a la distancia que prefieras
+        return volume;
     }
 }
     #endregion   
