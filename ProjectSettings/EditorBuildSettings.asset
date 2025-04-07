@@ -9,8 +9,8 @@ EditorBuildSettings:
     path: Assets/Scenes/Menu.unity
     guid: 88ab91c3c24f24d8789e651802f2b486
   - enabled: 1
-    path: Assets/Scenes/Tests/Enemies/PhantomAnglerfishEnemy.unity
-    guid: bbeb0a8fb71e6954f8a38b875f2aac23
+    path: Assets/Scenes/Level1.unity
+    guid: 989512ec7389a4c40afc83dded37b3a0
   - enabled: 1
     path: Assets/Scenes/Tests/Shelter/RefugioHUD.unity
     guid: c34df6b300ff6d04d89cdc4d41b2b43d
