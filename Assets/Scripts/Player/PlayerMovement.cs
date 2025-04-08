@@ -118,7 +118,14 @@ public class PlayerMovement : MonoBehaviour
             animator.Play(_state.ToString());
         }    
 
-        animator.speed = _rb.velocity.magnitude / 10;
+        if (animator.GetCurrentAnimatorClipInfo(0)[0].clip.name == "IdleDamaged" || animator.GetCurrentAnimatorClipInfo(0)[0].clip.name == "Idle")
+        {
+            animator.speed = 1;
+        }
+        else
+        {
+            animator.speed = _rb.velocity.magnitude / 5;
+        }       
     }
     public void FixedUpdate()
     {
