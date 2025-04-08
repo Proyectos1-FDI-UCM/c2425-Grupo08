@@ -157,17 +157,6 @@ public class FlashLight : MonoBehaviour
             }
         }
 
-        // Controlar duración del flashCollider
-        if (flashCollider.enabled)
-        {
-            flashColliderTimer -= Time.deltaTime;
-            
-            if (flashColliderTimer <= 0f)
-            {
-                flashCollider.enabled = false;
-            }
-        }
-
         if (flashLight != null && flashCollider != null)
         {
             LerpValues(); // Interpolar los valores de la luz
@@ -346,8 +335,8 @@ public class FlashLight : MonoBehaviour
         currentValues = targetValues;
 
         flashCollider.enabled = true;
-
-        flashColliderTimer = 0.5f;
+        
+        StartCoroutine(ColliderActive());
 
         isFlashAvailable = false;
         flashTimer = flashCooldown;
@@ -375,7 +364,10 @@ public class FlashLight : MonoBehaviour
         targetValues.outerAngle = unfocusRadius + lightDiffusion;
         targetValues.outerRadius = unfocusLength;
         targetValues.color = lightColor;
-
+    }
+    IEnumerator ColliderActive()
+    {
+        yield return new WaitForSeconds(0.1f);
         flashCollider.enabled = false;
     }
 
