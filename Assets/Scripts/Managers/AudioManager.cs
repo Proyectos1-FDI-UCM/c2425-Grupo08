@@ -70,7 +70,6 @@ public class AudioManager : MonoBehaviour
         if (instance == null)
         {
             instance = this;
-            DontDestroyOnLoad(gameObject); // Evita que el objeto se destruya al cambiar de escena
         }
         else
         {

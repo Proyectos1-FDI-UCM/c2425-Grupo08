@@ -11,7 +11,6 @@
 using UnityEngine;
 using System.Collections;
 using UnityEngine.Rendering.Universal;
-using UnityEditorInternal;
 
 /// <summary>
 /// Controla el comportamiento de la linterna del jugador, incluyendo su rotación, enfoque y flash.

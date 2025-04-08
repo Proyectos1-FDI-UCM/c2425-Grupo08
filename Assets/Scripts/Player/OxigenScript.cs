@@ -151,7 +151,7 @@ public class OxigenScript : MonoBehaviour
     private IEnumerator DestroyAfterDelay()
     {
         yield return new WaitForSeconds(0); // De momento 0 porque no hay animación de muerte
-        Destroy(gameObject);
+        GameManager.Instance.ChangeScene(0);
     }
 
     #endregion
