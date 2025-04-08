@@ -14,7 +14,6 @@ GameObject:
   - component: {fileID: 4689173960903053057}
   - component: {fileID: 326833910301429398}
   - component: {fileID: 2492682648285201330}
-  - component: {fileID: -9175378343257284486}
   m_Layer: 0
   m_Name: Motor 2
   m_TagString: Untagged
@@ -190,36 +189,6 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!114 &-9175378343257284486
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7644363294648439886}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7db70e0ea77f5ac47a8f4565a9406397, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_ShadowGroup: 0
-  m_ComponentVersion: 1
-  m_HasRenderer: 0
-  m_UseRendererSilhouette: 1
-  m_CastsShadows: 1
-  m_SelfShadows: 0
-  m_ApplyToSortingLayers: 00000000
-  m_ShapePath:
-  - {x: -1.09375, y: 0, z: 0}
-  - {x: -1.09375, y: 2.625, z: 0}
-  - {x: 1.09375, y: 2.625, z: 0}
-  - {x: 1.09375, y: 0, z: 0}
-  m_ShapePathHash: 0
-  m_Mesh: {fileID: 0}
-  m_InstanceId: -140570
-  m_LocalBounds:
-    m_Center: {x: 0, y: 1.3125, z: 0}
-    m_Extent: {x: 1.09375, y: 1.3125, z: 0}
 --- !u!1001 &1930893395969772403
 PrefabInstance:
   m_ObjectHideFlags: 0
