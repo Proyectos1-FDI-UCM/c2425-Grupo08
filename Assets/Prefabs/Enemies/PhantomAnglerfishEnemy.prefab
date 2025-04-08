@@ -158,7 +158,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   patrolSpeed: 3
-  attackSpeed: 8
+  attackSpeed: 7
   fleeSpeed: 4
   disintegrationDelay: 1
   maxHearingDistance: 10
@@ -290,9 +290,9 @@ CircleCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: -0.05050536, y: 0.0003533466}
   serializedVersion: 2
-  m_Radius: 0.5
+  m_Radius: 0.6145707
 --- !u!114 &12531193849160238
 MonoBehaviour:
   m_ObjectHideFlags: 0

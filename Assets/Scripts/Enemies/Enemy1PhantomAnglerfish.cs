@@ -129,7 +129,7 @@ public class Enemy1PhantomAnglerfish : MonoBehaviour
         player = GameObject.FindGameObjectWithTag("Player");
 
         playerCollider = player.GetComponent<Collider2D>();
-        flashCollider = player.GetComponentInChildren<FlashLight>().GetComponentInChildren<Collider2D>();
+        flashCollider = player.GetComponentInChildren<FlashLight>().GetComponentInChildren<PolygonCollider2D>();
 
         enemyCollider = GetComponent<Collider2D>();
 

@@ -161,6 +161,7 @@ public class FlashLight : MonoBehaviour
         if (flashCollider.enabled)
         {
             flashColliderTimer -= Time.deltaTime;
+            
             if (flashColliderTimer <= 0f)
             {
                 flashCollider.enabled = false;
@@ -345,7 +346,8 @@ public class FlashLight : MonoBehaviour
         currentValues = targetValues;
 
         flashCollider.enabled = true;
-        flashColliderTimer = 0.001f; // activar solo 1 ms
+
+        flashColliderTimer = 0.5f;
 
         isFlashAvailable = false;
         flashTimer = flashCooldown;
