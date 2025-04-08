@@ -123,15 +123,15 @@ ScriptedImporter:
   animatedSpriteImportData:
   - name: SonarPatrol_Frame_0
     originalName: 
-    pivot: {x: 0.60784316, y: 0}
+    pivot: {x: 0.6037736, y: 0}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
       serializedVersion: 2
       x: 4
-      y: 200
-      width: 51
-      height: 27
+      y: 212
+      width: 53
+      height: 29
     spriteID: 9ba92fe3b59749143a9b9fe24b83e7fc
     spriteBone: []
     spriteOutline: []
@@ -140,18 +140,18 @@ ScriptedImporter:
     indices: 
     edges: []
     tessellationDetail: 0
-    uvTransform: {x: 4, y: 200}
+    uvTransform: {x: 4, y: 212}
   - name: SonarPatrol_Frame_1
     originalName: 
-    pivot: {x: 0.5423729, y: -0.040000003}
+    pivot: {x: 0.5409836, y: -0.037037034}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
       serializedVersion: 2
       x: 4
-      y: 70
-      width: 59
-      height: 25
+      y: 74
+      width: 61
+      height: 27
     spriteID: 6fee11f36a43eb541a4134adef21b31f
     spriteBone: []
     spriteOutline: []
@@ -160,18 +160,18 @@ ScriptedImporter:
     indices: 
     edges: []
     tessellationDetail: 0
-    uvTransform: {x: 4, y: 70}
+    uvTransform: {x: 4, y: 74}
   - name: SonarPatrol_Frame_2
     originalName: 
-    pivot: {x: 0.5, y: -0.040000003}
+    pivot: {x: 0.5, y: -0.037037034}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
       serializedVersion: 2
       x: 4
       y: 4
-      width: 64
-      height: 25
+      width: 66
+      height: 27
     spriteID: 61f76da20daf3eb40b56298b2da74fdf
     spriteBone: []
     spriteOutline: []
@@ -183,15 +183,15 @@ ScriptedImporter:
     uvTransform: {x: 4, y: 4}
   - name: SonarPatrol_Frame_3
     originalName: 
-    pivot: {x: 0.5423729, y: -0.041666668}
+    pivot: {x: 0.5409836, y: -0.038461536}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
       serializedVersion: 2
       x: 4
-      y: 136
-      width: 59
-      height: 24
+      y: 144
+      width: 61
+      height: 26
     spriteID: 2f0022be2f9b038448cc58b1bb9bca50
     spriteBone: []
     spriteOutline: []
@@ -200,18 +200,18 @@ ScriptedImporter:
     indices: 
     edges: []
     tessellationDetail: 0
-    uvTransform: {x: 4, y: 136}
+    uvTransform: {x: 4, y: 144}
   - name: SonarPatrol_Frame_4
     originalName: 
-    pivot: {x: 0.62, y: -0.09090909}
+    pivot: {x: 0.61538464, y: -0.083333336}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
       serializedVersion: 2
-      x: 71
-      y: 136
-      width: 50
-      height: 22
+      x: 65
+      y: 212
+      width: 52
+      height: 24
     spriteID: 01857a0100bf6b84d844e6b55232087f
     spriteBone: []
     spriteOutline: []
@@ -220,18 +220,18 @@ ScriptedImporter:
     indices: 
     edges: []
     tessellationDetail: 0
-    uvTransform: {x: 71, y: 136}
+    uvTransform: {x: 65, y: 212}
   - name: SonarPatrol_Frame_5
     originalName: 
-    pivot: {x: 0.5423729, y: -0.041666668}
+    pivot: {x: 0.5409836, y: -0.038461536}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
       serializedVersion: 2
       x: 4
-      y: 168
-      width: 59
-      height: 24
+      y: 178
+      width: 61
+      height: 26
     spriteID: 771ad57ea8a74e342a2535fc36b15404
     spriteBone: []
     spriteOutline: []
@@ -240,18 +240,18 @@ ScriptedImporter:
     indices: 
     edges: []
     tessellationDetail: 0
-    uvTransform: {x: 4, y: 168}
+    uvTransform: {x: 4, y: 178}
   - name: SonarPatrol_Frame_6
     originalName: 
-    pivot: {x: 0.5, y: -0.040000003}
+    pivot: {x: 0.5, y: -0.037037034}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
       serializedVersion: 2
       x: 4
-      y: 37
-      width: 64
-      height: 25
+      y: 39
+      width: 66
+      height: 27
     spriteID: 45860a2fc9a1a5746b1cfe517950da9f
     spriteBone: []
     spriteOutline: []
@@ -260,18 +260,18 @@ ScriptedImporter:
     indices: 
     edges: []
     tessellationDetail: 0
-    uvTransform: {x: 4, y: 37}
+    uvTransform: {x: 4, y: 39}
   - name: SonarPatrol_Frame_7
     originalName: 
-    pivot: {x: 0.5423729, y: -0.040000003}
+    pivot: {x: 0.5409836, y: -0.037037034}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
       serializedVersion: 2
       x: 4
-      y: 103
-      width: 59
-      height: 25
+      y: 109
+      width: 61
+      height: 27
     spriteID: 0c3afc8a1fde3c74ab337a2c2de7e094
     spriteBone: []
     spriteOutline: []
@@ -280,7 +280,7 @@ ScriptedImporter:
     indices: 
     edges: []
     tessellationDetail: 0
-    uvTransform: {x: 4, y: 103}
+    uvTransform: {x: 4, y: 109}
   spriteSheetImportData: []
   asepriteLayers:
   - layerIndex: 0
@@ -296,8 +296,8 @@ ScriptedImporter:
       cellRect:
         x: 1
         y: 0
-        width: 51
-        height: 27
+        width: 53
+        height: 29
       spriteId: 9ba92fe3b59749143a9b9fe24b83e7fc
     - name: SonarPatrol_Frame_1
       frameIndex: 1
@@ -305,8 +305,8 @@ ScriptedImporter:
       cellRect:
         x: 0
         y: 1
-        width: 59
-        height: 25
+        width: 61
+        height: 27
       spriteId: 6fee11f36a43eb541a4134adef21b31f
     - name: SonarPatrol_Frame_2
       frameIndex: 2
@@ -314,8 +314,8 @@ ScriptedImporter:
       cellRect:
         x: 0
         y: 1
-        width: 64
-        height: 25
+        width: 66
+        height: 27
       spriteId: 61f76da20daf3eb40b56298b2da74fdf
     - name: SonarPatrol_Frame_3
       frameIndex: 3
@@ -323,8 +323,8 @@ ScriptedImporter:
       cellRect:
         x: 0
         y: 1
-        width: 59
-        height: 24
+        width: 61
+        height: 26
       spriteId: 2f0022be2f9b038448cc58b1bb9bca50
     - name: SonarPatrol_Frame_4
       frameIndex: 4
@@ -332,8 +332,8 @@ ScriptedImporter:
       cellRect:
         x: 1
         y: 2
-        width: 50
-        height: 22
+        width: 52
+        height: 24
       spriteId: 01857a0100bf6b84d844e6b55232087f
     - name: SonarPatrol_Frame_5
       frameIndex: 5
@@ -341,8 +341,8 @@ ScriptedImporter:
       cellRect:
         x: 0
         y: 1
-        width: 59
-        height: 24
+        width: 61
+        height: 26
       spriteId: 771ad57ea8a74e342a2535fc36b15404
     - name: SonarPatrol_Frame_6
       frameIndex: 6
@@ -350,8 +350,8 @@ ScriptedImporter:
       cellRect:
         x: 0
         y: 1
-        width: 64
-        height: 25
+        width: 66
+        height: 27
       spriteId: 45860a2fc9a1a5746b1cfe517950da9f
     - name: SonarPatrol_Frame_7
       frameIndex: 7
@@ -359,8 +359,8 @@ ScriptedImporter:
       cellRect:
         x: 0
         y: 1
-        width: 59
-        height: 25
+        width: 61
+        height: 27
       spriteId: 0c3afc8a1fde3c74ab337a2c2de7e094
     linkedCells: []
     parentIndex: -1
@@ -404,4 +404,4 @@ ScriptedImporter:
   generatePhysicsShape: 0
   secondarySpriteTextures: []
   spritePackingTag: 
-  canvasSize: {x: 64, y: 27}
+  canvasSize: {x: 66, y: 29}

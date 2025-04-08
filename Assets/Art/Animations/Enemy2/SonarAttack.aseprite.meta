@@ -123,15 +123,15 @@ ScriptedImporter:
   animatedSpriteImportData:
   - name: SonarAttack_Frame_0
     originalName: 
-    pivot: {x: 0.60784316, y: 0}
+    pivot: {x: 0.6037736, y: 0}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
       serializedVersion: 2
       x: 4
-      y: 200
-      width: 51
-      height: 27
+      y: 212
+      width: 53
+      height: 29
     spriteID: 044135746ac7e2a4caecfe82647c1938
     spriteBone: []
     spriteOutline: []
@@ -140,18 +140,18 @@ ScriptedImporter:
     indices: 
     edges: []
     tessellationDetail: 0
-    uvTransform: {x: 4, y: 200}
+    uvTransform: {x: 4, y: 212}
   - name: SonarAttack_Frame_1
     originalName: 
-    pivot: {x: 0.5344828, y: -0.040000003}
+    pivot: {x: 0.53333336, y: -0.037037034}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
       serializedVersion: 2
       x: 4
-      y: 70
-      width: 58
-      height: 25
+      y: 74
+      width: 60
+      height: 27
     spriteID: 97f518dedff392149bae095f306e97c5
     spriteBone: []
     spriteOutline: []
@@ -160,18 +160,18 @@ ScriptedImporter:
     indices: 
     edges: []
     tessellationDetail: 0
-    uvTransform: {x: 4, y: 70}
+    uvTransform: {x: 4, y: 74}
   - name: SonarAttack_Frame_2
     originalName: 
-    pivot: {x: 0.49206352, y: -0.040000003}
+    pivot: {x: 0.49230772, y: -0.037037034}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
       serializedVersion: 2
       x: 4
       y: 4
-      width: 63
-      height: 25
+      width: 65
+      height: 27
     spriteID: b50cc006d276eee448ed230f409d440c
     spriteBone: []
     spriteOutline: []
@@ -183,15 +183,15 @@ ScriptedImporter:
     uvTransform: {x: 4, y: 4}
   - name: SonarAttack_Frame_3
     originalName: 
-    pivot: {x: 0.5344828, y: -0.041666668}
+    pivot: {x: 0.53333336, y: -0.038461536}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
       serializedVersion: 2
       x: 4
-      y: 136
-      width: 58
-      height: 24
+      y: 144
+      width: 60
+      height: 26
     spriteID: e79151f3cc2b2ea46890f0afb368ba53
     spriteBone: []
     spriteOutline: []
@@ -200,18 +200,18 @@ ScriptedImporter:
     indices: 
     edges: []
     tessellationDetail: 0
-    uvTransform: {x: 4, y: 136}
+    uvTransform: {x: 4, y: 144}
   - name: SonarAttack_Frame_4
     originalName: 
-    pivot: {x: 0.62, y: -0.043478258}
+    pivot: {x: 0.61538464, y: -0.04}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
       serializedVersion: 2
-      x: 70
-      y: 136
-      width: 50
-      height: 23
+      x: 72
+      y: 144
+      width: 52
+      height: 25
     spriteID: 2328cc2b18b06874488c1686de42c51a
     spriteBone: []
     spriteOutline: []
@@ -220,18 +220,18 @@ ScriptedImporter:
     indices: 
     edges: []
     tessellationDetail: 0
-    uvTransform: {x: 70, y: 136}
+    uvTransform: {x: 72, y: 144}
   - name: SonarAttack_Frame_5
     originalName: 
-    pivot: {x: 0.5344828, y: -0.041666668}
+    pivot: {x: 0.53333336, y: -0.038461536}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
       serializedVersion: 2
       x: 4
-      y: 168
-      width: 58
-      height: 24
+      y: 178
+      width: 60
+      height: 26
     spriteID: 72658581e1408374f80bb385dd3476c4
     spriteBone: []
     spriteOutline: []
@@ -240,18 +240,18 @@ ScriptedImporter:
     indices: 
     edges: []
     tessellationDetail: 0
-    uvTransform: {x: 4, y: 168}
+    uvTransform: {x: 4, y: 178}
   - name: SonarAttack_Frame_6
     originalName: 
-    pivot: {x: 0.49206352, y: -0.040000003}
+    pivot: {x: 0.49230772, y: -0.037037034}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
       serializedVersion: 2
       x: 4
-      y: 37
-      width: 63
-      height: 25
+      y: 39
+      width: 65
+      height: 27
     spriteID: 044ab203b126c8740875dc0cbe5376be
     spriteBone: []
     spriteOutline: []
@@ -260,18 +260,18 @@ ScriptedImporter:
     indices: 
     edges: []
     tessellationDetail: 0
-    uvTransform: {x: 4, y: 37}
+    uvTransform: {x: 4, y: 39}
   - name: SonarAttack_Frame_7
     originalName: 
-    pivot: {x: 0.5344828, y: -0.040000003}
+    pivot: {x: 0.53333336, y: -0.037037034}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
       serializedVersion: 2
       x: 4
-      y: 103
-      width: 58
-      height: 25
+      y: 109
+      width: 60
+      height: 27
     spriteID: 07353e3c2b811f84eb90370d051c282f
     spriteBone: []
     spriteOutline: []
@@ -280,7 +280,7 @@ ScriptedImporter:
     indices: 
     edges: []
     tessellationDetail: 0
-    uvTransform: {x: 4, y: 103}
+    uvTransform: {x: 4, y: 109}
   spriteSheetImportData: []
   asepriteLayers:
   - layerIndex: 0
@@ -296,8 +296,8 @@ ScriptedImporter:
       cellRect:
         x: 1
         y: 0
-        width: 51
-        height: 27
+        width: 53
+        height: 29
       spriteId: 044135746ac7e2a4caecfe82647c1938
     - name: SonarAttack_Frame_1
       frameIndex: 1
@@ -305,8 +305,8 @@ ScriptedImporter:
       cellRect:
         x: 1
         y: 1
-        width: 58
-        height: 25
+        width: 60
+        height: 27
       spriteId: 97f518dedff392149bae095f306e97c5
     - name: SonarAttack_Frame_2
       frameIndex: 2
@@ -314,8 +314,8 @@ ScriptedImporter:
       cellRect:
         x: 1
         y: 1
-        width: 63
-        height: 25
+        width: 65
+        height: 27
       spriteId: b50cc006d276eee448ed230f409d440c
     - name: SonarAttack_Frame_3
       frameIndex: 3
@@ -323,8 +323,8 @@ ScriptedImporter:
       cellRect:
         x: 1
         y: 1
-        width: 58
-        height: 24
+        width: 60
+        height: 26
       spriteId: e79151f3cc2b2ea46890f0afb368ba53
     - name: SonarAttack_Frame_4
       frameIndex: 4
@@ -332,8 +332,8 @@ ScriptedImporter:
       cellRect:
         x: 1
         y: 1
-        width: 50
-        height: 23
+        width: 52
+        height: 25
       spriteId: 2328cc2b18b06874488c1686de42c51a
     - name: SonarAttack_Frame_5
       frameIndex: 5
@@ -341,8 +341,8 @@ ScriptedImporter:
       cellRect:
         x: 1
         y: 1
-        width: 58
-        height: 24
+        width: 60
+        height: 26
       spriteId: 72658581e1408374f80bb385dd3476c4
     - name: SonarAttack_Frame_6
       frameIndex: 6
@@ -350,8 +350,8 @@ ScriptedImporter:
       cellRect:
         x: 1
         y: 1
-        width: 63
-        height: 25
+        width: 65
+        height: 27
       spriteId: 044ab203b126c8740875dc0cbe5376be
     - name: SonarAttack_Frame_7
       frameIndex: 7
@@ -359,8 +359,8 @@ ScriptedImporter:
       cellRect:
         x: 1
         y: 1
-        width: 58
-        height: 25
+        width: 60
+        height: 27
       spriteId: 07353e3c2b811f84eb90370d051c282f
     linkedCells: []
     parentIndex: -1
@@ -404,4 +404,4 @@ ScriptedImporter:
   generatePhysicsShape: 0
   secondarySpriteTextures: []
   spritePackingTag: 
-  canvasSize: {x: 64, y: 27}
+  canvasSize: {x: 66, y: 29}

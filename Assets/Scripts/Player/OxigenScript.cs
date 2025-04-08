@@ -42,7 +42,7 @@ public class OxigenScript : MonoBehaviour
     // primera letra en mayúsculas)
     // Ejemplo: _maxHealthPoints
 
-    public float currentOxigen; // La cantidad actual de oxígeno que tiene el jugador
+    private float currentOxigen; // La cantidad actual de oxígeno que tiene el jugador
     private bool tankBroken = false; // Indica si el tanque de oxígeno está roto o no
     private AudioSource audioSource;
     private bool isDead = false;
