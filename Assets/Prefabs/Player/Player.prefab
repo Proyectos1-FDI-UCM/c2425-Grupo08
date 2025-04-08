@@ -295,20 +295,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e704a827d56bbd94aa3336a84df7ea2e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  WalkAcceleration: 5
-  WalkDeceleration: 2.5
-  WalkMaxSpeed: 2
-  WalkDecelerationThreshold: 1
-  JumpAcceleration: 5
-  JumpDeceleration: 1
-  JumpMaxSpeed: 3
-  JumpDecelerationThreshold: 0.1
-  JumpJumpAcceleration: 1.5
+  WalkAcceleration: 3
+  WalkDeceleration: 5
+  WalkMaxSpeed: 2.75
+  WalkDecelerationThreshold: 0.2
+  JumpAcceleration: 2.5
+  JumpDeceleration: 2
+  JumpMaxSpeed: 1.5
+  JumpDecelerationThreshold: 0.2
+  JumpJumpAcceleration: 1
   JumpJumpMultiplierDecay: 0.15
-  FallAcceleration: 10
+  FallAcceleration: 5
   FallDeceleration: 5
   FallMaxSpeed: 3
-  FallDecelerationThreshold: 1
+  FallDecelerationThreshold: 0.2
   debug: 0
 --- !u!82 &7040302213323716177
 AudioSource:
@@ -806,7 +806,7 @@ MonoBehaviour:
   m_NormalMapQuality: 2
   m_UseNormalMap: 0
   m_ShadowIntensityEnabled: 1
-  m_ShadowIntensity: 0.75
+  m_ShadowIntensity: 0.6
   m_ShadowVolumeIntensityEnabled: 0
   m_ShadowVolumeIntensity: 0.75
   m_LocalBounds:
@@ -924,17 +924,17 @@ MonoBehaviour:
   lookSpeed: 15
   lightColor:
     serializedVersion: 2
-    rgba: 4283114240
+    rgba: 4283521615
   transitionSpeed: 15
   lightDiffusion: 10
   minIntensity: 0.5
-  unfocusRadius: 70
-  unfocusLength: 6
-  unfocusIntensity: 30
-  focusRadius: 10
-  focusLength: 10
-  focusIntensity: 180
-  flashColor: {r: 1, g: 1, b: 1, a: 1}
-  flashIntensity: 500
-  flashCooldown: 3
+  unfocusRadius: 84.1
+  unfocusLength: 5.84
+  unfocusIntensity: 10.8
+  focusRadius: 31.4
+  focusLength: 9.09
+  focusIntensity: 64
+  flashColor: {r: 0.77647066, g: 0.41960788, b: 0.23137257, a: 1}
+  flashIntensity: 758
+  flashCooldown: 6.25
   playerSprite: {fileID: 2302555880213678727}
