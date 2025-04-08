@@ -5,6 +5,7 @@
 // Proyectos 1 - Curso 2024-25
 //---------------------------------------------------------
 
+using System.Collections;
 using UnityEngine;
 // Añadir aquí el resto de directivas using
 
@@ -82,9 +83,9 @@ public class GeneratorEnemySpawner : MonoBehaviour
 
             if (currentRespawnCooldown <= 0)
             {
-                RespawnEnemy();
-                Debug.Log("Respawned enemy");
                 currentRespawnCooldown = Random.Range(minRespawnCooldown, maxRespawnCooldown);
+                RespawnEnemy();
+                Debug.Log("Respawned enemy");             
             }
         }
     }

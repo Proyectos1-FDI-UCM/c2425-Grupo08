@@ -108,7 +108,7 @@ public class OxigenScript : MonoBehaviour
     {
         if (tankBroken)
         {
-            // die
+            Death();
         }
         else
         {
@@ -150,7 +150,7 @@ public class OxigenScript : MonoBehaviour
 
     private IEnumerator DestroyAfterDelay()
     {
-        yield return new WaitForSeconds(2f);
+        yield return new WaitForSeconds(0); // De momento 0 porque no hay animación de muerte
         Destroy(gameObject);
     }
 

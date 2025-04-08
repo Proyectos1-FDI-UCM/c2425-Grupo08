@@ -113,14 +113,14 @@ MonoBehaviour:
   patrolSpeed: 2
   attackSpeed: 7
   debug: 1
-  sonarFrequency: 3
+  sonarFrequency: 5
   shadowDelay: 0.25
   sonarChargeTime: 1
-  sonarHearingDistance: 15
-  sonarAttackDistance: 10
-  patrolAnimationSpeed: 0
+  sonarHearingDistance: 20
+  sonarAttackDistance: 15
+  patrolAnimationSpeed: 0.3
   attackAnimationSpeed: 0.7
-  maxHearingDistance: 15
+  maxHearingDistance: 20
 --- !u!82 &5455179544005079292
 AudioSource:
   m_ObjectHideFlags: 0

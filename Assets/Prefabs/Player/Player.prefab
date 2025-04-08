@@ -270,7 +270,6 @@ MonoBehaviour:
   maxOxigen: 210
   oxigenDecayHealthy: 1
   oxigenDecayBroken: 2
-  currentOxigen: 0
 --- !u!114 &2822911129013704682
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -871,8 +870,8 @@ PolygonCollider2D:
   m_Points:
     m_Paths:
     - - {x: 0, y: 0}
-      - {x: 0.6765183, y: 12.7031765}
-      - {x: -0.7544175, y: 12.701894}
+      - {x: 1.9566766, y: 12.720428}
+      - {x: -2.3250701, y: 12.719146}
   m_UseDelaunayMesh: 0
 --- !u!1 &8229486857087641073
 GameObject:

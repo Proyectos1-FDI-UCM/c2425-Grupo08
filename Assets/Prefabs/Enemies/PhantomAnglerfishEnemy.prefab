@@ -160,7 +160,7 @@ MonoBehaviour:
   attackSpeed: 8
   fleeSpeed: 4
   disintegrationDelay: 1
-  maxHearingDistance: 15
+  maxHearingDistance: 10
 --- !u!82 &4454189796470735763
 AudioSource:
   m_ObjectHideFlags: 0

@@ -247,9 +247,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 365b719a570995444becc96c0dd8718f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  minRespawnTime: 5
-  maxRespawnTime: 10
-  respawnDistance: 7
+  minRespawnTime: 15
+  maxRespawnTime: 20
+  respawnDistance: 20
   enemyPrefab: {fileID: 518604220022958571, guid: e9d32d5a1248e5a4d9a6920b3518e46b, type: 3}
 --- !u!1 &7886679526067831091
 GameObject:

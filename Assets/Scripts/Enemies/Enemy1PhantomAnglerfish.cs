@@ -143,8 +143,11 @@ public class Enemy1PhantomAnglerfish : MonoBehaviour
 
     private void Update()
     {
-        audioSource.volume = CalculateVolume(player.transform.position);
-
+        if (player != null)
+        {
+            audioSource.volume = CalculateVolume(player.transform.position);
+        }
+        
         if (rb.velocity.x < 0)
         {
             transform.localScale = new Vector3(1, -1, 1);
@@ -166,7 +169,7 @@ public class Enemy1PhantomAnglerfish : MonoBehaviour
                 fleeSoundPlaying = true;
             }
         } 
-        else if (attack)
+        else if (player != null && attack)
         {
             Move((player.transform.position - transform.position).normalized, attackSpeed);
             if (!attackSoundPlaying)
@@ -180,8 +183,7 @@ public class Enemy1PhantomAnglerfish : MonoBehaviour
             Move((nodeRoute.GetNextNode().transform.position - transform.position).normalized, patrolSpeed);
 
             // Incrementar el temporizador del sonido de patrullaje
-            patrolSoundCooldown += Time.fixedDeltaTime;
-            audioSource.volume = CalculateVolume(player.transform.position);
+            patrolSoundCooldown += Time.fixedDeltaTime;     
 
             // Comprobar si ha pasado suficiente tiempo para reproducir el sonido de patrullaje
             if (patrolSoundCooldown >= patrolSoundInterval)
@@ -209,7 +211,7 @@ public class Enemy1PhantomAnglerfish : MonoBehaviour
 
         if (attack)
         {
-            animator.SetTrigger("Attack");
+            GetComponentInChildren<Animator>().SetTrigger("Attack");
         }
     }
 
@@ -244,7 +246,7 @@ public class Enemy1PhantomAnglerfish : MonoBehaviour
         {
             nodeRoute.SetNextNode();
         }
-        else if (enemyCollider.IsTouching(flashCollider))
+        else if (player != null && enemyCollider.IsTouching(flashCollider))
         {
             flee = true;
 
@@ -252,7 +254,7 @@ public class Enemy1PhantomAnglerfish : MonoBehaviour
 
             StartCoroutine(DisintegrationDelay());
         }
-        else if (collision.gameObject.GetComponent<Collider2D>() == playerCollider)
+        else if (player != null && collision.gameObject.GetComponent<Collider2D>() == playerCollider)
         {
             attack = true;
 

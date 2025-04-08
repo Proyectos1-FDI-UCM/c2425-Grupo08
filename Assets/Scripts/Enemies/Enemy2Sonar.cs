@@ -179,7 +179,7 @@ public class Enemy2Sonar : MonoBehaviour
     /// </summary>
     void FixedUpdate()
     {
-        if (attack)
+        if (player != null && attack)
         {
             Move((player.transform.position - transform.position).normalized, attackSpeed);
         }
@@ -190,34 +190,37 @@ public class Enemy2Sonar : MonoBehaviour
     }
     void Update()
     {
-        if (IsInsideHearingRadious())
+        if (player != null)
         {
-            if (!alreadyInsideHearingRadious)
+            if (IsInsideHearingRadious())
             {
-                StartCoroutine(SonarCooldown());
-                sonarUI.ActivateSonarUI();
-                alreadyInsideHearingRadious = true;
-            }                           
-        }
-        else if (alreadyInsideHearingRadious)
-        {
-            StopAllCoroutines();        
-            sonarUI.DeactivateSonarUI();
-            alreadyInsideHearingRadious = false;
-        }
-        if (IsInsideAttackRadious())
-        {
-            if (!alreadyInsideAttackRadious)
+                if (!alreadyInsideHearingRadious)
+                {
+                    StartCoroutine(SonarCooldown());
+                    sonarUI.ActivateSonarUI();
+                    alreadyInsideHearingRadious = true;
+                }
+            }
+            else if (alreadyInsideHearingRadious)
             {
-                sonarUI.ActivatePulseUI();
-                alreadyInsideAttackRadious = true;
-            }          
-        }
-        else if (alreadyInsideAttackRadious)
-        {
-            sonarUI.DeactivatePulseUI();
-            alreadyInsideAttackRadious = false;
-        }
+                StopAllCoroutines();
+                sonarUI.DeactivateSonarUI();
+                alreadyInsideHearingRadious = false;
+            }
+            if (IsInsideAttackRadious())
+            {
+                if (!alreadyInsideAttackRadious)
+                {
+                    sonarUI.ActivatePulseUI();
+                    alreadyInsideAttackRadious = true;
+                }
+            }
+            else if (alreadyInsideAttackRadious)
+            {
+                sonarUI.DeactivatePulseUI();
+                alreadyInsideAttackRadious = false;
+            }
+        }       
 
         if (rb.velocity.x < 0)
         {
@@ -230,9 +233,10 @@ public class Enemy2Sonar : MonoBehaviour
             spriteRenderer.gameObject.transform.localPosition = new Vector3(0, -0.6f, 0);
         }
 
-        audioSource.volume = CalculateVolume(player.transform.position);
-
-
+        if (player != null)
+        {
+            audioSource.volume = CalculateVolume(player.transform.position);
+        }
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
@@ -329,8 +333,11 @@ public class Enemy2Sonar : MonoBehaviour
     /// <returns></returns>
     private IEnumerator SonarCharge()
     {
-        sonarUI.PlayAnimation();
-
+        if (player != null)
+        {
+            sonarUI.PlayAnimation();
+        }
+        
         yield return new WaitForSeconds(sonarChargeTime);
 
         // Elige aleatoriamente entre Sonar1 y Sonar2
@@ -356,7 +363,7 @@ public class Enemy2Sonar : MonoBehaviour
 
         yield return new WaitForSeconds(shadowDelay);
 
-        if ((IsInsideAttackRadious()) &&
+        if (player != null && (IsInsideAttackRadious()) &&
         (InputManager.Instance.MovementVector.x != 0 || player.GetComponent<PlayerMovement>().GetIsRepairing())) // Hace falta cambiar el interact por un bool de si se está reparando el motor
         {
             attack = true;
@@ -382,7 +389,7 @@ public class Enemy2Sonar : MonoBehaviour
             Gizmos.color = Color.green;
             Gizmos.DrawWireSphere(transform.position, sonarAttackDistance);
 
-            if (attackDebug)
+            if (attackDebug && player != null)
             {
                 Gizmos.color = Color.blue;
                 Gizmos.DrawLine(transform.position, player.transform.position);
