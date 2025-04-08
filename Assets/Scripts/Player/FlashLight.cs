@@ -101,6 +101,7 @@ public class FlashLight : MonoBehaviour
 
     private bool isFlashAvailable = true;
     private float flashTimer;
+    private float flashColliderTimer = 0f;
 
     private struct LightValues
     {
@@ -154,6 +155,16 @@ public class FlashLight : MonoBehaviour
             {
                 isFlashAvailable = true;
                 flashTimer = 0f;
+            }
+        }
+
+        // Controlar duración del flashCollider
+        if (flashCollider.enabled)
+        {
+            flashColliderTimer -= Time.deltaTime;
+            if (flashColliderTimer <= 0f)
+            {
+                flashCollider.enabled = false;
             }
         }
 
@@ -323,18 +334,20 @@ public class FlashLight : MonoBehaviour
         flashLight.pointLightOuterAngle = (focusRadius * 2.5f) + (lightDiffusion * 2f);
         flashLight.pointLightOuterRadius = focusLength * 2.5f;
         flashLight.color = Color.white;
-        
+
         // Actualizar valores objetivo para la transición posterior
         targetValues.intensity = flashIntensity;
         targetValues.innerAngle = focusRadius * 2.5f;
         targetValues.outerAngle = (focusRadius * 2.5f) + (lightDiffusion * 2f);
         targetValues.outerRadius = focusLength * 2.5f;
         targetValues.color = Color.white;
-        
+
         // Actualizar valores actuales para evitar interpolación
         currentValues = targetValues;
 
         flashCollider.enabled = true;
+        flashColliderTimer = 0.001f; // activar solo 1 ms
+
         isFlashAvailable = false;
         flashTimer = flashCooldown;
         _state = State.Cooldown;
@@ -361,7 +374,7 @@ public class FlashLight : MonoBehaviour
         targetValues.outerAngle = unfocusRadius + lightDiffusion;
         targetValues.outerRadius = unfocusLength;
         targetValues.color = lightColor;
-        
+
         flashCollider.enabled = false;
     }
 
