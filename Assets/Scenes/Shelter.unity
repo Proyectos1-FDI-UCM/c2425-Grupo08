@@ -579,6 +579,21 @@ PrefabInstance:
       propertyPath: titleText
       value: 
       objectReference: {fileID: 0}
+    - target: {fileID: 7025799074717673256, guid: 878714b00ce9ed94ea9e28eb09be9e1f, type: 3}
+      propertyPath: narrativeText
+      value: "Ves una hoja con el borde desgarrado. En ella, un peque\xF1o texto
+        apenas legible:\n\nRealiz\xE9 las operaciones en la calculadora gigante de
+        la Estaci\xF3n. Mi razonamiento fue el siguiente: los datos proporcionados
+        por los mapas celestes no deber\xEDan coincidir a la perfecci\xF3n. con los
+        datos facilitados por el sateloide. O no necesariamente, puesto que el sateloide
+        estaba sometido a unas perturbaciones muy complicadas, por efecto de las
+        fuerzas gravitacionales de Solaris, de los dos soles que giraban a su alrededor,
+        as\xED como de los cambios gravitacionales locales inducidos por el oc\xE9ano."
+      objectReference: {fileID: 0}
+    - target: {fileID: 7025799074717673256, guid: 878714b00ce9ed94ea9e28eb09be9e1f, type: 3}
+      propertyPath: narrativeTitle
+      value: Camarote
+      objectReference: {fileID: 0}
     - target: {fileID: 8158885962986307221, guid: 878714b00ce9ed94ea9e28eb09be9e1f, type: 3}
       propertyPath: m_Name
       value: NarrativeButton
@@ -699,11 +714,23 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7025799074717673256, guid: 878714b00ce9ed94ea9e28eb09be9e1f, type: 3}
       propertyPath: narrativeText
-      value: "Aqu\xED va el texto narrativo correspondiente\n\naaaaaaaaaaaaaaaaaeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeiiiiiiiiiiiiiiiiiiioooooooooooooooooooooooouuuuuuuuuuuuu"
+      value: "Un art\xEDculo cient\xEDfico con marcas circulares marrones. Probablemente
+        de apoyar el caf\xE9 de manera descuidada sobre el documento.\n\n[...] La
+        observaci\xF3n de un mimoide durante sus d\xEDas felices (aunque, para ser
+        m\xE1s exactos, son d\xEDas felices para el investigador que se ocupa de
+        ellos) puede constituir una fuente de sensaciones inolvidables. Se dan casos
+        de \"vuelos creativos\" al comienzo de su incre\xEDble sobreproducci\xF3n.
+        Crea entonces variedades propias de las formas externas, o bien sus variantes,
+        o incluse \"prolongaciones formales\"; puede pasarse as\xED horas, para el
+        gozo del pintor abstracto y desesperaci\xF3n del cient\xEDfico que intenta,
+        en vano, comprender los procesos en curso. En ocasiones, la actividad de
+        un mimoide muestra rasgos de simplificaci\xF3n infantil; en otras, cae en
+        \"desviacones barrocas\", en las que todas sus creaciones exhiben una pronunciada
+        elefantitis. [...]"
       objectReference: {fileID: 0}
     - target: {fileID: 7025799074717673256, guid: 878714b00ce9ed94ea9e28eb09be9e1f, type: 3}
       propertyPath: narrativeTitle
-      value: "T\xEDtulo Narrativo 3"
+      value: Cocina
       objectReference: {fileID: 0}
     - target: {fileID: 8158885962986307221, guid: 878714b00ce9ed94ea9e28eb09be9e1f, type: 3}
       propertyPath: m_Name
@@ -934,11 +961,22 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7025799074717673256, guid: 878714b00ce9ed94ea9e28eb09be9e1f, type: 3}
       propertyPath: narrativeText
-      value: "Aqu\xED va el texto narrativo correspondiente\n\noooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo"
+      value: "Un informe sobresale por el canto de un viejo archivador. \n\n[...]
+        Altura: 1000 o 1200, quiz\xE1s 800 metros, no se observa nada, el oc\xE9ano
+        est\xE1 vac\xEDo.\nM\xE1s tarde, a las 16.40: una biebla roja se eleva. Visibilidad:
+        700 metros. El oc\xE9ano est\xE1 vac\xEDo.\nA las 10.00: la niebla se est\xE1
+        espesando, silencio, visibilidad: 400 metros, con claros. Bajo a 200.\nA
+        las 17.20: me encuentro en medio de la niebla. Altura: 200. Visibilidad:
+        20-40 metros. Silencio. Subo a 400.\nA las 17.45: altura 500. Banco de niebla
+        hasta el horizonte. En medio de la niebla: orificios en forma de embudo,
+        a trav\xE9s de ellos se visualiza la superficie del oc\xE9ano. Algo ocurre
+        en su interior. Intento entrar en uno de los embudos.\na las 17.52: percibo
+        una especie de remolino; escupe una espuma de color amarillo. Rodeado por
+        una pared de niebla. Altura: 100. Bajo a 20.\n--- Fin transmisi\xF3n ---"
       objectReference: {fileID: 0}
     - target: {fileID: 7025799074717673256, guid: 878714b00ce9ed94ea9e28eb09be9e1f, type: 3}
       propertyPath: narrativeTitle
-      value: "T\xEDtulo Narrativo 2"
+      value: Biblioteca
       objectReference: {fileID: 0}
     - target: {fileID: 8158885962986307221, guid: 878714b00ce9ed94ea9e28eb09be9e1f, type: 3}
       propertyPath: m_Name
