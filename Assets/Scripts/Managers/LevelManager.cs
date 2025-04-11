@@ -2,6 +2,7 @@
 // Gestor de escena. Podemos crear uno diferente con un
 // nombre significativo para cada escena, si es necesario
 // Guillermo Jiménez Díaz, Pedro Pablo Gómez Martín
+//Tomás Arévalo Almagro
 // TemplateP1
 // Proyectos 1 - Curso 2024-25
 //---------------------------------------------------------
@@ -98,8 +99,9 @@ public class LevelManager : MonoBehaviour
     }
     public void MotorRepaired()
     {
-        motoresReparados++;
-        Debug.Log("Motores reparados: " + motoresReparados);
+        motoresReparados++; //añade 1 al num de motores reparadoss
+        Debug.Log("Motores reparados: " + motoresReparados); 
+        //Muestra un mensaje con los motores reparados
         if (LevelCompleted())
         {
             if (completionLight != null)
@@ -107,12 +109,14 @@ public class LevelManager : MonoBehaviour
         }
     }
 
-    public bool LevelCompleted()
+    public bool LevelCompleted() 
+    //Función booleana para llamar desde otros scripts que comprueba si el nivel se ha completado
     {
-        if (motoresReparados == motorNeed)
+        if (motoresReparados == motorNeed) 
+        //Comprueba si la cantidad de motores reparados es la misma que los que se necesitam
         {
             Debug.Log("Puedes abandonar el nivel");
-            return true;
+            return true; //Vuelve true la función
         }
         return false;
     }

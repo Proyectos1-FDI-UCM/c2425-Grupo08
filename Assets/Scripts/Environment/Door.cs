@@ -1,7 +1,6 @@
 //---------------------------------------------------------
-// Breve descripción del contenido del archivo
-// Responsable de la creación de este archivo
-// Nombre del juego
+// Script que se le añade a las puertas para cambiar de escena
+// Tomás Arévalo Almagro
 // Proyectos 1 - Curso 2024-25
 //---------------------------------------------------------
 using System;
@@ -26,7 +25,9 @@ public class Door : MonoBehaviour
     // (palabras con primera letra mayúscula, incluida la primera letra)
     // Ejemplo: MaxHealthPoints
     [SerializeField] private Canvas canvas;
+    // Canvas que se muestra al acercarse a la puerta (mensaje de interacción).
     [SerializeField] private int sceneIndex;
+    // Índice de la escena a la que se cambiará al interactuar con la puerta.
     #endregion
 
     // ---- ATRIBUTOS PRIVADOS ----
@@ -38,25 +39,30 @@ public class Door : MonoBehaviour
     // primera letra en mayúsculas)
     // Ejemplo: _maxHealthPoints
     private bool levelCompleted = false;
+    // Indica si el jugador ha completado el nivel actual.
 
     private bool hasEnter = false;
+    // Indica si el jugador ha entrado en el área de colisión de la puerta.
+
     #endregion
-    
+
     // ---- MÉTODOS DE MONOBEHAVIOUR ----
     #region Métodos de MonoBehaviour
-    
+
     // Por defecto están los típicos (Update y Start) pero:
     // - Hay que añadir todos los que sean necesarios
     // - Hay que borrar los que no se usen 
-    
+
     /// <summary>
     /// Start is called on the frame when a script is enabled just before 
     /// any of the Update methods are called the first time.
     /// </summary>
     void Start()
     {
-        canvas.gameObject.SetActive(false);
+        canvas.gameObject.SetActive(false); 
+        // Oculta el mensaje al principio
         levelCompleted = LevelManager.Instance.LevelCompleted();
+        // Consulta si se ha completado el nivel
 
     }
 
@@ -68,6 +74,7 @@ public class Door : MonoBehaviour
         if (hasEnter && levelCompleted && InputManager.Instance.InteractWasPressedThisFrame())
         {
             GameManager.Instance.ChangeScene(sceneIndex);
+            // Cambiar de escena si se cumple todo
         }
     }
     #endregion
@@ -95,8 +102,8 @@ public class Door : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             hasEnter = true;
-            canvas.gameObject.SetActive(true);
-                        levelCompleted = LevelManager.Instance.LevelCompleted(); // Actualiza estado
+            canvas.gameObject.SetActive(true);// Muestra el mensaje
+            levelCompleted = LevelManager.Instance.LevelCompleted(); // Actualiza estado
 
         }
     }
@@ -104,8 +111,8 @@ public class Door : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            hasEnter = false;
-            canvas.gameObject.SetActive(false);
+            hasEnter = false; 
+            canvas.gameObject.SetActive(false);// Desactiva el mensaje
 
         }
     }

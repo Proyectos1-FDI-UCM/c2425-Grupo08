@@ -1,6 +1,7 @@
 //---------------------------------------------------------
 // AudioManager que controla los sonidos, los almacena, los reproduce y los para
 // Tomás Arévalo Almagro
+//Andrés Bartolomé Clap
 // Project Abyss
 // Proyectos 1 - Curso 2024-25
 //---------------------------------------------------------
@@ -98,30 +99,42 @@ public class AudioManager : MonoBehaviour
     // Método para reproducir un efecto de sonido en un AudioSource específico
     public void PlaySFX(SFXType type, AudioSource source, bool loop = false)
     {
-        if (source == null) return; // Si el AudioSource es nulo, no se hace nada
+        if (source == null) return;
+        // Si el AudioSource es nulo, no se hace nada
 
-        AudioClip clip = GetSFXClip(type); // Obtiene el clip de sonido correspondiente
-        if (clip == null) return; // Si el clip no se encuentra, no se reproduce nada
+        AudioClip clip = GetSFXClip(type); 
+        // Obtiene el clip de sonido correspondiente
+        if (clip == null) return; 
+        // Si el clip no se encuentra, no se reproduce nada
 
-        source.clip = clip; // Asigna el clip al AudioSource
-        source.loop = loop; // Define si el sonido debe repetirse en bucle
-        source.volume = sfxVolume; // Aplica el volumen general de los SFX
-        source.outputAudioMixerGroup = audioMixer.FindMatchingGroups("SFX")[0]; // Asigna el grupo de mezcla del AudioMixer
+        source.clip = clip; 
+        // Asigna el clip al AudioSource
+        source.loop = loop; 
+        // Define si el sonido debe repetirse en bucle
+        source.volume = sfxVolume; 
+        // Aplica el volumen general de los SFX
+        source.outputAudioMixerGroup = audioMixer.FindMatchingGroups("SFX")[0]; 
+        // Asigna el grupo de mezcla del AudioMixer
         source.Play(); // Reproduce el sonido
     }
 
     // Sobrecarga del método PlaySFX que ajusta el volumen según la distancia al jugador
     public void PlaySFX(SFXType type, AudioSource source, Vector3 playerPosition, bool loop = false)
     {
-        if (source == null) return; // Si el AudioSource es nulo, no se hace nada
+        if (source == null) return; 
+        // Si el AudioSource es nulo, no se hace nada
 
-        AudioClip clip = GetSFXClip(type); // Obtiene el clip de sonido correspondiente
-        if (clip == null) return; // Si el clip no existe, no se reproduce
+        AudioClip clip = GetSFXClip(type); 
+        // Obtiene el clip de sonido correspondiente
+        if (clip == null) return; 
+        // Si el clip no existe, no se reproduce
 
         source.clip = clip; // Asigna el clip al AudioSource
         source.loop = loop; // Define si el sonido debe repetirse en bucle
-        source.volume = CalculateVolume(playerPosition); // Calcula el volumen basado en la distancia
-        source.outputAudioMixerGroup = audioMixer.FindMatchingGroups("SFX")[0]; // Asigna el grupo del AudioMixer
+        source.volume = CalculateVolume(playerPosition);
+        // Calcula el volumen basado en la distancia
+        source.outputAudioMixerGroup = audioMixer.FindMatchingGroups("SFX")[0]; 
+        // Asigna el grupo del AudioMixer
         source.Play(); // Reproduce el sonido
     }
 
