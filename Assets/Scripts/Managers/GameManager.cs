@@ -43,6 +43,7 @@ public class GameManager : MonoBehaviour
     /// </summary>
     private static GameManager _instance;
     private GameObject player;
+    private FlashLight flashlight;
     private UIManager uiManager;
 
     #endregion
@@ -170,7 +171,12 @@ public class GameManager : MonoBehaviour
 
         return player;
     }
+    public FlashLight GetFlashLight()
+    {
+        flashlight = FindObjectOfType<FlashLight>().GetComponent<FlashLight>();
 
+        return flashlight;
+    }
     #endregion
 
     #region Metodo para Oxigeno

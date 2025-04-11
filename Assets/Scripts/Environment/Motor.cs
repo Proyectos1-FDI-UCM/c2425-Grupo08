@@ -52,6 +52,7 @@ public class Motor : MonoBehaviour
     private Coroutine loadCoroutine;
 
     private GameObject player;
+    private FlashLight flashlight;
     private Animator motorAnimator;
 
     #endregion
@@ -68,6 +69,7 @@ public class Motor : MonoBehaviour
         canva.gameObject.SetActive(false);  // Oculta el Canvas al inicio
         progressBar.gameObject.SetActive(false);  // Oculta la barra de progreso
         progressBar.value = currentLoadProgress;  // Inicializa la barra en el progreso actual (0)
+        flashlight = GameManager.Instance.GetFlashLight();
 
         player = GameObject.FindGameObjectWithTag("Player");
         motorAnimator = GetComponent<Animator>();
@@ -116,6 +118,7 @@ public class Motor : MonoBehaviour
     {
         if (loadCoroutine == null) // Evita iniciar múltiples instancias de la corrutina
         {
+            flashlight.LightUnfocus();
             GetComponent<GeneratorEnemySpawner>().SetCanRespawn(true); // Permite el respawn de enemigos
             progressBar.gameObject.SetActive(true); // Muestra la barra de progreso
             loadCoroutine = StartCoroutine(LoadProgress()); // Inicia la carga

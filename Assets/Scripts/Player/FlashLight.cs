@@ -101,6 +101,7 @@ public class FlashLight : MonoBehaviour
     private bool isFlashAvailable = true;
     private float flashTimer;
     private float flashColliderTimer = 0f;
+    private GameObject player;
 
     private struct LightValues
     {
@@ -124,6 +125,9 @@ public class FlashLight : MonoBehaviour
 
         // Obtener la referencia al collider de la linterna
         flashCollider = GetComponentInChildren<PolygonCollider2D>();
+
+        //Llama al player mediante el GameManager
+        player = GameManager.Instance.GetPlayerController();
 
         if (flashLight != null && flashCollider != null)
         {
@@ -175,7 +179,7 @@ public class FlashLight : MonoBehaviour
             case State.Focus:
 
                 LightFocus();
-
+                    
                 break;
 
             case State.Flash:
@@ -201,13 +205,13 @@ public class FlashLight : MonoBehaviour
     {
         if (isFlashAvailable)
         {
-            if (InputManager.Instance.FocusIsPressed())
+            if (InputManager.Instance.FocusIsPressed() && !player.GetComponent<PlayerMovement>().GetIsRepairing())
             {
                 if (InputManager.Instance.FlashIsPressed())
 
                     _state = State.Flash; // Cambiar el estado a Flash
 
-                else
+                else 
 
                     _state = State.Focus; // Cambiar el estado a Focus
             }
@@ -293,17 +297,6 @@ public class FlashLight : MonoBehaviour
         flashLight.color = targetValues.color;
     }
 
-    private void LightUnfocus()
-    {
-        targetValues.intensity = unfocusIntensity;
-        targetValues.innerAngle = unfocusRadius;
-        targetValues.outerAngle = unfocusRadius + lightDiffusion;
-        targetValues.outerRadius = unfocusLength;
-        targetValues.color = lightColor;
-
-        flashCollider.enabled = false;
-    }
-
     private void LightFocus()
     {
         targetValues.intensity = focusIntensity;
@@ -372,7 +365,20 @@ public class FlashLight : MonoBehaviour
     }
 
     #endregion
+    #region METODOS PÚBLICOS
 
+    public void LightUnfocus()
+    {
+        targetValues.intensity = unfocusIntensity;
+        targetValues.innerAngle = unfocusRadius;
+        targetValues.outerAngle = unfocusRadius + lightDiffusion;
+        targetValues.outerRadius = unfocusLength;
+        targetValues.color = lightColor;
+
+        flashCollider.enabled = false;
+    }
+    #endregion
     // class FlashLight 
     // namespace
+
 }
