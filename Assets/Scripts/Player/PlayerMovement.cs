@@ -79,6 +79,8 @@ public class PlayerMovement : MonoBehaviour
 
         private AudioSource audioSource;
 
+    private Animator animator;
+
     /// <summary>
     /// Un bool que representa si el jugador está reparando. Tiene un setter y un getter como métodos públicos
     /// </summary>
@@ -94,7 +96,8 @@ public class PlayerMovement : MonoBehaviour
     /// any of the Update methods are called the first time.
     /// </summary>
     void Start()
-    {     
+    {
+        animator = GetComponentInChildren<Animator>();
         _rb = GetComponent<Rigidbody2D>();
         audioSource = GetComponent<AudioSource>();
     }
@@ -105,6 +108,24 @@ public class PlayerMovement : MonoBehaviour
     void Update()
     {
         CheckState(ref _state);
+
+        if (GetComponent<OxigenScript>().IsTankBroken())
+        {
+            animator.Play(_state.ToString() + "Damaged");
+        }
+        else
+        {
+            animator.Play(_state.ToString());
+        }    
+
+        if (animator.GetCurrentAnimatorClipInfo(0)[0].clip.name == "IdleDamaged" || animator.GetCurrentAnimatorClipInfo(0)[0].clip.name == "Idle")
+        {
+            animator.speed = 1;
+        }
+        else
+        {
+            animator.speed = _rb.velocity.magnitude / 5;
+        }       
     }
     public void FixedUpdate()
     {
@@ -177,17 +198,17 @@ public class PlayerMovement : MonoBehaviour
             //Debug.Log(_state);
             
             //Debug.Log(_rb.velocity.y);
-            Debug.Log(_jumpMultiplier);
+            //Debug.Log(_jumpMultiplier);
             switch (_state){
                 case States.Idle:
 
-                    if (InputManager.Instance.MovementVector.x != 0)
-                    {
-                        _state = States.Walk;
-                        AudioManager.instance.PlaySFX(SFXType.Walk, audioSource, true);
+                if (InputManager.Instance.MovementVector.x != 0)
+                {
+                    _state = States.Walk;
+                    AudioManager.instance.PlaySFX(SFXType.Walk, audioSource, true);
 
                 }
-                else if (_rb.velocity.y < 0)
+                else if (_rb.velocity.y < -0.1)
  
                     {
                         _state = States.Fall;
@@ -212,7 +233,7 @@ public class PlayerMovement : MonoBehaviour
                         AudioManager.instance.StopSFX(audioSource);
          
                     }
-                    else if (_rb.velocity.y < 0)
+                    else if (_rb.velocity.y < -0.1)
                     {
                         _state = States.Fall;
                     }
@@ -230,12 +251,13 @@ public class PlayerMovement : MonoBehaviour
                     }
                 break;
                 case States.Jump:
-                    if (_rb.velocity.y < 0){
+                    if (_rb.velocity.y < -0.1){
                         _state = States.Fall;
                     }
                 break;
                 case States.Fall:
-                    if (_rb.velocity.y == 0){
+                    if (_rb.velocity.y >= -0.1)
+                    {
                         AudioManager.instance.PlaySFX(SFXType.Fall, audioSource);
                         if (_rb.velocity.x == 0){
                             _state = States.Idle;
@@ -272,9 +294,9 @@ public class PlayerMovement : MonoBehaviour
             }
             else // Aceleración en el sentido del movimiento
             {
-            Debug.Log(WalkAcceleration);
+            //Debug.Log(WalkAcceleration);
 
-            Debug.Log("moviendose");
+            //Debug.Log("moviendose");
                 _rb.AddForce(new Vector2(x, 0).normalized * WalkAcceleration, ForceMode2D.Force);
             }
 

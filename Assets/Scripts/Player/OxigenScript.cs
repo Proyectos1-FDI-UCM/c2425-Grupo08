@@ -42,9 +42,11 @@ public class OxigenScript : MonoBehaviour
     // primera letra en mayúsculas)
     // Ejemplo: _maxHealthPoints
 
-    public float currentOxigen; // La cantidad actual de oxígeno que tiene el jugador
+    private float currentOxigen; // La cantidad actual de oxígeno que tiene el jugador
     private bool tankBroken = false; // Indica si el tanque de oxígeno está roto o no
     private AudioSource audioSource;
+    private bool isDead = false;
+
     #endregion
 
     // ---- MÉTODOS DE MONOBEHAVIOUR ----
@@ -61,7 +63,7 @@ public class OxigenScript : MonoBehaviour
     void Start()
     {
         currentOxigen = maxOxigen;
-        audioSource= GetComponent<AudioSource>();
+        audioSource= AudioManager.instance.GetComponent<AudioSource>();
         AudioManager.instance.PlaySFX(SFXType.Breath, audioSource, true);
     }
 
@@ -106,7 +108,7 @@ public class OxigenScript : MonoBehaviour
     {
         if (tankBroken)
         {
-            // die
+            Death();
         }
         else
         {
@@ -117,19 +119,15 @@ public class OxigenScript : MonoBehaviour
     {
         tankBroken = false;
     }
-
-
-    #endregion
-
-    // ---- MÉTODOS PRIVADOS ----
-    #region Métodos Privados
-    // Documentar cada método que aparece aquí
-    // El convenio de nombres de Unity recomienda que estos métodos
-    // se nombren en formato PascalCase (palabras con primera letra
-    // mayúscula, incluida la primera letra)
-    private bool isDead = false;
-
-    private void Death()
+    /// <summary>
+    /// Método que devuelve el estado del tanque de oxígeno
+    /// </summary>
+    /// <returns></returns>
+    public bool IsTankBroken() 
+    {
+        return tankBroken;
+    }
+    public void Death()
     {
         if (isDead) return; // Evitar múltiples ejecuciones
 
@@ -139,10 +137,21 @@ public class OxigenScript : MonoBehaviour
 
         StartCoroutine(DestroyAfterDelay());
     }
+
+    #endregion
+
+    // ---- MÉTODOS PRIVADOS ----
+    #region Métodos Privados
+    // Documentar cada método que aparece aquí
+    // El convenio de nombres de Unity recomienda que estos métodos
+    // se nombren en formato PascalCase (palabras con primera letra
+    // mayúscula, incluida la primera letra)
+    
+
     private IEnumerator DestroyAfterDelay()
     {
-        yield return new WaitForSeconds(2f);
-        Destroy(gameObject);
+        yield return new WaitForSeconds(0); // De momento 0 porque no hay animación de muerte
+        GameManager.Instance.ChangeScene(0);
     }
 
     #endregion

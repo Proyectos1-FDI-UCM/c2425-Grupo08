@@ -28,7 +28,7 @@ public class Enemy2Sonar : MonoBehaviour
     [SerializeField] private float patrolSpeed;
     [SerializeField] private float attackSpeed;
 
-    [SerializeField] private bool debug = false;
+    [SerializeField] private bool debug;
 
     /// <summary>
     /// Frecuencia con la que el enemigo utiliza su sonar
@@ -46,6 +46,17 @@ public class Enemy2Sonar : MonoBehaviour
     [SerializeField] private float sonarHearingDistance;
     [SerializeField] private float sonarAttackDistance;
 
+    /// <summary>
+    /// Velocidad de la animación de patrullaje
+    /// </summary>
+    [SerializeField] private float patrolAnimationSpeed;
+    /// <summary>
+    /// Velocidad de la animación de ataque
+    /// </summary>
+    [SerializeField] private float attackAnimationSpeed;
+
+    [SerializeField] int maxHearingDistance;
+
     #endregion
 
     // ---- ATRIBUTOS PRIVADOS ----
@@ -57,12 +68,18 @@ public class Enemy2Sonar : MonoBehaviour
     // primera letra en mayúsculas)
     // Ejemplo: _maxHealthPoints
 
+    private SpriteRenderer spriteRenderer;
+
+    private Animator animator;
+
     private GameObject[] nodeArray;
 
     private Rigidbody2D rb;
 
     private GameObject player;
     private SonarUI sonarUI;
+
+    private AudioSource audioSource;
 
     /// <summary>
     /// Bool que se activa cuando el enemigo detecta al jugador
@@ -136,6 +153,12 @@ public class Enemy2Sonar : MonoBehaviour
     /// </summary>
     void Start()
     {
+        spriteRenderer = GetComponentInChildren<SpriteRenderer>();
+
+        animator = GetComponentInChildren<Animator>();
+
+        animator.speed = patrolAnimationSpeed;
+
         SetNodeArray();
 
         rb = GetComponent<Rigidbody2D>();
@@ -146,51 +169,73 @@ public class Enemy2Sonar : MonoBehaviour
         nodeRoute = new NodeRoute(nodeArray); // Aviso. El array de nodos se crea al inicio, no es dinámico.
 
         sonarCooldownTime = sonarFrequency - sonarChargeTime - shadowDelay;
-    }
+
+        audioSource = GetComponent<AudioSource>();
+    
+}
 
     /// <summary>
     /// Update is called every frame, if the MonoBehaviour is enabled.
     /// </summary>
     void FixedUpdate()
     {
-        if (attack)
+        if (player != null && attack)
         {
             Move((player.transform.position - transform.position).normalized, attackSpeed);
         }
         else
         {
             Move((nodeRoute.GetNextNode().transform.position - transform.position).normalized, patrolSpeed);
-        }    
+        }
     }
     void Update()
     {
-        if (IsInsideHearingRadious())
+        if (player != null)
         {
-            if (!alreadyInsideHearingRadious)
+            if (IsInsideHearingRadious())
             {
-                StartCoroutine(SonarCooldown());
-                sonarUI.ActivateSonarUI();
-                alreadyInsideHearingRadious = true;
-            }                           
-        }
-        else if (alreadyInsideHearingRadious)
-        {
-            StopAllCoroutines();        
-            sonarUI.DeactivateSonarUI();
-            alreadyInsideHearingRadious = false;
-        }
-        if (IsInsideAttackRadious())
-        {
-            if (!alreadyInsideAttackRadious)
+                if (!alreadyInsideHearingRadious)
+                {
+                    StartCoroutine(SonarCooldown());
+                    sonarUI.ActivateSonarUI();
+                    alreadyInsideHearingRadious = true;
+                }
+            }
+            else if (alreadyInsideHearingRadious)
             {
-                sonarUI.ActivatePulseUI();
-                alreadyInsideAttackRadious = true;
-            }          
-        }
-        else if (alreadyInsideAttackRadious)
+                StopAllCoroutines();
+                sonarUI.DeactivateSonarUI();
+                alreadyInsideHearingRadious = false;
+            }
+            if (IsInsideAttackRadious())
+            {
+                if (!alreadyInsideAttackRadious)
+                {
+                    sonarUI.ActivatePulseUI();
+                    alreadyInsideAttackRadious = true;
+                }
+            }
+            else if (alreadyInsideAttackRadious)
+            {
+                sonarUI.DeactivatePulseUI();
+                alreadyInsideAttackRadious = false;
+            }
+        }       
+
+        if (rb.velocity.x < 0)
         {
-            sonarUI.DeactivatePulseUI();
-            alreadyInsideAttackRadious = false;
+            spriteRenderer.flipY = true;
+            spriteRenderer.gameObject.transform.localPosition = new Vector3(0, 0.6f, 0);
+        }
+        else if (rb.velocity.x >= 0)
+        {
+            spriteRenderer.flipY = false;
+            spriteRenderer.gameObject.transform.localPosition = new Vector3(0, -0.6f, 0);
+        }
+
+        if (player != null)
+        {
+            audioSource.volume = CalculateVolume(player.transform.position);
         }
     }
     private void OnTriggerEnter2D(Collider2D collision)
@@ -205,8 +250,12 @@ public class Enemy2Sonar : MonoBehaviour
     {
         if (collision.gameObject == player && attack)
         {
-            // player.GetComponent<OxigenScript>().Kill();
+            player.GetComponent<OxigenScript>().Death();
+
             attack = false;
+            animator.SetBool("Attack", false);
+            animator.speed = patrolAnimationSpeed;
+
             StartCoroutine(SonarCooldown());
         }
     }
@@ -284,9 +333,23 @@ public class Enemy2Sonar : MonoBehaviour
     /// <returns></returns>
     private IEnumerator SonarCharge()
     {
-        sonarUI.PlayAnimation();
-
+        if (player != null)
+        {
+            sonarUI.PlayAnimation();
+        }
+        
         yield return new WaitForSeconds(sonarChargeTime);
+
+        // Elige aleatoriamente entre Sonar1 y Sonar2
+        int randomSonar = Random.Range(0, 2);  // 0 o 1
+        if (randomSonar == 0)
+        {
+            AudioManager.instance.PlaySFX(SFXType.Sonar1, audioSource);
+        }
+        else
+        {
+            AudioManager.instance.PlaySFX(SFXType.Sonar2, audioSource);
+        }
 
         StartCoroutine(ShadowDelay());
     }
@@ -300,10 +363,12 @@ public class Enemy2Sonar : MonoBehaviour
 
         yield return new WaitForSeconds(shadowDelay);
 
-        if ((IsInsideAttackRadious()) &&
+        if (player != null && (IsInsideAttackRadious()) &&
         (InputManager.Instance.MovementVector.x != 0 || player.GetComponent<PlayerMovement>().GetIsRepairing())) // Hace falta cambiar el interact por un bool de si se está reparando el motor
         {
             attack = true;
+            animator.SetBool("Attack", true);
+            animator.speed = attackAnimationSpeed;
         }
         else
         {
@@ -324,12 +389,19 @@ public class Enemy2Sonar : MonoBehaviour
             Gizmos.color = Color.green;
             Gizmos.DrawWireSphere(transform.position, sonarAttackDistance);
 
-            if (attackDebug)
+            if (attackDebug && player != null)
             {
                 Gizmos.color = Color.blue;
                 Gizmos.DrawLine(transform.position, player.transform.position);
             }
         }
+    }
+
+    private float CalculateVolume(Vector3 targetPosition)
+    {
+        float distance = Vector3.Distance(targetPosition, transform.position);
+        float volume = Mathf.Clamp01(1 - (distance / maxHearingDistance));  // Ajusta el divisor para que el volumen disminuya a la distancia que prefieras
+        return volume;
     }
 }
     #endregion   

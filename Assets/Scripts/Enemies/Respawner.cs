@@ -5,7 +5,6 @@
 // Proyectos 1 - Curso 2024-25
 //---------------------------------------------------------
 
-using TreeEditor;
 using UnityEngine;
 // Añadir aquí el resto de directivas using
 
@@ -42,7 +41,7 @@ public class Respawner : MonoBehaviour
     // primera letra en mayúsculas)
     // Ejemplo: _maxHealthPoints
 
-    private bool canRespawn = true;
+    private bool canRespawn = false;
     private float respawnTime;
     private bool isDead = false;
     private GameObject player;
@@ -64,7 +63,7 @@ public class Respawner : MonoBehaviour
         if (isDead)
         {
             respawnTime -= Time.deltaTime;
-            if (respawnTime <= 0 && (player.transform.position - transform.position).magnitude > respawnDistance)
+            if (respawnTime <= 0 && (player == null || (player.transform.position - transform.position).magnitude > respawnDistance))
             {
                 Instantiate(enemyPrefab, transform);
                 isDead = false;

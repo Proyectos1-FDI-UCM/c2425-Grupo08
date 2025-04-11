@@ -42,6 +42,10 @@ public class Enemy1PhantomAnglerfish : MonoBehaviour
     // primera letra en mayúsculas)
     // Ejemplo: _maxHealthPoints
 
+    private SpriteRenderer spriteRenderer;
+
+    private Animator animator;
+
     private GameObject[] nodeArray;
 
     private Rigidbody2D rb;
@@ -111,6 +115,12 @@ public class Enemy1PhantomAnglerfish : MonoBehaviour
     /// </summary>
     void Start()
     {
+        spriteRenderer = GetComponentInChildren<SpriteRenderer>();
+
+        animator = GetComponentInChildren<Animator>();
+
+        animator.speed = patrolSpeed / 10;
+
         SetNodeArray();
 
         // Inicializar el AudioSource
@@ -119,10 +129,7 @@ public class Enemy1PhantomAnglerfish : MonoBehaviour
         player = GameObject.FindGameObjectWithTag("Player");
 
         playerCollider = player.GetComponent<Collider2D>();
-        flashCollider = player.GetComponentInChildren<FlashLight>().GetComponentInChildren<Collider2D>();
-
-        Debug.Log(playerCollider);
-        Debug.Log(flashCollider);
+        flashCollider = player.GetComponentInChildren<FlashLight>().GetComponentInChildren<PolygonCollider2D>();
 
         enemyCollider = GetComponent<Collider2D>();
 
@@ -136,7 +143,19 @@ public class Enemy1PhantomAnglerfish : MonoBehaviour
 
     private void Update()
     {
-        audioSource.volume = CalculateVolume(player.transform.position);
+        if (player != null)
+        {
+            audioSource.volume = CalculateVolume(player.transform.position);
+        }
+        
+        if (rb.velocity.x < 0)
+        {
+            transform.localScale = new Vector3(1, -1, 1);
+        }
+        else if (rb.velocity.x >= 0)
+        {
+            transform.localScale = new Vector3(1, 1, 1);
+        }
     }
 
     void FixedUpdate()
@@ -146,16 +165,16 @@ public class Enemy1PhantomAnglerfish : MonoBehaviour
             Move((transform.position - player.transform.position).normalized, fleeSpeed);
             if (!fleeSoundPlaying)
             {
-                PlayFleeSound();
+                AudioManager.instance.PlaySFX(SFXType.FleeEnemy1, audioSource);
                 fleeSoundPlaying = true;
             }
         } 
-        else if (attack)
+        else if (player != null && attack)
         {
             Move((player.transform.position - transform.position).normalized, attackSpeed);
             if (!attackSoundPlaying)
             {
-                PlayAttackSound();
+                AudioManager.instance.PlaySFX(SFXType.AttackEnemy1, audioSource);
                 attackSoundPlaying = true;
             }
         }
@@ -164,14 +183,13 @@ public class Enemy1PhantomAnglerfish : MonoBehaviour
             Move((nodeRoute.GetNextNode().transform.position - transform.position).normalized, patrolSpeed);
 
             // Incrementar el temporizador del sonido de patrullaje
-            patrolSoundCooldown += Time.fixedDeltaTime;
-            audioSource.volume = CalculateVolume(player.transform.position);
+            patrolSoundCooldown += Time.fixedDeltaTime;     
 
             // Comprobar si ha pasado suficiente tiempo para reproducir el sonido de patrullaje
             if (patrolSoundCooldown >= patrolSoundInterval)
             {
-      
-                PlayPatrolSound();
+
+                AudioManager.instance.PlaySFX(SFXType.PatrolEnemy1, audioSource); //se reproduce sonido de patrulla
                 patrolSoundCooldown = 0f; // Reiniciar el temporizador
                 patrolSoundInterval = Random.Range(10f, 20f); // Establecer un nuevo intervalo aleatorio entre 10 y 20 segundos
             }
@@ -190,6 +208,11 @@ public class Enemy1PhantomAnglerfish : MonoBehaviour
     public void SetAttack(bool attack)
     {
         this.attack = attack;
+
+        if (attack)
+        {
+            GetComponentInChildren<Animator>().SetTrigger("Attack");
+        }
     }
 
     #endregion
@@ -218,23 +241,24 @@ public class Enemy1PhantomAnglerfish : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        Debug.Log("COLISIÓN CON: " + collision.gameObject);
+        //Debug.Log("COLISIÓN CON: " + collision.gameObject);
         if (enemyCollider.IsTouching(nodeRoute.GetCollider()))
         {
             nodeRoute.SetNextNode();
         }
-        else if (enemyCollider.IsTouching(flashCollider))
+        else if (player != null && enemyCollider.IsTouching(flashCollider))
         {
             flee = true;
-            Debug.Log("Huida");
-            Debug.Log(collision.gameObject);
+
+            animator.SetTrigger("Flee");
+
             StartCoroutine(DisintegrationDelay());
         }
-        else if (collision.gameObject.GetComponent<Collider2D>() == playerCollider)
+        else if (player != null && collision.gameObject.GetComponent<Collider2D>() == playerCollider)
         {
             attack = true;
-            Debug.Log("Ataque");
-            Debug.Log(collision.gameObject);
+
+            animator.SetTrigger("Attack");
         }
     }
     private void OnCollisionEnter2D(Collision2D collision)
@@ -252,43 +276,6 @@ public class Enemy1PhantomAnglerfish : MonoBehaviour
         yield return new WaitForSeconds(disintegrationDelay);
         GetComponentInParent<Respawner>().EnemyDead(player);
         Destroy(gameObject);
-    }
-
-    private void PlayFleeSound()
-    {
-        // Obtener el clip de sonido de huida desde el AudioManager
-        AudioManager.instance.PlaySFX(SFXType.FleeEnemy1, audioSource);  // Cambiar a SFXType adecuado para huida
-
-        // Configurar el AudioSource para que repita el sonido mientras esté en estado de huida
-        audioSource.loop = false;
-        audioSource.Play();
-    }
-
-    private void PlayAttackSound()
-    {
-        // Obtener el clip de sonido de ataque desde el AudioManager
-        AudioManager.instance.PlaySFX(SFXType.AttackEnemy1, audioSource); // Cambiar a SFXType adecuado para ataque
-
-        // Ajustar volumen en función de la distancia al jugador
-        //audioSource.volume = CalculateVolume(player.transform.position);
-
-        // Configurar el AudioSource para que repita el sonido mientras esté en estado de ataque
-        audioSource.loop = false; // O ajustarlo como necesites
-        audioSource.Play();
-    }
-
-    private void PlayPatrolSound()
-    {
-        // Obtener el clip de sonido de patrulla desde el AudioManager
-        AudioManager.instance.PlaySFX(SFXType.PatrolEnemy1, audioSource); // Cambiar a SFXType adecuado para patrullar
-
-        // Ajustar volumen en función de la distancia al jugador
-        //audioSource.volume = CalculateVolume(player.transform.position);
-
-        // Configurar el AudioSource para que repita el sonido mientras esté en estado de patrulla
-        audioSource.loop = false; // O ajustarlo como necesites
-        audioSource.Play();
-        Debug.Log("Sonido de patrulla reproducido");
     }
 
     private float CalculateVolume(Vector3 targetPosition)

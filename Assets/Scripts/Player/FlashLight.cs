@@ -11,7 +11,6 @@
 using UnityEngine;
 using System.Collections;
 using UnityEngine.Rendering.Universal;
-using UnityEditorInternal;
 
 /// <summary>
 /// Controla el comportamiento de la linterna del jugador, incluyendo su rotación, enfoque y flash.
@@ -23,7 +22,10 @@ public class FlashLight : MonoBehaviour
     [Space]
     [Tooltip("Zona muerta para joystick o ratón (entre 0 y 1)")]
     [Range(0, 1)]
-    [SerializeField] private float inputDeadzone = 0.1f; // Zona muerta para el joystick o ratón
+    [SerializeField] private float inputDeadzone = 0.1f;
+    [Tooltip("Velocidad de rotación de la linterna")]
+    [Range(1, 50)]
+    [SerializeField] private int lookSpeed = 15;
 
     [Space]
     [Header("Configuración General")]
@@ -74,9 +76,6 @@ public class FlashLight : MonoBehaviour
     [Tooltip("Intensidad del flash")]
     [Range(1, 2000)]
     [SerializeField] private float flashIntensity = 1000f;
-    //[Tooltip("Duración del flash")]
-    //[Range(0, 0.1f)]
-    //[SerializeField] private float flashDuration = 0.05f;
     [Tooltip("Tiempo de recarga del flash")]
     [Range(0, 10)]
     [SerializeField] private float flashCooldown = 4f;
@@ -101,6 +100,7 @@ public class FlashLight : MonoBehaviour
 
     private bool isFlashAvailable = true;
     private float flashTimer;
+    private float flashColliderTimer = 0f;
 
     private struct LightValues
     {
@@ -236,7 +236,7 @@ public class FlashLight : MonoBehaviour
         if (aimInput.magnitude > inputDeadzone) // Para que no haya movimientos raros cerca del pivote
         {
             float angle = Mathf.Atan2(aimInput.y, aimInput.x) * Mathf.Rad2Deg;
-            transform.rotation = Quaternion.Euler(0, 0, angle);
+            transform.rotation = Quaternion.Euler(0, 0, Mathf.LerpAngle(transform.rotation.eulerAngles.z, angle, Time.deltaTime * lookSpeed));
         }
     }
 
@@ -317,13 +317,26 @@ public class FlashLight : MonoBehaviour
 
     private void LightFlash()
     {
+        // Aplicar intensidad máxima inmediatamente
+        flashLight.intensity = flashIntensity;    // Aplicar directamente al flashLight
+        flashLight.pointLightInnerAngle = focusRadius * 2.5f;
+        flashLight.pointLightOuterAngle = (focusRadius * 2.5f) + (lightDiffusion * 2f);
+        flashLight.pointLightOuterRadius = focusLength * 2.5f;
+        flashLight.color = Color.white;
+
+        // Actualizar valores objetivo para la transición posterior
         targetValues.intensity = flashIntensity;
-        targetValues.innerAngle = focusRadius * 3f;
-        targetValues.outerAngle = (focusRadius * 3f) + lightDiffusion;
-        targetValues.outerRadius = focusLength * 3.5f;
-        targetValues.color = flashColor;
+        targetValues.innerAngle = focusRadius * 2.5f;
+        targetValues.outerAngle = (focusRadius * 2.5f) + (lightDiffusion * 2f);
+        targetValues.outerRadius = focusLength * 2.5f;
+        targetValues.color = Color.white;
+
+        // Actualizar valores actuales para evitar interpolación
+        currentValues = targetValues;
 
         flashCollider.enabled = true;
+        
+        StartCoroutine(ColliderActive());
 
         isFlashAvailable = false;
         flashTimer = flashCooldown;
@@ -351,7 +364,10 @@ public class FlashLight : MonoBehaviour
         targetValues.outerAngle = unfocusRadius + lightDiffusion;
         targetValues.outerRadius = unfocusLength;
         targetValues.color = lightColor;
-        
+    }
+    IEnumerator ColliderActive()
+    {
+        yield return new WaitForSeconds(0.1f);
         flashCollider.enabled = false;
     }
 

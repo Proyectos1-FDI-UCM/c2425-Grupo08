@@ -211,6 +211,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4407587027861858106}
   - component: {fileID: 571858331011019453}
+  - component: {fileID: 7398697384196476521}
   m_Layer: 0
   m_Name: PhantomAnglerfish
   m_TagString: Untagged
@@ -247,10 +248,40 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 365b719a570995444becc96c0dd8718f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  minRespawnTime: 5
-  maxRespawnTime: 10
-  respawnDistance: 7
+  minRespawnTime: 15
+  maxRespawnTime: 20
+  respawnDistance: 20
   enemyPrefab: {fileID: 518604220022958571, guid: e9d32d5a1248e5a4d9a6920b3518e46b, type: 3}
+--- !u!114 &7398697384196476521
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6928249760915936609}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7db70e0ea77f5ac47a8f4565a9406397, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_ShadowGroup: 0
+  m_ComponentVersion: 1
+  m_HasRenderer: 0
+  m_UseRendererSilhouette: 1
+  m_CastsShadows: 1
+  m_SelfShadows: 0
+  m_ApplyToSortingLayers: 00000000
+  m_ShapePath:
+  - {x: -0.5, y: -0.50000006, z: 0}
+  - {x: -0.5, y: 0.5, z: 0}
+  - {x: 0.5, y: 0.5, z: 0}
+  - {x: 0.5, y: -0.50000006, z: 0}
+  m_ShapePathHash: 0
+  m_Mesh: {fileID: 0}
+  m_InstanceId: -137796
+  m_LocalBounds:
+    m_Center: {x: 0, y: -0.000000059604645, z: 0}
+    m_Extent: {x: 0.5, y: 0.5, z: 0}
 --- !u!1 &7886679526067831091
 GameObject:
   m_ObjectHideFlags: 0
