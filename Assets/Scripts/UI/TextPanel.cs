@@ -47,7 +47,6 @@ public class TextPanel : MonoBehaviour
     private RectTransform rectTransform; // Referencia al RectTransform
 
     private bool isVisible = false; // Estado del panel (abierto o cerrado)
-
     private bool isTyping = false; // Estado del efecto typewriter
 
     private Coroutine typewriterCoroutine; // Referencia a la coroutine del efecto typewriter

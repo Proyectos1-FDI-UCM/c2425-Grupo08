@@ -114,7 +114,7 @@ GameObject:
   - component: {fileID: 7354626782595423855}
   - component: {fileID: 4620056303214630512}
   m_Layer: 0
-  m_Name: FlashLightSprite
+  m_Name: HandSprite
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -129,7 +129,7 @@ Transform:
   m_GameObject: {fileID: 2461321886992661780}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.45, y: -0.1, z: 0}
+  m_LocalPosition: {x: 0.415, y: -0.1, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -502,7 +502,7 @@ GameObject:
   - component: {fileID: 2302555880213678727}
   - component: {fileID: 4172944597414774170}
   m_Layer: 0
-  m_Name: Sprite
+  m_Name: PlayerSprite
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -769,7 +769,7 @@ Transform:
   m_GameObject: {fileID: 8189232099357333950}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: -0.7071068, w: 0.7071068}
-  m_LocalPosition: {x: 0.65, y: 0, z: 0}
+  m_LocalPosition: {x: 0.519, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -791,7 +791,7 @@ MonoBehaviour:
   m_LightType: 3
   m_BlendStyleIndex: 0
   m_FalloffIntensity: 0.7
-  m_Color: {r: 0, g: 0.1378251, b: 0.2924528, a: 1}
+  m_Color: {r: 0.30980393, g: 0.3529412, b: 0.31764707, a: 1}
   m_Intensity: 40
   m_LightVolumeIntensity: 1
   m_LightVolumeIntensityEnabled: 0
@@ -921,21 +921,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 76b0493b3600215489e9289475213cac, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  inputDeadzone: 0.1
-  lookSpeed: 15
-  lightColor:
-    serializedVersion: 2
-    rgba: 4283521615
-  transitionSpeed: 15
+  inputDeadzone: 0.15
+  aimSpeed: 17
   lightDiffusion: 10
+  transitionSpeed: 15
   minIntensity: 0.5
-  unfocusRadius: 84.1
-  unfocusLength: 5.84
-  unfocusIntensity: 10.8
-  focusRadius: 31.4
-  focusLength: 9.09
-  focusIntensity: 64
-  flashColor: {r: 0.77647066, g: 0.41960788, b: 0.23137257, a: 1}
-  flashIntensity: 758
-  flashCooldown: 6.25
+  flickerSpeed: 7
+  flashCooldown: 7
+  unfocusAngle: 99
+  unfocusLength: 6.92
+  unfocusIntensity: 25.8
+  focusAngle: 29.1
+  focusLength: 10.24
+  focusIntensity: 70
+  flashMultiplier: 3
+  flashFalloff: 4.5
+  colliderTime: 0.02
   playerSprite: {fileID: 2302555880213678727}

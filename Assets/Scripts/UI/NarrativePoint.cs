@@ -36,8 +36,8 @@ public class NarrativePoint : MonoBehaviour, IPointerEnterHandler, IPointerExitH
 
     private float lerpSpeed = 10f; // Velocidad del Lerp
 
-    private Vector3 _defaultScale = Vector3.one; // Escala original del objeto
-    private Vector3 _targetScale;
+    private Vector3 defaultScale = Vector3.one; // Escala original del objeto
+    private Vector3 targetScale;
 
     private GameObject textPanel; // Referencia al componente "panel de texto"
     private GameObject dynamicTitle; // Referencia al componente "panel de texto"
@@ -64,7 +64,7 @@ public class NarrativePoint : MonoBehaviour, IPointerEnterHandler, IPointerExitH
 
             Debug.LogError("No se ha encontrado el objeto DynamicTitle en la escena.");
 
-        _targetScale = _defaultScale; // Inicializa la escala objetivo
+        targetScale = defaultScale; // Inicializa la escala objetivo
 
     }
 
@@ -74,7 +74,7 @@ public class NarrativePoint : MonoBehaviour, IPointerEnterHandler, IPointerExitH
     void Update()
     {
         // Actualiza la escala suavemente
-        transform.localScale = Vector3.Lerp(transform.localScale, _targetScale, lerpSpeed * Time.deltaTime);
+        transform.localScale = Vector3.Lerp(transform.localScale, targetScale, lerpSpeed * Time.deltaTime);
     }
 
     #endregion
@@ -88,7 +88,7 @@ public class NarrativePoint : MonoBehaviour, IPointerEnterHandler, IPointerExitH
     /// <param name="eventData"></param>
     public void OnPointerEnter(PointerEventData eventData)
     {
-        _targetScale = _defaultScale * scaleMultiplier;
+        targetScale = defaultScale * scaleMultiplier;
 
         dynamicTitle.GetComponent<DynamicTitle>().SetTitle(narrativeTitle); // Cambia el texto del panel de texto
         dynamicTitle.GetComponent<DynamicTitle>().FadeIn(); // Inicia la transición de fade in del texto
@@ -100,7 +100,7 @@ public class NarrativePoint : MonoBehaviour, IPointerEnterHandler, IPointerExitH
     /// <param name="eventData"></param>
     public void OnPointerExit(PointerEventData eventData)
     {
-        _targetScale = _defaultScale;
+        targetScale = defaultScale;
 
         dynamicTitle.GetComponent<DynamicTitle>().FadeOut(); // Inicia la transición de fade out del texto
     }
@@ -111,7 +111,7 @@ public class NarrativePoint : MonoBehaviour, IPointerEnterHandler, IPointerExitH
     /// <param name="eventData"></param>
     public void OnSelect(BaseEventData eventData)
     {
-        _targetScale = _defaultScale * scaleMultiplier;
+        targetScale = defaultScale * scaleMultiplier;
 
         dynamicTitle.GetComponent<DynamicTitle>().SetTitle(narrativeTitle); // Cambia el texto del panel de texto
         dynamicTitle.GetComponent<DynamicTitle>().FadeIn(); // Inicia la transición de fade in del texto
@@ -123,7 +123,7 @@ public class NarrativePoint : MonoBehaviour, IPointerEnterHandler, IPointerExitH
     /// <param name="eventData"></param>
     public void OnDeselect(BaseEventData eventData)
     {
-        _targetScale = _defaultScale;
+        targetScale = defaultScale;
 
         dynamicTitle.GetComponent<DynamicTitle>().FadeOut(); // Inicia la transición de fade out del texto
     }
@@ -137,16 +137,15 @@ public class NarrativePoint : MonoBehaviour, IPointerEnterHandler, IPointerExitH
     {
         if (textPanel != null)
         {
-            var textPanelComponent = textPanel.GetComponent<TextPanel>();
+            if (textPanel.GetComponent<TextPanel>().IsVisible())
 
-            if (textPanelComponent.IsVisible())
-            {
-                textPanelComponent.SetText(narrativeTitle, narrativeText);
-            }
+                textPanel.GetComponent<TextPanel>().SetText(narrativeTitle, narrativeText);
+
             else
             {
-                textPanelComponent.SetText(narrativeTitle, narrativeText);
-                textPanelComponent.TogglePanel();
+                textPanel.GetComponent<TextPanel>().SetText(narrativeTitle, narrativeText);
+
+                textPanel.GetComponent<TextPanel>().TogglePanel();
             }
         }
     }

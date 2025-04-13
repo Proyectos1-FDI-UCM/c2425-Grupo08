@@ -118,7 +118,7 @@ public class Motor : MonoBehaviour
     {
         if (loadCoroutine == null) // Evita iniciar múltiples instancias de la corrutina
         {
-            flashlight.LightUnfocus();
+            flashlight.LightUnfocus(); // Desactiva el foco de la linterna
             GetComponent<GeneratorEnemySpawner>().SetCanRespawn(true); // Permite el respawn de enemigos
             progressBar.gameObject.SetActive(true); // Muestra la barra de progreso
             loadCoroutine = StartCoroutine(LoadProgress()); // Inicia la carga

@@ -165,12 +165,21 @@ public class GameManager : MonoBehaviour
 
     #region Métodos para obtener objetos clave
 
+    /// <summary>
+    /// Método para obtener el objeto del jugador.
+    /// </summary>
+    /// <returns>Referencia al Jugador</returns>
     public GameObject GetPlayerController()
     {
         player = FindObjectOfType<PlayerMovement>()?.gameObject;
 
         return player;
     }
+
+    /// <summary>
+    /// Método para obtener la linterna del jugador.
+    /// </summary>
+    /// <returns>Referencia al componente FlashLight</returns>
     public FlashLight GetFlashLight()
     {
         flashlight = FindObjectOfType<FlashLight>().GetComponent<FlashLight>();
