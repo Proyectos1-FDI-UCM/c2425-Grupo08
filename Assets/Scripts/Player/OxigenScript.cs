@@ -47,6 +47,8 @@ public class OxigenScript : MonoBehaviour
     private AudioSource audioSource;
     private bool isDead = false;
 
+    private Animator animator;
+
     #endregion
 
     // ---- MÉTODOS DE MONOBEHAVIOUR ----
@@ -62,6 +64,8 @@ public class OxigenScript : MonoBehaviour
     /// </summary>
     void Start()
     {
+        animator = GetComponentInChildren<Animator>();
+
         currentOxigen = maxOxigen;
         audioSource= AudioManager.instance.GetComponent<AudioSource>();
         AudioManager.instance.PlaySFX(SFXType.Breath, audioSource, true);
@@ -134,6 +138,7 @@ public class OxigenScript : MonoBehaviour
         isDead = true;
         AudioManager.instance.StopSFX(audioSource);
         AudioManager.instance.PlaySFX(SFXType.GameOver, audioSource);
+        animator.SetTrigger("Death");
 
         StartCoroutine(DestroyAfterDelay());
     }
@@ -150,7 +155,7 @@ public class OxigenScript : MonoBehaviour
 
     private IEnumerator DestroyAfterDelay()
     {
-        yield return new WaitForSeconds(0); // De momento 0 porque no hay animación de muerte
+        yield return new WaitForSeconds(5); // De momento 0 porque no hay animación de muerte
         GameManager.Instance.ChangeScene(0);
     }
 

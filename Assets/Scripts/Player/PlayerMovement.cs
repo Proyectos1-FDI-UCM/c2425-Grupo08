@@ -109,16 +109,7 @@ public class PlayerMovement : MonoBehaviour
     {
         CheckState(ref _state);
 
-        if (GetComponent<OxigenScript>().IsTankBroken())
-        {
-            animator.Play(_state.ToString() + "Damaged");
-        }
-        else
-        {
-            animator.Play(_state.ToString());
-        }    
-
-        if (animator.GetCurrentAnimatorClipInfo(0)[0].clip.name == "IdleDamaged" || animator.GetCurrentAnimatorClipInfo(0)[0].clip.name == "Idle")
+        if (animator.GetCurrentAnimatorClipInfo(0)[0].clip.name == "IdleDamaged" || animator.GetCurrentAnimatorClipInfo(0)[0].clip.name == "Idle" || animator.GetCurrentAnimatorClipInfo(0)[0].clip.name == "death")
         {
             animator.speed = 1;
         }
@@ -190,6 +181,26 @@ public class PlayerMovement : MonoBehaviour
     
     // ---- MÉTODOS PRIVADOS ----
     #region Métodos privados
+
+    private void AnimationState(States state)
+    {
+        switch (state)
+        {
+            case States.Idle:
+                animator.SetInteger("State", 0);
+                break;
+            case States.Walk:
+                animator.SetInteger("State", 1);
+                break;        
+            case States.Jump:
+                animator.SetInteger("State", 2);
+                break;
+            case States.Fall:
+                animator.SetInteger("State", 3);
+                break;
+        }
+    }
+
     /// <summary>
     /// Comprueba los parámetros actuales del jugador y cambia de estado dependiendo de ellos. El estado cambia en _state.
     /// </summary>
@@ -206,24 +217,26 @@ public class PlayerMovement : MonoBehaviour
                 {
                     _state = States.Walk;
                     AudioManager.instance.PlaySFX(SFXType.Walk, audioSource, true);
-
+                    AnimationState(_state);
                 }
                 else if (_rb.velocity.y < -0.1)
  
                     {
                         _state = States.Fall;
-                    }
+                    AnimationState(_state);
+                }
                     else if (InputManager.Instance.JumpWasPressedThisFrame())
                     {
 
                         _state = States.Jump;
                         AudioManager.instance.PlaySFX(SFXType.Jump, audioSource);
-
-                    }
+                        AnimationState(_state);
+                }
                 else if (_isLanternAimed)
                     {
                         _state = States.Aim;
-                    }
+
+                }
  
                 break;
                 case States.Walk:
@@ -231,29 +244,31 @@ public class PlayerMovement : MonoBehaviour
                     {
                         _state = States.Idle; 
                         AudioManager.instance.StopSFX(audioSource);
-         
-                    }
+                    AnimationState(_state);
+                }
                     else if (_rb.velocity.y < -0.1)
                     {
                         _state = States.Fall;
-                    }
+                    AnimationState(_state);
+                }
                     else if (InputManager.Instance.JumpWasPressedThisFrame())
                     {
                         _state = States.Jump;
                         AudioManager.instance.StopSFX(audioSource);
                         AudioManager.instance.PlaySFX(SFXType.Jump, audioSource);
-
+                    AnimationState(_state);
 
                 }
                 else if (_isLanternAimed)
                     {
                         _state = States.Aim;
-                    }
+                }
                 break;
                 case States.Jump:
                     if (_rb.velocity.y < -0.1){
                         _state = States.Fall;
-                    }
+                    AnimationState(_state);
+                }
                 break;
                 case States.Fall:
                     if (_rb.velocity.y >= -0.1)
@@ -261,22 +276,25 @@ public class PlayerMovement : MonoBehaviour
                         AudioManager.instance.PlaySFX(SFXType.Fall, audioSource);
                         if (_rb.velocity.x == 0){
                             _state = States.Idle;
-                        }
+                    }
                         else{
                             AudioManager.instance.PlaySFX(SFXType.Walk, audioSource, true);
                             _state = States.Walk;
-                        }
                     }
+                    AnimationState(_state);
+                }
                 break;
                 case States.Aim:
                     if (!_isLanternAimed){
                         if (InputManager.Instance.MovementVector.x == 0){
                             _state = States.Idle;
+
                         }
                         else{
                             _state = States.Walk;
                         }
-                    }
+                    AnimationState(_state);
+                }
                 break;
             
             }
