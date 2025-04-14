@@ -10,31 +10,19 @@ using UnityEngine;
 
 
 /// <summary>
-/// Antes de cada class, descripción de qué es y para qué sirve,
-/// usando todas las líneas que sean necesarias.
+/// Clase del enemigo alga. Tiene toda la lógica del alga, pero el movimiento lo ejecuta el jugador.
 /// </summary>
 public class KelpEnemy : MonoBehaviour
 {
     // ---- ATRIBUTOS DEL INSPECTOR ----
     #region Atributos del Inspector (serialized fields)
-    // Documentar cada atributo que aparece aquí.
-    // El convenio de nombres de Unity recomienda que los atributos
-    // públicos y de inspector se nombren en formato PascalCase
-    // (palabras con primera letra mayúscula, incluida la primera letra)
-    // Ejemplo: MaxHealthPoints
     [SerializeField] private float activateRadius = 10f;
     [SerializeField] private float grabRadius = 5f;
-    [SerializeField] private GameObject Player;
+    [SerializeField] private PlayerMovement Player;
     #endregion
     
     // ---- ATRIBUTOS PRIVADOS ----
     #region Atributos Privados (private fields)
-    // Documentar cada atributo que aparece aquí.
-    // El convenio de nombres de Unity recomienda que los atributos
-    // privados se nombren en formato _camelCase (comienza con _, 
-    // primera palabra en minúsculas y el resto con la 
-    // primera letra en mayúsculas)
-    // Ejemplo: _maxHealthPoints
     private bool _isGrabbed = false;
     private bool _isActive = false;
     #endregion
@@ -42,9 +30,6 @@ public class KelpEnemy : MonoBehaviour
     // ---- MÉTODOS DE MONOBEHAVIOUR ----
     #region Métodos de MonoBehaviour
     
-    // Por defecto están los típicos (Update y Start) pero:
-    // - Hay que añadir todos los que sean necesarios
-    // - Hay que borrar los que no se usen 
     
     /// <summary>
     /// Start is called on the frame when a script is enabled just before 
@@ -62,10 +47,13 @@ public class KelpEnemy : MonoBehaviour
     {
         if (IsPlayerInside(grabRadius)){
             _isGrabbed = true;
+            Player.isGrabbed = true;
+            Player.kelpGrabbing = this;
         }
         else if (IsPlayerInside(activateRadius)){
             _isActive = true;
             _isGrabbed = false;
+            Player.isGrabbed =false;
         }
         else {
             _isActive = false;
@@ -77,12 +65,12 @@ public class KelpEnemy : MonoBehaviour
 
     // ---- MÉTODOS PÚBLICOS ----
     #region Métodos públicos
-    // Documentar cada método que aparece aquí con ///<summary>
-    // El convenio de nombres de Unity recomienda que estos métodos
-    // se nombren en formato PascalCase (palabras con primera letra
-    // mayúscula, incluida la primera letra)
-    // Ejemplo: GetPlayerController
-
+    /// <summary>
+    /// Método externo que avisa de que el jugador ya no está siendo agarrado.
+    /// </summary>
+    public void ReleasePlayer(){
+        _isGrabbed = false;
+    }
     #endregion
     
     // ---- MÉTODOS PRIVADOS ----
@@ -105,17 +93,16 @@ public class KelpEnemy : MonoBehaviour
         Gizmos.DrawWireSphere(transform.position,grabRadius);
         if (_isGrabbed){
             Gizmos.color = Color.red;
-            Gizmos.DrawSphere(transform.position,1f);
+            Gizmos.DrawSphere(transform.position,0.1f);
         }
         else if (_isActive){
             Gizmos.color = Color.yellow;
-            Gizmos.DrawSphere(transform.position,1f);
+            Gizmos.DrawSphere(transform.position,0.1f);
         }
         else{
             Gizmos.color = Color.green;
-            Gizmos.DrawSphere(transform.position,1f);
+            Gizmos.DrawSphere(transform.position,0.1f);
         }
     }
-
 } // class KelpEnemy 
 // namespace

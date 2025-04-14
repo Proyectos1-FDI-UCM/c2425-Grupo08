@@ -41,6 +41,7 @@ public class PlayerMovement : MonoBehaviour
         [Header("Aim Attributes")]
 
         [SerializeField]private bool debug;
+        [SerializeField]private float KelpForce = 1f;
 
     #endregion
     
@@ -78,6 +79,14 @@ public class PlayerMovement : MonoBehaviour
         private States _state = States.Idle;
 
         private AudioSource audioSource;
+        /// <summary>
+        /// El jugador está o no está siendo agarrado por un alga
+        /// </summary>
+        public bool isGrabbed{get;set;}
+        /// <summary>
+        /// Referencia al alga que está agarrando al juador
+        /// </summary>
+        public KelpEnemy kelpGrabbing {get;set;}
 
     private Animator animator;
 
@@ -160,6 +169,9 @@ public class PlayerMovement : MonoBehaviour
         break;
         case States.Aim:
         break;
+        }
+        if (IsBeingGrabbed()){
+            GrabbedMovement();
         }
     }
 
@@ -439,7 +451,31 @@ public class PlayerMovement : MonoBehaviour
             _rb.AddForce(new Vector2(FallDecelerationValue, 0), ForceMode2D.Force);
         }
     }
-    #endregion   
+    /// <summary>
+    /// Aplica una fuerza al jugador hacia las coordenadas del alga cuando este está siendo agarrado.
+    /// </summary>
+    private void GrabbedMovement(){
+        _rb.AddForce( (kelpGrabbing.transform.position - transform.position)*KelpForce);
+    }
+    /// <summary>
+    /// Avisa al enemigo alga que tenía agarrado al juegador de que este se ha escapado
+    /// </summary>
+    private void ReleaseKelp(){
+        if (kelpGrabbing != null){
+            kelpGrabbing.ReleasePlayer();
+        }
+    }
+    /// <summary>
+    /// Devuelve true si el jugador está siendo agarrado por un alga.
+    /// </summary>
+    /// <returns></returns>
+    private bool IsBeingGrabbed(){
+        if (kelpGrabbing != null && isGrabbed){
+            return true;
+        }
+        return false;
+    }
 
+    #endregion   
 } // class PlayerMovement 
 // namespace
