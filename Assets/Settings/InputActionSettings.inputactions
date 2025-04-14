@@ -28,7 +28,7 @@
                     "type": "Value",
                     "id": "a3c7c8cd-e7f7-4bda-b9ec-d4890ab9e242",
                     "expectedControlType": "Vector2",
-                    "processors": "",
+                    "processors": "NormalizeVector2",
                     "interactions": "",
                     "initialStateCheck": true
                 },
@@ -195,7 +195,7 @@
                 },
                 {
                     "name": "",
-                    "id": "e568318d-c361-4698-b7bf-6a53d325285c",
+                    "id": "6c4fc849-abf3-4b95-8981-7b053773b856",
                     "path": "<Gamepad>/rightStick",
                     "interactions": "",
                     "processors": "",

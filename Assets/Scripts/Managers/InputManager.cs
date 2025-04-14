@@ -6,7 +6,7 @@
 //---------------------------------------------------------
 using UnityEngine;
 using UnityEngine.InputSystem;
-
+using UnityEngine.Rendering.Universal.Internal;
 
 /// <summary>
 /// Manager para la gestión del Input. Se encarga de centralizar la gestión
@@ -78,6 +78,15 @@ public class InputManager : MonoBehaviour
 
     // Del UI
     private InputAction _return;
+
+    #endregion
+
+    #region Vectores de Inputs
+    /// <summary>
+    /// Propiedad para acceder al vector de movimiento.
+    /// Según está configurado el InputActionController, es un vector normalizado
+    /// </summary>
+    public Vector2 MovementVector { get; private set; }
 
     #endregion
 
@@ -158,25 +167,7 @@ public class InputManager : MonoBehaviour
         return _instance != null;
     }
 
-    /// <summary>
-    /// Propiedad para acceder al vector de movimiento.
-    /// Según está configurado el InputActionController,
-    /// es un vector normalizado
-    /// </summary>
-    public Vector2 MovementVector { get; private set; }
-
-    /// <summary>
-    /// Propiedad para acceder al vector de movimiento del cursor/joystick derecho.
-    /// Según está configurado el InputActionController,
-    /// es un vector normalizado
-    /// </summary>
-    public Vector2 AimVector { get; private set; }
-
-    /// <summary>
-    /// Método para saber si el botón de disparo (Fire) está pulsado
-    /// Devolverá true en todos los frames en los que se mantenga pulsado
-    /// <returns>True, si el botón está pulsado</returns>
-    /// </summary>
+    #region Player Interactions
 
     public bool JumpIsPressed()
     {
@@ -192,54 +183,72 @@ public class InputManager : MonoBehaviour
     {
         return _flash.IsPressed();
     }
-    public bool InteractIsPressed()
-    {
-        return _interact.IsPressed();
-    }
-    //Del UI
-
-    public bool ReturnIsPressed()
-    {
-        return _return.IsPressed();
-    }
-    /// <summary>
-    /// Método para saber si el botón de disparo (Fire) se ha pulsado en este frame
-    /// <returns>Devuelve true, si el botón ha sido pulsado en este frame
-    /// y false, en otro caso
-    /// </returns>
-    /// </summary>
 
     public bool JumpWasPressedThisFrame()
     {
         return _jump.WasPressedThisFrame();
     }
 
-    public bool InteractWasPressedThisFrame()
-    {
-        return _interact.WasPressedThisFrame();
-    }
-
     public bool JumpWasRealeasedThisFrame()
     {
         return _jump.WasReleasedThisFrame();
     }
+
+    public bool InteractIsPressed()
+    {
+        return _interact.IsPressed();
+    }
+
+    public bool InteractWasPressedThisFrame()
+    {
+        return _interact.WasPressedThisFrame();
+    }
+    
     public bool InteractWasRealeasedThisFrame()
     {
         return _interact.WasReleasedThisFrame();
     }
 
-    /// <summary>
-    /// Método para saber si el botón de disparo (Fire) ha dejado de pulsarse
-    /// durante este frame
-    /// <returns>Devuelve true, si el botón se ha dejado de pulsar en
-    /// este frame; y false, en otro caso.
-    /// </returns>
-    /// </summary>
+    #endregion
 
-    /*public bool FireWasReleasedThisFrame()
+    #region Menu Interactions
+
+    public bool ReturnIsPressed()
     {
-        return _fire.WasReleasedThisFrame();
-    }*/
+        return _return.IsPressed();
+    }
+
+    #endregion
+
+    /// <summary>
+    /// Método que devuelve la posición del cursor en la pantalla.
+    /// Se puede usar para saber dónde está el ratón en el mundo.
+    /// </summary>
+    /// <returns>Posición del mouse en el mundo</returns>
+    public Vector2 GetWorldCursorPos()
+    {
+        return Camera.main.ScreenToWorldPoint(Mouse.current.position.ReadValue());
+    }
+
+    /// <summary>
+    /// Método que devuelve las coordenadas de movimiento del joystick derecho del gamepad.
+    /// Se puede usar para saber dónde apunta el joystick derecho de un mando.
+    /// </summary>
+    /// <returns>Vector compuesto de coordenadas del joystick derecho</returns>
+    public Vector2 GetRightStickInput()
+    {
+        return Gamepad.current.rightStick.ReadValue();
+    }
+
+    /// <summary>
+    /// Método que devuelve si el gamepad está activo o no.
+    /// Se puede usar para saber si el gamepad está conectado y activo.
+    /// </summary>
+    /// <returns>Devuelve true si hay un mando conectado.</returns>
+    public bool IsGamepadActive()
+    {
+        return Gamepad.current != null;
+    }
 
     #endregion
 
@@ -264,18 +273,7 @@ public class InputManager : MonoBehaviour
         movement.performed += OnMove;
         movement.canceled += OnMove;
 
-        // Cacheamos la acción de movimiento
-        InputAction aim = _theController.Player.Aim;
-
-        // SUSCRIBIRSE a la acción Aim (definida en el asset InputActionSettings)
-        aim.performed += OnAim;
-        aim.canceled += OnAim;
-
-        // Para el disparo solo cacheamos la acción de disparo.
-        // El estado lo consultaremos a través de los métodos públicos que
-        // tenemos (FireIsPressed, FireWasPressedThisFrame
-        // y FireWasReleasedThisFrame)
-
+        // Cacheamos la acción de salto
         _jump = _theController.Player.Jump;
 
         // Controles para la linterna (apuntado y flasheado)
@@ -285,7 +283,7 @@ public class InputManager : MonoBehaviour
 
         _interact = _theController.Player.Interact;
 
-        // Del UI
+        // Cacheamos la acción de Volver para los menús
         _return = _theController.UI.Return;
     }
 
@@ -299,16 +297,6 @@ public class InputManager : MonoBehaviour
         MovementVector = context.ReadValue<Vector2>();
     }
 
-    /// <summary>
-    /// Método que es llamado por el controlador de input cuando se producen
-    /// eventos de movimiento del cursor/joystick derecho (relacionados con la acción Aim)
-    /// </summary>
-    /// <param name="context">Información sobre el evento de movimiento del cursor/joystick derecho</param>
-    private void OnAim(InputAction.CallbackContext context)
-    {
-        AimVector = context.ReadValue<Vector2>();
-    }
-
     #endregion
+
 } // class InputManager
-  // namespace

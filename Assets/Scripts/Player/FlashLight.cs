@@ -45,7 +45,7 @@ public class FlashLight : MonoBehaviour
     [Range(0, 10)]
     [SerializeField] private float flashCooldown = 4f;
 
-    
+
     [Space]
     [Header("Unfocus Settings")]
     [Space]
@@ -83,7 +83,7 @@ public class FlashLight : MonoBehaviour
     [SerializeField] private float flashFalloff = 4.5f;
     [Tooltip("Tiempo de aparición del collider")]
     [Range(0, 0.1f)]
-    [SerializeField] private float  colliderTime= 0.02f;
+    [SerializeField] private float colliderTime = 0.02f;
 
     [Space]
     [Header("References (remove in future)")]
@@ -99,7 +99,7 @@ public class FlashLight : MonoBehaviour
 
     private PlayerMovement player; // Referencia al script del jugador (PlayerMovement)
 
-    public struct LightValues
+    public struct LightValues // Estructura para almacenar los valores de la luz
     {
         public float intensity;
         public float angle;
@@ -107,7 +107,7 @@ public class FlashLight : MonoBehaviour
     }
 
     private LightValues target; // Valores objetivo de la luz
-    
+
     private bool canFlash = true; // Indica si se puede usar el flash
 
     private float timer; // Temporizador para el cooldown del flash
@@ -120,7 +120,7 @@ public class FlashLight : MonoBehaviour
     private void Start()
     {
         // Guardar la velocidad de transición original
-        tmp = transitionSpeed; 
+        tmp = transitionSpeed;
 
         // Obtener la referencia a la luz 2D de la linterna
         flashLight = GetComponentInChildren<Light2D>();
@@ -177,21 +177,21 @@ public class FlashLight : MonoBehaviour
             {
                 if (InputManager.Instance.FlashIsPressed())
 
-                    LightFlash();
+                    LightFlash(); // Activa el flash de la linterna
 
                 else
 
-                    LightFocus();
+                    LightFocus(); // Enfoca la linterna
             }
 
             else
 
-                LightUnfocus();
+                LightUnfocus(); // Desenfoca la linterna (default)
         }
 
         else
 
-            LightFlicker();
+            LightFlicker(); // Parpadea la linterna durante el cooldown después del flash
     }
 
     /// <summary>
@@ -200,18 +200,42 @@ public class FlashLight : MonoBehaviour
     /// </summary>
     private void LookAtInput()
     {
-        Vector2 cursorWorldPos = Camera.main.ScreenToWorldPoint(InputManager.Instance.AimVector);
-        float distanceToCursor = Vector2.Distance(cursorWorldPos, transform.position);
-
-        // Cambiar la direción del sprite según si el cursor esta a izquierda o derecha
-        Vector2 aimInput = (cursorWorldPos - (Vector2)transform.position).normalized;
-        playerSprite.flipX = aimInput.x < 0; // Cambiar esta lógica al PlayerMovement?
-
-        // Solo rotar si el cursor está fuera del círculo del radio inputDeadzone
-        if (distanceToCursor > inputDeadzone)
+        if (!InputManager.Instance.IsGamepadActive()) // Si el ratón está activo, usar el ratón para rotar la linterna
         {
-            float angle = Mathf.Atan2(aimInput.y, aimInput.x) * Mathf.Rad2Deg;
-            transform.rotation = Quaternion.Euler(0, 0, Mathf.LerpAngle(transform.rotation.eulerAngles.z, angle, Time.deltaTime * aimSpeed));
+            // Obtener la posición del cursor en el mundo y calcular la distancia al jugador
+            Vector2 cursorPos = InputManager.Instance.GetWorldCursorPos();
+
+            // Calcular la distancia entre el cursor y el jugador
+            float distanceToCursor = Vector2.Distance(cursorPos, transform.position);
+
+            // Cambiar la direción del sprite según si el cursor esta a izquierda o derecha
+            Vector2 mouseInput = cursorPos - (Vector2)transform.position;
+            
+            // Solo rotar si el cursor está fuera del círculo del radio inputDeadzone
+            if (distanceToCursor > inputDeadzone)
+            {
+                float angle = Mathf.Atan2(mouseInput.y, mouseInput.x) * Mathf.Rad2Deg;
+                transform.rotation = Quaternion.Euler(0, 0, Mathf.LerpAngle(transform.rotation.eulerAngles.z, angle, Time.deltaTime * aimSpeed));
+
+                // Cambiar la dirección del sprite según si el cursor esta a izquierda o derecha
+                playerSprite.flipX = mouseInput.x < 0; // Cambiar esta lógica al PlayerMovement?
+            }
+        }
+
+        else // Si el gamepad está activo, usar el joystick derecho para rotar la linterna
+        {
+            // Obtener la dirección del joystick derecho y calcular la distancia al jugador
+            Vector2 gamepadInput = InputManager.Instance.GetRightStickInput();
+
+            // Solo rotar si el joystick supera el radio inputDeadzone
+            if (gamepadInput.magnitude > inputDeadzone)
+            {
+                float angle = Mathf.Atan2(gamepadInput.y, gamepadInput.x) * Mathf.Rad2Deg;
+                transform.rotation = Quaternion.Euler(0, 0, Mathf.LerpAngle(transform.rotation.eulerAngles.z, angle, Time.deltaTime * aimSpeed));
+
+                // Cambiar la dirección del sprite según si el cursor esta a izquierda o derecha
+                playerSprite.flipX = gamepadInput.x < 0; // Cambiar esta lógica al PlayerMovement?
+            }
         }
     }
 
@@ -294,7 +318,7 @@ public class FlashLight : MonoBehaviour
         canFlash = false;
 
         // Reducir la velocidad de transición para después del flash
-        transitionSpeed = flashFalloff; 
+        transitionSpeed = flashFalloff;
 
         // Reiniciar el temporizador para el cooldown del flash
         timer = 0f;
@@ -306,29 +330,28 @@ public class FlashLight : MonoBehaviour
     /// </summary>
     public void LightFlicker()
     {
+        // Incrementa el temporizador con el tiempo transcurrido desde el último frame
         timer += Time.deltaTime;
 
+        // Desactiva el collider tras un breve periodo para que el flash no sea permanente
         if (timer > colliderTime)
-
             flashCollider.enabled = false;
 
+        // Si ha pasado el tiempo de cooldown, permite volver a usar el flash y restablece valores
         if (timer > flashCooldown)
         {
             canFlash = true;
-
             timer = 0f;
-
             transitionSpeed = tmp;
         }
 
+        // Hace parpadear la luz alternando la intensidad entre un valor mínimo y uno aún menor
         if (Mathf.Sin(timer * flickerSpeed) > 0)
-
             target.intensity = minIntensity;
-
         else
-
             target.intensity = minIntensity / 3f;
 
+        // Mantiene el ángulo y longitud en modo desenfoque durante el parpadeo
         target.angle = unfocusAngle;
         target.length = unfocusLength;
     }
