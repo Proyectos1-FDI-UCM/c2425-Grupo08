@@ -54,6 +54,7 @@ public class Motor : MonoBehaviour
     private GameObject player;
     private FlashLight flashlight;
     private Animator motorAnimator;
+    private AudioSource audioSource;
 
     #endregion
 
@@ -71,6 +72,7 @@ public class Motor : MonoBehaviour
         progressBar.value = currentLoadProgress;  // Inicializa la barra en el progreso actual (0)
         flashlight = GameManager.Instance.GetFlashLight();
 
+        audioSource = GetComponent<AudioSource>();
         player = GameObject.FindGameObjectWithTag("Player");
         motorAnimator = GetComponent<Animator>();
     }
@@ -122,6 +124,7 @@ public class Motor : MonoBehaviour
             GetComponent<GeneratorEnemySpawner>().SetCanRespawn(true); // Permite el respawn de enemigos
             progressBar.gameObject.SetActive(true); // Muestra la barra de progreso
             loadCoroutine = StartCoroutine(LoadProgress()); // Inicia la carga
+            AudioManager.instance.PlaySFX(SFXType.MotorSound, audioSource, true); // Reproduce el sonido de reparación
         }
     }
 
@@ -137,6 +140,8 @@ public class Motor : MonoBehaviour
             loadCoroutine = null; // Limpia la referencia
         }
         progressBar.gameObject.SetActive(false); // Oculta la barra de progreso
+        AudioManager.instance.StopSFX(audioSource); // Para el sonido de reparación
+
         player.GetComponent<PlayerMovement>().SetIsRepairing(false);
         GetComponent<GeneratorEnemySpawner>().SetCanRespawn(false);
     }
@@ -152,6 +157,9 @@ public class Motor : MonoBehaviour
         if (motorAnimator != null)
             motorAnimator.speed = 0.5f;
 
+        if (audioSource != null)
+            audioSource.pitch = 0.8f; // Comienza con un pitch más bajo
+
         while (currentLoadProgress < 1f) // Mientras la carga no esté completa
         {
             currentLoadProgress += Time.deltaTime / loadTime; // Incrementa el progreso
@@ -159,8 +167,13 @@ public class Motor : MonoBehaviour
 
             if (motorAnimator != null)
             {
-                float speedMultiplier = Mathf.Lerp(0.5f, 3f, currentLoadProgress);
+                float speedMultiplier = Mathf.Lerp(0.5f, 4f, currentLoadProgress);
                 motorAnimator.speed = speedMultiplier;
+            }
+            if (audioSource != null)
+            {
+                float pitchMultiplier = Mathf.Lerp(0.8f, 3f, currentLoadProgress);
+                audioSource.pitch = pitchMultiplier;
             }
 
             if (currentLoadProgress >= 1f) // Si la carga se completa
@@ -189,7 +202,12 @@ public class Motor : MonoBehaviour
         if (motorAnimator != null)
         {
             motorAnimator.speed = 1f;
-            motorAnimator.SetTrigger("MotorIdle"); // Activa el trigger
+            // Activa el trigger
+        }
+        if (audioSource != null)
+        {
+            AudioManager.instance.StopSFX(audioSource); // Para el sonido de reparación
+
         }
 
 

@@ -369,6 +369,7 @@ public class Enemy2Sonar : MonoBehaviour
             attack = true;
             animator.SetBool("Attack", true);
             animator.speed = attackAnimationSpeed;
+            AudioManager.instance.PlaySFX(SFXType.SonarAttack, audioSource);
         }
         else
         {

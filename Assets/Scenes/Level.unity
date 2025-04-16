@@ -1096,6 +1096,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4689173960903053057, guid: a386bc22310e24e4b933694d225ef43a, type: 3}
+      propertyPath: audioSource
+      value: 
+      objectReference: {fileID: 1588235121}
     - target: {fileID: 4836076740440153913, guid: a386bc22310e24e4b933694d225ef43a, type: 3}
       propertyPath: m_SizeDelta.x
       value: 3218.418
@@ -1333,6 +1337,34 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 982502975117708365, guid: 8c0a26a4016db1f4da055ae016bf56f8, type: 3}
+      propertyPath: sfxClips.Array.size
+      value: 12
+      objectReference: {fileID: 0}
+    - target: {fileID: 982502975117708365, guid: 8c0a26a4016db1f4da055ae016bf56f8, type: 3}
+      propertyPath: sfxClips.Array.data[9].clip
+      value: 
+      objectReference: {fileID: 8300000, guid: f7195a4b420d2404d81a7da5dec01879, type: 3}
+    - target: {fileID: 982502975117708365, guid: 8c0a26a4016db1f4da055ae016bf56f8, type: 3}
+      propertyPath: sfxClips.Array.data[9].type
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 982502975117708365, guid: 8c0a26a4016db1f4da055ae016bf56f8, type: 3}
+      propertyPath: sfxClips.Array.data[10].clip
+      value: 
+      objectReference: {fileID: 8300000, guid: a8ba46fbf055fd94e8bae8b55c535010, type: 3}
+    - target: {fileID: 982502975117708365, guid: 8c0a26a4016db1f4da055ae016bf56f8, type: 3}
+      propertyPath: sfxClips.Array.data[10].type
+      value: 11
+      objectReference: {fileID: 0}
+    - target: {fileID: 982502975117708365, guid: 8c0a26a4016db1f4da055ae016bf56f8, type: 3}
+      propertyPath: sfxClips.Array.data[11].clip
+      value: 
+      objectReference: {fileID: 8300000, guid: 7a880f81e184ffd49b10f6f2072be12a, type: 3}
+    - target: {fileID: 982502975117708365, guid: 8c0a26a4016db1f4da055ae016bf56f8, type: 3}
+      propertyPath: sfxClips.Array.data[11].type
+      value: 12
+      objectReference: {fileID: 0}
     - target: {fileID: 1629052527552472779, guid: 8c0a26a4016db1f4da055ae016bf56f8, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -12115,6 +12147,11 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 2355699967664169164, guid: a386bc22310e24e4b933694d225ef43a, type: 3}
   m_PrefabInstance: {fileID: 273838640}
   m_PrefabAsset: {fileID: 0}
+--- !u!82 &1588235121 stripped
+AudioSource:
+  m_CorrespondingSourceObject: {fileID: 7559336924944496004, guid: a386bc22310e24e4b933694d225ef43a, type: 3}
+  m_PrefabInstance: {fileID: 273838640}
+  m_PrefabAsset: {fileID: 0}
 --- !u!43 &1588679155
 Mesh:
   m_ObjectHideFlags: 0
@@ -13733,6 +13770,10 @@ PrefabInstance:
     - target: {fileID: 3190272025005498771, guid: 10a2a23cb1a6fc344864f80da2c1702d, type: 3}
       propertyPath: m_Name
       value: Player
+      objectReference: {fileID: 0}
+    - target: {fileID: 4110250732275042765, guid: 10a2a23cb1a6fc344864f80da2c1702d, type: 3}
+      propertyPath: maxOxigen
+      value: 501
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

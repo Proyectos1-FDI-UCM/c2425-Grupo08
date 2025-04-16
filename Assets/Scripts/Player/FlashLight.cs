@@ -99,6 +99,8 @@ public class FlashLight : MonoBehaviour
 
     private PlayerMovement player; // Referencia al script del jugador (PlayerMovement)
 
+    private AudioSource audioSource; // Referencia al AudioSource de la linterna
+
     public struct LightValues // Estructura para almacenar los valores de la luz
     {
         public float intensity;
@@ -130,6 +132,9 @@ public class FlashLight : MonoBehaviour
 
         // Obtener la referencia al PlayerMovement del jugador
         player = GameManager.Instance.GetPlayerController().GetComponent<PlayerMovement>();
+
+        //Obtener la referencia del audiosource de la linterna
+        audioSource = GetComponent<AudioSource>();
 
         if (flashLight != null && flashCollider != null && player != null)
         {
@@ -310,6 +315,7 @@ public class FlashLight : MonoBehaviour
         flashLight.pointLightInnerAngle = focusAngle * flashMultiplier;
         flashLight.pointLightOuterAngle = flashLight.pointLightInnerAngle + lightDiffusion;
         flashLight.pointLightOuterRadius = focusLength * flashMultiplier;
+        AudioManager.instance.PlaySFX(SFXType.FlashLight, audioSource); // Reproducir el sonido del flash
 
         // Establecer el estado del flash-collider (activado)
         flashCollider.enabled = true;

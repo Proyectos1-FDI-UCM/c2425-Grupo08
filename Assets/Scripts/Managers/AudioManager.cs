@@ -21,7 +21,10 @@ public enum SFXType
     PatrolEnemy1,
     FleeEnemy1,
     Sonar1,
-    Sonar2
+    Sonar2,
+    SonarAttack,
+    FlashLight,
+    MotorSound
     // Se pueden añadir más sonidos según sea necesario
 }
 /// <summary>
