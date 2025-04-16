@@ -270,6 +270,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: KelpEnemy
       objectReference: {fileID: 0}
+    - target: {fileID: 9154007126155686660, guid: 4f334b04deca8a3109ce78658a666517, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -13842,10 +13846,6 @@ PrefabInstance:
     - target: {fileID: 3190272025005498771, guid: 10a2a23cb1a6fc344864f80da2c1702d, type: 3}
       propertyPath: m_Name
       value: Player
-      objectReference: {fileID: 0}
-    - target: {fileID: 4110250732275042765, guid: 10a2a23cb1a6fc344864f80da2c1702d, type: 3}
-      propertyPath: maxOxigen
-      value: 501
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

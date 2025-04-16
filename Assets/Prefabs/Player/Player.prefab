@@ -267,7 +267,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 79e102ee1d109544882c3e15ef85d9a8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxOxigen: 300
+  maxOxigen: 501
   oxigenDecayHealthy: 1
   oxigenDecayBroken: 2
 --- !u!114 &2822911129013704682
@@ -296,7 +296,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   WalkAcceleration: 3
   WalkDeceleration: 5
-  WalkMaxSpeed: 2.75
+  WalkMaxSpeed: 2.15
   WalkDecelerationThreshold: 0.2
   JumpAcceleration: 2.5
   JumpDeceleration: 2
@@ -308,6 +308,10 @@ MonoBehaviour:
   FallDeceleration: 5
   FallMaxSpeed: 3
   FallDecelerationThreshold: 0.2
+  AimAcceleration: 2.5
+  AimDeceleration: 2
+  AimMaxSpeed: 1
+  AimDecelerationThreshold: 0.2
   debug: 0
   KelpForce: 1
 --- !u!82 &7040302213323716177
