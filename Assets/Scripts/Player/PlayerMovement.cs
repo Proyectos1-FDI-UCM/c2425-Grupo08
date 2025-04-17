@@ -80,7 +80,9 @@ public class PlayerMovement : MonoBehaviour
     /// Estado del jugador. Inicializa en Idle.
     /// </summary>
     private States _state = States.Idle;
-
+    /// <summary>
+    /// Referencia al componente de sonido del jugador.
+    /// </summary>
     private AudioSource audioSource;
     /// <summary>
     /// El jugador está o no está siendo agarrado por un alga
@@ -90,9 +92,14 @@ public class PlayerMovement : MonoBehaviour
     /// Referencia al alga que está agarrando al jugador
     /// </summary>
     public KelpEnemy kelpGrabbing { get; set; }
-
+    /// <summary>
+    /// Referencia al componente de animación del jugador.
+    /// </summary>
     private Animator animator;
-
+    /// <summary>
+    /// El jugador puede o no flashear.
+    /// </summary>
+    private bool canFlash = true;
     /// <summary>
     /// Un bool que representa si el jugador está reparando. Tiene un setter y un getter como métodos públicos.
     /// </summary>
@@ -202,6 +209,10 @@ public class PlayerMovement : MonoBehaviour
     {
         this.isRepairing = isRepairing;
     }
+    public void SetcanFlash(bool canFlash)
+    {
+        this.canFlash = canFlash;
+    }
     public bool GetIsRepairing()
     {
         return isRepairing;
@@ -258,7 +269,7 @@ public class PlayerMovement : MonoBehaviour
                     AudioManager.instance.PlaySFX(SFXType.Jump, audioSource);
                     AnimationState(_state);
                 }
-                else if (IsAiming())
+                else if (IsAiming() && canFlash)
                 {
                     _state = States.Aim;
                 }
@@ -283,7 +294,7 @@ public class PlayerMovement : MonoBehaviour
                     AudioManager.instance.PlaySFX(SFXType.Jump, audioSource);
                     AnimationState(_state);
                 }
-                else if (IsAiming())
+                else if (IsAiming() && canFlash)
                 {
                     _state = States.Aim;
                 }
@@ -312,7 +323,7 @@ public class PlayerMovement : MonoBehaviour
                 }
                 break;
             case States.Aim:
-                if (!IsAiming())
+                if (!IsAiming() || !canFlash)
                 {
                     if (InputManager.Instance.MovementVector.x == 0)
                     {

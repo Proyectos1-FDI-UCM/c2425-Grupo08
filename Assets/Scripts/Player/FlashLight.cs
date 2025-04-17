@@ -322,6 +322,7 @@ public class FlashLight : MonoBehaviour
 
         // Establecer la disponibilidad del flash
         canFlash = false;
+        player.SetcanFlash(canFlash);
 
         // Reducir la velocidad de transición para después del flash
         transitionSpeed = flashFalloff;
@@ -347,6 +348,7 @@ public class FlashLight : MonoBehaviour
         if (timer > flashCooldown)
         {
             canFlash = true;
+            player.SetcanFlash(canFlash);
             timer = 0f;
             transitionSpeed = tmp;
         }
