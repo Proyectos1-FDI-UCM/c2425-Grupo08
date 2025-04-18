@@ -62,7 +62,8 @@ public class PlayerMovement : MonoBehaviour
         Walk,
         Fall,
         Jump,
-        Aim
+        Aim,
+        Death
     }
     /// <summary>
     /// Limitador de la velocidad máxima según el desplazamiento del joystick (desplazamiento analógico).
@@ -100,6 +101,10 @@ public class PlayerMovement : MonoBehaviour
     /// El jugador puede o no flashear.
     /// </summary>
     private bool canFlash = true;
+    /// <summary>
+    /// Jugador esta muerto o no.
+    /// </summary>
+    private bool isDeath = false;
     /// <summary>
     /// Un bool que representa si el jugador está reparando. Tiene un setter y un getter como métodos públicos.
     /// </summary>
@@ -193,6 +198,8 @@ public class PlayerMovement : MonoBehaviour
                 else
                     AimDecelerate(AimDeceleration);
                 break;
+            case States.Death:
+                break;
         }
         if (IsBeingGrabbed())
         {
@@ -213,9 +220,17 @@ public class PlayerMovement : MonoBehaviour
     {
         this.canFlash = canFlash;
     }
+    public void SetIsDeath (bool isDeath)
+    {
+        this.isDeath = isDeath;
+    }
     public bool GetIsRepairing()
     {
         return isRepairing;
+    }
+    public bool GetIsDeath()
+    {
+        return isDeath;
     }
 
     #endregion
@@ -252,6 +267,10 @@ public class PlayerMovement : MonoBehaviour
         switch (_state)
         {
             case States.Idle:
+                if (isDeath)
+                {
+                    _state = States.Death;
+                }
                 if (InputManager.Instance.MovementVector.x != 0)
                 {
                     _state = States.Walk;
@@ -275,6 +294,11 @@ public class PlayerMovement : MonoBehaviour
                 }
                 break;
             case States.Walk:
+                if (isDeath)
+                {
+                    _state = States.Death;
+                    AudioManager.instance.StopSFX(audioSource);
+                }
                 // Se mantiene Walk mientras haya input horizontal, sin forzar Idle por poca velocidad.
                 if (InputManager.Instance.MovementVector.x == 0)
                 {
@@ -298,15 +322,26 @@ public class PlayerMovement : MonoBehaviour
                 {
                     _state = States.Aim;
                 }
+                
                 break;
             case States.Jump:
-                if (_rb.velocity.y < -0.1f)
+                if (isDeath)
+                {
+                    _state = States.Death;
+                    AudioManager.instance.StopSFX(audioSource);
+                }
+                else if (_rb.velocity.y < -0.1f)
                 {
                     _state = States.Fall;
                     AnimationState(_state);
                 }
+                
                 break;
             case States.Fall:
+                if (isDeath)
+                {
+                    _state = States.Death;
+                }
                 if (_rb.velocity.y >= -0.1f)
                 {
                     AudioManager.instance.PlaySFX(SFXType.Fall, audioSource);
@@ -323,7 +358,11 @@ public class PlayerMovement : MonoBehaviour
                 }
                 break;
             case States.Aim:
-                if (!IsAiming() || !canFlash)
+                if (isDeath)
+                {
+                    _state = States.Death;
+                }
+                else if (!IsAiming() || !canFlash)
                 {
                     if (InputManager.Instance.MovementVector.x == 0)
                     {

@@ -46,6 +46,7 @@ public class OxigenScript : MonoBehaviour
     private bool tankBroken = false; // Indica si el tanque de oxígeno está roto o no
     private AudioSource audioSource;
     private bool isDead = false;
+    private PlayerMovement player;
 
     private Animator animator;
 
@@ -65,7 +66,7 @@ public class OxigenScript : MonoBehaviour
     void Start()
     {
         animator = GetComponentInChildren<Animator>();
-
+        player = GameManager.Instance.GetPlayerController().GetComponent<PlayerMovement>();
         currentOxigen = maxOxigen;
         audioSource= AudioManager.instance.GetComponent<AudioSource>();
         AudioManager.instance.PlaySFX(SFXType.Breath, audioSource, true);
@@ -136,9 +137,9 @@ public class OxigenScript : MonoBehaviour
         if (isDead) return; // Evitar múltiples ejecuciones
 
         isDead = true;
-        AudioManager.instance.StopSFX(audioSource);
         AudioManager.instance.PlaySFX(SFXType.GameOver, audioSource);
         animator.SetTrigger("Death");
+        player.SetIsDeath(true);
 
         StartCoroutine(DestroyAfterDelay());
     }

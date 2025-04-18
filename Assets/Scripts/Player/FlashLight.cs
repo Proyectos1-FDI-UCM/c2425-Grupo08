@@ -159,13 +159,21 @@ public class FlashLight : MonoBehaviour
 
     private void Update()
     {
-        LookAtInput(); // Control del movimiento de la linterna con el joystick o el ratón
-
-        if (flashLight != null && flashCollider != null)
+        if (player.GetIsDeath())
         {
             LerpValues(); // Interpolar los valores de la luz
+            LightUnfocus();
+        }
+        else
+        {
+            LookAtInput(); // Control del movimiento de la linterna con el joystick o el ratón
 
-            ChangeState(); // Cambiar el estado de la linterna según la entrada del jugador
+            if (flashLight != null && flashCollider != null)
+            {
+                LerpValues(); // Interpolar los valores de la luz
+
+                ChangeState(); // Cambiar el estado de la linterna según la entrada del jugador
+            }
         }
     }
 

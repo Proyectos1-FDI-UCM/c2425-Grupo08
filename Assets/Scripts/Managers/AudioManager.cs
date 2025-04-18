@@ -1,6 +1,7 @@
 //---------------------------------------------------------
 // AudioManager que controla los sonidos, los almacena, los reproduce y los para
 // Tomás Arévalo Almagro
+//Andrés Bartolomé Clap
 // Project Abyss
 // Proyectos 1 - Curso 2024-25
 //---------------------------------------------------------
