@@ -40,7 +40,12 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float FallDecelerationThreshold;
 
     [Header("Aim Attributes")]
+    [SerializeField] private float AimAcceleration;
+    [SerializeField] private float AimDeceleration;
+    [SerializeField] private float AimMaxSpeed;
+    [SerializeField] private float AimDecelerationThreshold;
 
+    [Space]
     [SerializeField] private bool debug;
     [SerializeField] private float KelpForce = 1f;
 
@@ -57,7 +62,8 @@ public class PlayerMovement : MonoBehaviour
         Walk,
         Fall,
         Jump,
-        Aim
+        Aim,
+        Death
     }
     /// <summary>
     /// Limitador de la velocidad máxima según el desplazamiento del joystick (desplazamiento analógico).
@@ -68,10 +74,6 @@ public class PlayerMovement : MonoBehaviour
     /// </summary>
     private Rigidbody2D _rb;
     /// <summary>
-    /// True si el jugador está apuntando, False si el jugador no está apuntando.
-    /// </summary>
-    private bool _isLanternAimed;
-    /// <summary>
     /// Multiplicador del salto del jugador que se aplica a la aceleración vertical al saltar y que decrementa mientras se pulsa el botón de salto.
     /// </summary>
     private float _jumpMultiplier = 1;
@@ -79,7 +81,9 @@ public class PlayerMovement : MonoBehaviour
     /// Estado del jugador. Inicializa en Idle.
     /// </summary>
     private States _state = States.Idle;
-
+    /// <summary>
+    /// Referencia al componente de sonido del jugador.
+    /// </summary>
     private AudioSource audioSource;
     /// <summary>
     /// El jugador está o no está siendo agarrado por un alga
@@ -89,9 +93,18 @@ public class PlayerMovement : MonoBehaviour
     /// Referencia al alga que está agarrando al jugador
     /// </summary>
     public KelpEnemy kelpGrabbing { get; set; }
-
+    /// <summary>
+    /// Referencia al componente de animación del jugador.
+    /// </summary>
     private Animator animator;
-
+    /// <summary>
+    /// El jugador puede o no flashear.
+    /// </summary>
+    private bool canFlash = true;
+    /// <summary>
+    /// Jugador esta muerto o no.
+    /// </summary>
+    private bool isDeath = false;
     /// <summary>
     /// Un bool que representa si el jugador está reparando. Tiene un setter y un getter como métodos públicos.
     /// </summary>
@@ -177,6 +190,15 @@ public class PlayerMovement : MonoBehaviour
                 _jumpMultiplier = 1;
                 break;
             case States.Aim:
+                if (InputManager.Instance.MovementVector.x != 0)
+                {
+                    _joystickMaxSpeed = AimMaxSpeed;
+                    AimWalk(InputManager.Instance.MovementVector.x);
+                }
+                else
+                    AimDecelerate(AimDeceleration);
+                break;
+            case States.Death:
                 break;
         }
         if (IsBeingGrabbed())
@@ -194,9 +216,21 @@ public class PlayerMovement : MonoBehaviour
     {
         this.isRepairing = isRepairing;
     }
+    public void SetcanFlash(bool canFlash)
+    {
+        this.canFlash = canFlash;
+    }
+    public void SetIsDeath (bool isDeath)
+    {
+        this.isDeath = isDeath;
+    }
     public bool GetIsRepairing()
     {
         return isRepairing;
+    }
+    public bool GetIsDeath()
+    {
+        return isDeath;
     }
 
     #endregion
@@ -220,9 +254,6 @@ public class PlayerMovement : MonoBehaviour
             case States.Fall:
                 animator.SetInteger("State", 3);
                 break;
-            case States.Aim:
-                animator.SetInteger("State", 4);
-                break;
         }
     }
 
@@ -236,6 +267,10 @@ public class PlayerMovement : MonoBehaviour
         switch (_state)
         {
             case States.Idle:
+                if (isDeath)
+                {
+                    _state = States.Death;
+                }
                 if (InputManager.Instance.MovementVector.x != 0)
                 {
                     _state = States.Walk;
@@ -253,13 +288,17 @@ public class PlayerMovement : MonoBehaviour
                     AudioManager.instance.PlaySFX(SFXType.Jump, audioSource);
                     AnimationState(_state);
                 }
-                else if (_isLanternAimed)
+                else if (IsAiming() && canFlash)
                 {
                     _state = States.Aim;
-                    AnimationState(_state);
                 }
                 break;
             case States.Walk:
+                if (isDeath)
+                {
+                    _state = States.Death;
+                    AudioManager.instance.StopSFX(audioSource);
+                }
                 // Se mantiene Walk mientras haya input horizontal, sin forzar Idle por poca velocidad.
                 if (InputManager.Instance.MovementVector.x == 0)
                 {
@@ -279,20 +318,30 @@ public class PlayerMovement : MonoBehaviour
                     AudioManager.instance.PlaySFX(SFXType.Jump, audioSource);
                     AnimationState(_state);
                 }
-                else if (_isLanternAimed)
+                else if (IsAiming() && canFlash)
                 {
                     _state = States.Aim;
-                    AnimationState(_state);
                 }
+                
                 break;
             case States.Jump:
-                if (_rb.velocity.y < -0.1f)
+                if (isDeath)
+                {
+                    _state = States.Death;
+                    AudioManager.instance.StopSFX(audioSource);
+                }
+                else if (_rb.velocity.y < -0.1f)
                 {
                     _state = States.Fall;
                     AnimationState(_state);
                 }
+                
                 break;
             case States.Fall:
+                if (isDeath)
+                {
+                    _state = States.Death;
+                }
                 if (_rb.velocity.y >= -0.1f)
                 {
                     AudioManager.instance.PlaySFX(SFXType.Fall, audioSource);
@@ -309,7 +358,11 @@ public class PlayerMovement : MonoBehaviour
                 }
                 break;
             case States.Aim:
-                if (!_isLanternAimed)
+                if (isDeath)
+                {
+                    _state = States.Death;
+                }
+                else if (!IsAiming() || !canFlash)
                 {
                     if (InputManager.Instance.MovementVector.x == 0)
                     {
@@ -321,6 +374,18 @@ public class PlayerMovement : MonoBehaviour
                     }
                     AnimationState(_state);
                 }
+                /*else if (_rb.velocity.y < -0.1f)
+                {
+                    _state = States.Fall;
+                    AnimationState(_state);
+                }
+                else if (InputManager.Instance.JumpWasPressedThisFrame())
+                {
+                    _state = States.Jump;
+                    AudioManager.instance.StopSFX(audioSource);
+                    AudioManager.instance.PlaySFX(SFXType.Jump, audioSource);
+                    AnimationState(_state);
+                }*/
                 break;
         }
     }
@@ -340,8 +405,7 @@ public class PlayerMovement : MonoBehaviour
         {
             _rb.velocity = new Vector2(0, _rb.velocity.y);
         }
-
-        _rb.AddForce(new Vector2(x, 0).normalized * WalkAcceleration, ForceMode2D.Force);
+            _rb.AddForce(new Vector2(x, 0).normalized * WalkAcceleration, ForceMode2D.Force);
 
         if (Mathf.Abs(_rb.velocity.x) > Mathf.Abs(_joystickMaxSpeed))
         {
@@ -367,6 +431,52 @@ public class PlayerMovement : MonoBehaviour
             _rb.AddForce(new Vector2(-decelerationValue, 0), ForceMode2D.Force);
         }
         else if (_rb.velocity.x < -WalkDecelerationThreshold)
+        {
+            _rb.AddForce(new Vector2(decelerationValue, 0), ForceMode2D.Force);
+        }
+    }
+
+    /// <summary>
+    /// Método que se encarga de la lógica de mover al jugador.
+    /// </summary>
+    /// <param name="x">Velocidad en eje x</param>
+    private void AimWalk(float x)
+    {
+        // Si existe conflicto entre la dirección del input y la velocidad actual, restablecemos la velocidad
+        if (x > 0 && _rb.velocity.x < 0)
+        {
+            _rb.velocity = new Vector2(0, _rb.velocity.y);
+        }
+        else if (x < 0 && _rb.velocity.x > 0)
+        {
+            _rb.velocity = new Vector2(0, _rb.velocity.y);
+        }
+        _rb.AddForce(new Vector2(x, 0).normalized * AimAcceleration, ForceMode2D.Force);
+
+        if (Mathf.Abs(_rb.velocity.x) > Mathf.Abs(_joystickMaxSpeed))
+        {
+            if (_joystickMaxSpeed == 1 || _joystickMaxSpeed == -1)
+            {
+                _rb.velocity = _rb.velocity.normalized * Mathf.Abs(_joystickMaxSpeed);
+            }
+            else
+            {
+                AimDecelerate(AimAcceleration);
+            }
+        }
+    }
+
+    /// <summary>
+    /// Método que decelera al jugador cuando deja de moverse si esta apuntando.
+    /// </summary>
+    /// <param name="decelerationValue">Valor de deceleración del jugador al dejar de moverse</param>
+    private void AimDecelerate(float decelerationValue)
+    {
+        if (_rb.velocity.x > AimDecelerationThreshold)
+        {
+            _rb.AddForce(new Vector2(-decelerationValue, 0), ForceMode2D.Force);
+        }
+        else if (_rb.velocity.x < -AimDecelerationThreshold)
         {
             _rb.AddForce(new Vector2(decelerationValue, 0), ForceMode2D.Force);
         }
@@ -501,7 +611,10 @@ public class PlayerMovement : MonoBehaviour
         }
         return false;
     }
-
+    private bool IsAiming()
+    {
+        return InputManager.Instance.FocusIsPressed();
+    }
     #endregion   
 } // class PlayerMovement
 // namespace
