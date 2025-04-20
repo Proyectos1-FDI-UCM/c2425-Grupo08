@@ -31,6 +31,9 @@ public class Motor : MonoBehaviour
 
     // Tiempo total requerido para completar la carga (en segundos)
     [SerializeField] private float loadTime = 4f;
+ 
+    [SerializeField] private float finalanimationspeed = 4f;
+    [SerializeField] private float finalsoundspeed = 4f;
 
  
 
@@ -167,12 +170,12 @@ public class Motor : MonoBehaviour
 
             if (motorAnimator != null)
             {
-                float speedMultiplier = Mathf.Lerp(0.5f, 4f, currentLoadProgress);
+                float speedMultiplier = Mathf.Lerp(0.5f, finalanimationspeed, currentLoadProgress);
                 motorAnimator.speed = speedMultiplier;
             }
             if (audioSource != null)
             {
-                float pitchMultiplier = Mathf.Lerp(0.8f, 3f, currentLoadProgress);
+                float pitchMultiplier = Mathf.Lerp(0.8f, finalsoundspeed, currentLoadProgress);
                 audioSource.pitch = pitchMultiplier;
             }
 
@@ -197,19 +200,6 @@ public class Motor : MonoBehaviour
         canva.gameObject.SetActive(false); // Oculta el Canvas de interacción
         player.GetComponent<PlayerMovement>().SetIsRepairing(false);
         GetComponent<GeneratorEnemySpawner>().SetCanRespawn(false);
-
-        // Cambia el color del motor a verde para indicar que está reparado
-        if (motorAnimator != null)
-        {
-            motorAnimator.speed = 1f;
-            // Activa el trigger
-        }
-        if (audioSource != null)
-        {
-            AudioManager.instance.StopSFX(audioSource); // Para el sonido de reparación
-
-        }
-
 
         // Notifica al LevelManager que el motor ha sido reparado
         LevelManager.Instance.MotorRepaired();
