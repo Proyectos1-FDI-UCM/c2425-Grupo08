@@ -50,7 +50,7 @@ public class NarrativePoint : MonoBehaviour, IPointerEnterHandler, IPointerExitH
     /// <summary>
     /// Se utiliza para obtener la referencia al componente TextPanel y establecer la escala objetivo.
     /// </summary>
-    void Start()
+    void Awake()
     {
         textPanel = UIManager.Instance.GetTextPanel(); // Obtiene la referencia al componente Textpanel
 
@@ -157,4 +157,3 @@ public class NarrativePoint : MonoBehaviour, IPointerEnterHandler, IPointerExitH
     #endregion
 
 } // class NarrativePoint
-// namespace

@@ -22,38 +22,40 @@ public class DynamicTitle : MonoBehaviour
 
     #region Atributos Privados
 
-    private TMP_Text _titleText;
+    private TMP_Text titleText;
 
-    private Color _targetAlpha = new Color(1f, 1f, 1f, 0f); // Color objetivo para el fade
+    private Color targetAlpha = new Color(1f, 1f, 1f, 0f); // Color objetivo para el fade
 
     #endregion
 
+    // ---- MÉTODOS DE MONOBEHAVIOUR ----
     #region Métodos de MonoBehaviour
 
-    void Start()
+    void Awake()
     {
-        _titleText = GetComponent<TMP_Text>();
+        titleText = GetComponent<TMP_Text>();
 
-        if (_titleText == null)
+        if (titleText == null)
 
             Debug.LogError("No se ha encontrado el componente TMP_Text en el objeto");
 
         else
 
-            _titleText.color = new Color(_titleText.color.r, _titleText.color.g, _titleText.color.b, 0f);
+            titleText.color = new Color(titleText.color.r, titleText.color.g, titleText.color.b, 0f);
     }
 
     void Update()
     {
-        Color currentColor = _titleText.color;
+        Color textColor = titleText.color;
 
-        currentColor.a = Mathf.MoveTowards(currentColor.a, _targetAlpha.a, fadeSpeed * Time.deltaTime);
+        textColor.a = Mathf.MoveTowards(textColor.a, targetAlpha.a, fadeSpeed * Time.deltaTime);
         
-        _titleText.color = currentColor;
+        titleText.color = textColor;
     }
 
     #endregion
 
+    // ---- MÉTODOS PÚBLICOS ----
     #region Métodos públicos
 
     /// <summary>
@@ -61,7 +63,7 @@ public class DynamicTitle : MonoBehaviour
     /// </summary>
     public void FadeIn()
     {
-        _targetAlpha.a = 1f;
+        targetAlpha.a = 1f;
     }
 
     /// <summary>
@@ -69,14 +71,18 @@ public class DynamicTitle : MonoBehaviour
     /// </summary>
     public void FadeOut()
     {
-        _targetAlpha.a = 0f;
+        targetAlpha.a = 0f;
     }
 
+    /// <summary>
+    /// Cambia el texto del título dinámico
+    /// </summary>
+    /// <param name="title">Nuevo texto del título</param>
     public void SetTitle(string title)
     {
-        if (_titleText != null)
+        if (titleText != null)
 
-            _titleText.text = title; // Asigna el texto al componente TMP_Text
+            titleText.text = title; // Asigna el texto al componente TMP_Text
 
         else
 
@@ -84,4 +90,5 @@ public class DynamicTitle : MonoBehaviour
     }
 
     #endregion
+    
 } // class DynamicTitle

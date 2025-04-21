@@ -6,7 +6,6 @@
 //---------------------------------------------------------
 using UnityEngine;
 using UnityEngine.InputSystem;
-using UnityEngine.Rendering.Universal.Internal;
 
 /// <summary>
 /// Manager para la gestión del Input. Se encarga de centralizar la gestión

@@ -17,6 +17,8 @@ using UnityEngine.Rendering.Universal;
 public class FlashLight : MonoBehaviour
 {
     // ---- ATRIBUTOS DEL INSPECTOR ----
+    #region Atributos del Inspector
+
     [Header("Input Settings")]
     [Space]
     [Tooltip("Zona muerta para joystick o ratón (entre 0 y 1)")]
@@ -44,7 +46,6 @@ public class FlashLight : MonoBehaviour
     [Tooltip("Tiempo para volver a usar el flash (en segundos)")]
     [Range(0, 10)]
     [SerializeField] private float flashCooldown = 4f;
-
 
     [Space]
     [Header("Unfocus Settings")]
@@ -91,7 +92,11 @@ public class FlashLight : MonoBehaviour
     [Tooltip("Sprite del jugador")]
     [SerializeField] private SpriteRenderer playerSprite; // Referencia al objeto del jugador (TODO: Quitar esto en un futuro?)
 
+    #endregion
+
     // ---- ATRIBUTOS PRIVADOS ----
+
+    #region Atributos Privados
 
     private Light2D flashLight; // Referencia a la luz 2D de la linterna
 
@@ -115,6 +120,8 @@ public class FlashLight : MonoBehaviour
     private float timer; // Temporizador para el cooldown del flash
 
     private float tmp; // Variable temporal para guardar la velocidad de transición
+
+    #endregion
 
     // ---- MÉTODOS DE MONOBEHAVIOUR ----
     #region Métodos de MonoBehaviour
@@ -162,8 +169,10 @@ public class FlashLight : MonoBehaviour
         if (player.GetIsDeath())
         {
             LerpValues(); // Interpolar los valores de la luz
-            LightUnfocus();
+
+            LightUnfocus(); // Desenfocar la linterna (default)
         }
+
         else
         {
             LookAtInput(); // Control del movimiento de la linterna con el joystick o el ratón
@@ -228,11 +237,12 @@ public class FlashLight : MonoBehaviour
             if (distanceToCursor > inputDeadzone)
             {
                 float angle = Mathf.Atan2(mouseInput.y, mouseInput.x) * Mathf.Rad2Deg;
-                transform.rotation = Quaternion.Euler(0, 0, Mathf.LerpAngle(transform.rotation.eulerAngles.z, angle, Time.deltaTime * aimSpeed));
-
-                // Cambiar la dirección del sprite según si el cursor esta a izquierda o derecha
-                playerSprite.flipX = mouseInput.x < 0; // Cambiar esta lógica al PlayerMovement?
+                transform.rotation = Quaternion.Euler(0, 0, Mathf.LerpAngle(transform.rotation.eulerAngles.z, angle, Time.deltaTime * aimSpeed)); 
             }
+            
+            if (Mathf.Abs(mouseInput.x) > inputDeadzone) // Rotar el sprite según la dirección del cursor (condicional para evitar bugs)
+
+                playerSprite.flipX = mouseInput.x < 0; // Cambiar esta lógica al PlayerMovement?
         }
 
         else // Si el gamepad está activo, usar el joystick derecho para rotar la linterna
@@ -350,6 +360,7 @@ public class FlashLight : MonoBehaviour
 
         // Desactiva el collider tras un breve periodo para que el flash no sea permanente
         if (timer > colliderTime)
+
             flashCollider.enabled = false;
 
         // Si ha pasado el tiempo de cooldown, permite volver a usar el flash y restablece valores
@@ -361,10 +372,13 @@ public class FlashLight : MonoBehaviour
             transitionSpeed = tmp;
         }
 
-        // Hace parpadear la luz alternando la intensidad entre un valor mínimo y uno aún menor
+        // Hace parpadear la luz alternando la intensidad entre un valor mínimo
         if (Mathf.Sin(timer * flickerSpeed) > 0)
+
             target.intensity = minIntensity;
-        else
+
+        else // Y uno aún menor
+
             target.intensity = minIntensity / 3f;
 
         // Mantiene el ángulo y longitud en modo desenfoque durante el parpadeo
@@ -373,6 +387,5 @@ public class FlashLight : MonoBehaviour
     }
 
     #endregion
-
-    // class FlashLight 
-}
+    
+} // class FlashLight 

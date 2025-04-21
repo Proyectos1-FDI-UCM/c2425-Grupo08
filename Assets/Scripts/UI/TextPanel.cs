@@ -1,5 +1,4 @@
 //---------------------------------------------------------
-// Breve descripción del contenido del archivo
 // Este archivo contiene la clase TextPanel, que representa un panel de texto en la interfaz de usuario.
 // Carlos Dochao Moreno
 // Proyect Abyss
@@ -58,6 +57,7 @@ public class TextPanel : MonoBehaviour
 
     /// <summary>
     /// Se utiliza para implementar el patrón Singleton, asegurando que solo haya una instancia de esta clase en la escena.
+    /// También inicializa el RectTransform y establece la posición inicial del panel.
     /// </summary>
     void Awake()
     {
@@ -68,13 +68,7 @@ public class TextPanel : MonoBehaviour
         else
 
             Instance = this;
-    }
-
-    /// <summary>
-    /// Inicializa la posición del panel de texto en la posición cerrada.
-    /// </summary>
-    void Start()
-    {
+            
         // Obtiene la referencia al RectTransform del panel
         rectTransform = GetComponent<RectTransform>();
 
@@ -154,6 +148,7 @@ public class TextPanel : MonoBehaviour
                 typewriterCoroutine = StartCoroutine(TypeWriterEffect(title, text));
             }
         }
+
         else
 
             Debug.LogError("No se han asignado los componentes de texto");
@@ -214,4 +209,3 @@ public class TextPanel : MonoBehaviour
     #endregion
 
 } // class TextPanel
-// namespace
