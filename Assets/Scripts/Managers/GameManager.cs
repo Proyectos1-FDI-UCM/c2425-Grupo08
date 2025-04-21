@@ -5,8 +5,10 @@
 // Proyectos 1 - Curso 2024-25
 //---------------------------------------------------------
 
+using System;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.Rendering.Universal;
 
 
 /// <summary>
@@ -45,6 +47,9 @@ public class GameManager : MonoBehaviour
     private GameObject player;
     private FlashLight flashlight;
     private UIManager uiManager;
+    private bool easyMode = false;
+    private Light2D globalLight;
+    
 
     #endregion
 
@@ -86,7 +91,11 @@ public class GameManager : MonoBehaviour
             DontDestroyOnLoad(this.gameObject);
             Init();
         } // if-else somos instancia nueva o no.
+
+        globalLight = this.GetComponent<Light2D>(); // Inicializamos la luz global
+       
     }
+
 
     private void Update()
     {
@@ -185,6 +194,25 @@ public class GameManager : MonoBehaviour
         flashlight = FindObjectOfType<FlashLight>().GetComponent<FlashLight>();
 
         return flashlight;
+    }
+
+    public void toggleEasyMode()
+    {
+      
+        easyMode = !easyMode;
+        if (easyMode)
+        {
+            globalLight.enabled = true;
+        }
+        else
+        {
+            globalLight.enabled = false;
+        }
+    }
+
+    public void setEasyMode( bool state)
+    {
+        easyMode = state;
     }
     #endregion
 
