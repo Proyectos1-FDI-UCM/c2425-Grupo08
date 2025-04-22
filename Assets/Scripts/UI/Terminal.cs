@@ -65,6 +65,7 @@ public class Terminal : MonoBehaviour
     private float initTimer = 0f;
     private bool charPause = false;
     private float charPauseTimer = 0f;
+    private int lastRepairPercent = -1;
 
     #endregion
 
@@ -159,6 +160,21 @@ public class Terminal : MonoBehaviour
         prefix = newPrefix;
     }
 
+    public void UpdateRepairProgress(float progress)
+    {
+        int porcentaje = Mathf.RoundToInt(progress * 100f);
+        if (porcentaje != lastRepairPercent)
+        {
+            lastRepairPercent = porcentaje;
+            Show();
+            string msg = "Reparando... " + porcentaje.ToString() + "%";
+            currentMessage = msg;
+            currentText = msg;
+            isWriting = false;
+            textTMP.text = currentText;
+        }
+    }
+
     #endregion
 
     // ---- MÉTODOS PRIVADOS ----
@@ -203,7 +219,7 @@ public class Terminal : MonoBehaviour
                     writeIndex++;
                 }
             }
-            
+
             if (debeActualizarTexto)
             {
                 // Escritura progresiva del mensaje
