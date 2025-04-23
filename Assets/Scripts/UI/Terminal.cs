@@ -8,6 +8,7 @@
 using UnityEngine;
 using TMPro;
 
+
 /// <summary>
 /// Clase que gestiona un terminal de consola con efectos de fade in/out y escritura progresiva.
 /// </summary>
@@ -48,7 +49,7 @@ public class Terminal : MonoBehaviour
     [Space]
     [Tooltip("Objeto alternativo con el que se comprueba la colisión (por defecto Player)")]
     [SerializeField] private GameObject collisionTarget;
-
+    public System.Action OnMessageComplete;
     #endregion
 
     // ---- ATRIBUTOS PRIVADOS ----
@@ -245,12 +246,16 @@ public class Terminal : MonoBehaviour
                 if (writeIndex >= currentMessage.Length)
                     isWriting = false;
             }
+           
         }
 
-        if (!isWriting && currentText == "")
+        if (writeIndex >= currentMessage.Length)
         {
-            // Al terminar de escribir, aseguramos que currentText solo contenga el texto
-            currentText = currentMessage;
+            isWriting = false;
+
+            // Notifica que se ha terminado el mensaje
+            OnMessageComplete?.Invoke();
+
         }
 
         textTMP.text = currentText;
