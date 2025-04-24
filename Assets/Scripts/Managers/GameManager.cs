@@ -214,6 +214,21 @@ public class GameManager : MonoBehaviour
     {
         easyMode = state;
     }
+
+    /// <summary>
+    /// Cierra el juego.
+    /// </summary>
+    public void ExitGame()
+    {
+        #if UNITY_EDITOR
+        UnityEditor.EditorApplication.isPlaying = false; // Solo funciona dentro del editor
+        #else
+        Application.Quit(); // Esto es lo que se usa en el build final
+        #endif
+    }
+
+    
+
     #endregion
 
     #region Metodo para Oxigeno
