@@ -24,7 +24,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6800110710651817423}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -43,6 +43,14 @@ PrefabInstance:
     - target: {fileID: -2253911629886400664, guid: d43708aee9f3f2a00b56dd0dc81ee3af, type: 3}
       propertyPath: m_Name
       value: EnemyArroy
+      objectReference: {fileID: 0}
+    - target: {fileID: 7878350319992209165, guid: d43708aee9f3f2a00b56dd0dc81ee3af, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7878350319992209165, guid: d43708aee9f3f2a00b56dd0dc81ee3af, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7878350319992209165, guid: d43708aee9f3f2a00b56dd0dc81ee3af, type: 3}
       propertyPath: m_LocalPosition.x

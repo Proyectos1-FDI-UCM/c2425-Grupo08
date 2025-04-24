@@ -12923,7 +12923,7 @@ SpriteRenderer:
   m_Size: {x: 1, y: 1}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 0
+  m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!4 &1687295166
@@ -13985,6 +13985,10 @@ PrefabInstance:
       propertyPath: maxOxigen
       value: 400
       objectReference: {fileID: 0}
+    - target: {fileID: 4794396205851017353, guid: 10a2a23cb1a6fc344864f80da2c1702d, type: 3}
+      propertyPath: Test
+      value: 
+      objectReference: {fileID: 1652878109}
     - target: {fileID: 4794396205851017353, guid: 10a2a23cb1a6fc344864f80da2c1702d, type: 3}
       propertyPath: MaxObjectives
       value: 10

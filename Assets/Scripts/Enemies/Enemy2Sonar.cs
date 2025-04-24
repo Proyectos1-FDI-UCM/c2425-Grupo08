@@ -80,6 +80,7 @@ public class Enemy2Sonar : MonoBehaviour
     private SonarUI sonarUI;
 
     private AudioSource audioSource;
+    private bool arrowActive = false;
 
     /// <summary>
     /// Bool que se activa cuando el enemigo detecta al jugador
@@ -182,6 +183,10 @@ public class Enemy2Sonar : MonoBehaviour
         if (player != null && attack)
         {
             Move((player.transform.position - transform.position).normalized, attackSpeed);
+            if (!arrowActive){
+                player.GetComponent<ArrowManager>().CreateArrow(this.gameObject);
+                arrowActive = true;
+            }
         }
         else
         {
@@ -252,6 +257,10 @@ public class Enemy2Sonar : MonoBehaviour
         {
             player.GetComponent<OxigenScript>().Death();
 
+            if (arrowActive){
+                player.GetComponent<ArrowManager>().DeleteArrow(this.gameObject);
+                arrowActive = false;
+            }
             attack = false;
             animator.SetBool("Attack", false);
             animator.speed = patrolAnimationSpeed;
