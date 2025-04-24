@@ -65,6 +65,7 @@ public class LevelManager : MonoBehaviour
             _instance = this;
             Init();
         }
+
     }
 
     #endregion
@@ -106,6 +107,10 @@ public class LevelManager : MonoBehaviour
         {
             if (completionLight != null)
                 completionLight.enabled = true; // Encender la luz
+            if (TutorialManager.Instance != null)
+            {
+                TutorialManager.Instance.OnLevelCompleted();
+            }
         }
     }
 
