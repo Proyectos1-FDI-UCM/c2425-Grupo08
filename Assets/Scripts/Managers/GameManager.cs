@@ -245,7 +245,14 @@ public class GameManager : MonoBehaviour
 
         if (UIManager.Instance != null)
         {
-            UIManager.Instance.UpdateOxygenUI(oxygenPercentage);
+            uiManager.UpdateOxygenUI(oxygenPercentage);
+        }
+    }
+    public void UpdateTankStateGM(bool isTankBroken)
+    {
+        if (UIManager.Instance != null)
+        {
+            uiManager.UpdateTankState(isTankBroken);
         }
     }
 

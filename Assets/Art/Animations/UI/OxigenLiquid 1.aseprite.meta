@@ -136,7 +136,7 @@ ScriptedImporter:
       x: 4
       y: 4
       width: 28
-      height: 28
+      height: 32
     spriteID: c23db67d523b954469251a06e31c8677
     spriteBone: []
     spriteOutline: []
@@ -154,9 +154,9 @@ ScriptedImporter:
     rect:
       serializedVersion: 2
       x: 4
-      y: 40
+      y: 44
       width: 28
-      height: 28
+      height: 32
     spriteID: 9d14e2e73d3268c46ab6f03b7e9eb1ce
     spriteBone: []
     spriteOutline: []
@@ -165,7 +165,7 @@ ScriptedImporter:
     indices: 
     edges: []
     tessellationDetail: 0
-    uvTransform: {x: 4, y: 40}
+    uvTransform: {x: 4, y: 44}
   - name: OxigenLiquid 1_Frame_2
     originalName: 
     pivot: {x: 0.5, y: 0}
@@ -174,9 +174,9 @@ ScriptedImporter:
     rect:
       serializedVersion: 2
       x: 4
-      y: 148
+      y: 84
       width: 28
-      height: 27
+      height: 32
     spriteID: cc04e383ab52894469a6aa7f8e3b7324
     spriteBone: []
     spriteOutline: []
@@ -185,7 +185,7 @@ ScriptedImporter:
     indices: 
     edges: []
     tessellationDetail: 0
-    uvTransform: {x: 4, y: 148}
+    uvTransform: {x: 4, y: 84}
   - name: OxigenLiquid 1_Frame_3
     originalName: 
     pivot: {x: 0.5, y: 0}
@@ -193,10 +193,10 @@ ScriptedImporter:
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
       serializedVersion: 2
-      x: 4
-      y: 183
+      x: 40
+      y: 44
       width: 28
-      height: 27
+      height: 30
     spriteID: e4c48c4c4d55bd8479a29a77190be9fa
     spriteBone: []
     spriteOutline: []
@@ -205,7 +205,7 @@ ScriptedImporter:
     indices: 
     edges: []
     tessellationDetail: 0
-    uvTransform: {x: 4, y: 183}
+    uvTransform: {x: 40, y: 44}
   - name: OxigenLiquid 1_Frame_4
     originalName: 
     pivot: {x: 0.5, y: 0}
@@ -213,10 +213,10 @@ ScriptedImporter:
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
       serializedVersion: 2
-      x: 4
-      y: 218
+      x: 40
+      y: 196
       width: 28
-      height: 27
+      height: 29
     spriteID: 27691abb34dee6247b54273da8418eb6
     spriteBone: []
     spriteOutline: []
@@ -225,8 +225,228 @@ ScriptedImporter:
     indices: 
     edges: []
     tessellationDetail: 0
-    uvTransform: {x: 4, y: 218}
+    uvTransform: {x: 40, y: 196}
   - name: OxigenLiquid 1_Frame_5
+    originalName: 
+    pivot: {x: 0.5, y: 0}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 76
+      y: 4
+      width: 28
+      height: 29
+    spriteID: 09c90a5cc09820e43957bf48588eb1af
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 76, y: 4}
+  - name: OxigenLiquid 1_Frame_6
+    originalName: 
+    pivot: {x: 0.5, y: 0}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 76
+      y: 41
+      width: 28
+      height: 29
+    spriteID: 9d142ed34ab784344bfa7cad29d1dba2
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 76, y: 41}
+  - name: OxigenLiquid 1_Frame_7
+    originalName: 
+    pivot: {x: 0.5, y: 0}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 40
+      y: 82
+      width: 28
+      height: 30
+    spriteID: e2247aabb1a075945b531b3dd6369ed4
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 40, y: 82}
+  - name: OxigenLiquid 1_Frame_8
+    originalName: 
+    pivot: {x: 0.5, y: 0}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 4
+      y: 124
+      width: 28
+      height: 32
+    spriteID: da0e2eb52d6739a48a289e92b42f501d
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 4, y: 124}
+  - name: OxigenLiquid 1_Frame_9
+    originalName: 
+    pivot: {x: 0.5, y: 0}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 4
+      y: 164
+      width: 28
+      height: 32
+    spriteID: ff68e3bcb45e08c438350e7afd9a5a79
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 4, y: 164}
+  - name: OxigenLiquid 1_Frame_10
+    originalName: 
+    pivot: {x: 0.5, y: 0}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 4
+      y: 204
+      width: 28
+      height: 32
+    spriteID: 90d530b6163954549b0fcb941fcb89c9
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 4, y: 204}
+  - name: OxigenLiquid 1_Frame_11
+    originalName: 
+    pivot: {x: 0.5, y: 0}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 40
+      y: 120
+      width: 28
+      height: 30
+    spriteID: 248c429c3f9d98c4aaafcaec6bc061cc
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 40, y: 120}
+  - name: OxigenLiquid 1_Frame_12
+    originalName: 
+    pivot: {x: 0.5, y: 0}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 76
+      y: 78
+      width: 28
+      height: 29
+    spriteID: ccfd1a0583a01224b8d7d8cf18280bc9
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 76, y: 78}
+  - name: OxigenLiquid 1_Frame_13
+    originalName: 
+    pivot: {x: 0.5, y: 0}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 76
+      y: 115
+      width: 28
+      height: 29
+    spriteID: ee6a570e5563756479604afb54cffab9
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 76, y: 115}
+  - name: OxigenLiquid 1_Frame_14
+    originalName: 
+    pivot: {x: 0.5, y: 0}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 76
+      y: 152
+      width: 28
+      height: 29
+    spriteID: 5d3d671ccb191b045a500159a391c406
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 76, y: 152}
+  - name: OxigenLiquid 1_Frame_15
+    originalName: 
+    pivot: {x: 0.5, y: 0}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 40
+      y: 158
+      width: 28
+      height: 30
+    spriteID: 7ea93feb664acf2449b82093862656a7
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 40, y: 158}
+  - name: OxigenLiquid 1_Frame_16
     originalName: 
     pivot: {x: 0.5, y: 0}
     alignment: 9
@@ -236,8 +456,8 @@ ScriptedImporter:
       x: 40
       y: 4
       width: 28
-      height: 27
-    spriteID: 09c90a5cc09820e43957bf48588eb1af
+      height: 32
+    spriteID: e7965d440f2d7664ab31e73d6e5f531b
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -246,166 +466,6 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     uvTransform: {x: 40, y: 4}
-  - name: OxigenLiquid 1_Frame_6
-    originalName: 
-    pivot: {x: 0.5, y: 0}
-    alignment: 9
-    border: {x: 0, y: 0, z: 0, w: 0}
-    rect:
-      serializedVersion: 2
-      x: 40
-      y: 39
-      width: 28
-      height: 27
-    spriteID: 9d142ed34ab784344bfa7cad29d1dba2
-    spriteBone: []
-    spriteOutline: []
-    vertices: []
-    spritePhysicsOutline: []
-    indices: 
-    edges: []
-    tessellationDetail: 0
-    uvTransform: {x: 40, y: 39}
-  - name: OxigenLiquid 1_Frame_7
-    originalName: 
-    pivot: {x: 0.5, y: 0}
-    alignment: 9
-    border: {x: 0, y: 0, z: 0, w: 0}
-    rect:
-      serializedVersion: 2
-      x: 4
-      y: 76
-      width: 28
-      height: 28
-    spriteID: e2247aabb1a075945b531b3dd6369ed4
-    spriteBone: []
-    spriteOutline: []
-    vertices: []
-    spritePhysicsOutline: []
-    indices: 
-    edges: []
-    tessellationDetail: 0
-    uvTransform: {x: 4, y: 76}
-  - name: OxigenLiquid 1_Frame_8
-    originalName: 
-    pivot: {x: 0.5, y: 0}
-    alignment: 9
-    border: {x: 0, y: 0, z: 0, w: 0}
-    rect:
-      serializedVersion: 2
-      x: 4
-      y: 112
-      width: 28
-      height: 28
-    spriteID: da0e2eb52d6739a48a289e92b42f501d
-    spriteBone: []
-    spriteOutline: []
-    vertices: []
-    spritePhysicsOutline: []
-    indices: 
-    edges: []
-    tessellationDetail: 0
-    uvTransform: {x: 4, y: 112}
-  - name: OxigenLiquid 1_Frame_9
-    originalName: 
-    pivot: {x: 0.5, y: 0}
-    alignment: 9
-    border: {x: 0, y: 0, z: 0, w: 0}
-    rect:
-      serializedVersion: 2
-      x: 40
-      y: 74
-      width: 28
-      height: 27
-    spriteID: ff68e3bcb45e08c438350e7afd9a5a79
-    spriteBone: []
-    spriteOutline: []
-    vertices: []
-    spritePhysicsOutline: []
-    indices: 
-    edges: []
-    tessellationDetail: 0
-    uvTransform: {x: 40, y: 74}
-  - name: OxigenLiquid 1_Frame_10
-    originalName: 
-    pivot: {x: 0.5, y: 0}
-    alignment: 9
-    border: {x: 0, y: 0, z: 0, w: 0}
-    rect:
-      serializedVersion: 2
-      x: 40
-      y: 109
-      width: 28
-      height: 27
-    spriteID: 90d530b6163954549b0fcb941fcb89c9
-    spriteBone: []
-    spriteOutline: []
-    vertices: []
-    spritePhysicsOutline: []
-    indices: 
-    edges: []
-    tessellationDetail: 0
-    uvTransform: {x: 40, y: 109}
-  - name: OxigenLiquid 1_Frame_11
-    originalName: 
-    pivot: {x: 0.5, y: 0}
-    alignment: 9
-    border: {x: 0, y: 0, z: 0, w: 0}
-    rect:
-      serializedVersion: 2
-      x: 40
-      y: 144
-      width: 28
-      height: 27
-    spriteID: 248c429c3f9d98c4aaafcaec6bc061cc
-    spriteBone: []
-    spriteOutline: []
-    vertices: []
-    spritePhysicsOutline: []
-    indices: 
-    edges: []
-    tessellationDetail: 0
-    uvTransform: {x: 40, y: 144}
-  - name: OxigenLiquid 1_Frame_12
-    originalName: 
-    pivot: {x: 0.5, y: 0}
-    alignment: 9
-    border: {x: 0, y: 0, z: 0, w: 0}
-    rect:
-      serializedVersion: 2
-      x: 40
-      y: 179
-      width: 28
-      height: 27
-    spriteID: ccfd1a0583a01224b8d7d8cf18280bc9
-    spriteBone: []
-    spriteOutline: []
-    vertices: []
-    spritePhysicsOutline: []
-    indices: 
-    edges: []
-    tessellationDetail: 0
-    uvTransform: {x: 40, y: 179}
-  - name: OxigenLiquid 1_Frame_13
-    originalName: 
-    pivot: {x: 0.5, y: 0}
-    alignment: 9
-    border: {x: 0, y: 0, z: 0, w: 0}
-    rect:
-      serializedVersion: 2
-      x: 40
-      y: 214
-      width: 28
-      height: 27
-    spriteID: ee6a570e5563756479604afb54cffab9
-    spriteBone: []
-    spriteOutline: []
-    vertices: []
-    spritePhysicsOutline: []
-    indices: 
-    edges: []
-    tessellationDetail: 0
-    uvTransform: {x: 40, y: 214}
   spriteSheetImportData: []
   asepriteLayers:
   - layerIndex: 0
@@ -422,7 +482,7 @@ ScriptedImporter:
         x: 0
         y: 0
         width: 28
-        height: 28
+        height: 32
       spriteId: c23db67d523b954469251a06e31c8677
     - name: OxigenLiquid 1_Frame_1
       frameIndex: 1
@@ -431,7 +491,7 @@ ScriptedImporter:
         x: 0
         y: 0
         width: 28
-        height: 28
+        height: 32
       spriteId: 9d14e2e73d3268c46ab6f03b7e9eb1ce
     - name: OxigenLiquid 1_Frame_2
       frameIndex: 2
@@ -440,7 +500,7 @@ ScriptedImporter:
         x: 0
         y: 0
         width: 28
-        height: 27
+        height: 32
       spriteId: cc04e383ab52894469a6aa7f8e3b7324
     - name: OxigenLiquid 1_Frame_3
       frameIndex: 3
@@ -449,7 +509,7 @@ ScriptedImporter:
         x: 0
         y: 0
         width: 28
-        height: 27
+        height: 30
       spriteId: e4c48c4c4d55bd8479a29a77190be9fa
     - name: OxigenLiquid 1_Frame_4
       frameIndex: 4
@@ -458,7 +518,7 @@ ScriptedImporter:
         x: 0
         y: 0
         width: 28
-        height: 27
+        height: 29
       spriteId: 27691abb34dee6247b54273da8418eb6
     - name: OxigenLiquid 1_Frame_5
       frameIndex: 5
@@ -467,7 +527,7 @@ ScriptedImporter:
         x: 0
         y: 0
         width: 28
-        height: 27
+        height: 29
       spriteId: 09c90a5cc09820e43957bf48588eb1af
     - name: OxigenLiquid 1_Frame_6
       frameIndex: 6
@@ -476,7 +536,7 @@ ScriptedImporter:
         x: 0
         y: 0
         width: 28
-        height: 27
+        height: 29
       spriteId: 9d142ed34ab784344bfa7cad29d1dba2
     - name: OxigenLiquid 1_Frame_7
       frameIndex: 7
@@ -485,7 +545,7 @@ ScriptedImporter:
         x: 0
         y: 0
         width: 28
-        height: 28
+        height: 30
       spriteId: e2247aabb1a075945b531b3dd6369ed4
     - name: OxigenLiquid 1_Frame_8
       frameIndex: 8
@@ -494,7 +554,7 @@ ScriptedImporter:
         x: 0
         y: 0
         width: 28
-        height: 28
+        height: 32
       spriteId: da0e2eb52d6739a48a289e92b42f501d
     - name: OxigenLiquid 1_Frame_9
       frameIndex: 9
@@ -503,7 +563,7 @@ ScriptedImporter:
         x: 0
         y: 0
         width: 28
-        height: 27
+        height: 32
       spriteId: ff68e3bcb45e08c438350e7afd9a5a79
     - name: OxigenLiquid 1_Frame_10
       frameIndex: 10
@@ -512,7 +572,7 @@ ScriptedImporter:
         x: 0
         y: 0
         width: 28
-        height: 27
+        height: 32
       spriteId: 90d530b6163954549b0fcb941fcb89c9
     - name: OxigenLiquid 1_Frame_11
       frameIndex: 11
@@ -521,7 +581,7 @@ ScriptedImporter:
         x: 0
         y: 0
         width: 28
-        height: 27
+        height: 30
       spriteId: 248c429c3f9d98c4aaafcaec6bc061cc
     - name: OxigenLiquid 1_Frame_12
       frameIndex: 12
@@ -530,7 +590,7 @@ ScriptedImporter:
         x: 0
         y: 0
         width: 28
-        height: 27
+        height: 29
       spriteId: ccfd1a0583a01224b8d7d8cf18280bc9
     - name: OxigenLiquid 1_Frame_13
       frameIndex: 13
@@ -539,8 +599,35 @@ ScriptedImporter:
         x: 0
         y: 0
         width: 28
-        height: 27
+        height: 29
       spriteId: ee6a570e5563756479604afb54cffab9
+    - name: OxigenLiquid 1_Frame_14
+      frameIndex: 14
+      additiveSortOrder: 0
+      cellRect:
+        x: 0
+        y: 0
+        width: 28
+        height: 29
+      spriteId: 5d3d671ccb191b045a500159a391c406
+    - name: OxigenLiquid 1_Frame_15
+      frameIndex: 15
+      additiveSortOrder: 0
+      cellRect:
+        x: 0
+        y: 0
+        width: 28
+        height: 30
+      spriteId: 7ea93feb664acf2449b82093862656a7
+    - name: OxigenLiquid 1_Frame_16
+      frameIndex: 16
+      additiveSortOrder: 0
+      cellRect:
+        x: 0
+        y: 0
+        width: 28
+        height: 32
+      spriteId: e7965d440f2d7664ab31e73d6e5f531b
     linkedCells: []
     parentIndex: -1
   platformSettings:
@@ -607,4 +694,4 @@ ScriptedImporter:
   generatePhysicsShape: 0
   secondarySpriteTextures: []
   spritePackingTag: 
-  canvasSize: {x: 28, y: 28}
+  canvasSize: {x: 28, y: 32}

@@ -118,11 +118,13 @@ public class OxigenScript : MonoBehaviour
         else
         {
             tankBroken = true;
+            GameManager.Instance.UpdateTankStateGM(tankBroken);
         }      
     }
     public void RepairTank() // Método que se llama cuando el tanque de oxígeno es reparado
     {
         tankBroken = false;
+        GameManager.Instance.UpdateTankStateGM(tankBroken);
     }
     /// <summary>
     /// Método que devuelve el estado del tanque de oxígeno
