@@ -174,7 +174,7 @@ ScriptedImporter:
     rect:
       serializedVersion: 2
       x: 4
-      y: 184
+      y: 148
       width: 28
       height: 27
     spriteID: cc04e383ab52894469a6aa7f8e3b7324
@@ -185,7 +185,7 @@ ScriptedImporter:
     indices: 
     edges: []
     tessellationDetail: 0
-    uvTransform: {x: 4, y: 184}
+    uvTransform: {x: 4, y: 148}
   - name: OxigenLiquid 1_Frame_3
     originalName: 
     pivot: {x: 0.5, y: 0}
@@ -194,7 +194,7 @@ ScriptedImporter:
     rect:
       serializedVersion: 2
       x: 4
-      y: 219
+      y: 183
       width: 28
       height: 27
     spriteID: e4c48c4c4d55bd8479a29a77190be9fa
@@ -205,7 +205,7 @@ ScriptedImporter:
     indices: 
     edges: []
     tessellationDetail: 0
-    uvTransform: {x: 4, y: 219}
+    uvTransform: {x: 4, y: 183}
   - name: OxigenLiquid 1_Frame_4
     originalName: 
     pivot: {x: 0.5, y: 0}
@@ -213,8 +213,8 @@ ScriptedImporter:
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
       serializedVersion: 2
-      x: 40
-      y: 4
+      x: 4
+      y: 218
       width: 28
       height: 27
     spriteID: 27691abb34dee6247b54273da8418eb6
@@ -225,7 +225,7 @@ ScriptedImporter:
     indices: 
     edges: []
     tessellationDetail: 0
-    uvTransform: {x: 40, y: 4}
+    uvTransform: {x: 4, y: 218}
   - name: OxigenLiquid 1_Frame_5
     originalName: 
     pivot: {x: 0.5, y: 0}
@@ -234,7 +234,7 @@ ScriptedImporter:
     rect:
       serializedVersion: 2
       x: 40
-      y: 39
+      y: 4
       width: 28
       height: 27
     spriteID: 09c90a5cc09820e43957bf48588eb1af
@@ -245,7 +245,7 @@ ScriptedImporter:
     indices: 
     edges: []
     tessellationDetail: 0
-    uvTransform: {x: 40, y: 39}
+    uvTransform: {x: 40, y: 4}
   - name: OxigenLiquid 1_Frame_6
     originalName: 
     pivot: {x: 0.5, y: 0}
@@ -254,7 +254,7 @@ ScriptedImporter:
     rect:
       serializedVersion: 2
       x: 40
-      y: 74
+      y: 39
       width: 28
       height: 27
     spriteID: 9d142ed34ab784344bfa7cad29d1dba2
@@ -265,7 +265,7 @@ ScriptedImporter:
     indices: 
     edges: []
     tessellationDetail: 0
-    uvTransform: {x: 40, y: 74}
+    uvTransform: {x: 40, y: 39}
   - name: OxigenLiquid 1_Frame_7
     originalName: 
     pivot: {x: 0.5, y: 0}
@@ -314,7 +314,7 @@ ScriptedImporter:
     rect:
       serializedVersion: 2
       x: 40
-      y: 109
+      y: 74
       width: 28
       height: 27
     spriteID: ff68e3bcb45e08c438350e7afd9a5a79
@@ -325,7 +325,7 @@ ScriptedImporter:
     indices: 
     edges: []
     tessellationDetail: 0
-    uvTransform: {x: 40, y: 109}
+    uvTransform: {x: 40, y: 74}
   - name: OxigenLiquid 1_Frame_10
     originalName: 
     pivot: {x: 0.5, y: 0}
@@ -334,7 +334,7 @@ ScriptedImporter:
     rect:
       serializedVersion: 2
       x: 40
-      y: 144
+      y: 109
       width: 28
       height: 27
     spriteID: 90d530b6163954549b0fcb941fcb89c9
@@ -345,7 +345,7 @@ ScriptedImporter:
     indices: 
     edges: []
     tessellationDetail: 0
-    uvTransform: {x: 40, y: 144}
+    uvTransform: {x: 40, y: 109}
   - name: OxigenLiquid 1_Frame_11
     originalName: 
     pivot: {x: 0.5, y: 0}
@@ -353,10 +353,10 @@ ScriptedImporter:
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
       serializedVersion: 2
-      x: 4
-      y: 148
+      x: 40
+      y: 144
       width: 28
-      height: 28
+      height: 27
     spriteID: 248c429c3f9d98c4aaafcaec6bc061cc
     spriteBone: []
     spriteOutline: []
@@ -365,7 +365,7 @@ ScriptedImporter:
     indices: 
     edges: []
     tessellationDetail: 0
-    uvTransform: {x: 4, y: 148}
+    uvTransform: {x: 40, y: 144}
   - name: OxigenLiquid 1_Frame_12
     originalName: 
     pivot: {x: 0.5, y: 0}
@@ -521,7 +521,7 @@ ScriptedImporter:
         x: 0
         y: 0
         width: 28
-        height: 28
+        height: 27
       spriteId: 248c429c3f9d98c4aaafcaec6bc061cc
     - name: OxigenLiquid 1_Frame_12
       frameIndex: 12

@@ -1,4 +1,4 @@
-using UnityEngine;
+﻿using UnityEngine;
 using System.Collections.Generic;
 
 [System.Serializable]
@@ -11,8 +11,14 @@ public class TerminalInfo
 
 public class TutorialManager : MonoBehaviour
 {
+
+    public static TutorialManager Instance { get; private set; }
+
     [Header("Player")]
     [SerializeField] private GameObject player;
+
+    [Header("Phantom Fish")]
+    [SerializeField] private GameObject phantomFish;
 
     [Header("Terminal Settings")]
     [SerializeField] private GameObject terminalPrefab;
@@ -20,44 +26,66 @@ public class TutorialManager : MonoBehaviour
 
     private List<GameObject> _spawnedTerminals = new List<GameObject>();
 
+    private void Awake()
+    {
+        if (Instance != null && Instance != this)
+        {
+            Destroy(this.gameObject);
+            return;
+        }
+        Instance = this;
+    }
+
+ 
+
     void Start()
     {
-        // Desactiva el movimiento del jugador al inicio
-        if (player != null)
+        for (int i = 0; i < terminalsInfo.Count; i++)
         {
-            PlayerMovement movement = player.GetComponent<PlayerMovement>();
-            if (movement != null)
-                movement.enabled = false;
-        }
+            int index = i;
 
-        bool first = true;
-
-        foreach (TerminalInfo info in terminalsInfo)
-        {
-            GameObject terminalInstance = Instantiate(terminalPrefab, info.spawnPoint.position, info.spawnPoint.rotation);
-            _spawnedTerminals.Add(terminalInstance);
+            GameObject terminalInstance = Instantiate(
+                terminalPrefab,
+                terminalsInfo[index].spawnPoint.position,
+                terminalsInfo[index].spawnPoint.rotation
+            );
 
             Terminal terminalComponent = terminalInstance.GetComponent<Terminal>();
             if (terminalComponent != null)
             {
-                terminalComponent.SetMessage(info.message);
-                terminalComponent.Write(info.message);
-
-                if (first)
+                terminalComponent.SetMessage(terminalsInfo[index].message);
+                terminalComponent.OnMessageComplete += () =>
                 {
-                    terminalComponent.OnMessageComplete += () =>
-                    {
-                        if (player != null)
-                        {
-                            PlayerMovement movement = player.GetComponent<PlayerMovement>();
-                            if (movement != null)
-                                movement.enabled = true;
-                        }
-                    };
-
-                    first = false;
-                }
+                    EnablePlayerMovement();
+                };
             }
+
+            _spawnedTerminals.Add(terminalInstance);
+        }
+
+        // Terminal 6 empieza desactivado
+        if (_spawnedTerminals.Count >= 6)
+        {
+            _spawnedTerminals[5].SetActive(false);
+        }
+    }
+
+    public void OnLevelCompleted()
+    {
+        if (_spawnedTerminals.Count >= 4)
+            _spawnedTerminals[3].SetActive(false); // Terminal 4
+
+        if (_spawnedTerminals.Count >= 6)
+            _spawnedTerminals[5].SetActive(true); // Terminal 6
+    }
+
+    private void EnablePlayerMovement()
+    {
+        if (player != null)
+        {
+            PlayerMovement movement = player.GetComponent<PlayerMovement>();
+            if (movement != null)
+                movement.enabled = true;
         }
     }
 }
