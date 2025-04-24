@@ -1241,6 +1241,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Sonar
       objectReference: {fileID: 0}
+    - target: {fileID: 8713454397173249888, guid: 5b8451a5166fbbf4db8e2112f88f5f4d, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 9151467536921551130, guid: 5b8451a5166fbbf4db8e2112f88f5f4d, type: 3}
       propertyPath: m_LocalPosition.x
       value: -11.31
@@ -1782,6 +1786,37 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 48.6, y: 1, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1965568784}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &800952618
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 800952619}
+  m_Layer: 0
+  m_Name: MensajeSonar
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &800952619
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 800952618}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 42.87, y: -1.11, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -15425,67 +15460,6 @@ MonoBehaviour:
   motoresReparados: 0
   motorNeed: 1
   completionLight: {fileID: 0}
---- !u!1 &1766317941
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1766317943}
-  - component: {fileID: 1766317942}
-  m_Layer: 0
-  m_Name: Tutorial
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &1766317942
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1766317941}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dacda68c013c70d4ab15963259944864, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  player: {fileID: 385937585}
-  phantomFish: {fileID: 1088271835}
-  terminalPrefab: {fileID: 478185392815336132, guid: c2bb66560d12a9f4b916e980d3e1d679, type: 3}
-  terminalsInfo:
-  - spawnPoint: {fileID: 428828404}
-    message: Pulsa las teclas WASD para moverte o el joystick y espacio o X/A para
-      saltar
-  - spawnPoint: {fileID: 1884468260}
-    message: Pulsa el click derecho o LT para apuntar
-  - spawnPoint: {fileID: 543599938}
-    message: "Un pez fantasma \xA1DISPARA!"
-  - spawnPoint: {fileID: 1136432651}
-    message: Esto es un refugio, para acceder a el tienes que reparar el motor
-  - spawnPoint: {fileID: 792816148}
-    message: Pulsa E para reparar el moto, PERO CUIDADO CON EL SONAR Y LOS FANTASMAS
-  - spawnPoint: {fileID: 1136432651}
-    message: "\xA1Ya puedes pasar al nivel!"
---- !u!4 &1766317943
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1766317941}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 303.67502, y: 188.41185, z: -2.3721268}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1786203479
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -15818,6 +15792,7 @@ Transform:
   - {fileID: 543599938}
   - {fileID: 1136432651}
   - {fileID: 792816148}
+  - {fileID: 800952619}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1986909713
@@ -16296,6 +16271,99 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 10a2a23cb1a6fc344864f80da2c1702d, type: 3}
+--- !u!1001 &5734302982408442803
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 3202875836640668598, guid: 576931efc2574ce408138ec6ce1f5c3d, type: 3}
+      propertyPath: m_Name
+      value: Tutorial
+      objectReference: {fileID: 0}
+    - target: {fileID: 6120872871744884673, guid: 576931efc2574ce408138ec6ce1f5c3d, type: 3}
+      propertyPath: player
+      value: 
+      objectReference: {fileID: 385937585}
+    - target: {fileID: 6120872871744884673, guid: 576931efc2574ce408138ec6ce1f5c3d, type: 3}
+      propertyPath: phantomFish
+      value: 
+      objectReference: {fileID: 1088271835}
+    - target: {fileID: 6120872871744884673, guid: 576931efc2574ce408138ec6ce1f5c3d, type: 3}
+      propertyPath: terminalsInfo.Array.data[0].spawnPoint
+      value: 
+      objectReference: {fileID: 428828404}
+    - target: {fileID: 6120872871744884673, guid: 576931efc2574ce408138ec6ce1f5c3d, type: 3}
+      propertyPath: terminalsInfo.Array.data[1].spawnPoint
+      value: 
+      objectReference: {fileID: 1884468260}
+    - target: {fileID: 6120872871744884673, guid: 576931efc2574ce408138ec6ce1f5c3d, type: 3}
+      propertyPath: terminalsInfo.Array.data[2].spawnPoint
+      value: 
+      objectReference: {fileID: 543599938}
+    - target: {fileID: 6120872871744884673, guid: 576931efc2574ce408138ec6ce1f5c3d, type: 3}
+      propertyPath: terminalsInfo.Array.data[3].spawnPoint
+      value: 
+      objectReference: {fileID: 1136432651}
+    - target: {fileID: 6120872871744884673, guid: 576931efc2574ce408138ec6ce1f5c3d, type: 3}
+      propertyPath: terminalsInfo.Array.data[4].spawnPoint
+      value: 
+      objectReference: {fileID: 792816148}
+    - target: {fileID: 6120872871744884673, guid: 576931efc2574ce408138ec6ce1f5c3d, type: 3}
+      propertyPath: terminalsInfo.Array.data[5].spawnPoint
+      value: 
+      objectReference: {fileID: 1136432651}
+    - target: {fileID: 6120872871744884673, guid: 576931efc2574ce408138ec6ce1f5c3d, type: 3}
+      propertyPath: terminalsInfo.Array.data[6].spawnPoint
+      value: 
+      objectReference: {fileID: 800952619}
+    - target: {fileID: 8894110542907361343, guid: 576931efc2574ce408138ec6ce1f5c3d, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 303.675
+      objectReference: {fileID: 0}
+    - target: {fileID: 8894110542907361343, guid: 576931efc2574ce408138ec6ce1f5c3d, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 188.41185
+      objectReference: {fileID: 0}
+    - target: {fileID: 8894110542907361343, guid: 576931efc2574ce408138ec6ce1f5c3d, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -2.3721268
+      objectReference: {fileID: 0}
+    - target: {fileID: 8894110542907361343, guid: 576931efc2574ce408138ec6ce1f5c3d, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8894110542907361343, guid: 576931efc2574ce408138ec6ce1f5c3d, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8894110542907361343, guid: 576931efc2574ce408138ec6ce1f5c3d, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8894110542907361343, guid: 576931efc2574ce408138ec6ce1f5c3d, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8894110542907361343, guid: 576931efc2574ce408138ec6ce1f5c3d, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8894110542907361343, guid: 576931efc2574ce408138ec6ce1f5c3d, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8894110542907361343, guid: 576931efc2574ce408138ec6ce1f5c3d, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 576931efc2574ce408138ec6ce1f5c3d, type: 3}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
@@ -16312,5 +16380,5 @@ SceneRoots:
   - {fileID: 1761911094}
   - {fileID: 1687295166}
   - {fileID: 1965568784}
-  - {fileID: 1766317943}
+  - {fileID: 5734302982408442803}
   - {fileID: 2009616466}

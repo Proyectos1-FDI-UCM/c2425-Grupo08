@@ -1,0 +1,66 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &3202875836640668598
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8894110542907361343}
+  - component: {fileID: 6120872871744884673}
+  m_Layer: 0
+  m_Name: TutorialManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8894110542907361343
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3202875836640668598}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 303.675, y: 188.41185, z: -2.3721268}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &6120872871744884673
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3202875836640668598}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dacda68c013c70d4ab15963259944864, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  player: {fileID: 0}
+  phantomFish: {fileID: 0}
+  terminalPrefab: {fileID: 478185392815336132, guid: c2bb66560d12a9f4b916e980d3e1d679, type: 3}
+  terminalsInfo:
+  - spawnPoint: {fileID: 0}
+    message: Pulsa las teclas WASD para moverte o el joystick y espacio o X/A para
+      saltar
+  - spawnPoint: {fileID: 0}
+    message: Pulsa el click derecho o LT para apuntar
+  - spawnPoint: {fileID: 0}
+    message: "Un pez fantasma \xA1DISPARA!"
+  - spawnPoint: {fileID: 0}
+    message: Esto es un refugio, para acceder a el tienes que reparar el motor
+  - spawnPoint: {fileID: 0}
+    message: Pulsa E para reparar el moto, PERO CUIDADO CON EL SONAR Y LOS FANTASMAS
+  - spawnPoint: {fileID: 0}
+    message: "\xA1Ya puedes pasar al nivel!"
+  - spawnPoint: {fileID: 0}
+    message: "El s\xEDmbolo de encima de tu cabeza indica que hay un enemigo cerca.
+      LLEVA CUIDADO!"
