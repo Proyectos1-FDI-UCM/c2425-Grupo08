@@ -208,6 +208,31 @@ public class InputManager : MonoBehaviour
         return _interact.WasReleasedThisFrame();
     }
 
+    public string GetInteractKey()
+    {
+        return _interact.bindings[0].effectivePath;
+    }
+
+    public string GetJumpKey()
+    {
+        return _jump.bindings[0].effectivePath;
+    }
+
+    public string GetFocusKey()
+    {
+        return _focus.bindings[0].effectivePath;
+    }
+
+    public string GetFlashKey()
+    {
+        return _flash.bindings[0].effectivePath;
+    }
+
+    public string GetReturnKey()
+    {
+        return _return.bindings[0].effectivePath;
+    }
+
     #endregion
 
     #region Menu Interactions

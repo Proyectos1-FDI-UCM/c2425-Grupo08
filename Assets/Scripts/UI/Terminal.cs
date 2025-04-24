@@ -8,7 +8,6 @@
 using UnityEngine;
 using TMPro;
 
-
 /// <summary>
 /// Clase que gestiona un terminal de consola con efectos de fade in/out y escritura progresiva.
 /// </summary>
@@ -27,10 +26,10 @@ public class Terminal : MonoBehaviour
     [Space]
     [Tooltip("Tiempo de retardo entre caracteres")]
     [Range(0.001f, 0.05f)]
-    [SerializeField] private float typeDelay = 0.03f;
+    [SerializeField] private float timeDelay = 0.03f;
     [Tooltip("Tiempo de espera antes de empezar a escribir el mensaje")]
     [Range(0f, 2f)]
-    [SerializeField] private float typePause = 0.5f;
+    [SerializeField] private float initPause = 0.5f;
 
     /*[Header("Cursor Settings")]
     [Space]
@@ -39,8 +38,6 @@ public class Terminal : MonoBehaviour
 
     [Header("Message Settings")]
     [Space]
-    [Tooltip("Prefijo que se mostrará antes del mensaje.")]
-    [SerializeField] private string prefix;
     [Tooltip("Mensaje que se mostrará en la consola.")]
     [TextArea(3, 10)]
     [SerializeField] private string message;
@@ -49,24 +46,28 @@ public class Terminal : MonoBehaviour
     [Space]
     [Tooltip("Objeto alternativo con el que se comprueba la colisión (por defecto Player)")]
     [SerializeField] private GameObject collisionTarget;
-    public System.Action OnMessageComplete;
+
+    public System.Action OnMessageComplete; // revisar
+
     #endregion
 
     // ---- ATRIBUTOS PRIVADOS ----
     #region Atributos Privados
 
+    // Declaración de textos, colores y audio
     private TMP_Text textTMP;
-    private Color target = new Color(1f, 1f, 1f, 0f);
+    private AudioSource audioSource;
 
-    private float writeTimer = 0f;
-    private int writeIndex = 0;
-    private string currentMessage = "";
-    private bool isWriting = false;
-    private string currentText = "";
-    private float initTimer = 0f;
-    private bool charPause = false;
-    private float charPauseTimer = 0f;
-    private int lastRepairPercent = -1;
+    // Contadores de tiempo
+    private float init = 0f; // Contador de espera para antes de empezar a escribir. (pausa inicial)
+    private float time = 0f; // Contador para la escritura progresiva
+
+    // Indices y colores
+    private float alpha; // Almacena el valor de alpha para el efecto de fade in/out
+    private int index = 0; // Índice del carácter actual que se está escribiendo
+
+    // Variables de control
+    private bool stop = false; // Indica si se debe detener la escritura progresiva
 
     #endregion
 
@@ -74,7 +75,7 @@ public class Terminal : MonoBehaviour
     #region Métodos de MonoBehaviour
 
     /// <summary>
-    /// Inicializa el componente TMP_Text
+    /// Inicializa el componente TMP_Text y AudioSource
     /// </summary>
     private void Awake()
     {
@@ -93,7 +94,20 @@ public class Terminal : MonoBehaviour
 
         else // Si se encuentra el componente TMP_Text
 
-            textTMP.color = target; // Inicializa el color del texto a oculto
+            Hide(); // Inicializa el color del texto a oculto
+
+        // Inicializa el componente AudioSource
+        audioSource = GetComponent<AudioSource>();
+
+        if (audioSource == null)
+        {
+            // Si no se encuentra el componente AudioSource en el objeto actual, busca en los hijos
+            audioSource = GetComponentInChildren<AudioSource>();
+
+            if (audioSource == null)
+
+                Debug.LogError("No se ha encontrado el componente AudioSource en el objeto ni en sus hijos.");
+        }
     }
 
     /// <summary>
@@ -104,7 +118,7 @@ public class Terminal : MonoBehaviour
     {
         LerpAlpha(); // Interpolación del color del texto
 
-        TextRender(); // Escritura progresiva del texto
+        SlowRender(); // Escritura progresiva del texto
     }
 
     #endregion
@@ -113,67 +127,100 @@ public class Terminal : MonoBehaviour
     #region Métodos públicos
 
     /// <summary>
-    /// Inicia la transición de fade in del texto de consola
+    /// Muestra el texto de consola (se aplica un fade in)
     /// </summary>
     public void Show()
     {
-        target.a = 1f;
+        alpha = 1f;
     }
 
     /// <summary>
-    /// Inicia la transición de fade out del texto de consola
+    /// Oculta el texto de consola (se aplica un fade out)
     /// </summary>
     public void Hide()
     {
-        target.a = 0f;
+        alpha = 0f;
     }
 
-    public void Write(string message)
+    /// <summary>
+    /// Escribe el mensaje en la consola de forma progresiva.
+    /// Limpia el texto actual y lo reemplaza por el nuevo mensaje.
+    /// </summary>
+    public void Write(string input)
     {
+        Clear();
+
         Show();
-        currentMessage = message;
-        writeIndex = 0;
-        writeTimer = 0f;
-        isWriting = true;
-        currentText = "";
-        initTimer = 0f;
+
+        message = input;
     }
 
+    /// <summary>
+    /// Establece el mensaje a mostrar en la consola DIRECTAMENTE.
+    /// Se le añade el prefijo por defecto al mensaje.
+    /// </summary>
+    /// <param name="input">Mensaje a mostrar</param>
+    public void SetMessage(string input)
+    {
+        message = input.Trim(); // Se eliminan los espacios en blanco al principio y al final del mensaje
+
+        textTMP.text = message; // Se establece el mensaje directamente en el texto
+    }
+
+    /// <summary>
+    /// Limpia el texto actual y reinicia los contadores de tiempo.
+    /// Se llama al iniciar un nuevo mensaje o al limpiar el texto.
+    /// </summary>
     public void Clear()
     {
-        writeIndex = 0;
-        isWriting = false;
-        textTMP.text = "";
+        ResetText();
     }
 
+    /// <summary>
+    /// Reinicia el texto y los contadores de tiempo.
+    /// (SIN TESTEAR)
+    /// </summary>
+    public void Continue()
+    {
+        stop = false;
+    }
+
+    /// <summary>
+    /// Detiene la escritura progresiva del texto.
+    /// (SIN TESTEAR)
+    /// </summary>
+    public void Stop()
+    {
+        stop = true;
+    }
+
+    /// <summary>
+    /// Devuelve el mensaje actual.
+    /// </summary>
+    /// <returns>Mensaje actual</returns>
     public string GetMessage()
     {
         return message;
     }
 
-    public void SetMessage(string newMessage)
+    /// <summary>
+    /// Devuelve el estado de visibilidad del texto.
+    /// "Visible" si el texto es completamente visible (alpha = 1f)
+    /// </summary>
+    /// <returns>True si es visible</returns>
+    public bool GetVisibility()
     {
-        message = newMessage;
-    }
+        bool visible;
 
-    public void SetPrefix(string newPrefix)
-    {
-        prefix = newPrefix;
-    }
+        if (textTMP.alpha > 0.1f)
 
-    public void UpdateRepairProgress(float progress)
-    {
-        int porcentaje = Mathf.RoundToInt(progress * 100f);
-        if (porcentaje != lastRepairPercent)
-        {
-            lastRepairPercent = porcentaje;
-            Show();
-            string msg = "Reparando... " + porcentaje.ToString() + "%";
-            currentMessage = msg;
-            currentText = msg;
-            isWriting = false;
-            textTMP.text = currentText;
-        }
+            visible = true; // Si el texto es completamente visible
+
+        else
+
+            visible = false; // Si el texto es completamente invisible
+        
+        return visible; // Devuelve el estado de visibilidad
     }
 
     #endregion
@@ -182,85 +229,66 @@ public class Terminal : MonoBehaviour
     #region Métodos Privados
 
     /// <summary>
+    /// Resetea el texto y los contadores de tiempo.
+    /// Se llama al iniciar un nuevo mensaje o al limpiar el texto.
+    /// </summary>
+    private void ResetText()
+    {
+        index = 0;
+        init = 0f;
+        textTMP.text = "";
+    }
+
+    /// <summary>
     /// Interpolación del color del texto para el efecto de fade in/out
     /// </summary>
     private void LerpAlpha()
     {
-        Color current = textTMP.color;
-        current.a = Mathf.MoveTowards(current.a, target.a, fadeSpeed * Time.deltaTime);
-        textTMP.color = current;
+        textTMP.alpha = Mathf.MoveTowards(textTMP.alpha, alpha, fadeSpeed * Time.deltaTime);
     }
 
-    private void TextRender()
+    /// <summary>
+    /// Escribe el texto de forma progresiva, caracter a caracter.
+    /// Si el texto es más corto que el mensaje, se añade un nuevo carácter.
+    /// </summary>
+    private void SlowRender()
     {
-        bool debeActualizarTexto = true;
-
-        if (isWriting)
+        if (textTMP.text.Length < message.Length && !stop) // Si el texto actual es menor que el mensaje y no se ha detenido
         {
-            // Pausa inicial antes de escribir
-            if (initTimer < typePause)
-            {
-                initTimer += Time.deltaTime;
-                textTMP.text = "";
-                debeActualizarTexto = false;
-            }
-            else if (charPause)
-            {
-                charPauseTimer += Time.deltaTime;
-                if (charPauseTimer < typePause)
-                {
-                    textTMP.text = currentText;
-                    debeActualizarTexto = false;
-                }
-                else
-                {
-                    charPause = false;
-                    charPauseTimer = 0f;
-                    // Avanzar el índice para escribir el carácter tras la pausa
-                    writeIndex++;
-                }
-            }
+            if (init < initPause) // Pausa inicial
 
-            if (debeActualizarTexto)
+                init += Time.deltaTime;
+
+            else // Escritura del texto
             {
-                // Escritura progresiva del mensaje
-                writeTimer += Time.deltaTime;
-                bool pausaDetectada = false;
-                while (writeTimer >= typeDelay && writeIndex < currentMessage.Length && !pausaDetectada)
+                time += Time.deltaTime;
+
+                if (time >= timeDelay) // Si ha pasado el tiempo de espera entre caracteres
                 {
-                    // Si el siguiente carácter es '.' o ':' y no estamos ya en pausa especial
-                    char nextChar = currentMessage[writeIndex];
-                    if ((nextChar == '.' || nextChar == ':') && !charPause)
-                    {
-                        charPause = true;
-                        charPauseTimer = 0f;
-                        pausaDetectada = true;
-                    }
-                    else
-                    {
-                        writeTimer -= typeDelay;
-                        writeIndex++;
-                    }
+                    char current = message[index]; // Carácter actual a escribir
+
+                    textTMP.text += current; // Añade el carácter actual al texto
+
+                    if (GetVisibility()) // Si el texto es visible
+                        
+                        audioSource.PlayOneShot(audioSource.clip); // Reproduce el sonido de escritura
+
+                    index++; // Aumenta el índice para el siguiente carácter
+
+                    time = 0f; // Reinicia el contador de tiempo para la escritura
+
+                    if (current == '.' || current == ':' || current == '\n')
+
+                        init = 0f; // Reinicia el contador de tiempo para la pausa especial
                 }
-                currentText = currentMessage.Substring(0, writeIndex);
-                if (writeIndex >= currentMessage.Length)
-                    isWriting = false;
             }
-           
         }
-
-        if (writeIndex >= currentMessage.Length)
-        {
-            isWriting = false;
-
-            // Notifica que se ha terminado el mensaje
-            OnMessageComplete?.Invoke();
-
-        }
-
-        textTMP.text = currentText;
     }
 
+    /// <summary>
+    /// Detecta la colisión con el objeto especificado y muestra el mensaje.
+    /// </summary>
+    /// <param name="other">El objeto con el que se ha colisionado.</param>
     private void OnTriggerEnter2D(Collider2D other)
     {
         // Si collisionTarget está asignado, solo reacciona a ese objeto
@@ -268,15 +296,19 @@ public class Terminal : MonoBehaviour
         {
             if (other.gameObject == collisionTarget)
 
-                Write(prefix + message);
+                Write(message);
         }
 
         // Si no se comprueba la del jugador por defecto
         else if (other.GetComponent<PlayerMovement>() != null)
 
-            Write(prefix + message);
+            Write(message);
     }
 
+    /// <summary>
+    /// Detecta la salida de la colisión con el objeto especificado y oculta el mensaje.
+    /// </summary>
+    /// <param name="other">El objeto con el que se ha colisionado.</param>
     private void OnTriggerExit2D(Collider2D other)
     {
         if (collisionTarget != null)
@@ -285,6 +317,7 @@ public class Terminal : MonoBehaviour
 
                 Hide();
         }
+
         else if (other.GetComponent<PlayerMovement>() != null)
 
             Hide();

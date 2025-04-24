@@ -47,6 +47,7 @@ public class OxigenScript : MonoBehaviour
     private AudioSource audioSource;
     private bool isDead = false;
     private PlayerMovement player;
+    private bool inmortal = false; // Indica si el jugador es inmortal o no
 
     private Animator animator;
 
@@ -70,6 +71,7 @@ public class OxigenScript : MonoBehaviour
         currentOxigen = maxOxigen;
         audioSource= AudioManager.instance.GetComponent<AudioSource>();
         AudioManager.instance.PlaySFX(SFXType.Breath, audioSource, true);
+        inmortal = GameManager.Instance.GetInmortal();
     }
 
     /// <summary>
@@ -136,16 +138,18 @@ public class OxigenScript : MonoBehaviour
     }
     public void Death()
     {
-        if (isDead) return; // Evitar múltiples ejecuciones
+        if (!inmortal)
+        {
+            if (isDead) return; // Evitar múltiples ejecuciones
 
-        isDead = true;
-        AudioManager.instance.PlaySFX(SFXType.GameOver, audioSource);
-        animator.SetTrigger("Death");
-        player.SetIsDeath(true);
+            isDead = true;
+            AudioManager.instance.PlaySFX(SFXType.GameOver, audioSource);
+            animator.SetTrigger("Death");
+            player.SetIsDeath(true);
 
-        StartCoroutine(DestroyAfterDelay());
+            StartCoroutine(DestroyAfterDelay());
+        }
     }
-
     #endregion
 
     // ---- MÉTODOS PRIVADOS ----
@@ -154,7 +158,7 @@ public class OxigenScript : MonoBehaviour
     // El convenio de nombres de Unity recomienda que estos métodos
     // se nombren en formato PascalCase (palabras con primera letra
     // mayúscula, incluida la primera letra)
-    
+
 
     private IEnumerator DestroyAfterDelay()
     {

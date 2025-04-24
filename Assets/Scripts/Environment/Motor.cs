@@ -2,17 +2,13 @@
 // Este archivo gestiona la lógica del motor dentro del juego, 
 // incluyendo su reparación y el progreso de carga visual.
 //
-// Responsable: Tomás Arévalo Almagro
+// Responsable: Tomás Arévalo Almagro, Carlos Dochao Moreno
 // Nombre del juego: Project Abbys
 // Proyecto 1 - Curso 2024-25
 //---------------------------------------------------------
 
-using System;
 using UnityEngine;
 using System.Collections;
-using UnityEngine.InputSystem;
-using UnityEngine.UI;
-// Aquí podrían añadirse más directivas using según sea necesario
 
 /// <summary>
 /// Clase que maneja la interacción del jugador con el motor,
@@ -23,19 +19,15 @@ public class Motor : MonoBehaviour
     // ---- ATRIBUTOS DEL INSPECTOR ----
     #region Atributos del Inspector (serialized fields)
 
-    // Referencia al Canvas que mostrará la interfaz de carga
-    [SerializeField] private Canvas canva;
-
-    // Barra de progreso que representa el avance en la reparación del motor
-    [SerializeField] private Slider progressBar;
-
     // Tiempo total requerido para completar la carga (en segundos)
     [SerializeField] private float loadTime = 4f;
  
     [SerializeField] private float finalanimationspeed = 4f;
     [SerializeField] private float finalsoundspeed = 4f;
 
- 
+    // Mensaje mostrado al completar la reparación
+    [TextArea(2, 5)]
+    [SerializeField] private string repairCompleteMsg = "Generador reparado...\nEnergía restablecida\nRefugio desbloqueado!";
 
     #endregion
 
@@ -54,6 +46,8 @@ public class Motor : MonoBehaviour
     // Referencia a la corrutina de carga para poder detenerla si es necesario
     private Coroutine loadCoroutine;
 
+    private Terminal Console; // Referencia al componente Terminal para mostrar mensajes en la UI
+
     private GameObject player;
     private FlashLight flashlight;
     private Animator motorAnimator;
@@ -70,13 +64,15 @@ public class Motor : MonoBehaviour
     /// </summary>
     void Start()
     {
-        canva.gameObject.SetActive(false);  // Oculta el Canvas al inicio
-        progressBar.gameObject.SetActive(false);  // Oculta la barra de progreso
-        progressBar.value = currentLoadProgress;  // Inicializa la barra en el progreso actual (0)
-        flashlight = GameManager.Instance.GetFlashLight();
+        Console = GetComponentInChildren<Terminal>(); // Busca el componente Terminal en los hijos del objeto actual
 
+        if (Console == null) // Si no se encuentra el componente Terminal, muestra un mensaje de error
+
+            Debug.LogError("No se ha encontrado el componente Terminal en el objeto ni en sus hijos.");
+
+        flashlight = GameManager.Instance.GetFlashLight();
         audioSource = GetComponent<AudioSource>();
-        player = GameObject.FindGameObjectWithTag("Player");
+        player = GameManager.Instance.GetPlayerController();
         motorAnimator = GetComponent<Animator>();
     }
 
@@ -124,8 +120,8 @@ public class Motor : MonoBehaviour
         if (loadCoroutine == null) // Evita iniciar múltiples instancias de la corrutina
         {
             flashlight.LightUnfocus(); // Desactiva el foco de la linterna
+
             GetComponent<GeneratorEnemySpawner>().SetCanRespawn(true); // Permite el respawn de enemigos
-            progressBar.gameObject.SetActive(true); // Muestra la barra de progreso
             loadCoroutine = StartCoroutine(LoadProgress()); // Inicia la carga
             AudioManager.instance.PlaySFX(SFXType.MotorSound, audioSource, true); // Reproduce el sonido de reparación
         }
@@ -142,7 +138,7 @@ public class Motor : MonoBehaviour
             StopCoroutine(loadCoroutine); // Detiene la corrutina de carga
             loadCoroutine = null; // Limpia la referencia
         }
-        progressBar.gameObject.SetActive(false); // Oculta la barra de progreso
+
         AudioManager.instance.StopSFX(audioSource); // Para el sonido de reparación
 
         player.GetComponent<PlayerMovement>().SetIsRepairing(false);
@@ -166,7 +162,9 @@ public class Motor : MonoBehaviour
         while (currentLoadProgress < 1f) // Mientras la carga no esté completa
         {
             currentLoadProgress += Time.deltaTime / loadTime; // Incrementa el progreso
-            progressBar.value = currentLoadProgress; // Actualiza la barra de progreso
+
+            // Actualiza directamente el texto de la terminal
+            Console.SetMessage("Reparando..." + Mathf.RoundToInt(currentLoadProgress * 100).ToString() + "%"); 
 
             if (motorAnimator != null)
             {
@@ -196,10 +194,12 @@ public class Motor : MonoBehaviour
     private void CompleteRepair()
     {
         isRepaired = true; // Marca el motor como reparado
-        progressBar.gameObject.SetActive(false); // Oculta la barra de progreso
-        canva.gameObject.SetActive(false); // Oculta el Canvas de interacción
+        
         player.GetComponent<PlayerMovement>().SetIsRepairing(false);
         GetComponent<GeneratorEnemySpawner>().SetCanRespawn(false);
+
+        Console.Clear();
+        Console.Write(repairCompleteMsg);
 
         // Notifica al LevelManager que el motor ha sido reparado
         LevelManager.Instance.MotorRepaired();
@@ -214,7 +214,6 @@ public class Motor : MonoBehaviour
         if (other.gameObject == player && !isRepaired) // Si el objeto que entra es el jugador y el motor no está reparado
         {
             hasEnter = true; // Permite la interacción
-            canva.gameObject.SetActive(true); // Muestra la UI de carga
         }
     }
 
@@ -227,7 +226,7 @@ public class Motor : MonoBehaviour
         if (other.gameObject == player) // Si el objeto que sale es el jugador
         {
             hasEnter = false; // Desactiva la interacción
-            canva.gameObject.SetActive(false); // Oculta la UI de carga
+
             StopLoading(); // Detiene la carga si estaba en progreso
         }
     }

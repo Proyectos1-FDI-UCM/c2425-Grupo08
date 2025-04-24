@@ -59,6 +59,8 @@ public class Enemy1PhantomAnglerfish : MonoBehaviour
     private bool attack = false;
     private bool flee = false;
 
+    private bool arrowActive = false;
+
     //Audio
     private AudioSource audioSource;
     private float patrolSoundCooldown = 0f; // Tiempo que ha pasado desde la última vez que se reprodujo el sonido
@@ -176,6 +178,10 @@ public class Enemy1PhantomAnglerfish : MonoBehaviour
             {
                 AudioManager.instance.PlaySFX(SFXType.AttackEnemy1, audioSource);
                 attackSoundPlaying = true;
+                if (!arrowActive){
+                    player.GetComponent<ArrowManager>().CreateArrow(this.gameObject);
+                    arrowActive = true;
+                }
             }
         }
         else
@@ -252,6 +258,10 @@ public class Enemy1PhantomAnglerfish : MonoBehaviour
 
             animator.SetTrigger("Flee");
 
+            if (arrowActive){
+                player.GetComponent<ArrowManager>().DeleteArrow(this.gameObject);
+            }
+
             StartCoroutine(DisintegrationDelay());
         }
         else if (player != null && collision.gameObject.GetComponent<Collider2D>() == playerCollider)
@@ -267,6 +277,13 @@ public class Enemy1PhantomAnglerfish : MonoBehaviour
         {
             collision.gameObject.GetComponent<OxigenScript>().PierceTank();
             GetComponentInParent<Respawner>().EnemyDead(player);
+
+            if (arrowActive){
+                player.GetComponent<ArrowManager>().DeleteArrow(this.gameObject);
+            }
+
+
+
             Destroy(gameObject);
         }
     }

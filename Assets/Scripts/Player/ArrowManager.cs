@@ -70,7 +70,6 @@ public class ArrowManager: MonoBehaviour
         _arrowsBuffer._hat = 0;
 
         CreateArrow(Test);
-
     }
     /// <summary>
     /// Update is called every frame, if the MonoBehaviour is enabled.
@@ -99,16 +98,19 @@ public class ArrowManager: MonoBehaviour
     public void DeleteArrow(GameObject arrowToDelete){
         bool arrowFound = false;
         int i = 0;
-        while (i < _arrowsBuffer._arrows.Length && !arrowFound){
-            if (_arrowsBuffer._arrows[i]._arrowObject==arrowToDelete){
+        while (i <_arrowsBuffer._arrows.Length && !arrowFound){
+            if (_arrowsBuffer._arrows[i]._objective==arrowToDelete){
                 Destroy(_arrowsBuffer._arrows[i]._arrowObject);
                 _arrowsBuffer._arrows[i] = _arrowsBuffer._arrows[_arrowsBuffer._hat];
+                _arrowsBuffer._hat--;
                 arrowFound = true;
             }
+            i++;
         }
         if (!arrowFound){
             Debug.Log("ERROR: trying to remove a non-existent arrow");;
         }
+
 
     }
     
