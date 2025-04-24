@@ -3,13 +3,9 @@
 // Tomás Arévalo Almagro
 // Proyectos 1 - Curso 2024-25
 //---------------------------------------------------------
+
 using System;
 using UnityEngine;
-using System.Collections;
-using UnityEngine.InputSystem;
-using UnityEngine.UI;
-// Añadir aquí el resto de directivas using
-
 
 /// <summary>
 /// Antes de cada class, descripción de qué es y para qué sirve,
@@ -19,13 +15,7 @@ public class Door : MonoBehaviour
 {
     // ---- ATRIBUTOS DEL INSPECTOR ----
     #region Atributos del Inspector (serialized fields)
-    // Documentar cada atributo que aparece aquí.
-    // El convenio de nombres de Unity recomienda que los atributos
-    // públicos y de inspector se nombren en formato PascalCase
-    // (palabras con primera letra mayúscula, incluida la primera letra)
-    // Ejemplo: MaxHealthPoints
-    [SerializeField] private Canvas canvas;
-    // Canvas que se muestra al acercarse a la puerta (mensaje de interacción).
+
     [SerializeField] private int sceneIndex;
     // Índice de la escena a la que se cambiará al interactuar con la puerta.
     #endregion
@@ -59,7 +49,6 @@ public class Door : MonoBehaviour
     /// </summary>
     void Start()
     {
-        canvas.gameObject.SetActive(false); 
         // Oculta el mensaje al principio
         levelCompleted = LevelManager.Instance.LevelCompleted();
         // Consulta si se ha completado el nivel
@@ -77,16 +66,6 @@ public class Door : MonoBehaviour
             // Cambiar de escena si se cumple todo
         }
     }
-    #endregion
-
-    // ---- MÉTODOS PÚBLICOS ----
-    #region Métodos públicos
-    // Documentar cada método que aparece aquí con ///<summary>
-    // El convenio de nombres de Unity recomienda que estos métodos
-    // se nombren en formato PascalCase (palabras con primera letra
-    // mayúscula, incluida la primera letra)
-    // Ejemplo: GetPlayerController
-        
 
     #endregion
 
@@ -99,26 +78,23 @@ public class Door : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.CompareTag("Player"))
+        if (other.GetComponent<PlayerMovement>() != null)
         {
             hasEnter = true;
-            canvas.gameObject.SetActive(true);// Muestra el mensaje
+            Console.Write($"Estado del refugio:......Habilitado!\nPresiona {InputManager.Instance.GetInteractKey()} para entrar...");
             levelCompleted = LevelManager.Instance.LevelCompleted(); // Actualiza estado
 
         }
     }
+
     private void OnTriggerExit2D(Collider2D other)
     {
-        if (other.CompareTag("Player"))
+        if (other.GetComponent<PlayerMovement>() != null)
         {
             hasEnter = false; 
-            canvas.gameObject.SetActive(false);// Desactiva el mensaje
-
         }
     }
-
     
     #endregion
 
-} // class DoorScript 
-// namespace
+} // class Door
