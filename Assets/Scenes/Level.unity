@@ -1337,34 +1337,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 982502975117708365, guid: 8c0a26a4016db1f4da055ae016bf56f8, type: 3}
-      propertyPath: sfxClips.Array.size
-      value: 12
-      objectReference: {fileID: 0}
-    - target: {fileID: 982502975117708365, guid: 8c0a26a4016db1f4da055ae016bf56f8, type: 3}
-      propertyPath: sfxClips.Array.data[9].clip
-      value: 
-      objectReference: {fileID: 8300000, guid: f7195a4b420d2404d81a7da5dec01879, type: 3}
-    - target: {fileID: 982502975117708365, guid: 8c0a26a4016db1f4da055ae016bf56f8, type: 3}
-      propertyPath: sfxClips.Array.data[9].type
-      value: 10
-      objectReference: {fileID: 0}
-    - target: {fileID: 982502975117708365, guid: 8c0a26a4016db1f4da055ae016bf56f8, type: 3}
-      propertyPath: sfxClips.Array.data[10].clip
-      value: 
-      objectReference: {fileID: 8300000, guid: a8ba46fbf055fd94e8bae8b55c535010, type: 3}
-    - target: {fileID: 982502975117708365, guid: 8c0a26a4016db1f4da055ae016bf56f8, type: 3}
-      propertyPath: sfxClips.Array.data[10].type
-      value: 11
-      objectReference: {fileID: 0}
-    - target: {fileID: 982502975117708365, guid: 8c0a26a4016db1f4da055ae016bf56f8, type: 3}
-      propertyPath: sfxClips.Array.data[11].clip
-      value: 
-      objectReference: {fileID: 8300000, guid: 7a880f81e184ffd49b10f6f2072be12a, type: 3}
-    - target: {fileID: 982502975117708365, guid: 8c0a26a4016db1f4da055ae016bf56f8, type: 3}
-      propertyPath: sfxClips.Array.data[11].type
-      value: 12
-      objectReference: {fileID: 0}
     - target: {fileID: 1629052527552472779, guid: 8c0a26a4016db1f4da055ae016bf56f8, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -3158,8 +3130,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -40}
-  m_SizeDelta: {x: 100, y: 100}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 88, y: 88}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &1211402349
 CanvasRenderer:
@@ -3189,7 +3161,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: -1187524083811821316, guid: af16cf9efac952141b6597d6243304f9, type: 3}
+  m_Sprite: {fileID: 1285746825, guid: 04d3f58c3ded97641a5d31b2122e35e5, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -3272,7 +3244,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 31a19414c41e5ae4aae2af33fee712f6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_ShowMaskGraphic: 1
+  m_ShowMaskGraphic: 0
 --- !u!222 &1248103448
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -3301,7 +3273,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 754378845129906488, guid: 206b7aadfb08c5d4e96dd41fa10ef0c9, type: 3}
+  m_Sprite: {fileID: 1126442598758066782, guid: 206b7aadfb08c5d4e96dd41fa10ef0c9, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 0
@@ -12920,7 +12892,7 @@ SpriteRenderer:
   m_Size: {x: 1, y: 1}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!4 &1687295166
@@ -13657,7 +13629,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_Sprite: {fileID: -2545544861375569789, guid: 206b7aadfb08c5d4e96dd41fa10ef0c9, type: 3}
-  m_Type: 2
+  m_Type: 1
   m_PreserveAspect: 0
   m_FillCenter: 0
   m_FillMethod: 0

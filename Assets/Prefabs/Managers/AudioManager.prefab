@@ -65,6 +65,12 @@ MonoBehaviour:
     clip: {fileID: 8300000, guid: 41d24ea5a51fff3409df5fc2a129ffa1, type: 3}
   - type: 9
     clip: {fileID: 8300000, guid: db9b35c5507343b45b9f08e53ec82a19, type: 3}
+  - type: 10
+    clip: {fileID: 8300000, guid: f7195a4b420d2404d81a7da5dec01879, type: 3}
+  - type: 11
+    clip: {fileID: 8300000, guid: a8ba46fbf055fd94e8bae8b55c535010, type: 3}
+  - type: 12
+    clip: {fileID: 8300000, guid: 7a880f81e184ffd49b10f6f2072be12a, type: 3}
   sfxVolume: 1
 --- !u!82 &6630299840179239462
 AudioSource:
