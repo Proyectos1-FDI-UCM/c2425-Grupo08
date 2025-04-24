@@ -1,7 +1,8 @@
 //---------------------------------------------------------
 //---------------------------------------------------------
-// Gestiona el toggle cambiando el estado de easyMode 
+// Gestiona el toggle cambiando el estado de easyMode y el cheat de inmortalidad
 // Vicente Rodríguez Casado
+// Andrés Bartolomé Clap
 // Proyect abyss
 // Proyectos 1 - Curso 2024-25
 //---------------------------------------------------------
@@ -52,18 +53,12 @@ public class Toggle : MonoBehaviour
     /// </summary>
     void Start()
     {
-       GameManager.Instance.setEasyMode(false);
-        GameManager.Instance.GetComponent<Light2D>().enabled = false;
+       GameManager.Instance.SetEasyMode(false);
+       GameManager.Instance.SetInmortal(false);
+       GameManager.Instance.SetTeleport(false);
+       GameManager.Instance.GetComponent<Light2D>().enabled = false;
     }
 
-    /// <summary>
-    /// Update is called every frame, if the MonoBehaviour is enabled.
-    /// </summary>
-    void Update()
-    {
-        
-    }
-    #endregion
 
     // ---- MÉTODOS PÚBLICOS ----
     #region Métodos públicos
@@ -73,12 +68,26 @@ public class Toggle : MonoBehaviour
     // mayúscula, incluida la primera letra)
     // Ejemplo: GetPlayerController
 
-    public void OnToggleChanged()
+    public void EasyMode()
     {
         
         // Cambia el estado de easyMode
-        GameManager.Instance.toggleEasyMode();  
+        GameManager.Instance.ToggleEasyMode();  
 
+
+    }
+    public void Inmortal()
+    {
+
+        // Cambia el estado del cheat de inmortalidad
+        GameManager.Instance.ToggleInmortal();
+
+
+    }
+    public void Teleport()
+    {
+        // Cambia el estado del cheat de teleportarse
+        GameManager.Instance.ToggleTeleport();
 
     }
 
@@ -94,4 +103,5 @@ public class Toggle : MonoBehaviour
     #endregion
 
 } // class Toggle 
-// namespace
+  // namespace
+#endregion
