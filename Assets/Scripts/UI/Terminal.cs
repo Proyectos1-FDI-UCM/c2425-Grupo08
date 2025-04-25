@@ -119,6 +119,8 @@ public class Terminal : MonoBehaviour
         LerpAlpha(); // Interpolación del color del texto
 
         SlowRender(); // Escritura progresiva del texto
+
+        ReplaceKey();
     }
 
     #endregion
@@ -282,6 +284,22 @@ public class Terminal : MonoBehaviour
                         init = 0f; // Reinicia el contador de tiempo para la pausa especial
                 }
             }
+        }
+    }
+
+    /// <summary>
+    /// Reemplaza las teclas de interacción en el mensaje por los valores actuales.
+    /// Se utiliza para mostrar las teclas de interacción en el mensaje.
+    /// </summary>
+    private void ReplaceKey()
+    {
+        if (message.Contains("{key_"))
+        {
+            message = message.Replace("{key_interact}", InputManager.Instance.GetInteractKey());
+            message = message.Replace("{key_jump}", InputManager.Instance.GetJumpKey());
+            message = message.Replace("{key_flash}", InputManager.Instance.GetFlashKey());
+            message = message.Replace("{key_focus}", InputManager.Instance.GetFocusKey());
+            message = message.Replace("{key_return}", InputManager.Instance.GetReturnKey());
         }
     }
 

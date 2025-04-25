@@ -208,6 +208,8 @@ public class InputManager : MonoBehaviour
         return _interact.WasReleasedThisFrame();
     }
 
+    // Getters para los controles del juego
+    
     public string GetInteractKey()
     {
         return _interact.bindings[0].effectivePath;
