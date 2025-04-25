@@ -23,5 +23,8 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/GammaTest.unity
     guid: a9fb4a92b638559459dae52047eeccfd
+  - enabled: 1
+    path: Assets/Scenes/Tests/Motor y Refugio.unity
+    guid: b50c320ac584c8e4282663392fd0c156
   m_configObjects:
     com.unity.input.settings: {fileID: 11400000, guid: db200087da63458438de42a14d44966e, type: 2}
