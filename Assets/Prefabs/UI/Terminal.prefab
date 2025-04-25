@@ -56,8 +56,7 @@ MonoBehaviour:
   fadeSpeed: 2
   timeDelay: 0.03
   initPause: 0.5
-  prefix: '> '
-  message: "Mant\xE9n E para reparar el generador"
+  message: "Mant\xE9n {key_interact} para reparar el generador"
   collisionTarget: {fileID: 0}
 --- !u!82 &638420060869056176
 AudioSource:
@@ -202,8 +201,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 0.3
-  m_fontSizeBase: 0.3
+  m_fontSize: 1
+  m_fontSizeBase: 1
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 0
@@ -213,7 +212,7 @@ MonoBehaviour:
   m_VerticalAlignment: 1024
   m_textAlignment: 65535
   m_characterSpacing: -3
-  m_wordSpacing: 2
+  m_wordSpacing: 1
   m_lineSpacing: -11
   m_lineSpacingMax: 0
   m_paragraphSpacing: -2
@@ -230,8 +229,8 @@ MonoBehaviour:
   m_parseCtrlCharacters: 1
   m_isOrthographic: 1
   m_isCullingEnabled: 0
-  m_horizontalMapping: 0
-  m_verticalMapping: 0
+  m_horizontalMapping: 1
+  m_verticalMapping: 3
   m_uvLineOffset: 0
   m_geometrySortingOrder: 0
   m_IsTextObjectScaleStatic: 1

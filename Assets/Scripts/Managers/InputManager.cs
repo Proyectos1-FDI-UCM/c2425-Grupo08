@@ -6,6 +6,7 @@
 //---------------------------------------------------------
 using UnityEngine;
 using UnityEngine.InputSystem;
+using System.Linq;
 
 /// <summary>
 /// Manager para la gestión del Input. Se encarga de centralizar la gestión
@@ -209,30 +210,30 @@ public class InputManager : MonoBehaviour
     }
 
     // Getters para los controles del juego
-    
+
     public string GetInteractKey()
     {
-        return _interact.bindings[0].effectivePath;
+        return _interact.bindings[0].effectivePath.Split('/').Last().ToUpper();
     }
 
     public string GetJumpKey()
     {
-        return _jump.bindings[0].effectivePath;
+        return _jump.bindings[0].effectivePath.Split('/').Last().ToUpper();
     }
 
     public string GetFocusKey()
     {
-        return _focus.bindings[0].effectivePath;
+        return _focus.bindings[0].effectivePath.Split('/').Last().ToUpper();
     }
 
     public string GetFlashKey()
     {
-        return _flash.bindings[0].effectivePath;
+        return _flash.bindings[0].effectivePath.Split('/').Last().ToUpper();
     }
 
     public string GetReturnKey()
     {
-        return _return.bindings[0].effectivePath;
+        return _return.bindings[0].effectivePath.Split('/').Last().ToUpper();
     }
 
     #endregion
