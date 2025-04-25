@@ -15,21 +15,25 @@ public class KelpEnemy : MonoBehaviour
 {
     // ---- ATRIBUTOS DEL INSPECTOR ----
     #region Atributos del Inspector (serialized fields)
-    [SerializeField] private float activateRadius = 10f;
-    [SerializeField] private float grabRadius = 5f;
-    [SerializeField] private PlayerMovement Player;
+    [SerializeField] private float activateRadius = 10f;    // Radio para activar
+    [SerializeField] private float grabRadius = 5f;         // Radio para atrapar
+    [SerializeField] private float maxCatchVelocity = 5f;   // Vel. máx. para que atrape
+    [SerializeField] private float grabCooldown = 3f;  // Segundos antes de poder atrapar de nuevo
+    [SerializeField] private PlayerMovement Player;         // Referencia al jugador
     #endregion
-    
+
     // ---- ATRIBUTOS PRIVADOS ----
     #region Atributos Privados (private fields)
     private bool _isGrabbed = false;
     private bool _isActive = false;
+    private float _cooldownTimer = 0f;
+    private bool _canGrab = true;
     #endregion
-    
+
     // ---- MÉTODOS DE MONOBEHAVIOUR ----
     #region Métodos de MonoBehaviour
-    
-    
+
+
     /// <summary>
     /// Start is called on the frame when a script is enabled just before 
     /// any of the Update methods are called the first time.
@@ -44,21 +48,40 @@ public class KelpEnemy : MonoBehaviour
     /// </summary>
     void Update()
     {
-        if (IsPlayerInside(grabRadius)){
-            _isGrabbed = true;
-            Player.isGrabbed = true;
-            Player.kelpGrabbing = this;
+        // Gestionar cooldown tras liberación
+        if (!_canGrab)
+        {
+            _cooldownTimer -= Time.deltaTime;
+            if (_cooldownTimer <= 0f) _canGrab = true;
         }
-        else if (IsPlayerInside(activateRadius)){
-            _isActive = true;
-            _isGrabbed = false;
-            Player.isGrabbed =false;
-        }
-        else {
+
+        float playerSpeed = Player.GetComponent<Rigidbody2D>().velocity.magnitude;
+        bool inGrab = _canGrab && playerSpeed <= maxCatchVelocity && IsPlayerInside(grabRadius);
+        bool inActivate = IsPlayerInside(activateRadius);
+
+        if (inGrab)
+        {
+            if (!_isGrabbed)
+            {
+                Player.StartGrabbed();
+                _isGrabbed = true;
+                Player.isGrabbed = true;
+                Player.kelpGrabbing = this;
+            }
             _isActive = false;
-            _isGrabbed = false;
         }
-        
+        else if (inActivate)
+        {
+            _isActive = true;
+        }
+        else if (_isGrabbed)
+        {
+            // Esperar a que Player llame a ReleasePlayer()
+        }
+        else
+        {
+            _isActive = false;
+        }
     }
     #endregion
 
@@ -67,11 +90,15 @@ public class KelpEnemy : MonoBehaviour
     /// <summary>
     /// Método externo que avisa de que el jugador ya no está siendo agarrado.
     /// </summary>
-    public void ReleasePlayer(){
+    public void ReleasePlayer()
+    {
         _isGrabbed = false;
+        Player.isGrabbed = false;
+        _canGrab = false;
+        _cooldownTimer = grabCooldown;
     }
     #endregion
-    
+
     // ---- MÉTODOS PRIVADOS ----
     #region Métodos Privados
     /// <summary>
@@ -79,29 +106,39 @@ public class KelpEnemy : MonoBehaviour
     /// </summary>
     /// <param name="radius">Radio de la circunferencia de acción a comparar con el jugador</param>
     /// <returns></returns>
-    private bool IsPlayerInside(float radius){
-        return ((Player.transform.position-transform.position).magnitude <= radius); 
+    private bool IsPlayerInside(float radius)
+    {
+        return (Player.transform.position - transform.position).magnitude <= radius;
     }
-    #endregion   
+
 
     private void OnDrawGizmos()
     {
+        // Dibuja radios de activación y agarre
         Gizmos.color = Color.green;
         Gizmos.DrawWireSphere(transform.position, activateRadius);
         Gizmos.color = Color.red;
-        Gizmos.DrawWireSphere(transform.position,grabRadius);
-        if (_isGrabbed){
+        Gizmos.DrawWireSphere(transform.position, grabRadius);
+
+        // Indica estado usando gizmos
+        if (_isGrabbed)
+        {
             Gizmos.color = Color.red;
-            Gizmos.DrawSphere(transform.position,0.1f);
+            Gizmos.DrawSphere(transform.position, 0.1f);
         }
-        else if (_isActive){
+        else if (_isActive)
+        {
             Gizmos.color = Color.yellow;
-            Gizmos.DrawSphere(transform.position,0.1f);
+            Gizmos.DrawSphere(transform.position, 0.1f);
         }
-        else{
+        else
+        {
             Gizmos.color = Color.green;
-            Gizmos.DrawSphere(transform.position,0.1f);
+            Gizmos.DrawSphere(transform.position, 0.1f);
         }
     }
+
+
+    #endregion
 } // class KelpEnemy 
 // namespace
