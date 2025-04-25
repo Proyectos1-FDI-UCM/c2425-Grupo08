@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1232632338834833705}
   - component: {fileID: 7301774565642874298}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: KelpEnemy
   m_TagString: Untagged
   m_Icon: {fileID: 0}

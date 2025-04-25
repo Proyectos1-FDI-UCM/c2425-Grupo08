@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1564647073938836508}
   - component: {fileID: 4755341260247155239}
-  m_Layer: 10
+  m_Layer: 0
   m_Name: RouteNodeObject
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -77,7 +77,7 @@ GameObject:
   m_Component:
   - component: {fileID: 9048758877733001390}
   - component: {fileID: 7209606353233652851}
-  m_Layer: 10
+  m_Layer: 0
   m_Name: RouteNodeObject (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -144,7 +144,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1875513320318376426}
   - component: {fileID: 8243753619298195921}
-  m_Layer: 10
+  m_Layer: 0
   m_Name: RouteNodeObject (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -212,7 +212,7 @@ GameObject:
   - component: {fileID: 4407587027861858106}
   - component: {fileID: 571858331011019453}
   - component: {fileID: 7398697384196476521}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: PhantomAnglerfish
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -292,7 +292,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1668344276458366947}
   - component: {fileID: 5491021661976101047}
-  m_Layer: 10
+  m_Layer: 0
   m_Name: RouteNodeObject (3)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -359,7 +359,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6503897635680713018}
   - component: {fileID: 6520232138147929563}
-  m_Layer: 10
+  m_Layer: 0
   m_Name: Nodes
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -405,6 +405,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 4407587027861858106}
     m_Modifications:
+    - target: {fileID: 12531193849160238, guid: e9d32d5a1248e5a4d9a6920b3518e46b, type: 3}
+      propertyPath: m_InstanceId
+      value: -25482
+      objectReference: {fileID: 0}
+    - target: {fileID: 455606573521649017, guid: e9d32d5a1248e5a4d9a6920b3518e46b, type: 3}
+      propertyPath: m_Layer
+      value: 10
+      objectReference: {fileID: 0}
     - target: {fileID: 518604220022958571, guid: e9d32d5a1248e5a4d9a6920b3518e46b, type: 3}
       propertyPath: m_Name
       value: PhantomAnglerfishEnemy

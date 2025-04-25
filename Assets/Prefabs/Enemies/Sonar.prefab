@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 1180424791023340932}
   - component: {fileID: 3945259227333738121}
   - component: {fileID: 5455179544005079292}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: SonarEnemy
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -227,7 +227,7 @@ GameObject:
   m_Component:
   - component: {fileID: 9151467536921551130}
   - component: {fileID: 8298432844712934284}
-  m_Layer: 10
+  m_Layer: 0
   m_Name: RouteNodeObject (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -343,7 +343,7 @@ GameObject:
   - component: {fileID: 2843141759296166362}
   - component: {fileID: 7281574302150354926}
   - component: {fileID: 9154785394292852023}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: SonarSprite
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -448,7 +448,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4450076113030798166}
   - component: {fileID: 4825493588635158409}
-  m_Layer: 10
+  m_Layer: 0
   m_Name: RouteNodeObject (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -515,7 +515,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7350022693225152997}
   - component: {fileID: 889238345439725931}
-  m_Layer: 10
+  m_Layer: 0
   m_Name: RouteNodeObject (3)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -582,7 +582,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7021066473263563394}
   - component: {fileID: 4045262234461747297}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Sonar
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -646,7 +646,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5866506483227186201}
   - component: {fileID: 6737682796908372641}
-  m_Layer: 10
+  m_Layer: 0
   m_Name: RouteNodeObject
   m_TagString: Untagged
   m_Icon: {fileID: 0}
