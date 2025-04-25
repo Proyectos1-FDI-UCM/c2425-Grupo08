@@ -2084,7 +2084,8 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2707086054489979901, guid: c2bb66560d12a9f4b916e980d3e1d679, type: 3}
       propertyPath: message
-      value: "Has llegado al final del nivel, usa la tecla ESC para volver al men\xFA"
+      value: "Has llegado al final del nivel, usa la tecla {key_return} para volver
+        al men\xFA"
       objectReference: {fileID: 0}
     - target: {fileID: 4845581886751218204, guid: c2bb66560d12a9f4b916e980d3e1d679, type: 3}
       propertyPath: m_Pivot.x
@@ -14076,7 +14077,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4110250732275042765, guid: 10a2a23cb1a6fc344864f80da2c1702d, type: 3}
       propertyPath: maxOxigen
-      value: 100
+      value: 400
       objectReference: {fileID: 0}
     - target: {fileID: 4794396205851017353, guid: 10a2a23cb1a6fc344864f80da2c1702d, type: 3}
       propertyPath: Test
