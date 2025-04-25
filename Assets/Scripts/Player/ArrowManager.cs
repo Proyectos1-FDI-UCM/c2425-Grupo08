@@ -1,7 +1,7 @@
 //---------------------------------------------------------
-// Breve descripción del contenido del archivo
-// Responsable de la creación de este archivo
-// Nombre del juego
+// Script que lleva la lógica y gestión de las flechas que apuntan a los enemigos cuando atacan.
+// Miguel Ángel González López
+// Project Abyss
 // Proyectos 1 - Curso 2024-25
 //---------------------------------------------------------
 
