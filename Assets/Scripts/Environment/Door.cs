@@ -99,7 +99,7 @@ public class Door : MonoBehaviour
 
             if (levelCompleted && Console != null)
         {
-            Console.SetMessage($"Estado del refugio...Habilitado!\n\nPresiona {InputManager.Instance.GetInteractKey()} para entrar...");
+            Console.Write($"Estado del refugio...Habilitado!\n\nPresiona {InputManager.Instance.GetInteractKey()} para entrar...");
             // Muestra el mensaje de que se puede entrar al refugio
         }
 
