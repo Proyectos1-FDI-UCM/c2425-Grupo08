@@ -57,6 +57,10 @@ public class Door : MonoBehaviour
 
             Debug.LogError("No se ha encontrado la consola en la puerta.");
 
+        else
+
+            Console.SetMessage("Estado del refugio...Deshabilitado\n\nDebes reparar el generador para entrar.");
+
         // Oculta el mensaje al principio
         levelCompleted = LevelManager.Instance.LevelCompleted();
         // Consulta si se ha completado el nivel
@@ -72,6 +76,12 @@ public class Door : MonoBehaviour
         {
             GameManager.Instance.ChangeScene(sceneIndex);
             // Cambiar de escena si se cumple todo
+        }
+
+        if (levelCompleted && Console != null)
+        {
+            Console.SetMessage($"Estado del refugio...Habilitado!\n\nPresiona {InputManager.Instance.GetInteractKey()} para entrar...");
+            // Muestra el mensaje de que se puede entrar al refugio
         }
     }
 
@@ -89,7 +99,6 @@ public class Door : MonoBehaviour
         if (other.GetComponent<PlayerMovement>() != null)
         {
             hasEnter = true;
-            Console.Write($"Estado del refugio:......Habilitado!\nPresiona {InputManager.Instance.GetInteractKey()} para entrar...");
             levelCompleted = LevelManager.Instance.LevelCompleted(); // Actualiza estado
 
         }

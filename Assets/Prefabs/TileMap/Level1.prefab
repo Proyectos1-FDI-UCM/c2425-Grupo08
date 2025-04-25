@@ -59,7 +59,7 @@ GameObject:
   - component: {fileID: 7992471628462401874}
   - component: {fileID: 2472142990487990649}
   - component: {fileID: 5141495823849015549}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Floor
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -290,7 +290,7 @@ Tilemap:
   - m_RefCount: 12
     m_Data: {r: 1, g: 1, b: 1, a: 1}
   - m_RefCount: 1
-    m_Data: {r: 0.72117126, g: 0.33840632, b: 0.43614703, a: 1}
+    m_Data: {r: 0.72707605, g: 0.3388514, b: 0.43034673, a: 1}
   m_TileObjectToInstantiateArray: []
   m_AnimationFrameRate: 1
   m_Color: {r: 1, g: 1, b: 1, a: 1}
