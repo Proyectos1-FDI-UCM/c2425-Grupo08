@@ -78,11 +78,7 @@ public class Door : MonoBehaviour
             // Cambiar de escena si se cumple todo
         }
 
-        if (levelCompleted && Console != null)
-        {
-            Console.SetMessage($"Estado del refugio...Habilitado!\n\nPresiona {InputManager.Instance.GetInteractKey()} para entrar...");
-            // Muestra el mensaje de que se puede entrar al refugio
-        }
+        
     }
 
     #endregion
@@ -100,6 +96,12 @@ public class Door : MonoBehaviour
         {
             hasEnter = true;
             levelCompleted = LevelManager.Instance.LevelCompleted(); // Actualiza estado
+
+            if (levelCompleted && Console != null)
+        {
+            Console.SetMessage($"Estado del refugio...Habilitado!\n\nPresiona {InputManager.Instance.GetInteractKey()} para entrar...");
+            // Muestra el mensaje de que se puede entrar al refugio
+        }
 
         }
     }
