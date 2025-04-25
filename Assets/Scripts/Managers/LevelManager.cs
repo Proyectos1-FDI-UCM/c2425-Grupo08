@@ -49,7 +49,7 @@ public class LevelManager : MonoBehaviour
     [SerializeField]
     private int motorNeed;
     [SerializeField]
-    private Light2D completionLight; // Referencia a la luz
+    private GameObject completionLight; // Referencia a la luz
 
     #endregion
 
@@ -106,7 +106,7 @@ public class LevelManager : MonoBehaviour
         if (LevelCompleted())
         {
             if (completionLight != null)
-                completionLight.enabled = true; // Encender la luz
+                completionLight.SetActive(true); // Encender la luz
          
         }
     }
@@ -131,7 +131,7 @@ public class LevelManager : MonoBehaviour
     private void Init()
     {
         if (completionLight != null)
-            completionLight.enabled = false; // Asegurar que la luz empieza apagada
+            completionLight.SetActive(false); // Asegurar que la luz empieza apagada
     }
     #region Métodos Privados
 

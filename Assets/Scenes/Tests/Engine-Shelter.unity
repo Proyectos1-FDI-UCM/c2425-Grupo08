@@ -11831,6 +11831,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: Shelter
       objectReference: {fileID: 0}
+    - target: {fileID: 4411219991178388564, guid: 88c72a07c4cd7c847aa11a59d071d829, type: 3}
+      propertyPath: message
+      value: 'Estado del refugio....Inhabilitado
+
+
+        Debes reparar el generador
+        para entrar'
+      objectReference: {fileID: 0}
     - target: {fileID: 6600230124788663733, guid: 88c72a07c4cd7c847aa11a59d071d829, type: 3}
       propertyPath: m_SizeDelta.x
       value: 0
@@ -12021,7 +12029,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   motoresReparados: 0
   motorNeed: 1
-  completionLight: {fileID: 0}
+  completionLight: {fileID: 1607964257}
 --- !u!4 &1287640658
 Transform:
   m_ObjectHideFlags: 0
@@ -12268,6 +12276,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c2bb66560d12a9f4b916e980d3e1d679, type: 3}
+--- !u!1 &1607964257 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4435301169366916543, guid: 88c72a07c4cd7c847aa11a59d071d829, type: 3}
+  m_PrefabInstance: {fileID: 1023717167}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &1679891219 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2181331470842799619, guid: 10a2a23cb1a6fc344864f80da2c1702d, type: 3}

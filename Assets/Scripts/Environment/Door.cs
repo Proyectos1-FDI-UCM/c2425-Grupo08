@@ -4,7 +4,6 @@
 // Proyectos 1 - Curso 2024-25
 //---------------------------------------------------------
 
-using System;
 using UnityEngine;
 
 /// <summary>
@@ -34,6 +33,9 @@ public class Door : MonoBehaviour
     private bool hasEnter = false;
     // Indica si el jugador ha entrado en el área de colisión de la puerta.
 
+    private Terminal Console;
+    // Referencia a la consola del juego para mostrar mensajes.
+
     #endregion
 
     // ---- MÉTODOS DE MONOBEHAVIOUR ----
@@ -49,6 +51,12 @@ public class Door : MonoBehaviour
     /// </summary>
     void Start()
     {
+        Console = GetComponent<Terminal>();
+
+        if (Console == null)
+
+            Debug.LogError("No se ha encontrado la consola en la puerta.");
+
         // Oculta el mensaje al principio
         levelCompleted = LevelManager.Instance.LevelCompleted();
         // Consulta si se ha completado el nivel
