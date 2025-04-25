@@ -1,91 +1,36 @@
-﻿using UnityEngine;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using UnityEngine;
 
-[System.Serializable]
-public class TerminalInfo
+public class TerminalManager : MonoBehaviour
 {
-    public Transform spawnPoint;
-    [TextArea(2, 5)]
-    public string message;
-}
+    [Tooltip("Lista de terminales en orden")]
+    [SerializeField] private List<Terminal> terminales = new List<Terminal>();
 
-public class TutorialManager : MonoBehaviour
-{
-
-    public static TutorialManager Instance { get; private set; }
-
-    [Header("Player")]
-    [SerializeField] private GameObject player;
-
-    [Header("Phantom Fish")]
-    [SerializeField] private GameObject phantomFish;
-
-    [Header("Terminal Settings")]
-    [SerializeField] private GameObject terminalPrefab;
-    [SerializeField] private List<TerminalInfo> terminalsInfo;
-
-    private List<GameObject> _spawnedTerminals = new List<GameObject>();
-
-    private void Awake()
+    [Tooltip("Prefab del enemigo que se activará")]
+    [SerializeField] private GameObject enemy1PhantomAnglerfish;
+    [Header("Jugador")]
+    public PlayerMovement playerMovement;
+    private void Start()
     {
-        if (Instance != null && Instance != this)
-        {
-            Destroy(this.gameObject);
-            return;
-        }
-        Instance = this;
-    }
-
- 
-
-    void Start()
-    {
-        for (int i = 0; i < terminalsInfo.Count; i++)
+        enemy1PhantomAnglerfish.SetActive(false);
+        playerMovement.enabled= false;
+        for (int i = 0; i < terminales.Count; i++)
         {
             int index = i;
-
-            GameObject terminalInstance = Instantiate(
-                terminalPrefab,
-                terminalsInfo[index].spawnPoint.position,
-                terminalsInfo[index].spawnPoint.rotation
-            );
-
-            Terminal terminalComponent = terminalInstance.GetComponent<Terminal>();
-            if (terminalComponent != null)
-            {
-                terminalComponent.SetMessage(terminalsInfo[index].message);
-                terminalComponent.OnMessageComplete += () =>
-                {
-                    EnablePlayerMovement();
-                };
-            }
-
-            _spawnedTerminals.Add(terminalInstance);
-        }
-
-        // Terminal 6 empieza desactivado
-        if (_spawnedTerminals.Count >= 6)
-        {
-            _spawnedTerminals[5].SetActive(false);
+            terminales[i].OnMessageComplete += () => TerminalFinalizado(index);
         }
     }
 
-    public void OnLevelCompleted()
+    private void TerminalFinalizado(int index)
     {
-        if (_spawnedTerminals.Count >= 4)
-            _spawnedTerminals[3].SetActive(false); // Terminal 4
-
-        if (_spawnedTerminals.Count >= 6)
-            _spawnedTerminals[5].SetActive(true); // Terminal 6
-    }
-
-    private void EnablePlayerMovement()
-    {
-        if (player != null)
+        if (index == 0)
         {
-            PlayerMovement movement = player.GetComponent<PlayerMovement>();
-            if (movement != null)
-                movement.enabled = true;
+            playerMovement.enabled = true;
+        }
+        // Solo hacemos algo especial al finalizar el tercero (índice 2)
+        if (index == 2 && enemy1PhantomAnglerfish != null)
+        {
+            enemy1PhantomAnglerfish.SetActive(true);
         }
     }
 }

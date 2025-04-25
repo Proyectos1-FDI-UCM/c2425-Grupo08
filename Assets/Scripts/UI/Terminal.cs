@@ -69,6 +69,9 @@ public class Terminal : MonoBehaviour
     // Variables de control
     private bool stop = false; // Indica si se debe detener la escritura progresiva
 
+    private bool messageComplete = false;
+
+
     #endregion
 
     // ---- MÉTODOS DE MONOBEHAVIOUR ----
@@ -220,6 +223,8 @@ public class Terminal : MonoBehaviour
         return visible; // Devuelve el estado de visibilidad
     }
 
+    public bool IsMessageComplete() => messageComplete;
+
     #endregion
 
     // ---- MÉTODOS PRIVADOS ----
@@ -279,6 +284,11 @@ public class Terminal : MonoBehaviour
                         init = 0f; // Reinicia el contador de tiempo para la pausa especial
                 }
             }
+        }
+        if (index >= message.Length && !messageComplete)
+        {
+            messageComplete = true;
+            OnMessageComplete?.Invoke();
         }
     }
 
