@@ -956,6 +956,10 @@ PrefabInstance:
       propertyPath: m_HorizontalAlignment
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 1425809624761960519, guid: c2bb66560d12a9f4b916e980d3e1d679, type: 3}
+      propertyPath: m_HorizontalAlignment
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2452416743819480497, guid: c2bb66560d12a9f4b916e980d3e1d679, type: 3}
       propertyPath: m_Name
       value: Terminal
@@ -966,8 +970,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2707086054489979901, guid: c2bb66560d12a9f4b916e980d3e1d679, type: 3}
       propertyPath: message
-      value: "Estado del refugio.... Inhabilitado\nError: Energ\xEDa insuficiente...\n\nDebes
-        reparar el generador para entrar"
+      value: 'Estado del refugio.... Inhabilitado
+
+
+        Debes reparar el generador
+        para entrar'
       objectReference: {fileID: 0}
     - target: {fileID: 4845581886751218204, guid: c2bb66560d12a9f4b916e980d3e1d679, type: 3}
       propertyPath: m_Pivot.x
@@ -995,11 +1002,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4845581886751218204, guid: c2bb66560d12a9f4b916e980d3e1d679, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 4.8363
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4845581886751218204, guid: c2bb66560d12a9f4b916e980d3e1d679, type: 3}
       propertyPath: m_SizeDelta.y
-      value: 2.1702
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4845581886751218204, guid: c2bb66560d12a9f4b916e980d3e1d679, type: 3}
       propertyPath: m_LocalPosition.x

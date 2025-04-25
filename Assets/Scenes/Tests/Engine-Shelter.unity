@@ -11128,11 +11128,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8206256679572611520, guid: 3c1e3e90002130b4d93bba17ffd138bb, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -42.84
+      value: -29.589
       objectReference: {fileID: 0}
     - target: {fileID: 8206256679572611520, guid: 3c1e3e90002130b4d93bba17ffd138bb, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -4.78
+      value: -4.704
       objectReference: {fileID: 0}
     - target: {fileID: 8206256679572611520, guid: 3c1e3e90002130b4d93bba17ffd138bb, type: 3}
       propertyPath: m_LocalPosition.z
@@ -11789,11 +11789,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1393773823627460708, guid: 88c72a07c4cd7c847aa11a59d071d829, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -51.04
+      value: -49.15
       objectReference: {fileID: 0}
     - target: {fileID: 1393773823627460708, guid: 88c72a07c4cd7c847aa11a59d071d829, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -4.62
+      value: -4.76
       objectReference: {fileID: 0}
     - target: {fileID: 1393773823627460708, guid: 88c72a07c4cd7c847aa11a59d071d829, type: 3}
       propertyPath: m_LocalPosition.z
@@ -11839,6 +11839,14 @@ PrefabInstance:
       propertyPath: m_SizeDelta.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7982001184082111080, guid: 88c72a07c4cd7c847aa11a59d071d829, type: 3}
+      propertyPath: m_Size.x
+      value: 4.405422
+      objectReference: {fileID: 0}
+    - target: {fileID: 7982001184082111080, guid: 88c72a07c4cd7c847aa11a59d071d829, type: 3}
+      propertyPath: m_Offset.x
+      value: 0.05904579
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -11878,18 +11886,8 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2707086054489979901, guid: c2bb66560d12a9f4b916e980d3e1d679, type: 3}
       propertyPath: message
-      value: 'Test de Enemigo Fantasma:
-
-
-        En esta escena hay dos de ellos.
-
-
-        Este
-        enemigo te ataca al verte.
-
-
-        Puedes ahuyentarlo con un flash de la
-        linterna'
+      value: "Test de Generador-Refugio:\n\nDebes reparar el generador para poder
+        entrar.\n\nMientras reparas te podr\xE1 atacar el enemigo 1."
       objectReference: {fileID: 0}
     - target: {fileID: 4845581886751218204, guid: c2bb66560d12a9f4b916e980d3e1d679, type: 3}
       propertyPath: m_Pivot.x
@@ -11973,7 +11971,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8530818872389268929, guid: c2bb66560d12a9f4b916e980d3e1d679, type: 3}
       propertyPath: m_Size.x
-      value: 5.3316307
+      value: 8.055973
       objectReference: {fileID: 0}
     - target: {fileID: 8530818872389268929, guid: c2bb66560d12a9f4b916e980d3e1d679, type: 3}
       propertyPath: m_Size.y
@@ -11981,7 +11979,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8530818872389268929, guid: c2bb66560d12a9f4b916e980d3e1d679, type: 3}
       propertyPath: m_Offset.x
-      value: -0.018964767
+      value: 0.84217644
       objectReference: {fileID: 0}
     - target: {fileID: 8530818872389268929, guid: c2bb66560d12a9f4b916e980d3e1d679, type: 3}
       propertyPath: m_Offset.y
@@ -12891,14 +12889,14 @@ PrefabInstance:
 SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
-  - {fileID: 1287640658}
   - {fileID: 644121434}
-  - {fileID: 479963148}
   - {fileID: 1931628614}
   - {fileID: 497780077}
-  - {fileID: 266753449}
-  - {fileID: 1509807054}
-  - {fileID: 2111664159}
   - {fileID: 1429785291}
-  - {fileID: 1045237768}
   - {fileID: 356923458}
+  - {fileID: 2111664159}
+  - {fileID: 266753449}
+  - {fileID: 1045237768}
+  - {fileID: 1509807054}
+  - {fileID: 479963148}
+  - {fileID: 1287640658}

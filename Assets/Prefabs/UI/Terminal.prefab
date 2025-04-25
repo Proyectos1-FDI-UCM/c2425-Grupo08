@@ -430,7 +430,7 @@ MonoBehaviour:
   m_HorizontalAlignment: 2
   m_VerticalAlignment: 1024
   m_textAlignment: 65535
-  m_characterSpacing: -3
+  m_characterSpacing: -1
   m_wordSpacing: 1
   m_lineSpacing: -11
   m_lineSpacingMax: 0
