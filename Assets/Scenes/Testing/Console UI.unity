@@ -234,6 +234,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2301925999382441675, guid: 3c1e3e90002130b4d93bba17ffd138bb, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2301925999382441675, guid: 3c1e3e90002130b4d93bba17ffd138bb, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8206256679572611520, guid: 3c1e3e90002130b4d93bba17ffd138bb, type: 3}
       propertyPath: m_LocalPosition.x
       value: 38.98183
@@ -892,6 +900,14 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4435301169366916543, guid: 88c72a07c4cd7c847aa11a59d071d829, type: 3}
       propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6600230124788663733, guid: 88c72a07c4cd7c847aa11a59d071d829, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6600230124788663733, guid: 88c72a07c4cd7c847aa11a59d071d829, type: 3}
+      propertyPath: m_SizeDelta.y
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
@@ -10513,6 +10529,10 @@ PrefabInstance:
     - target: {fileID: 3190272025005498771, guid: 10a2a23cb1a6fc344864f80da2c1702d, type: 3}
       propertyPath: m_Name
       value: Player
+      objectReference: {fileID: 0}
+    - target: {fileID: 4794396205851017353, guid: 10a2a23cb1a6fc344864f80da2c1702d, type: 3}
+      propertyPath: m_Enabled
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5306602655284345805, guid: 10a2a23cb1a6fc344864f80da2c1702d, type: 3}
       propertyPath: m_Camera
