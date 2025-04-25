@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 04d3f58c3ded97641a5d31b2122e35e5
+guid: 6ee66100d15db224795d231e6c56aff7
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -93,354 +93,362 @@ TextureImporter:
     ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
-  - serializedVersion: 3
-    buildTarget: Windows Store Apps
-    maxTextureSize: 2048
-    resizeAlgorithm: 0
-    textureFormat: -1
-    textureCompression: 1
-    compressionQuality: 50
-    crunchedCompression: 0
-    allowsAlphaSplitting: 0
-    overridden: 0
-    ignorePlatformSupport: 0
-    androidETC2FallbackOverride: 0
-    forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: OxigenLiquidSheet_0
+      name: OxigenLiquid 1-Sheet_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
         width: 28
-        height: 28
-      alignment: 2
-      pivot: {x: 0.5, y: 1}
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: ddda7304051afbd4c9c6f887c3eca7bb
-      internalID: 1285746825
+      spriteID: 6edb5828103a6ff49bb9de244bfe332e
+      internalID: 1558980518
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: OxigenLiquidSheet_1
+      name: OxigenLiquid 1-Sheet_1
       rect:
         serializedVersion: 2
         x: 28
         y: 0
         width: 28
-        height: 28
-      alignment: 2
-      pivot: {x: 0.5, y: 1}
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 3675e0d6be5e8f0419cdc222c4ce9d56
-      internalID: 688028613
+      spriteID: 660eecec42847854182288435571df68
+      internalID: -819908366
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: OxigenLiquidSheet_2
+      name: OxigenLiquid 1-Sheet_2
       rect:
         serializedVersion: 2
         x: 56
         y: 0
         width: 28
-        height: 28
-      alignment: 2
-      pivot: {x: 0.5, y: 1}
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 92cd44816663d9d4785ed2b8459f4aff
-      internalID: -1463928508
+      spriteID: 182c8cd383bacc1498c8a98e7000f60d
+      internalID: 580906079
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: OxigenLiquidSheet_3
+      name: OxigenLiquid 1-Sheet_3
       rect:
         serializedVersion: 2
         x: 84
         y: 0
         width: 28
-        height: 28
-      alignment: 2
-      pivot: {x: 0.5, y: 1}
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: abf0eee82119202449310ba245ef303c
-      internalID: 585523888
+      spriteID: 89c81f08843804845a7dfd97b821a297
+      internalID: 1980778650
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: OxigenLiquidSheet_4
+      name: OxigenLiquid 1-Sheet_4
       rect:
         serializedVersion: 2
         x: 112
         y: 0
         width: 28
-        height: 28
-      alignment: 2
-      pivot: {x: 0.5, y: 1}
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 81c943bf6e6796446a37730d0f9f8bf8
-      internalID: 962970256
+      spriteID: 976c7cd16ff6198418d38512f31ea717
+      internalID: 1805216641
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: OxigenLiquidSheet_5
+      name: OxigenLiquid 1-Sheet_5
       rect:
         serializedVersion: 2
         x: 140
         y: 0
         width: 28
-        height: 28
-      alignment: 2
-      pivot: {x: 0.5, y: 1}
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 335b14c7b09cb1249adeb88806d3dc2c
-      internalID: 859400161
+      spriteID: 9fce305eecfc262489511ac76edb217c
+      internalID: -587925779
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: OxigenLiquidSheet_6
+      name: OxigenLiquid 1-Sheet_6
       rect:
         serializedVersion: 2
         x: 168
         y: 0
         width: 28
-        height: 28
-      alignment: 2
-      pivot: {x: 0.5, y: 1}
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: b5460051d1e4b7943b886a176b85538e
-      internalID: -48692061
+      spriteID: f47b37ab825752e4aa7d70fda036c06e
+      internalID: -605501621
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: OxigenLiquidSheet_7
+      name: OxigenLiquid 1-Sheet_7
       rect:
         serializedVersion: 2
         x: 196
         y: 0
         width: 28
-        height: 28
-      alignment: 2
-      pivot: {x: 0.5, y: 1}
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 989c6c29f3658084882a9e11ec74771b
-      internalID: -465769972
+      spriteID: 55f443f7a7612a645a655de770e0d9dd
+      internalID: -377186555
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: OxigenLiquidSheet_8
+      name: OxigenLiquid 1-Sheet_8
       rect:
         serializedVersion: 2
         x: 224
         y: 0
         width: 28
-        height: 28
-      alignment: 2
-      pivot: {x: 0.5, y: 1}
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: f5732404b679897459f0f6457fedb7ad
-      internalID: -1132464738
+      spriteID: 9c218760cd16d334a91dea1ff0502b59
+      internalID: -1421699956
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: OxigenLiquidSheet_9
+      name: OxigenLiquid 1-Sheet_9
       rect:
         serializedVersion: 2
         x: 252
         y: 0
         width: 28
-        height: 28
-      alignment: 2
-      pivot: {x: 0.5, y: 1}
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 89c3891ce6797a148880594b872b8d45
-      internalID: 1589607974
+      spriteID: 6185fc9d786d0f1428519fdd6297fe31
+      internalID: -883091011
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: OxigenLiquidSheet_10
+      name: OxigenLiquid 1-Sheet_10
       rect:
         serializedVersion: 2
         x: 280
         y: 0
         width: 28
-        height: 28
-      alignment: 2
-      pivot: {x: 0.5, y: 1}
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 3a1812862ce67974c973ee02e5dacf2a
-      internalID: 604646503
+      spriteID: 41ecdc88cbc897c42a154b2007ece358
+      internalID: -1040591678
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: OxigenLiquidSheet_11
+      name: OxigenLiquid 1-Sheet_11
       rect:
         serializedVersion: 2
         x: 308
         y: 0
         width: 28
-        height: 28
-      alignment: 2
-      pivot: {x: 0.5, y: 1}
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: d65db00f02798b24f862b7ecd222173d
-      internalID: -1270702977
+      spriteID: daed7b0a5f2006948bf80d38dff6d315
+      internalID: -76696743
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: OxigenLiquidSheet_12
+      name: OxigenLiquid 1-Sheet_12
       rect:
         serializedVersion: 2
         x: 336
         y: 0
         width: 28
-        height: 28
-      alignment: 2
-      pivot: {x: 0.5, y: 1}
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 14d243d9c8a49cf419764d4ab1b38c3e
-      internalID: -1944478281
+      spriteID: 47598779edae3be43ba21bbba5447c0f
+      internalID: -1711283817
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: OxigenLiquidSheet_13
+      name: OxigenLiquid 1-Sheet_13
       rect:
         serializedVersion: 2
         x: 364
         y: 0
         width: 28
-        height: 28
-      alignment: 2
-      pivot: {x: 0.5, y: 1}
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 3d34916850e1bd04d813363701091ad0
-      internalID: 1123071691
+      spriteID: 128b96681b397a844a5bb7a5cad86e70
+      internalID: -471280124
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: OxigenLiquidSheet_14
+      name: OxigenLiquid 1-Sheet_14
       rect:
         serializedVersion: 2
         x: 392
         y: 0
         width: 28
-        height: 28
-      alignment: 2
-      pivot: {x: 0.5, y: 1}
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: f509259bdf9e36841a93fec578254d37
-      internalID: -2109234164
+      spriteID: 2d245f23884a978468296ee8932bc130
+      internalID: -1495975883
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: OxigenLiquidSheet_15
+      name: OxigenLiquid 1-Sheet_15
       rect:
         serializedVersion: 2
         x: 420
         y: 0
         width: 28
-        height: 28
-      alignment: 2
-      pivot: {x: 0.5, y: 1}
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: e77ff8f6b30fa424da442e4fb10fee41
-      internalID: -1904943201
+      spriteID: 46d609c9ee8d4c3419c55055e3bcafd4
+      internalID: 869131897
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: OxigenLiquid 1-Sheet_16
+      rect:
+        serializedVersion: 2
+        x: 448
+        y: 0
+        width: 28
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ff77bae61f93c5a4397acb580e74779b
+      internalID: -773301483
       vertices: []
       indices: 
       edges: []
@@ -456,22 +464,23 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      OxigenLiquidSheet_0: 1285746825
-      OxigenLiquidSheet_1: 688028613
-      OxigenLiquidSheet_10: 604646503
-      OxigenLiquidSheet_11: -1270702977
-      OxigenLiquidSheet_12: -1944478281
-      OxigenLiquidSheet_13: 1123071691
-      OxigenLiquidSheet_14: -2109234164
-      OxigenLiquidSheet_15: -1904943201
-      OxigenLiquidSheet_2: -1463928508
-      OxigenLiquidSheet_3: 585523888
-      OxigenLiquidSheet_4: 962970256
-      OxigenLiquidSheet_5: 859400161
-      OxigenLiquidSheet_6: -48692061
-      OxigenLiquidSheet_7: -465769972
-      OxigenLiquidSheet_8: -1132464738
-      OxigenLiquidSheet_9: 1589607974
+      OxigenLiquid 1-Sheet_0: 1558980518
+      OxigenLiquid 1-Sheet_1: -819908366
+      OxigenLiquid 1-Sheet_10: -1040591678
+      OxigenLiquid 1-Sheet_11: -76696743
+      OxigenLiquid 1-Sheet_12: -1711283817
+      OxigenLiquid 1-Sheet_13: -471280124
+      OxigenLiquid 1-Sheet_14: -1495975883
+      OxigenLiquid 1-Sheet_15: 869131897
+      OxigenLiquid 1-Sheet_16: -773301483
+      OxigenLiquid 1-Sheet_2: 580906079
+      OxigenLiquid 1-Sheet_3: 1980778650
+      OxigenLiquid 1-Sheet_4: 1805216641
+      OxigenLiquid 1-Sheet_5: -587925779
+      OxigenLiquid 1-Sheet_6: -605501621
+      OxigenLiquid 1-Sheet_7: -377186555
+      OxigenLiquid 1-Sheet_8: -1421699956
+      OxigenLiquid 1-Sheet_9: -883091011
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

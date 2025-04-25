@@ -46,12 +46,20 @@ public class UIManager : MonoBehaviour
     // Referencia de imagen de la barrade oxigeno (lo usare un circulo)
     [SerializeField] private RectTransform OxygenCircle;
 
-    // Tamaño maximo cuando el oxigeno esta el 100%
-    [SerializeField] private float MaxCircleSize = 100f;
+    /// <summary>
+    /// Posición más baja del líquido del oxígeno (cuando el oxígeno es 0)
+    /// </summary>
+    [SerializeField] private float minLiquidPosition;
 
-    // Tamaño mimido cuando el oxigeno esta al 0%
-    [SerializeField] private float MinCircleSize = 0f;
+    /// <summary>
+    /// Posición más alta del líquido del oxígeno (cuando el oxígeno es máximo)
+    /// </summary>
+    [SerializeField] private float maxLiquidPosition;
 
+    [SerializeField] private Sprite oxygenTankSprite;
+    [SerializeField] private Sprite brokenOxygenTankSprite;
+
+    [SerializeField] private Image oxygenTank;
 
     // ---- ATRIBUTOS PRIVADOS ----
     #region Atributos Privados (private fields)
@@ -79,7 +87,7 @@ public class UIManager : MonoBehaviour
     {
         if (OxygenCircle != null)
         {
-            OxygenCircle.sizeDelta = new Vector2(MaxCircleSize, MaxCircleSize);
+            OxygenCircle.anchoredPosition = new Vector2(OxygenCircle.anchoredPosition.x, maxLiquidPosition);
         }
 
         // Se pasa al GameMAnager para evitar asignaciones manuales
@@ -133,11 +141,27 @@ public class UIManager : MonoBehaviour
 
     public void UpdateOxygenUI(float OxigenPercentage)
     {
-        if (OxygenCircle == null) return;
-        
-        // Interpolamos entre tamaño minimo y maximo
-        float newSize = Mathf.Lerp(MinCircleSize, MaxCircleSize, OxigenPercentage);
-        OxygenCircle.sizeDelta = new Vector2(newSize, newSize);
+        if (OxygenCircle != null)
+        {
+            // Interpolamos entre la posición mínima y máxima
+            float newY = Mathf.Lerp(minLiquidPosition, maxLiquidPosition, OxigenPercentage);
+            OxygenCircle.anchoredPosition = new Vector2(OxygenCircle.anchoredPosition.x, newY);
+            Debug.Log(newY);
+        }       
+    }
+    public void UpdateTankState(bool isTankBroken)
+    {
+        if (OxygenCircle != null)
+        {
+            if (isTankBroken)
+            {
+                oxygenTank.sprite = brokenOxygenTankSprite;
+            }
+            else
+            {
+                oxygenTank.sprite = oxygenTankSprite;
+            }
+        }
     }
 
     // ---- MÉTODOS PRIVADOS ----

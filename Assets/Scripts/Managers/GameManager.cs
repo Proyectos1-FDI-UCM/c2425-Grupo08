@@ -49,7 +49,8 @@ public class GameManager : MonoBehaviour
     private UIManager uiManager;
     private bool easyMode = false;
     private Light2D globalLight;
-    
+    private bool inmortal = false;
+    private bool teleportcheat = false;
 
     #endregion
 
@@ -196,7 +197,7 @@ public class GameManager : MonoBehaviour
         return flashlight;
     }
 
-    public void toggleEasyMode()
+    public void ToggleEasyMode()
     {
       
         easyMode = !easyMode;
@@ -210,7 +211,7 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    public void setEasyMode( bool state)
+    public void SetEasyMode( bool state)
     {
         easyMode = state;
     }
@@ -226,9 +227,30 @@ public class GameManager : MonoBehaviour
         Application.Quit(); // Esto es lo que se usa en el build final
         #endif
     }
-
-    
-
+    public void SetInmortal(bool state)
+    {
+        inmortal = state;
+    }
+    public void ToggleInmortal()
+    {
+        inmortal = !inmortal;
+    }
+    public bool GetInmortal()
+    {
+        return inmortal;
+    }
+    public void SetTeleport(bool state)
+    {
+        teleportcheat = state;
+    }
+    public void ToggleTeleport()
+    {
+        teleportcheat = !teleportcheat;
+    }
+    public bool GetTeleport()
+    {
+        return teleportcheat;
+    }
     #endregion
 
     #region Metodo para Oxigeno
@@ -245,7 +267,14 @@ public class GameManager : MonoBehaviour
 
         if (UIManager.Instance != null)
         {
-            UIManager.Instance.UpdateOxygenUI(oxygenPercentage);
+            uiManager.UpdateOxygenUI(oxygenPercentage);
+        }
+    }
+    public void UpdateTankStateGM(bool isTankBroken)
+    {
+        if (UIManager.Instance != null)
+        {
+            uiManager.UpdateTankState(isTankBroken);
         }
     }
 
