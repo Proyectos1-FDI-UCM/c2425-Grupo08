@@ -80,17 +80,12 @@ public class Terminal : MonoBehaviour
     private void Awake()
     {
         // Inicializa el componente TMP_Text
-        textTMP = GetComponent<TMP_Text>();
-
+        textTMP = GetComponentInChildren<TMP_Text>();
+        
         if (textTMP == null)
-        {
-            // Si no se encuentra el componente TMP_Text en el objeto actual, busca en los hijos
-            textTMP = GetComponentInChildren<TMP_Text>();
 
-            if (textTMP == null)
+            Debug.LogError("No se ha encontrado el componente TMP_Text en el objeto ni en sus hijos.");
 
-                Debug.LogError("No se ha encontrado el componente TMP_Text en el objeto ni en sus hijos.");
-        }
 
         else // Si se encuentra el componente TMP_Text
 
