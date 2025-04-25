@@ -92,7 +92,6 @@ public class GameManager : MonoBehaviour
             DontDestroyOnLoad(this.gameObject);
             Init();
         } // if-else somos instancia nueva o no.
-
         globalLight = this.GetComponent<Light2D>(); // Inicializamos la luz global
        
     }
