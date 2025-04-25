@@ -92,7 +92,7 @@ public class Terminal : MonoBehaviour
 
         else // Si se encuentra el componente TMP_Text
 
-            Hide(); // Inicializa el color del texto a oculto
+            textTMP.alpha = 0f; // Inicializa el texto a oculto
 
         // Inicializa el componente AudioSource
         audioSource = GetComponent<AudioSource>();
@@ -279,7 +279,7 @@ public class Terminal : MonoBehaviour
 
                     time = 0f; // Reinicia el contador de tiempo para la escritura
 
-                    if (current == '.' || current == ':' || current == '\n')
+                    if (current == '.' || current == ':')
 
                         init = 0f; // Reinicia el contador de tiempo para la pausa especial
                 }
