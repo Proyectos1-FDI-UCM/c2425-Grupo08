@@ -9851,11 +9851,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4063201490313654142, guid: 9bfab14c3a6b84144af36b8b45e52f71, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: -108
+      value: -96
       objectReference: {fileID: 0}
     - target: {fileID: 4063201490313654142, guid: 9bfab14c3a6b84144af36b8b45e52f71, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 50
+      value: 63
       objectReference: {fileID: 0}
     - target: {fileID: 4063201490313654142, guid: 9bfab14c3a6b84144af36b8b45e52f71, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -9892,6 +9892,14 @@ PrefabInstance:
     - target: {fileID: 8118049141513198665, guid: 9bfab14c3a6b84144af36b8b45e52f71, type: 3}
       propertyPath: m_Name
       value: ContinueButton
+      objectReference: {fileID: 0}
+    - target: {fileID: 8612834177569801729, guid: 9bfab14c3a6b84144af36b8b45e52f71, type: 3}
+      propertyPath: m_margin.x
+      value: -38.04416
+      objectReference: {fileID: 0}
+    - target: {fileID: 8612834177569801729, guid: 9bfab14c3a6b84144af36b8b45e52f71, type: 3}
+      propertyPath: m_margin.z
+      value: -40.8029
       objectReference: {fileID: 0}
     - target: {fileID: 9142703095204382193, guid: 9bfab14c3a6b84144af36b8b45e52f71, type: 3}
       propertyPath: m_AnchoredPosition.x
