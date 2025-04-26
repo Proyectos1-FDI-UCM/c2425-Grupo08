@@ -240,9 +240,9 @@ public class InputManager : MonoBehaviour
 
     #region Menu Interactions
 
-    public bool ReturnIsPressed()
+    public bool ReturnWasReleased()
     {
-        return _return.IsPressed();
+        return _return.WasPressedThisFrame();
     }
 
     #endregion

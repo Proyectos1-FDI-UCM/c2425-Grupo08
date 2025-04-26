@@ -61,7 +61,7 @@ public class PauseManager : MonoBehaviour
     /// </summary>
     void Update()
     {
-        if (InputManager.Instance.ReturnIsPressed()); // Pausa el juego al pulsar ESCAPE
+        if (InputManager.Instance.ReturnWasReleased()) // Pausa el juego al pulsar ESCAPE
         {
             Debug.Log("Pausa");
             if (isPaused)
