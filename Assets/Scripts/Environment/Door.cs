@@ -59,9 +59,8 @@ public class Door : MonoBehaviour
 
         else
 
-            Console.SetMessage("Estado del refugio...Deshabilitado\n\nDebes reparar el generador para entrar.");
+            Console.SetMessage("Status...\nInhabilitado.\n\nEnergía insuficiente...\n\nGeneradores reparados: 0/1");
 
-        // Oculta el mensaje al principio
         levelCompleted = LevelManager.Instance.LevelCompleted();
         // Consulta si se ha completado el nivel
 
@@ -99,7 +98,7 @@ public class Door : MonoBehaviour
 
             if (levelCompleted && Console != null)
         {
-            Console.Write($"Estado del refugio...Habilitado!\n\nPresiona {InputManager.Instance.GetInteractKey()} para entrar...");
+            Console.Write("Status...\nHabilitado!\n\nPresiona {key_interact} para entrar al refugio.");
             // Muestra el mensaje de que se puede entrar al refugio
         }
 

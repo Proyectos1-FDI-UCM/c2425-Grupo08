@@ -11175,6 +11175,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3c1e3e90002130b4d93bba17ffd138bb, type: 3}
+--- !u!1 &176021785 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5688704513424919389, guid: 88c72a07c4cd7c847aa11a59d071d829, type: 3}
+  m_PrefabInstance: {fileID: 1023717167}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &266753449
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -11695,6 +11700,11 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 884389178}
   m_CullTransparentMesh: 1
+--- !u!4 &931973971 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 5013375127548524630, guid: 88c72a07c4cd7c847aa11a59d071d829, type: 3}
+  m_PrefabInstance: {fileID: 1023717167}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &962579642
 GameObject:
   m_ObjectHideFlags: 0
@@ -11842,6 +11852,10 @@ PrefabInstance:
 
         Debes reparar el generador
         para entrar'
+      objectReference: {fileID: 0}
+    - target: {fileID: 5013375127548524630, guid: 88c72a07c4cd7c847aa11a59d071d829, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -49.19
       objectReference: {fileID: 0}
     - target: {fileID: 6600230124788663733, guid: 88c72a07c4cd7c847aa11a59d071d829, type: 3}
       propertyPath: m_SizeDelta.x
@@ -12033,7 +12047,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   motoresReparados: 0
   motorNeed: 1
-  completionLight: {fileID: 1607964257}
+  completionLight: {fileID: 176021785}
 --- !u!4 &1287640658
 Transform:
   m_ObjectHideFlags: 0
@@ -12048,7 +12062,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1444583481}
-  - {fileID: 2040198098}
+  - {fileID: 931973971}
   - {fileID: 1929620041}
   - {fileID: 962579643}
   m_Father: {fileID: 0}
@@ -12142,11 +12156,6 @@ PrefabInstance:
 Transform:
   m_CorrespondingSourceObject: {fileID: 3041728773818706310, guid: 76d84d88fe3b41f44a0adb884c1d5b44, type: 3}
   m_PrefabInstance: {fileID: 7532091}
-  m_PrefabAsset: {fileID: 0}
---- !u!1 &1607964257 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 4435301169366916543, guid: 88c72a07c4cd7c847aa11a59d071d829, type: 3}
-  m_PrefabInstance: {fileID: 1023717167}
   m_PrefabAsset: {fileID: 0}
 --- !u!4 &1679891219 stripped
 Transform:
@@ -12606,11 +12615,6 @@ MonoBehaviour:
   m_InstancedGameObject: {fileID: 0}
   m_Flags: 3
   m_ColliderType: 1
---- !u!4 &2040198098 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 1393773823627460708, guid: 88c72a07c4cd7c847aa11a59d071d829, type: 3}
-  m_PrefabInstance: {fileID: 1023717167}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &2040655064
 GameObject:
   m_ObjectHideFlags: 0

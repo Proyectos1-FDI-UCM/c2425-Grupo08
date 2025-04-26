@@ -53,7 +53,13 @@ public class PauseManager : MonoBehaviour
     /// </summary>
     void Start()
     {
-        pauseMenuUI.SetActive(false);
+        if (pauseMenuUI == null)
+
+            Debug.LogWarning("No se ha asignado el menú de pausa en el inspector");
+
+        else
+
+            pauseMenuUI.SetActive(false);
     }
 
     /// <summary>
@@ -61,9 +67,8 @@ public class PauseManager : MonoBehaviour
     /// </summary>
     void Update()
     {
-        if (InputManager.Instance.ReturnWasReleased()) // Pausa el juego al pulsar ESCAPE
+        if (InputManager.Instance.ReturnWasReleased() && pauseMenuUI != null) // Pausa el juego al pulsar ESCAPE
         {
-            Debug.Log("Pausa");
             if (isPaused)
             {
                 Resume();
@@ -94,7 +99,7 @@ public class PauseManager : MonoBehaviour
 
     void Pause()
     {
-       isPaused = true;
+        isPaused = true;
         Time.timeScale = 0f; // El juego se "congela"
         pauseMenuUI.SetActive(true); // Se activa el menú de pausa
     }
