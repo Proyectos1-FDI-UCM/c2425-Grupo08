@@ -10,8 +10,9 @@ GameObject:
   m_Component:
   - component: {fileID: 3717240160285965197}
   - component: {fileID: 977059199398701975}
+  - component: {fileID: 4734697626850377309}
   m_Layer: 0
-  m_Name: UIManager
+  m_Name: UiManager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -45,5 +46,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   OxygenCircle: {fileID: 0}
-  MaxCircleSize: 100
-  MinCircleSize: 0
+  minLiquidPosition: -85
+  maxLiquidPosition: 5
+  oxygenTankSprite: {fileID: -2545544861375569789, guid: 206b7aadfb08c5d4e96dd41fa10ef0c9, type: 3}
+  brokenOxygenTankSprite: {fileID: 754378845129906488, guid: 206b7aadfb08c5d4e96dd41fa10ef0c9, type: 3}
+  oxygenTank: {fileID: 0}
+--- !u!114 &4734697626850377309
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3049408900886347189}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 648ba8bffadec984ab92cbb2dad67b58, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pauseMenuUI: {fileID: 0}

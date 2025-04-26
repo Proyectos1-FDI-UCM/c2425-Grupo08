@@ -403,11 +403,11 @@ namespace UnityEngine.InputSystem
                 },
                 {
                     ""name"": ""Return"",
-                    ""type"": ""PassThrough"",
+                    ""type"": ""Button"",
                     ""id"": ""6fddbb1d-d375-4a81-ba1a-2d67621e213e"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
-                    ""interactions"": """",
+                    ""interactions"": ""Tap"",
                     ""initialStateCheck"": false
                 }
             ],
@@ -834,7 +834,7 @@ namespace UnityEngine.InputSystem
                     ""name"": """",
                     ""id"": ""2711babb-3b8a-4fc4-b398-9d9c707cc290"",
                     ""path"": ""<Keyboard>/escape"",
-                    ""interactions"": """",
+                    ""interactions"": ""Tap"",
                     ""processors"": """",
                     ""groups"": ""Keyboard&Mouse"",
                     ""action"": ""Return"",

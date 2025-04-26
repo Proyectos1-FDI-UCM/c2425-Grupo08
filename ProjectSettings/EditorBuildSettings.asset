@@ -6,19 +6,19 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/Menu.unity
+    path: Assets/Scenes/Menus/Main.unity
     guid: 88ab91c3c24f24d8789e651802f2b486
   - enabled: 1
-    path: Assets/Scenes/Gamma.unity
+    path: Assets/Scenes/Menus/Gamma.unity
     guid: ae4c89b834c4ba04e88ba7a36782a28b
   - enabled: 1
-    path: Assets/Scenes/Level.unity
+    path: Assets/Scenes/Levels/Level.unity
     guid: c60471e416140a145ac9fa5b7a90e49b
   - enabled: 1
-    path: Assets/Scenes/Shelter.unity
+    path: Assets/Scenes/Levels/Shelter.unity
     guid: c34df6b300ff6d04d89cdc4d41b2b43d
   - enabled: 1
-    path: Assets/Scenes/GammaTest.unity
+    path: Assets/Scenes/Menus/Tests.unity
     guid: a9fb4a92b638559459dae52047eeccfd
   - enabled: 1
     path: Assets/Scenes/Tests/Enemy1.unity
@@ -30,7 +30,7 @@ EditorBuildSettings:
     path: Assets/Scenes/Tests/Engine-Shelter.unity
     guid: b50c320ac584c8e4282663392fd0c156
   - enabled: 0
-    path: Assets/Scenes/Tutorial.unity
+    path: Assets/Scenes/Levels/Tutorial.unity
     guid: 348dea8f5106116469cad6123d540572
   m_configObjects:
     com.unity.input.settings: {fileID: 11400000, guid: db200087da63458438de42a14d44966e, type: 2}

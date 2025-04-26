@@ -61,6 +61,7 @@ public class UIManager : MonoBehaviour
 
     [SerializeField] private Image oxygenTank;
 
+
     // ---- ATRIBUTOS PRIVADOS ----
     #region Atributos Privados (private fields)
     // Documentar cada atributo que aparece aquí.

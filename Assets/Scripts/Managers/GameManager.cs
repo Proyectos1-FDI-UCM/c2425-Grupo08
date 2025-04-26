@@ -97,14 +97,6 @@ public class GameManager : MonoBehaviour
     }
 
 
-    private void Update()
-    {
-        if (InputManager.Instance != null && InputManager.Instance.ReturnIsPressed())
-        {
-            ChangeScene(0);
-        }
-    }
-
     /// <summary>
     /// Método llamado cuando se destruye el componente.
     /// </summary>
