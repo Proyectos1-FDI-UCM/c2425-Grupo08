@@ -154,7 +154,12 @@ public class PlayerMovement : MonoBehaviour
     }
 
     public void FixedUpdate()
-    {        
+    {
+        if (IsBeingGrabbed())
+        {
+            GrabbedMovement();
+        }
+
         switch (_state)
         {
             case States.Idle:
@@ -423,11 +428,6 @@ public class PlayerMovement : MonoBehaviour
                     AnimationState(_state);
                 }*/
                 break;
-        }
-
-        if (IsBeingGrabbed())
-        {
-            GrabbedMovement();
         }
     }
 
