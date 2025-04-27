@@ -1,11 +1,12 @@
 //---------------------------------------------------------
-// // Miguel Ángel González López
+// Miguel Ángel González López
 // Project Abyss
 // Proyectos 1 - Curso 2024-25
 //---------------------------------------------------------
 
+using System;
+using System.Data.Common;
 using UnityEngine;
-// Añadir aquí el resto de directivas using
 
 
 /// <summary>
@@ -15,19 +16,30 @@ public class KelpEnemy : MonoBehaviour
 {
     // ---- ATRIBUTOS DEL INSPECTOR ----
     #region Atributos del Inspector (serialized fields)
-    [SerializeField] private float activateRadius = 10f;    // Radio para activar
+    //[SerializeField] private float activateRadius = 10f;    // Radio para activar
     [SerializeField] private float grabRadius = 5f;         // Radio para atrapar
-    [SerializeField] private float maxCatchVelocity = 5f;   // Vel. máx. para que atrape
-    [SerializeField] private float grabCooldown = 3f;  // Segundos antes de poder atrapar de nuevo
-    [SerializeField] private PlayerMovement Player;         // Referencia al jugador
+    [SerializeField] private float damage = 1f;   // Daño que hace al jugador al atraparlo
+    [SerializeField] private int keyPresses = 5;  // Numero de pulsaciones de tecla para liberarse
+    [SerializeField] private float delay = 1f; // Tiempo para quitar oxígeno (y mostrar el texto)
     #endregion
 
     // ---- ATRIBUTOS PRIVADOS ----
     #region Atributos Privados (private fields)
     private bool _isGrabbed = false;
     private bool _isActive = false;
-    private float _cooldownTimer = 0f;
+    //private float _cooldownTimer = 0f;
     private bool _canGrab = true;
+
+
+    private PlayerMovement PlayerMovement;
+
+    private GameObject player;
+
+    private Terminal Console;
+
+    private float time;
+    private int keyCount;
+
     #endregion
 
     // ---- MÉTODOS DE MONOBEHAVIOUR ----
@@ -40,7 +52,29 @@ public class KelpEnemy : MonoBehaviour
     /// </summary>
     void Start()
     {
-        
+        // Inicializa el jugador
+        player = GameManager.Instance.GetPlayerController();
+
+        if (player == null)
+
+            Debug.LogError("No se ha encontrado el jugador");
+
+        // Inicializa el componente de movimiento del jugador
+        PlayerMovement = player.GetComponent<PlayerMovement>();
+
+        if (PlayerMovement == null)
+
+            Debug.LogError("No se ha encontrado el jugador");
+
+        Console = GetComponentInChildren<Terminal>();
+
+        if (Console == null)
+
+            Debug.LogError("No se ha encontrado el componente Terminal en el GameObject.");
+
+        else
+
+            Console.SetMessage("Pulsa {key_jump}");
     }
 
     /// <summary>
@@ -48,25 +82,57 @@ public class KelpEnemy : MonoBehaviour
     /// </summary>
     void Update()
     {
-        // Gestionar cooldown tras liberación
-        if (!_canGrab)
+        if (_isGrabbed)
         {
-            _cooldownTimer -= Time.deltaTime;
-            if (_cooldownTimer <= 0f) _canGrab = true;
+            if (InputManager.Instance.JumpWasRealeasedThisFrame())
+            {
+                keyCount++;
+            }
+
+            if (keyCount >= keyPresses)
+            {
+                _isGrabbed = false;
+                PlayerMovement.Released();
+            }
+
+            if (time < delay)
+            {
+                time += Time.deltaTime;
+
+                if (time > delay/4)
+
+                    Console.Hide();
+            }
+
+            else
+            {
+                Console.Show();
+                player.GetComponent<OxigenScript>().ReduceOxygen(damage);
+                // Sonido de que te quitan oxígeno?
+                time = 0f;
+            }
+
+            // Animación de atrapado?
         }
 
-        float playerSpeed = Player.GetComponent<Rigidbody2D>().velocity.magnitude;
-        bool inGrab = _canGrab && playerSpeed <= maxCatchVelocity && IsPlayerInside(grabRadius);
-        bool inActivate = IsPlayerInside(activateRadius);
+        else
+        {
+            // Animación idle
+        }
 
+        //float playerSpeed = PlayerMovement.GetComponent<Rigidbody2D>().velocity.magnitude;
+        //bool inGrab = _canGrab && playerSpeed <= maxCatchVelocity && IsPlayerInside(grabRadius);
+        //bool inActivate = IsPlayerInside(activateRadius);
+
+        /*
         if (inGrab)
         {
             if (!_isGrabbed)
             {
-                Player.StartGrabbed();
+                PlayerMovement.StartGrabbed();
                 _isGrabbed = true;
-                Player.isGrabbed = true;
-                Player.kelpGrabbing = this;
+                PlayerMovement.isGrabbed = true;
+                PlayerMovement.kelpGrabbing = this;
             }
             _isActive = false;
         }
@@ -82,6 +148,8 @@ public class KelpEnemy : MonoBehaviour
         {
             _isActive = false;
         }
+
+        */
     }
     #endregion
 
@@ -93,30 +161,62 @@ public class KelpEnemy : MonoBehaviour
     public void ReleasePlayer()
     {
         _isGrabbed = false;
-        Player.isGrabbed = false;
+        PlayerMovement.isGrabbed = false;
         _canGrab = false;
-        _cooldownTimer = grabCooldown;
+       // _cooldownTimer = grabCooldown;
     }
     #endregion
 
     // ---- MÉTODOS PRIVADOS ----
     #region Métodos Privados
+
+    private void GrabPlayer()
+    {
+        if (_canGrab && PlayerMovement != null)
+        {
+            _isGrabbed = true;
+            PlayerMovement.Grabbed();
+        }
+    }
+
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.GetComponent<PlayerMovement>() != null)
+        {
+            keyCount = 0;
+            PlayerMovement.kelpGrabbing = this;
+            GrabPlayer();
+        }
+    }
+
+
+    private void OnTriggerExit2D(Collider2D other)
+    {
+        if (other.GetComponent<PlayerMovement>() != null)
+        {
+            //Animación de liberación/idle
+            _isGrabbed = false;
+            Console.Hide();
+        }
+    }
+
+
     /// <summary>
     /// Compara la posición del jugador con la posición del enemigo alga y devuelve true si está dentro del radio dado.
     /// </summary>
     /// <param name="radius">Radio de la circunferencia de acción a comparar con el jugador</param>
     /// <returns></returns>
-    private bool IsPlayerInside(float radius)
+    /*private bool IsPlayerInside(float radius)
     {
         return (Player.transform.position - transform.position).magnitude <= radius;
-    }
+    }*/
 
 
     private void OnDrawGizmos()
-    {
+    { 
         // Dibuja radios de activación y agarre
         Gizmos.color = Color.green;
-        Gizmos.DrawWireSphere(transform.position, activateRadius);
+        //Gizmos.DrawWireSphere(transform.position, activateRadius);
         Gizmos.color = Color.red;
         Gizmos.DrawWireSphere(transform.position, grabRadius);
 
@@ -133,12 +233,11 @@ public class KelpEnemy : MonoBehaviour
         }
         else
         {
-            Gizmos.color = Color.green;
-            Gizmos.DrawSphere(transform.position, 0.1f);
+            //Gizmos.color = Color.green;
+            //Gizmos.DrawSphere(transform.position, 0.1f);
         }
+        
     }
 
-
     #endregion
-} // class KelpEnemy 
-// namespace
+} // class AlgaEnemy

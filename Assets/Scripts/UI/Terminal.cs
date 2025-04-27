@@ -169,6 +169,8 @@ public class Terminal : MonoBehaviour
     {
         message = input.Trim(); // Se eliminan los espacios en blanco al principio y al final del mensaje
 
+        ReplaceKey(); // Reemplaza las teclas de interacción en el mensaje por los valores actuales
+
         textTMP.text = mark + message; // Se establece el mensaje directamente en el texto
     }
 
@@ -264,8 +266,11 @@ public class Terminal : MonoBehaviour
 
             currentStr = ""; // Reinicia el texto actual
 
+        // Longitud total del mensaje (incluyendo el mark)
+        int totalLength = mark.Length + message.Length;
+
         // Si el texto actual es menor que el mensaje y no se ha detenido
-        if (textTMP.text.Length < (mark.Length + message.Length) && index < (mark.Length + message.Length) && !stop) 
+        if (message != "" && textTMP.text.Length < totalLength && index < totalLength && !stop) 
         {
             if (init < initPause) // Pausa inicial
 

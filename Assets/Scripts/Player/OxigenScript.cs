@@ -111,6 +111,15 @@ public class OxigenScript : MonoBehaviour
     // mayúscula, incluida la primera letra)
     // Ejemplo: GetPlayerController
 
+    /// <summary>
+    /// Método que devuelve la cantidad de oxígeno actual del jugador
+    /// </summary>
+    /// <param name="value">Valor que restar</param>
+    public void ReduceOxygen(float value)
+    {
+        currentOxigen -= value;
+    }
+
     public void PierceTank() // Método que se llama cuando el tanque de oxígeno recibe un impacto (si el tanque ya estaba roto, el jugador muere
     {
         if (tankBroken)

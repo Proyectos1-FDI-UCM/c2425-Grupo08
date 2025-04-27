@@ -209,6 +209,11 @@ public class InputManager : MonoBehaviour
         return _interact.WasReleasedThisFrame();
     }
 
+    public bool ReturnWasReleased()
+    {
+        return _return.WasPressedThisFrame();
+    }
+
     // Getters para los controles del juego
 
     public string GetInteractKey()
@@ -369,15 +374,6 @@ public class InputManager : MonoBehaviour
             key = _return.bindings[0].effectivePath;
 
         return key.Split('/').Last().ToUpper();
-    }
-
-    #endregion
-
-    #region Menu Interactions
-
-    public bool ReturnWasReleased()
-    {
-        return _return.WasPressedThisFrame();
     }
 
     #endregion
