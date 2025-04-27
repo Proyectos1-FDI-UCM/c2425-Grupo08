@@ -36,7 +36,11 @@ public class PauseManager : MonoBehaviour
     // primera letra en mayúsculas)
     // Ejemplo: _maxHealthPoints
 
-    private bool isPaused = false;
+    public static bool GameIsPaused { get; private set; } = false;
+    private AudioSource[] audioSources;
+    private Animator[] animators;
+
+
 
     #endregion
 
@@ -53,6 +57,12 @@ public class PauseManager : MonoBehaviour
     /// </summary>
     void Start()
     {
+        pauseMenuUI.SetActive(false);
+
+        // Guardar todos los audios y animators de la escena
+        audioSources = FindObjectsOfType<AudioSource>();
+        animators = FindObjectsOfType<Animator>();
+
         if (pauseMenuUI == null)
 
             Debug.LogWarning("No se ha asignado el menú de pausa en el inspector");
@@ -69,7 +79,9 @@ public class PauseManager : MonoBehaviour
     {
         if (InputManager.Instance.ReturnWasReleased() && pauseMenuUI != null) // Pausa el juego al pulsar ESCAPE
         {
-            if (isPaused)
+            Debug.Log("Pausa");
+            if (GameIsPaused)
+
             {
                 Resume();
             }
@@ -93,15 +105,29 @@ public class PauseManager : MonoBehaviour
     public void Resume()
     {
         Time.timeScale = 1f; // El juego continúa
-        isPaused = false;
+        GameIsPaused = false;
         pauseMenuUI.SetActive(false);
+
+        foreach (var audio in audioSources)
+            audio.UnPause();
+
+        foreach (var animator in animators)
+            animator.speed = 1f;
     }
 
     void Pause()
     {
-        isPaused = true;
+
+        GameIsPaused = true;
+
         Time.timeScale = 0f; // El juego se "congela"
         pauseMenuUI.SetActive(true); // Se activa el menú de pausa
+
+        foreach (var audio in audioSources)
+            audio.Pause();
+
+        foreach (var animator in animators)
+            animator.speed = 0f;
     }
 
 

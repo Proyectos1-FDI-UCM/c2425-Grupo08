@@ -166,6 +166,9 @@ public class FlashLight : MonoBehaviour
 
     private void Update()
     {
+        if(PauseManager.GameIsPaused) // Si el juego está en pausa, no hacer nada
+            return;
+
         if (player.GetIsDeath())
         {
             LerpValues(); // Interpolar los valores de la luz
