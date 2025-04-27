@@ -114,7 +114,7 @@ MonoBehaviour:
   attackSpeed: 7
   debug: 1
   sonarFrequency: 5
-  shadowDelay: 0.25
+  shadowDelay: 0.5
   sonarChargeTime: 1
   sonarHearingDistance: 20
   sonarAttackDistance: 15
