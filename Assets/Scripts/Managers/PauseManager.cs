@@ -76,19 +76,28 @@ public class PauseManager : MonoBehaviour
     /// </summary>
     void Update()
     {
-        if (InputManager.Instance.ReturnWasReleased() && pauseMenuUI != null) // Pausa el juego al pulsar ESCAPE
+        if (InputManager.Instance.ReturnWasReleased())
         {
-            Debug.Log("Pausa");
-            if (GameIsPaused)
+            if (pauseMenuUI != null)
+            {
+                Debug.Log("Pausa");
 
-            {
-                Resume();
+                if (GameIsPaused)
+                {
+                    Resume();
+                }
+                else
+                {
+                    Pause();
+                }
             }
-            else
+
+            else 
             {
-                Pause();
+                GameManager.Instance.ChangeScene(0);
             }
         }
+
     }
 
     #endregion

@@ -78,7 +78,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 50
   m_Sprite: {fileID: -8883704795176091815, guid: f0b714d9b98e2c045a6de5cbb64318a1, type: 3}
-  m_Color: {r: 0.4764151, g: 0.9014428, b: 1, a: 1}
+  m_Color: {r: 0.5258544, g: 0.8731707, b: 0.9528302, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -101,9 +101,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   grabRadius: 1.35
-  damage: 1
+  damage: 0
   keyPresses: 8
-  delay: 1
+  delay: 0.5
 --- !u!95 &6639035344110276675
 Animator:
   serializedVersion: 5
@@ -227,7 +227,7 @@ MonoBehaviour:
   m_fontColor32:
     serializedVersion: 2
     rgba: 4287351171
-  m_fontColor: {r: 0.5137255, g: 0.78823537, b: 0.54509807, a: 1}
+  m_fontColor: {r: 0.22352941, g: 0.58431375, b: 0.25882354, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -250,7 +250,7 @@ MonoBehaviour:
   m_enableAutoSizing: 0
   m_fontSizeMin: 0
   m_fontSizeMax: 63.8
-  m_fontStyle: 16
+  m_fontStyle: 0
   m_HorizontalAlignment: 2
   m_VerticalAlignment: 1024
   m_textAlignment: 65535

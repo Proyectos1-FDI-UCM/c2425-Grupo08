@@ -999,9 +999,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   grabRadius: 2.5
-  damage: 1
+  damage: 0
   keyPresses: 8
-  delay: 1
+  delay: 0.5
 --- !u!95 &8283015255018681911
 Animator:
   serializedVersion: 5
@@ -1254,7 +1254,7 @@ MonoBehaviour:
   m_enableAutoSizing: 0
   m_fontSizeMin: 0
   m_fontSizeMax: 63.8
-  m_fontStyle: 16
+  m_fontStyle: 0
   m_HorizontalAlignment: 2
   m_VerticalAlignment: 1024
   m_textAlignment: 65535

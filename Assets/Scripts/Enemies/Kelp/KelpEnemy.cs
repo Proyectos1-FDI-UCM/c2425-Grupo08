@@ -18,7 +18,7 @@ public class KelpEnemy : MonoBehaviour
     #region Atributos del Inspector (serialized fields)
     //[SerializeField] private float activateRadius = 10f;    // Radio para activar
     [SerializeField] private float grabRadius = 5f;         // Radio para atrapar
-    [SerializeField] private float damage = 1f;   // Daño que hace al jugador al atraparlo
+    //[SerializeField] private float damage = 1f;   // Daño que hace al jugador al atraparlo
     [SerializeField] private int keyPresses = 5;  // Numero de pulsaciones de tecla para liberarse
     [SerializeField] private float delay = 1f; // Tiempo para quitar oxígeno (y mostrar el texto)
     #endregion
@@ -91,6 +91,7 @@ public class KelpEnemy : MonoBehaviour
 
             if (keyCount >= keyPresses)
             {
+                Console.Hide();
                 _isGrabbed = false;
                 PlayerMovement.Released();
             }
@@ -107,7 +108,7 @@ public class KelpEnemy : MonoBehaviour
             else
             {
                 Console.Show();
-                player.GetComponent<OxigenScript>().ReduceOxygen(damage);
+                //player.GetComponent<OxigenScript>().ReduceOxygen(damage);
                 // Sonido de que te quitan oxígeno?
                 time = 0f;
             }
