@@ -223,7 +223,7 @@ public class InputManager : MonoBehaviour
         if (IsGamepadActive() && _interact.bindings.Count > 1)
         {
             // Devuelve el botón genérico por defecto
-            key = _interact.bindings[1].effectivePath;
+            key = _interact.bindings[1].effectivePath.Split('/').Last().ToUpper();
 
             // Para PlayStation
             if (IsDualShockController())
@@ -243,9 +243,9 @@ public class InputManager : MonoBehaviour
 
         else // Si no hay gamepad o no hay binding para el gamepad, usamos el teclado
 
-            key = _interact.bindings[0].effectivePath;
+            key = _interact.bindings[0].effectivePath.Split('/').Last().ToUpper();
 
-        return key.Split('/').Last().ToUpper();
+        return key;
     }
 
     public string GetJumpKey()
@@ -255,7 +255,7 @@ public class InputManager : MonoBehaviour
         if (IsGamepadActive() && _jump.bindings.Count > 1)
         {
             // Devuelve el botón genérico por defecto
-            key = _jump.bindings[1].effectivePath;
+            key = _jump.bindings[1].effectivePath.Split('/').Last().ToUpper();
 
             // Para PlayStation
             if (IsDualShockController())
@@ -275,9 +275,9 @@ public class InputManager : MonoBehaviour
 
         else // Si no hay gamepad o no hay binding para el gamepad, usamos el teclado
 
-            key = _jump.bindings[0].effectivePath;
+            key = "espacio";
 
-        return key.Split('/').Last().ToUpper();
+        return key;
     }
 
     public string GetFocusKey()
@@ -287,7 +287,7 @@ public class InputManager : MonoBehaviour
         if (IsGamepadActive() && _focus.bindings.Count > 1)
         {
             // Devuelve el botón genérico por defecto
-            key = _focus.bindings[1].effectivePath;
+            key = _focus.bindings[1].effectivePath.Split('/').Last().ToUpper();
 
             // Para PlayStation
             if (IsDualShockController())
@@ -307,9 +307,9 @@ public class InputManager : MonoBehaviour
 
         else // Si no hay gamepad o no hay binding para el gamepad, usamos el teclado
 
-            key = _focus.bindings[0].effectivePath;
+            key = "click derecho";
 
-        return key.Split('/').Last().ToUpper();
+        return key;
     }
 
     public string GetFlashKey()
@@ -319,7 +319,7 @@ public class InputManager : MonoBehaviour
         if (IsGamepadActive() && _flash.bindings.Count > 1)
         {
             // Devuelve el botón genérico por defecto
-            key = _flash.bindings[1].effectivePath;
+            key = _flash.bindings[1].effectivePath.Split('/').Last().ToUpper();
 
             // Para PlayStation
             if (IsDualShockController())
@@ -339,9 +339,9 @@ public class InputManager : MonoBehaviour
 
         else // Si no hay gamepad o no hay binding para el gamepad, usamos el teclado
 
-            key = _flash.bindings[0].effectivePath;
+            key = "click izquierdo";
 
-        return key.Split('/').Last().ToUpper();
+        return key;
     }
 
     public string GetReturnKey()
@@ -351,7 +351,7 @@ public class InputManager : MonoBehaviour
         if (IsGamepadActive() && _return.bindings.Count > 1)
         {
             // Devuelve el botón genérico por defecto
-            key = _return.bindings[1].effectivePath;
+            key = _return.bindings[1].effectivePath.Split('/').Last().ToUpper();
 
             // Para PlayStation
             if (IsDualShockController())
@@ -371,9 +371,9 @@ public class InputManager : MonoBehaviour
 
         else // Si no hay gamepad o no hay binding para el gamepad, usamos el teclado
 
-            key = _return.bindings[0].effectivePath;
+            key = "Esc";
 
-        return key.Split('/').Last().ToUpper();
+        return key;
     }
 
     #endregion
