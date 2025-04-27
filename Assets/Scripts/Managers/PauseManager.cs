@@ -57,7 +57,6 @@ public class PauseManager : MonoBehaviour
     /// </summary>
     void Start()
     {
-        pauseMenuUI.SetActive(false);
 
         // Guardar todos los audios y animators de la escena
         audioSources = FindObjectsOfType<AudioSource>();
