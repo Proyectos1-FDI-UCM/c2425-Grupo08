@@ -59,7 +59,7 @@ GameObject:
   - component: {fileID: 7992471628462401874}
   - component: {fileID: 2472142990487990649}
   - component: {fileID: 5141495823849015549}
-  m_Layer: 7
+  m_Layer: 0
   m_Name: Floor
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -290,7 +290,7 @@ Tilemap:
   - m_RefCount: 12
     m_Data: {r: 1, g: 1, b: 1, a: 1}
   - m_RefCount: 1
-    m_Data: {r: 0.72707605, g: 0.3388514, b: 0.43034673, a: 1}
+    m_Data: {r: 0.92035633, g: 0.4544698, b: 0.4898964, a: 1}
   m_TileObjectToInstantiateArray: []
   m_AnimationFrameRate: 1
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -461,16 +461,16 @@ CompositeCollider2D:
         Y: -30000000
   m_CompositePaths:
     m_Paths:
-    - - {x: -10.00003, y: -3}
-      - {x: -9.99997, y: -2}
-      - {x: -7, y: -1.9999708}
-      - {x: -7.0000296, y: -1}
-      - {x: -8, y: -0.9999706}
-      - {x: -7.9999704, y: 0}
-      - {x: -6, y: 0.000029300001}
-      - {x: -6.000029, y: 1}
-      - {x: -11, y: 0.99997073}
-      - {x: -10.99997, y: -3}
+    - - {x: -10, y: -2}
+      - {x: -7, y: -2}
+      - {x: -7, y: -1}
+      - {x: -8, y: -1}
+      - {x: -8, y: 0}
+      - {x: -6, y: 0}
+      - {x: -6, y: 1}
+      - {x: -11, y: 1}
+      - {x: -11, y: -3}
+      - {x: -10, y: -3}
   m_VertexDistance: 0.0005
   m_OffsetDistance: 0
   m_UseDelaunayMesh: 0
@@ -502,7 +502,7 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
---- !u!114 &7057859962112233942
+--- !u!114 &7968790838539353133
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
