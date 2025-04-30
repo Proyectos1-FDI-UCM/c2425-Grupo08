@@ -9,7 +9,7 @@ EditorBuildSettings:
     path: Assets/Scenes/Menus/Main.unity
     guid: 88ab91c3c24f24d8789e651802f2b486
   - enabled: 1
-    path: Assets/Scenes/Menus/Gamma.unity
+    path: Assets/Scenes/Menus/Cheats.unity
     guid: ae4c89b834c4ba04e88ba7a36782a28b
   - enabled: 1
     path: Assets/Scenes/Menus/Tests.unity
@@ -35,5 +35,8 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Tests/Engine-Shelter.unity
     guid: b50c320ac584c8e4282663392fd0c156
+  - enabled: 1
+    path: Assets/Scenes/Tests/GammaTest.unity
+    guid: b5e6a3cc7c9c134488f02d00dc1891e6
   m_configObjects:
     com.unity.input.settings: {fileID: 11400000, guid: db200087da63458438de42a14d44966e, type: 2}
