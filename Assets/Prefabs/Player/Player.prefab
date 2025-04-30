@@ -510,7 +510,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   MaxObjectives: 0
   Arrow: {fileID: -2253911629886400664, guid: d43708aee9f3f2a00b56dd0dc81ee3af, type: 3}
-  Test: {fileID: 0}
+  test: {fileID: 0}
 --- !u!61 &2942227191658819557
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -688,7 +688,7 @@ Transform:
   m_GameObject: {fileID: 5593684747619638508}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.14, z: 0}
+  m_LocalPosition: {x: 0, y: 0.14, z: -1.12}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
