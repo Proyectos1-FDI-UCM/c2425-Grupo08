@@ -7,7 +7,7 @@
 
 using UnityEngine;
 using UnityEngine.UI;
-using UnityEngine.VFX;
+
 // Añadir aquí el resto de directivas using
 
 
@@ -61,6 +61,7 @@ public class UIManager : MonoBehaviour
 
     [SerializeField] private Image oxygenTank;
 
+
     // ---- ATRIBUTOS PRIVADOS ----
     #region Atributos Privados (private fields)
     // Documentar cada atributo que aparece aquí.
@@ -96,14 +97,6 @@ public class UIManager : MonoBehaviour
         {
             GameManager.Instance.InitializeUI(this);
         }
-    }
-
-    /// <summary>
-    /// Update is called every frame, if the MonoBehaviour is enabled.
-    /// </summary>
-    void Update()
-    {
-        
     }
 
     private void Awake()

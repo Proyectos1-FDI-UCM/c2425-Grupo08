@@ -57,6 +57,7 @@ public class Terminal : MonoBehaviour
     // Declaración de textos, colores y audio
     private TMP_Text textTMP;
     private AudioSource audioSource;
+    //private Color textColor; // Color del texto (para controlar su alfa)
 
     // Contadores de tiempo
     private float init = 0f; // Contador de espera para antes de empezar a escribir. (pausa inicial)
@@ -67,7 +68,13 @@ public class Terminal : MonoBehaviour
     private int index = 0; // Índice del carácter actual que se está escribiendo
 
     // Variables de control
+    private string currentStr; // Almacena el texto actual
     private bool stop = false; // Indica si se debe detener la escritura progresiva
+
+    // Boleana Mensaje completo: revisar
+    private bool messageComplete = false;
+
+    private string mark = "<mark=#000000fa padding=“5, 5, 5, 5”>";
 
     #endregion
 
@@ -77,21 +84,22 @@ public class Terminal : MonoBehaviour
     /// <summary>
     /// Inicializa el componente TMP_Text y AudioSource
     /// </summary>
-    private void Awake()
+    void Awake()
     {
         // Inicializa el componente TMP_Text
-        textTMP = GetComponentInChildren<TMP_Text>();
-        
+
+        textTMP = GetComponentInChildren<TMP_Text>(); // Obtiene el componente TMP_Text del objeto actual
+
         if (textTMP == null)
 
-            Debug.LogError("No se ha encontrado el componente TMP_Text en el objeto ni en sus hijos.");
-
+            Debug.LogError("No se ha encontrado el componente AudioSource en el objeto ni en sus hijos.");
 
         else // Si se encuentra el componente TMP_Text
 
-            Hide(); // Inicializa el color del texto a oculto
+            textTMP.alpha = 0f; // Inicializa el texto a oculto
 
         // Inicializa el componente AudioSource
+
         audioSource = GetComponent<AudioSource>();
 
         if (audioSource == null)
@@ -109,7 +117,7 @@ public class Terminal : MonoBehaviour
     /// Lógica básica del terminal
     /// Se encarga de la interpolación del color del texto y la escritura progresiva.
     /// </summary>
-    private void Update()
+    void Update()
     {
         LerpAlpha(); // Interpolación del color del texto
 
@@ -161,7 +169,9 @@ public class Terminal : MonoBehaviour
     {
         message = input.Trim(); // Se eliminan los espacios en blanco al principio y al final del mensaje
 
-        textTMP.text = message; // Se establece el mensaje directamente en el texto
+        ReplaceKey(); // Reemplaza las teclas de interacción en el mensaje por los valores actuales
+
+        textTMP.text = mark + message; // Se establece el mensaje directamente en el texto
     }
 
     /// <summary>
@@ -220,6 +230,8 @@ public class Terminal : MonoBehaviour
         return visible; // Devuelve el estado de visibilidad
     }
 
+    public bool IsMessageComplete() => messageComplete;
+
     #endregion
 
     // ---- MÉTODOS PRIVADOS ----
@@ -250,7 +262,15 @@ public class Terminal : MonoBehaviour
     /// </summary>
     private void SlowRender()
     {
-        if (textTMP.text.Length < message.Length && !stop) // Si el texto actual es menor que el mensaje y no se ha detenido
+        if (index == 0) // Si el índice es 0, se reinicia el texto actual
+
+            currentStr = ""; // Reinicia el texto actual
+
+        // Longitud total del mensaje (incluyendo el mark)
+        int totalLength = mark.Length + message.Length;
+
+        // Si el texto actual es menor que el mensaje y no se ha detenido
+        if (message != "" && textTMP.text.Length < totalLength && index < totalLength && !stop) 
         {
             if (init < initPause) // Pausa inicial
 
@@ -260,25 +280,33 @@ public class Terminal : MonoBehaviour
             {
                 time += Time.deltaTime;
 
-                if (time >= timeDelay) // Si ha pasado el tiempo de espera entre caracteres
+                if (time > timeDelay) // Si ha pasado el tiempo de espera entre caracteres
                 {
-                    char current = message[index]; // Carácter actual a escribir
+                    char currentChar = message[index]; // Carácter actual a escribir
 
-                    textTMP.text += current; // Añade el carácter actual al texto
+                    currentStr += currentChar; // Añade el carácter actual al texto
 
-                    if (GetVisibility()) // Si el texto es visible
-                        
-                        audioSource.PlayOneShot(audioSource.clip); // Reproduce el sonido de escritura
+                    textTMP.text = mark + currentStr; // Actualiza el texto en la consola con el prefijo
 
                     index++; // Aumenta el índice para el siguiente carácter
 
                     time = 0f; // Reinicia el contador de tiempo para la escritura
 
-                    if (current == '.' || current == ':' || current == '\n')
+                    if (currentChar == '.' || currentChar == ':')
 
                         init = 0f; // Reinicia el contador de tiempo para la pausa especial
+
+                    if (GetVisibility()) // Si el texto es visible
+                        
+                        audioSource.PlayOneShot(audioSource.clip); // Reproduce el sonido de escritura                    
                 }
             }
+        }
+
+        if (index >= message.Length && !messageComplete) // Revisar
+        {
+            messageComplete = true;
+            OnMessageComplete?.Invoke();
         }
     }
 

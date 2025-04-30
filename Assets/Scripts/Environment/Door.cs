@@ -4,7 +4,6 @@
 // Proyectos 1 - Curso 2024-25
 //---------------------------------------------------------
 
-using System;
 using UnityEngine;
 
 /// <summary>
@@ -34,6 +33,9 @@ public class Door : MonoBehaviour
     private bool hasEnter = false;
     // Indica si el jugador ha entrado en el área de colisión de la puerta.
 
+    private Terminal Console;
+    // Referencia a la consola del juego para mostrar mensajes.
+
     #endregion
 
     // ---- MÉTODOS DE MONOBEHAVIOUR ----
@@ -49,7 +51,16 @@ public class Door : MonoBehaviour
     /// </summary>
     void Start()
     {
-        // Oculta el mensaje al principio
+        Console = GetComponent<Terminal>();
+
+        if (Console == null)
+
+            Debug.LogError("No se ha encontrado la consola en la puerta.");
+
+        else
+
+            Console.SetMessage("Status...\nInhabilitado.\n\nEnergía insuficiente...\n\nGeneradores reparados: 0/1");
+
         levelCompleted = LevelManager.Instance.LevelCompleted();
         // Consulta si se ha completado el nivel
 
@@ -65,6 +76,8 @@ public class Door : MonoBehaviour
             GameManager.Instance.ChangeScene(sceneIndex);
             // Cambiar de escena si se cumple todo
         }
+
+        
     }
 
     #endregion
@@ -81,8 +94,13 @@ public class Door : MonoBehaviour
         if (other.GetComponent<PlayerMovement>() != null)
         {
             hasEnter = true;
-            Console.Write($"Estado del refugio:......Habilitado!\nPresiona {InputManager.Instance.GetInteractKey()} para entrar...");
             levelCompleted = LevelManager.Instance.LevelCompleted(); // Actualiza estado
+
+            if (levelCompleted && Console != null)
+        {
+            Console.Write("Status...\nHabilitado!\n\nPresiona {key_interact} para entrar al refugio.");
+            // Muestra el mensaje de que se puede entrar al refugio
+        }
 
         }
     }

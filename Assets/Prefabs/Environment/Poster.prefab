@@ -75,10 +75,10 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: -2413806693520163455, guid: a86470a33a6bf42c4b3595704624658b, type: 3}
-  m_Color: {r: 0.6784314, g: 0.6862745, b: 0, a: 1}
+  m_Sprite: {fileID: 4548190522317136480, guid: d43708aee9f3f2a00b56dd0dc81ee3af, type: 3}
+  m_Color: {r: 0.9671146, g: 0.9716981, b: 0.9671146, a: 1}
   m_FlipX: 0
-  m_FlipY: 0
+  m_FlipY: 1
   m_DrawMode: 0
   m_Size: {x: 1, y: 1}
   m_AdaptiveModeThreshold: 0.5
@@ -101,9 +101,9 @@ MonoBehaviour:
   m_ComponentVersion: 1
   m_LightType: 3
   m_BlendStyleIndex: 0
-  m_FalloffIntensity: 0.856
-  m_Color: {r: 0.6774693, g: 0.6855345, b: 0, a: 1}
-  m_Intensity: 1.27
+  m_FalloffIntensity: 0.971
+  m_Color: {r: 0.32079923, g: 0.764151, b: 0.3921112, a: 1}
+  m_Intensity: 1.38
   m_LightVolumeIntensity: 0.09
   m_LightVolumeIntensityEnabled: 0
   m_ApplyToSortingLayers: 00000000
@@ -122,10 +122,10 @@ MonoBehaviour:
   m_LocalBounds:
     m_Center: {x: 0, y: -0.00000011920929, z: 0}
     m_Extent: {x: 0.9985302, y: 0.99853027, z: 0}
-  m_PointLightInnerAngle: 88.729675
-  m_PointLightOuterAngle: 116.15106
+  m_PointLightInnerAngle: 77.63996
+  m_PointLightOuterAngle: 224.27582
   m_PointLightInnerRadius: 0
-  m_PointLightOuterRadius: 10
+  m_PointLightOuterRadius: 25.36
   m_ShapeLightParametricSides: 5
   m_ShapeLightParametricAngleOffset: 0
   m_ShapeLightParametricRadius: 1
@@ -184,7 +184,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: -9.89, y: -0.6706625, z: 8.806099}
-  m_LocalScale: {x: 0.3086, y: 4.7455, z: 1}
+  m_LocalScale: {x: 0.18276837, y: 5.4943995, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 2068666206851661889}
@@ -232,7 +232,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: -200
   m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
-  m_Color: {r: 0.17610055, g: 0.17610055, b: 0.17610055, a: 1}
+  m_Color: {r: 0.2305536, g: 0.31132078, b: 0.2305536, a: 0.1764706}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0

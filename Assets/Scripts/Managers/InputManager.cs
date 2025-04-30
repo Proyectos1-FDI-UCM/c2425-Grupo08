@@ -203,46 +203,177 @@ public class InputManager : MonoBehaviour
     {
         return _interact.WasPressedThisFrame();
     }
-    
+
     public bool InteractWasRealeasedThisFrame()
     {
         return _interact.WasReleasedThisFrame();
+    }
+
+    public bool ReturnWasReleased()
+    {
+        return _return.WasPressedThisFrame();
     }
 
     // Getters para los controles del juego
 
     public string GetInteractKey()
     {
-        return _interact.bindings[0].effectivePath.Split('/').Last().ToUpper();
+        string key;
+
+        if (IsGamepadActive() && _interact.bindings.Count > 1)
+        {
+            // Devuelve el botón genérico por defecto
+            key = _interact.bindings[1].effectivePath.Split('/').Last().ToUpper();
+
+            // Para PlayStation
+            if (IsDualShockController())
+
+                key = "CUADRADO";
+
+            // Para Xbox
+            else if (IsXboxController())
+
+                key = "X";
+
+            // Para Switch Pro Controller
+            else if (IsSwitchProController())
+
+                key = "Y";
+        }
+
+        else // Si no hay gamepad o no hay binding para el gamepad, usamos el teclado
+
+            key = _interact.bindings[0].effectivePath.Split('/').Last().ToUpper();
+
+        return key;
     }
 
     public string GetJumpKey()
     {
-        return _jump.bindings[0].effectivePath.Split('/').Last().ToUpper();
+        string key;
+
+        if (IsGamepadActive() && _jump.bindings.Count > 1)
+        {
+            // Devuelve el botón genérico por defecto
+            key = _jump.bindings[1].effectivePath.Split('/').Last().ToUpper();
+
+            // Para PlayStation
+            if (IsDualShockController())
+
+                key = "X";
+
+            // Para Xbox
+            else if (IsXboxController())
+
+                key = "A";
+
+            // Para Switch Pro Controller
+            else if (IsSwitchProController())
+
+                key = "B";
+        }
+
+        else // Si no hay gamepad o no hay binding para el gamepad, usamos el teclado
+
+            key = "ESPACIO";
+
+        return key;
     }
 
     public string GetFocusKey()
     {
-        return _focus.bindings[0].effectivePath.Split('/').Last().ToUpper();
+        string key;
+
+        if (IsGamepadActive() && _focus.bindings.Count > 1)
+        {
+            // Devuelve el botón genérico por defecto
+            key = _focus.bindings[1].effectivePath.Split('/').Last().ToUpper();
+
+            // Para PlayStation
+            if (IsDualShockController())
+
+                key = "L2";
+
+            // Para Xbox
+            else if (IsXboxController())
+
+                key = "LT";
+
+            // Para Switch Pro Controller
+            else if (IsSwitchProController())
+
+                key = "ZL";
+        }
+
+        else // Si no hay gamepad o no hay binding para el gamepad, usamos el teclado
+
+            key = "click derecho";
+
+        return key;
     }
 
     public string GetFlashKey()
     {
-        return _flash.bindings[0].effectivePath.Split('/').Last().ToUpper();
+        string key;
+
+        if (IsGamepadActive() && _flash.bindings.Count > 1)
+        {
+            // Devuelve el botón genérico por defecto
+            key = _flash.bindings[1].effectivePath.Split('/').Last().ToUpper();
+
+            // Para PlayStation
+            if (IsDualShockController())
+
+                key = "R2";
+
+            // Para Xbox
+            else if (IsXboxController())
+
+                key = "RT";
+
+            // Para Switch Pro Controller
+            else if (IsSwitchProController())
+
+                key = "ZR";
+        }
+
+        else // Si no hay gamepad o no hay binding para el gamepad, usamos el teclado
+
+            key = "click izquierdo";
+
+        return key;
     }
 
     public string GetReturnKey()
     {
-        return _return.bindings[0].effectivePath.Split('/').Last().ToUpper();
-    }
+        string key;
 
-    #endregion
+        if (IsGamepadActive() && _return.bindings.Count > 1)
+        {
+            // Devuelve el botón genérico por defecto
+            key = _return.bindings[1].effectivePath.Split('/').Last().ToUpper();
 
-    #region Menu Interactions
+            // Para PlayStation
+            if (IsDualShockController())
 
-    public bool ReturnIsPressed()
-    {
-        return _return.IsPressed();
+                key = "OPTIONS";
+
+            // Para Xbox
+            else if (IsXboxController())
+
+                key = "START";
+
+            // Para Switch Pro Controller
+            else if (IsSwitchProController())
+
+                key = "+/-";
+        }
+
+        else // Si no hay gamepad o no hay binding para el gamepad, usamos el teclado
+
+            key = "Esc";
+
+        return key;
     }
 
     #endregion
@@ -323,6 +454,34 @@ public class InputManager : MonoBehaviour
     {
         MovementVector = context.ReadValue<Vector2>();
     }
+
+    /// <summary>
+    /// Método que devuelve si se está usando un dualshock
+    /// </summary>
+    private bool IsDualShockController()
+    {
+        return Gamepad.current is UnityEngine.InputSystem.DualShock.DualShockGamepad;
+    }
+
+    /// <summary>
+    /// Método que devuelve si se está usando un mando de xbox
+    /// </summary>
+    private bool IsXboxController()
+    {
+        return Gamepad.current is UnityEngine.InputSystem.XInput.XInputController;
+    }
+
+    /// <summary>
+    /// Método que devuelve si se está usando mando de switch
+    /// </summary>
+    private bool IsSwitchProController()
+    {
+        return Gamepad.current is UnityEngine.InputSystem.Switch.SwitchProControllerHID;
+    }
+
+
+
+
 
     #endregion
 

@@ -23,8 +23,6 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float WalkMaxSpeed;
     [SerializeField] private float WalkDecelerationThreshold;
 
-    [Header("Idle Attributes")]
-
     [Header("Jump Attributes")]
     [SerializeField] private float JumpAcceleration;
     [SerializeField] private float JumpDeceleration;
@@ -47,7 +45,11 @@ public class PlayerMovement : MonoBehaviour
 
     [Space]
     [SerializeField] private bool debug;
-    [SerializeField] private float KelpForce = 1f;
+
+    /*
+    [Header("Kelp Escape")]
+    [SerializeField] private int maxKelpEscapePresses = 4;  // Pulsaciones necesarias
+    private int currentKelpEscapePresses = 0;*/
 
     #endregion
 
@@ -76,7 +78,7 @@ public class PlayerMovement : MonoBehaviour
     /// <summary>
     /// Multiplicador del salto del jugador que se aplica a la aceleración vertical al saltar y que decrementa mientras se pulsa el botón de salto.
     /// </summary>
-    private float _jumpMultiplier = 1;
+    private float _jumpMultiplier = 1f;
     /// <summary>
     /// Estado del jugador. Inicializa en Idle.
     /// </summary>
@@ -109,6 +111,12 @@ public class PlayerMovement : MonoBehaviour
     /// Un bool que representa si el jugador está reparando. Tiene un setter y un getter como métodos públicos.
     /// </summary>
     private bool isRepairing = false;
+
+    /// <summary>
+    /// Valor de la fuerza que se aplica al jugador cuando está siendo agarrado por un alga.
+    /// Casi que es una constante, ya que de ser más/menos el jugador no queda atrapado
+    /// </summary>
+    private float KelpForce = 18f;
 
     #endregion
 
@@ -144,32 +152,38 @@ public class PlayerMovement : MonoBehaviour
             animator.speed = _rb.velocity.magnitude / 5;
         }
     }
+
     public void FixedUpdate()
     {
+        if (IsBeingGrabbed())
+        {
+            GrabbedMovement();
+        }
+
         switch (_state)
         {
             case States.Idle:
                 break;
+
             case States.Walk:
                 if (InputManager.Instance.MovementVector.x != 0)
                 {
-                    // Se asigna _joystickMaxSpeed como WalkMaxSpeed, sin modificar el signo.
                     _joystickMaxSpeed = WalkMaxSpeed;
                     WalkWalk(InputManager.Instance.MovementVector.x);
                 }
                 else
-                    WalkDecelerate(WalkDeceleration);
-                break;
-            case States.Jump:
-                if (InputManager.Instance.JumpWasRealeasedThisFrame())
                 {
-                    _jumpMultiplier = 0;
+                    WalkDecelerate(WalkDeceleration);
                 }
+                break;
+
+            case States.Jump:
+                
+                if (InputManager.Instance.JumpWasRealeasedThisFrame())
+                    _jumpMultiplier = 0;
 
                 if (InputManager.Instance.JumpIsPressed() && _jumpMultiplier > 0)
-                {
                     Jump();
-                }
 
                 if (InputManager.Instance.MovementVector.x != 0)
                 {
@@ -177,8 +191,11 @@ public class PlayerMovement : MonoBehaviour
                     JumpWalk(InputManager.Instance.MovementVector.x);
                 }
                 else
+                {
                     JumpDecelerate(JumpDeceleration);
+                }
                 break;
+
             case States.Fall:
                 if (InputManager.Instance.MovementVector.x != 0)
                 {
@@ -186,9 +203,12 @@ public class PlayerMovement : MonoBehaviour
                     FallWalk(InputManager.Instance.MovementVector.x);
                 }
                 else
+                {
                     FallDecelerate(FallDeceleration);
+                }
                 _jumpMultiplier = 1;
                 break;
+
             case States.Aim:
                 if (InputManager.Instance.MovementVector.x != 0)
                 {
@@ -196,14 +216,13 @@ public class PlayerMovement : MonoBehaviour
                     AimWalk(InputManager.Instance.MovementVector.x);
                 }
                 else
+                {
                     AimDecelerate(AimDeceleration);
+                }
                 break;
+
             case States.Death:
                 break;
-        }
-        if (IsBeingGrabbed())
-        {
-            GrabbedMovement();
         }
     }
 
@@ -212,6 +231,16 @@ public class PlayerMovement : MonoBehaviour
     // ---- MÉTODOS PÚBLICOS ----
     #region Métodos públicos
 
+    public void Grabbed()
+    {
+        isGrabbed = true;
+    }
+
+    public void Released()
+    {
+        isGrabbed = false;
+    }
+        
     public void SetIsRepairing(bool isRepairing)
     {
         this.isRepairing = isRepairing;
@@ -255,6 +284,18 @@ public class PlayerMovement : MonoBehaviour
                 animator.SetInteger("State", 3);
                 break;
         }
+    }
+
+    /// <summary>
+    /// Ajusta la velocidad del animador según la velocidad del jugador.
+    /// </summary>
+    private void UpdateAnimatorSpeed()
+    {
+        var clipName = animator.GetCurrentAnimatorClipInfo(0)[0].clip.name;
+        if (clipName == "IdleDamaged" || clipName == "Idle" || clipName == "death")
+            animator.speed = 1f;
+        else
+            animator.speed = _rb.velocity.magnitude / 5f;
     }
 
     /// <summary>
@@ -585,11 +626,15 @@ public class PlayerMovement : MonoBehaviour
     /// <summary>
     /// Aplica una fuerza al jugador hacia las coordenadas del alga cuando este está siendo agarrado.
     /// </summary>
+    #region GrabbedMovement
     private void GrabbedMovement()
     {
         _rb.AddForce((kelpGrabbing.transform.position - transform.position) * KelpForce);
     }
-    /// <summary>
+
+    #endregion
+    
+    /* <summary>
     /// Avisa al enemigo alga que tenía agarrado al jugador de que este se ha escapado.
     /// </summary>
     private void ReleaseKelp()
@@ -598,14 +643,15 @@ public class PlayerMovement : MonoBehaviour
         {
             kelpGrabbing.ReleasePlayer();
         }
-    }
+    }*/
+
     /// <summary>
     /// Devuelve true si el jugador está siendo agarrado por un alga.
     /// </summary>
     /// <returns></returns>
     private bool IsBeingGrabbed()
     {
-        if (kelpGrabbing != null && isGrabbed)
+        if (isGrabbed)
         {
             return true;
         }

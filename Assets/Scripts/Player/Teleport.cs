@@ -18,7 +18,7 @@ public class Teleport : MonoBehaviour
 {
     // ---- ATRIBUTOS DEL INSPECTOR ----
     #region Atributos del Inspector (serialized fields)
-    [SerializeField] private Vector3 coordenadas; // Coordenadas a las que se teletransportará el jugador
+    [SerializeField] private Transform teleport; // Coordenadas a las que se teletransportará el jugador
 
     #endregion
 
@@ -27,6 +27,9 @@ public class Teleport : MonoBehaviour
     private GameObject player; // Referencia al jugador
     private Canvas canva; // Referencia al canvas de la UI
     private bool hasEnter = false;
+
+    private Vector3 coordenadas;
+    
     #endregion
 
     // ---- MÉTODOS DE MONOBEHAVIOUR ----
@@ -42,13 +45,15 @@ public class Teleport : MonoBehaviour
     /// </summary>
     void Start()
     {
-        player = GameObject.FindGameObjectWithTag("Player"); //Se obtiene la referencia al jugador
+        player = GameManager.Instance.GetPlayerController(); //Se obtiene la referencia al jugador
         canva = gameObject.GetComponentInChildren<Canvas>(); //Se obtiene la referencia al canvas
         canva.gameObject.SetActive(false);  // Oculta el Canvas al inicio
         if (!GameManager.Instance.GetTeleport())
         {
             gameObject.SetActive(false); // Desactiva el objeto si el truco de teletransporte no está activado
         }
+
+        coordenadas = teleport.transform.position + new Vector3(0, 1, 0);
     }
     void Update()
     {

@@ -2,6 +2,7 @@
 // ChangeScene es un componente de pruebas para cambiar entre
 // escenas
 // Guillermo Jiménez Díaz
+//Modificado por: Tomás Arévalo Almagro
 // TemplateP1
 // Proyectos 1 - Curso 2024-25
 //---------------------------------------------------------
@@ -57,9 +58,16 @@ public class ChangeScene : MonoBehaviour
     {
         GameManager.Instance.ChangeScene(nextScene);
     }
-
+    public void ExitGame()
+    {
+#if UNITY_EDITOR
+        UnityEditor.EditorApplication.isPlaying = false; // Solo funciona dentro del editor
+#else
+        Application.Quit(); // Esto es lo que se usa en el build final
+#endif
+    }
     #endregion
-    
+
     // ---- MÉTODOS PRIVADOS ----
     #region Métodos Privados
     // Documentar cada método que aparece aquí
@@ -67,7 +75,7 @@ public class ChangeScene : MonoBehaviour
     // se nombren en formato PascalCase (palabras con primera letra
     // mayúscula, incluida la primera letra)
 
-    #endregion   
+    #endregion
 
 } // class ChangeScene 
 // namespace
