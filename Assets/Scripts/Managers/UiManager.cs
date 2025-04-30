@@ -139,7 +139,6 @@ public class UIManager : MonoBehaviour
             // Interpolamos entre la posición mínima y máxima
             float newY = Mathf.Lerp(minLiquidPosition, maxLiquidPosition, OxigenPercentage);
             OxygenCircle.anchoredPosition = new Vector2(OxygenCircle.anchoredPosition.x, newY);
-            //Debug.Log(newY);
         }       
     }
     public void UpdateTankState(bool isTankBroken)

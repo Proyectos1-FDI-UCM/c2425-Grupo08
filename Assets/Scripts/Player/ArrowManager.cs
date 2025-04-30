@@ -1,11 +1,12 @@
 //---------------------------------------------------------
-// Breve descripción del contenido del archivo
-// Responsable de la creación de este archivo
-// Nombre del juego
+// Script que lleva la lógica y gestión de las flechas que apuntan a los enemigos cuando atacan.
+// Miguel Ángel González López
+// Project Abyss
 // Proyectos 1 - Curso 2024-25
 //---------------------------------------------------------
 
 using System.Runtime.CompilerServices;
+using Unity.Mathematics;
 using UnityEngine;
 // Añadir aquí el resto de directivas using
 
@@ -26,7 +27,7 @@ public class ArrowManager: MonoBehaviour
     #endregion
     [SerializeField] private int MaxObjectives = 0;
     [SerializeField] private GameObject Arrow;
-    [SerializeField] private GameObject Test;
+    [SerializeField] GameObject test;
     
     // ---- ATRIBUTOS PRIVADOS ----
     #region Atributos Privados (private fields)
@@ -68,8 +69,8 @@ public class ArrowManager: MonoBehaviour
         // Reserva espacio para el suficiente número de flechas
         _arrowsBuffer._arrows = new _arrow[MaxObjectives];
         _arrowsBuffer._hat = 0;
+        CreateArrow(test);
 
-        CreateArrow(Test);
     }
     /// <summary>
     /// Update is called every frame, if the MonoBehaviour is enabled.
@@ -136,12 +137,25 @@ public class ArrowManager: MonoBehaviour
     /// <param name="objective"></param>
     /// <param name="arrow"></param>
     private void CalculateArrowPosition(GameObject objective, GameObject arrow){
+        // Posición
         Vector3 objectivePosition = objective.transform.position;
         Vector3 arrowPosition = transform.position; 
         Vector3 relativeDistance = objectivePosition - arrowPosition  ;
         relativeDistance.Normalize();
         arrow.transform.position = relativeDistance + arrowPosition;
+        // Rotación
+        //arrow.transform.rotation = Quaternion.AngleAxis(Mathf.Atan(relativeDistance.y/relativeDistance.x), Vector3.forward);
+        float angle = Mathf.Rad2Deg*(relativeDistance.y/relativeDistance.x+90);
 
+        switch (angle){
+            case > 180:
+                arrow.transform.rotation = Quaternion.Euler(0,0,Mathf.Rad2Deg*Mathf.Atan(relativeDistance.y/relativeDistance.x));
+            break;
+            default:
+                //arrow.transform.rotation = Quaternion.Euler(0,0,Mathf.Rad2Deg*Mathf.Atan(relativeDistance.y/relativeDistance.x));
+            break;
+        }
+        Debug.Log(Mathf.Abs(Mathf.Rad2Deg*Mathf.Atan(relativeDistance.y/relativeDistance.x)+90));
     }
 
     
