@@ -865,6 +865,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1787850614}
     m_Modifications:
+    - target: {fileID: 1401530635698089160, guid: 7e3a308e7288bec4fb250648524244c4, type: 3}
+      propertyPath: teleport
+      value: 
+      objectReference: {fileID: 1215175538}
     - target: {fileID: 2002721214192790762, guid: 7e3a308e7288bec4fb250648524244c4, type: 3}
       propertyPath: m_Name
       value: Teleport
@@ -1800,6 +1804,63 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!1001 &1278505886
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 264331215106716114, guid: 1ae96dc94d433d14c98469d433ffbac6, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 158.51228
+      objectReference: {fileID: 0}
+    - target: {fileID: 264331215106716114, guid: 1ae96dc94d433d14c98469d433ffbac6, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 96.95141
+      objectReference: {fileID: 0}
+    - target: {fileID: 264331215106716114, guid: 1ae96dc94d433d14c98469d433ffbac6, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -0.56998837
+      objectReference: {fileID: 0}
+    - target: {fileID: 264331215106716114, guid: 1ae96dc94d433d14c98469d433ffbac6, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 264331215106716114, guid: 1ae96dc94d433d14c98469d433ffbac6, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 264331215106716114, guid: 1ae96dc94d433d14c98469d433ffbac6, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 264331215106716114, guid: 1ae96dc94d433d14c98469d433ffbac6, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 264331215106716114, guid: 1ae96dc94d433d14c98469d433ffbac6, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 264331215106716114, guid: 1ae96dc94d433d14c98469d433ffbac6, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 264331215106716114, guid: 1ae96dc94d433d14c98469d433ffbac6, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6320237155410944517, guid: 1ae96dc94d433d14c98469d433ffbac6, type: 3}
+      propertyPath: m_Name
+      value: Pilot complemt
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 1ae96dc94d433d14c98469d433ffbac6, type: 3}
 --- !u!1001 &1299650327
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2119,6 +2180,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1787850614}
     m_Modifications:
+    - target: {fileID: 1401530635698089160, guid: 7e3a308e7288bec4fb250648524244c4, type: 3}
+      propertyPath: teleport
+      value: 
+      objectReference: {fileID: 1220154324}
     - target: {fileID: 2002721214192790762, guid: 7e3a308e7288bec4fb250648524244c4, type: 3}
       propertyPath: m_Name
       value: Teleport
@@ -2450,6 +2515,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1787850614}
     m_Modifications:
+    - target: {fileID: 1401530635698089160, guid: 7e3a308e7288bec4fb250648524244c4, type: 3}
+      propertyPath: teleport
+      value: 
+      objectReference: {fileID: 1215175538}
     - target: {fileID: 2002721214192790762, guid: 7e3a308e7288bec4fb250648524244c4, type: 3}
       propertyPath: m_Name
       value: Teleport
@@ -23349,7 +23418,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d490552a8ae42654b9f903ce8d040807, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  PlayerTransform: {fileID: 0}
+  PlayerTransform: {fileID: 1570695125}
   CameraOffset: {x: 0, y: 5}
   MinX: -56
   MaxX: 239
@@ -34792,6 +34861,7 @@ SceneRoots:
   m_Roots:
   - {fileID: 751940663}
   - {fileID: 1524535351}
+  - {fileID: 1278505886}
   - {fileID: 1397269255}
   - {fileID: 2135486458}
   - {fileID: 334594854}

@@ -297,7 +297,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   WalkAcceleration: 3
-  WalkDeceleration: 4
+  WalkDeceleration: 20
   WalkMaxSpeed: 2.15
   WalkDecelerationThreshold: 0.2
   JumpAcceleration: 2.5

@@ -163,6 +163,7 @@ public class PlayerMovement : MonoBehaviour
         switch (_state)
         {
             case States.Idle:
+                WalkDecelerate(WalkDeceleration);
                 break;
 
             case States.Walk:
@@ -173,7 +174,7 @@ public class PlayerMovement : MonoBehaviour
                 }
                 else
                 {
-                    WalkDecelerate(WalkDeceleration);
+                    
                 }
                 break;
 
