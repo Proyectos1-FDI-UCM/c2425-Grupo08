@@ -6,12 +6,14 @@
 // Proyectos 1 - Curso 2024-25
 //---------------------------------------------------------
 
-using TMPro;
+
 using UnityEngine;
+
+// Añadir aquí el resto de directivas using
 using UnityEngine.UI;
 using System.Collections;
-// Añadir aquí el resto de directivas using
-
+using UnityEngine.InputSystem;
+using TMPro;
 
 /// <summary>
 /// Antes de cada class, descripción de qué es y para qué sirve,
@@ -72,9 +74,9 @@ public class PilotManager : MonoBehaviour
     /// </summary>
     void Start()
     {
-        if (pilotText == null)
+        if (pilotContainer == null || pilotText == null)
         {
-            Debug.LogError("PilotManager: pilotText no asignado en el Inspector.");
+            Debug.LogError("PilotManager: pilotContainer o pilotText no asignados en el Inspector.");
             enabled = false;
             return;
         }
@@ -82,9 +84,9 @@ public class PilotManager : MonoBehaviour
         // Guardar fixedDeltaTime para restaurar después
         originalFixedDeltaTime = Time.fixedDeltaTime;
 
-        // Inicializar estado previo y ocultar texto
+        // Inicializar estado previo y ocultar UI completo
         wasConnected = IsGamepadConnected();
-        pilotText.gameObject.SetActive(false);
+        pilotContainer.SetActive(false);
     }
 
     /// <summary>
@@ -96,10 +98,18 @@ public class PilotManager : MonoBehaviour
         if (isConnected != wasConnected)
         {
             if (isConnected)
+            {
+                Cursor.visible = false;
+                Cursor.lockState = CursorLockMode.Locked;
+                Cursor.lockState = CursorLockMode.Confined;
                 ShowMessage("Mando conectado");
+            }
             else
+            {
+                Cursor.lockState = CursorLockMode.None;
+                Cursor.visible = true;
                 ShowMessage("Mando desconectado");
-
+            }
             wasConnected = isConnected;
         }
     }
@@ -122,6 +132,10 @@ public class PilotManager : MonoBehaviour
     // se nombren en formato PascalCase (palabras con primera letra
     // mayúscula, incluida la primera letra)
 
+    /// <summary>
+    /// Muestra el mensaje y pausa toda la lógica de juego.
+    /// </summary>
+    /// <param name="message">Texto a mostrar</param>
     private void ShowMessage(string message)
     {
         pilotText.text = message;
@@ -137,13 +151,13 @@ public class PilotManager : MonoBehaviour
     }
 
     /// <summary>
-    /// Oculta el texto tras un retardo en tiempo real y reanuda el juego.
+    /// Oculta el UI tras un retardo en tiempo real y reanuda el juego.
     /// </summary>
     private IEnumerator HideAfterDelay()
     {
         yield return new WaitForSecondsRealtime(messageDuration);
 
-        pilotText.gameObject.SetActive(false);
+        pilotContainer.SetActive(false);
 
         // Reanudar juego completo
         Time.timeScale = 1f;
@@ -153,20 +167,13 @@ public class PilotManager : MonoBehaviour
     }
 
     /// <summary>
-    /// Comprueba si hay al menos un mando de juego conectado.
+    /// Comprueba si hay al menos un Gamepad conectado usando el nuevo Input System.
     /// </summary>
-    /// <returns>True si hay un mando conectado; false en caso contrario.</returns>
+    /// <returns>True si hay al menos un Gamepad conectado; false en caso contrario.</returns>
     private bool IsGamepadConnected()
     {
-        var names = Input.GetJoystickNames();
-        foreach (var name in names)
-        {
-            if (!string.IsNullOrEmpty(name))
-                return true;
-        }
-        return false;
+        return Gamepad.all.Count > 0;
     }
-
     #endregion   
 
 } // class PilotManager 

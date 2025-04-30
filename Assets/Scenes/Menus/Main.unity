@@ -1560,47 +1560,15 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 5577240253907280554, guid: 1ae96dc94d433d14c98469d433ffbac6, type: 3}
-      propertyPath: pilotText
-      value: 
-      objectReference: {fileID: 1372477833130491640}
-    - target: {fileID: 5577240253907280554, guid: 1ae96dc94d433d14c98469d433ffbac6, type: 3}
-      propertyPath: pilotContainer
-      value: 
-      objectReference: {fileID: 1372477833130491641}
     - target: {fileID: 6320237155410944517, guid: 1ae96dc94d433d14c98469d433ffbac6, type: 3}
       propertyPath: m_Name
       value: Pilot complemt
-      objectReference: {fileID: 0}
-    - target: {fileID: 6320237155410944517, guid: 1ae96dc94d433d14c98469d433ffbac6, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 7177360984770520340, guid: 1ae96dc94d433d14c98469d433ffbac6, type: 3}
-      propertyPath: m_IsActive
-      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1ae96dc94d433d14c98469d433ffbac6, type: 3}
---- !u!114 &1372477833130491640 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 7534497409395616040, guid: 1ae96dc94d433d14c98469d433ffbac6, type: 3}
-  m_PrefabInstance: {fileID: 1372477833130491639}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!1 &1372477833130491641 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 7177360984770520340, guid: 1ae96dc94d433d14c98469d433ffbac6, type: 3}
-  m_PrefabInstance: {fileID: 1372477833130491639}
-  m_PrefabAsset: {fileID: 0}
 --- !u!114 &2172793596400679278
 MonoBehaviour:
   m_ObjectHideFlags: 0
