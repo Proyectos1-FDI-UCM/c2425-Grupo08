@@ -289,9 +289,21 @@ public class Enemy1PhantomAnglerfish : MonoBehaviour
     }
 
     IEnumerator DisintegrationDelay()
-    {
-        yield return new WaitForSeconds(disintegrationDelay);
+    {      
+        Color initialColor = spriteRenderer.color;
+
+        // Desvanece el enemigo en el lapso disintegrationDelay
+        for (float timer = 0f; timer < disintegrationDelay; timer += Time.deltaTime)
+        {
+            float alpha = Mathf.Lerp(initialColor.a, 0, timer / disintegrationDelay);
+            
+            spriteRenderer.color = new Color(initialColor.r, initialColor.g, initialColor.b, alpha);
+
+            yield return null;
+        }
+
         GetComponentInParent<Respawner>().EnemyDead(player);
+
         Destroy(gameObject);
     }
 

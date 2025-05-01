@@ -59,7 +59,7 @@ public class Door : MonoBehaviour
 
         else
 
-            Console.SetMessage("Status...\nInhabilitado.\n\nEnergía insuficiente...\n\nGeneradores reparados: 0/1");
+            Console.SetMessage("Status...\nInhabilitado\n\nGeneradores reparados: 0/1");
 
         levelCompleted = LevelManager.Instance.LevelCompleted();
         // Consulta si se ha completado el nivel
