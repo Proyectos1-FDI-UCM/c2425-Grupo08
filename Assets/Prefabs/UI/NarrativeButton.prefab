@@ -59,7 +59,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6f311366420a0684e8ae6e089a744189, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  scaleMultiplier: 1.25
+  scaleMultiplier: 1.5
   narrativeTitle: "T\xEDtulo Narrativo"
   narrativeText: "Aqu\xED va el texto narrativo correspondiente\n\nfjsgkdfkgadfgjnakdgnaslkdnflsakjdfnlaskdjfnlaskjnd
     fkjasd fkjasndfkjasndf\xF1kjandkljadjnfalkjdnflaskjdnfas"
@@ -114,12 +114,12 @@ MonoBehaviour:
     m_SelectOnRight: {fileID: 0}
   m_Transition: 1
   m_Colors:
-    m_NormalColor: {r: 0.8113208, g: 0.8113208, b: 0.8113208, a: 0.6862745}
-    m_HighlightedColor: {r: 1, g: 1, b: 1, a: 1}
-    m_PressedColor: {r: 0.8773585, g: 0.8773585, b: 0.8773585, a: 1}
-    m_SelectedColor: {r: 1, g: 1, b: 1, a: 1}
-    m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
-    m_ColorMultiplier: 1
+    m_NormalColor: {r: 0.36862746, g: 0.5803922, b: 0.38431376, a: 0.6862745}
+    m_HighlightedColor: {r: 0.49724102, g: 0.6981132, b: 0.55120665, a: 1}
+    m_PressedColor: {r: 0.49803925, g: 0.69803923, b: 0.5529412, a: 1}
+    m_SelectedColor: {r: 0.49803925, g: 0.69803923, b: 0.5529412, a: 1}
+    m_DisabledColor: {r: 0.49803925, g: 0.69803923, b: 0.5529412, a: 0.5019608}
+    m_ColorMultiplier: 1.47
     m_FadeDuration: 0.1
   m_SpriteState:
     m_HighlightedSprite: {fileID: 0}
