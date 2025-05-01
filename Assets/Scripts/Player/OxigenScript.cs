@@ -9,6 +9,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using System.Collections;
+using Unity.Mathematics;
 
 
 /// <summary>
@@ -28,6 +29,8 @@ public class OxigenScript : MonoBehaviour
     [SerializeField] private int maxOxigen; // La cantidad máxima de oxígeno que puede tener el jugador
     [SerializeField] private float oxigenDecayHealthy; // La cantidad de oxígeno que se pierde por segundo al estar en estado "sano"
     [SerializeField] private float oxigenDecayBroken; // La cantidad de oxígeno que se pierde por segundo al estar en estado "roto"
+    [SerializeField] private GameObject Bubbles;
+    [SerializeField] private GameObject BubbleSpot;
 
     //[SerializeField] private Text oxigenText; // El texto que muestra la cantidad de oxígeno que tiene el jugador
 
@@ -84,6 +87,7 @@ public class OxigenScript : MonoBehaviour
         if (tankBroken)
         {
             currentOxigen -= oxigenDecayBroken * Time.deltaTime;
+
         }
         else
         {
@@ -130,6 +134,7 @@ public class OxigenScript : MonoBehaviour
         {
             tankBroken = true;
             GameManager.Instance.UpdateTankStateGM(tankBroken);
+            Instantiate(Bubbles,BubbleSpot.transform.position,quaternion.identity,this.gameObject.transform);
         }      
     }
     public void RepairTank() // Método que se llama cuando el tanque de oxígeno es reparado

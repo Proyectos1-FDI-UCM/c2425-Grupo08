@@ -228,6 +228,7 @@ Transform:
   - {fileID: 7066180161276799980}
   - {fileID: 1726581604558630608}
   - {fileID: 3003217813677513396}
+  - {fileID: 2277380246723315478}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!50 &4710599616024909938
@@ -272,6 +273,8 @@ MonoBehaviour:
   maxOxigen: 350
   oxigenDecayHealthy: 1
   oxigenDecayBroken: 2
+  Bubbles: {fileID: 3201754607077003509, guid: e790a47eb744da578a88e64c0fd3ee6c, type: 3}
+  BubbleSpot: {fileID: 8296679645369719472}
 --- !u!114 &2822911129013704682
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1101,3 +1104,34 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!1 &8296679645369719472
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2277380246723315478}
+  m_Layer: 0
+  m_Name: BubbleSpot
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2277380246723315478
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8296679645369719472}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0.298, y: 0.312, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2181331470842799619}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
