@@ -53,6 +53,7 @@ public class OxigenScript : MonoBehaviour
     private bool inmortal = false; // Indica si el jugador es inmortal o no
 
     private Animator animator;
+    private GameObject currentBubbles;
 
     #endregion
 
@@ -134,7 +135,7 @@ public class OxigenScript : MonoBehaviour
         {
             tankBroken = true;
             GameManager.Instance.UpdateTankStateGM(tankBroken);
-            Instantiate(Bubbles,BubbleSpot.transform.position,quaternion.identity,this.gameObject.transform);
+            currentBubbles = Instantiate(Bubbles,BubbleSpot.transform.position,quaternion.identity,this.gameObject.transform);
         }      
     }
     public void RepairTank() // Método que se llama cuando el tanque de oxígeno es reparado
@@ -158,6 +159,7 @@ public class OxigenScript : MonoBehaviour
 
             isDead = true;
             AudioManager.instance.PlaySFX(SFXType.GameOver, audioSource);
+            Destroy(currentBubbles);
             animator.SetTrigger("Death");
             player.SetIsDeath(true);
 
