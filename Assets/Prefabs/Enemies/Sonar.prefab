@@ -114,11 +114,11 @@ MonoBehaviour:
   attackSpeed: 7
   debug: 1
   sonarFrequency: 5
-  shadowDelay: 0.2
-  sonarChargeTime: 1
+  shadowDelay: 0.5
+  sonarChargeTime: 1.5
   sonarHearingDistance: 20
   sonarAttackDistance: 15
-  patrolAnimationSpeed: 0.3
+  patrolAnimationSpeed: 0.2
   attackAnimationSpeed: 0.7
   maxHearingDistance: 20
 --- !u!82 &5455179544005079292
@@ -598,7 +598,7 @@ Transform:
   m_GameObject: {fileID: 8713454397173249888}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -3.13, y: 0.15, z: -0.009166434}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
