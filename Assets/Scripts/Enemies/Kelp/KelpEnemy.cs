@@ -4,10 +4,7 @@
 // Proyectos 1 - Curso 2024-25
 //---------------------------------------------------------
 
-using System;
-using System.Data.Common;
 using UnityEngine;
-
 
 /// <summary>
 /// Clase del enemigo alga. Tiene toda la lógica del alga, pero el movimiento lo ejecuta el jugador.
@@ -74,7 +71,7 @@ public class KelpEnemy : MonoBehaviour
 
         else
 
-            Console.SetMessage("Pulsa {key_jump}");
+            Console.SetMessage("{key_jump}");
     }
 
     /// <summary>

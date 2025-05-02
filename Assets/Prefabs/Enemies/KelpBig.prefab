@@ -239,7 +239,7 @@ Transform:
   m_GameObject: {fileID: 1153647565688602950}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 1.185, y: -0.071, z: 0}
+  m_LocalPosition: {x: -0.217, y: -0.071, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -451,7 +451,7 @@ Transform:
   m_GameObject: {fileID: 2985529439676398719}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -1.254, y: -0.535, z: 0}
+  m_LocalPosition: {x: -1.107, y: -0.513, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -545,6 +545,7 @@ GameObject:
   - component: {fileID: 2794804810030357895}
   - component: {fileID: 5554417396149965987}
   - component: {fileID: 1784346865106711871}
+  - component: {fileID: 6784146072370724814}
   m_Layer: 0
   m_Name: Terminal
   m_TagString: Untagged
@@ -584,11 +585,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ef9dc41b9c2f0e24bb92a91e02a26c99, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fadeSpeed: 2.75
+  fadeSpeed: 9
   timeDelay: 0.001
   initPause: 0
   message: 
-  collisionTarget: {fileID: 0}
 --- !u!82 &3806759172790349073
 AudioSource:
   m_ObjectHideFlags: 0
@@ -784,6 +784,18 @@ MonoBehaviour:
   m_DefaultSpriteDPI: 96
   m_DynamicPixelsPerUnit: 12
   m_PresetInfoIsWorld: 1
+--- !u!225 &6784146072370724814
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3280312119458086903}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
 --- !u!1 &4981654825057629798
 GameObject:
   m_ObjectHideFlags: 0
@@ -811,7 +823,7 @@ Transform:
   m_GameObject: {fileID: 4981654825057629798}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 1.547, y: -0.539, z: 0}
+  m_LocalPosition: {x: 1.053, y: -0.539, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -902,7 +914,7 @@ GameObject:
   - component: {fileID: 7455074599822903484}
   - component: {fileID: 8308121572241759445}
   - component: {fileID: 8283015255018681911}
-  - component: {fileID: 2945338362748034072}
+  - component: {fileID: 6042828304523649749}
   m_Layer: 0
   m_Name: KelpBig
   m_TagString: Untagged
@@ -999,7 +1011,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   grabRadius: 2.5
-  damage: 0
   keyPresses: 8
   delay: 0.5
 --- !u!95 &8283015255018681911
@@ -1023,8 +1034,8 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!70 &2945338362748034072
-CapsuleCollider2D:
+--- !u!58 &6042828304523649749
+CircleCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -1052,12 +1063,12 @@ CapsuleCollider2D:
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.028404236, y: 0.013069987}
-  m_Size: {x: 3.2493439, y: 3.3300064}
-  m_Direction: 0
+  m_Offset: {x: 0.00012564659, y: -0.17169917}
+  serializedVersion: 2
+  m_Radius: 1.3079818
 --- !u!1 &6253484509508195125
 GameObject:
   m_ObjectHideFlags: 0
@@ -1254,7 +1265,7 @@ MonoBehaviour:
   m_enableAutoSizing: 0
   m_fontSizeMin: 0
   m_fontSizeMax: 63.8
-  m_fontStyle: 0
+  m_fontStyle: 16
   m_HorizontalAlignment: 2
   m_VerticalAlignment: 1024
   m_textAlignment: 65535

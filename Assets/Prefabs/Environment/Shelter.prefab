@@ -184,6 +184,7 @@ GameObject:
   - component: {fileID: 4690528795325124845}
   - component: {fileID: 5086048756615117419}
   - component: {fileID: 6775836642237801413}
+  - component: {fileID: 7277719120512906012}
   m_Layer: 0
   m_Name: Terminal
   m_TagString: Untagged
@@ -228,7 +229,6 @@ MonoBehaviour:
   initPause: 0.55
   message: "Status...\nInhabilitado.\n\nEnerg\xEDa insuficiente...\n\nGeneradores
     reparados: 0/1"
-  collisionTarget: {fileID: 0}
 --- !u!82 &3155154807646787746
 AudioSource:
   m_ObjectHideFlags: 0
@@ -437,6 +437,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sceneIndex: 0
+--- !u!225 &7277719120512906012
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1539610060806878552}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
 --- !u!1 &1695718121762383915
 GameObject:
   m_ObjectHideFlags: 0

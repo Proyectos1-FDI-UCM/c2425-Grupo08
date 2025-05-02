@@ -101,7 +101,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   grabRadius: 1.35
-  damage: 0
   keyPresses: 8
   delay: 0.5
 --- !u!95 &6639035344110276675
@@ -226,7 +225,7 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4287351171
+    rgba: 4282553657
   m_fontColor: {r: 0.22352941, g: 0.58431375, b: 0.25882354, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
@@ -250,7 +249,7 @@ MonoBehaviour:
   m_enableAutoSizing: 0
   m_fontSizeMin: 0
   m_fontSizeMax: 63.8
-  m_fontStyle: 0
+  m_fontStyle: 16
   m_HorizontalAlignment: 2
   m_VerticalAlignment: 1024
   m_textAlignment: 65535
@@ -309,6 +308,7 @@ GameObject:
   - component: {fileID: 5543390525908455514}
   - component: {fileID: 5906731128035443115}
   - component: {fileID: 5961451606620702315}
+  - component: {fileID: 4092780795728937413}
   m_Layer: 0
   m_Name: Terminal
   m_TagString: Untagged
@@ -348,11 +348,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ef9dc41b9c2f0e24bb92a91e02a26c99, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fadeSpeed: 2.75
+  fadeSpeed: 9
   timeDelay: 0.001
   initPause: 0
   message: 
-  collisionTarget: {fileID: 0}
 --- !u!82 &6359996748706376078
 AudioSource:
   m_ObjectHideFlags: 0
@@ -548,3 +547,15 @@ MonoBehaviour:
   m_DefaultSpriteDPI: 96
   m_DynamicPixelsPerUnit: 12
   m_PresetInfoIsWorld: 1
+--- !u!225 &4092780795728937413
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5524184530968215438}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0

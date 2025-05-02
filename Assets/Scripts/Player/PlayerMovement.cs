@@ -116,7 +116,7 @@ public class PlayerMovement : MonoBehaviour
     /// Valor de la fuerza que se aplica al jugador cuando está siendo agarrado por un alga.
     /// Casi que es una constante, ya que de ser más/menos el jugador no queda atrapado
     /// </summary>
-    private float KelpForce = 18f;
+    private float KelpForce = 30f;
 
     #endregion
 

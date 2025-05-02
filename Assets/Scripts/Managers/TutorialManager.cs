@@ -17,7 +17,7 @@ public class TerminalManager : MonoBehaviour
         for (int i = 0; i < terminales.Count; i++)
         {
             int index = i;
-            terminales[i].OnMessageComplete += () => TerminalFinalizado(index);
+            //terminales[i].OnMessageComplete += () => TerminalFinalizado(index);
         }
     }
 

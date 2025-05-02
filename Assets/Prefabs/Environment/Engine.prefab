@@ -231,6 +231,7 @@ GameObject:
   - component: {fileID: 750805817022270505}
   - component: {fileID: 7096700340002137675}
   - component: {fileID: 5211210606844372604}
+  - component: {fileID: 3793009449008662534}
   m_Layer: 0
   m_Name: Terminal
   m_TagString: Untagged
@@ -274,7 +275,6 @@ MonoBehaviour:
   timeDelay: 0.03
   initPause: 0.5
   message: "Mant\xE9n {key_interact} para reparar el generador"
-  collisionTarget: {fileID: 0}
 --- !u!82 &8387926350992307236
 AudioSource:
   m_ObjectHideFlags: 0
@@ -470,6 +470,18 @@ MonoBehaviour:
   m_DefaultSpriteDPI: 96
   m_DynamicPixelsPerUnit: 12
   m_PresetInfoIsWorld: 1
+--- !u!225 &3793009449008662534
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6823873943326764837}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
 --- !u!1 &8339163450924880957
 GameObject:
   m_ObjectHideFlags: 0

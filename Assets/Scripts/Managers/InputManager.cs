@@ -275,7 +275,7 @@ public class InputManager : MonoBehaviour
 
         else // Si no hay gamepad o no hay binding para el gamepad, usamos el teclado
 
-            key = "ESPACIO";
+            key = "Espacio";
 
         return key;
     }
@@ -307,7 +307,7 @@ public class InputManager : MonoBehaviour
 
         else // Si no hay gamepad o no hay binding para el gamepad, usamos el teclado
 
-            key = "click derecho";
+            key = "Click derecho";
 
         return key;
     }
@@ -339,7 +339,7 @@ public class InputManager : MonoBehaviour
 
         else // Si no hay gamepad o no hay binding para el gamepad, usamos el teclado
 
-            key = "click izquierdo";
+            key = "Click izquierdo";
 
         return key;
     }

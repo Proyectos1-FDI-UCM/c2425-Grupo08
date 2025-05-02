@@ -42,22 +42,15 @@ public class Terminal : MonoBehaviour
     [TextArea(3, 10)]
     [SerializeField] private string message;
 
-    [Header("Optional Settings")]
-    [Space]
-    [Tooltip("Objeto alternativo con el que se comprueba la colisión (por defecto Player)")]
-    [SerializeField] private GameObject collisionTarget;
-
-    public System.Action OnMessageComplete; // revisar
-
     #endregion
 
     // ---- ATRIBUTOS PRIVADOS ----
     #region Atributos Privados
 
     // Declaración de textos, colores y audio
+    private CanvasGroup canvas;
     private TMP_Text textTMP;
     private AudioSource audioSource;
-    //private Color textColor; // Color del texto (para controlar su alfa)
 
     // Contadores de tiempo
     private float init = 0f; // Contador de espera para antes de empezar a escribir. (pausa inicial)
@@ -71,10 +64,9 @@ public class Terminal : MonoBehaviour
     private string currentStr; // Almacena el texto actual
     private bool stop = false; // Indica si se debe detener la escritura progresiva
 
-    // Boleana Mensaje completo: revisar
-    private bool messageComplete = false;
-
-    private string mark = "<mark=#000000fa padding=“5, 5, 5, 5”>";
+    // Añade fondo a los terminales (con una fuente fallback)
+    //private string mark = "<mark=#000000fa padding=“5, 5, 5, 5”>";
+    private string mark = ""; // Por defecto sin fondo
 
     #endregion
 
@@ -86,6 +78,18 @@ public class Terminal : MonoBehaviour
     /// </summary>
     void Awake()
     {
+        // Inicializa el componente CanvasGroup
+
+        canvas = GetComponent<CanvasGroup>();
+
+        if (canvas == null)
+
+            Debug.LogError("No se ha encontrado el componente CanvasGroup en el objeto.");
+
+        else // Si se encuentra el componente CanvasGroup
+
+            canvas.alpha = 0f; // Inicializa el texto a oculto
+
         // Inicializa el componente TMP_Text
 
         textTMP = GetComponentInChildren<TMP_Text>(); // Obtiene el componente TMP_Text del objeto actual
@@ -93,10 +97,6 @@ public class Terminal : MonoBehaviour
         if (textTMP == null)
 
             Debug.LogError("No se ha encontrado el componente AudioSource en el objeto ni en sus hijos.");
-
-        else // Si se encuentra el componente TMP_Text
-
-            textTMP.alpha = 0f; // Inicializa el texto a oculto
 
         // Inicializa el componente AudioSource
 
@@ -219,7 +219,7 @@ public class Terminal : MonoBehaviour
     {
         bool visible;
 
-        if (textTMP.alpha > 0.1f)
+        if (canvas.alpha > 0.1f)
 
             visible = true; // Si el texto es completamente visible
 
@@ -229,8 +229,6 @@ public class Terminal : MonoBehaviour
         
         return visible; // Devuelve el estado de visibilidad
     }
-
-    public bool IsMessageComplete() => messageComplete;
 
     #endregion
 
@@ -253,7 +251,7 @@ public class Terminal : MonoBehaviour
     /// </summary>
     private void LerpAlpha()
     {
-        textTMP.alpha = Mathf.MoveTowards(textTMP.alpha, alpha, fadeSpeed * Time.deltaTime);
+        canvas.alpha = Mathf.MoveTowards(canvas.alpha, alpha, fadeSpeed * Time.deltaTime);
     }
 
     /// <summary>
@@ -302,12 +300,6 @@ public class Terminal : MonoBehaviour
                 }
             }
         }
-
-        if (index >= message.Length && !messageComplete) // Revisar
-        {
-            messageComplete = true;
-            OnMessageComplete?.Invoke();
-        }
     }
 
     /// <summary>
@@ -332,16 +324,7 @@ public class Terminal : MonoBehaviour
     /// <param name="other">El objeto con el que se ha colisionado.</param>
     private void OnTriggerEnter2D(Collider2D other)
     {
-        // Si collisionTarget está asignado, solo reacciona a ese objeto
-        if (collisionTarget != null)
-        {
-            if (other.gameObject == collisionTarget)
-
-                Write(message);
-        }
-
-        // Si no se comprueba la del jugador por defecto
-        else if (other.GetComponent<PlayerMovement>() != null)
+        if (other.GetComponent<PlayerMovement>() != null)
 
             Write(message);
     }
@@ -352,14 +335,7 @@ public class Terminal : MonoBehaviour
     /// <param name="other">El objeto con el que se ha colisionado.</param>
     private void OnTriggerExit2D(Collider2D other)
     {
-        if (collisionTarget != null)
-        {
-            if (other.gameObject == collisionTarget)
-
-                Hide();
-        }
-
-        else if (other.GetComponent<PlayerMovement>() != null)
+        if (other.GetComponent<PlayerMovement>() != null)
 
             Hide();
     }
