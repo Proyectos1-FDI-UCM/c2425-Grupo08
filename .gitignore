@@ -78,3 +78,4 @@ crashlytics-build.properties
 # Temporary auto-generated build files
 -code.header
 *.blob
+/*.zip
