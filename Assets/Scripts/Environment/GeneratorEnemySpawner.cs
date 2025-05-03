@@ -1,7 +1,7 @@
 //---------------------------------------------------------
-// Breve descripción del contenido del archivo
-// Responsable de la creación de este archivo
-// Nombre del juego
+// Este script se encarga de spawnear rapes alrededor del motor mientras el jugador lo esté reparando
+// Javier Zazo Morillo
+// Project Abyss
 // Proyectos 1 - Curso 2024-25
 //---------------------------------------------------------
 
@@ -11,8 +11,7 @@ using UnityEngine;
 
 
 /// <summary>
-/// Antes de cada class, descripción de qué es y para qué sirve,
-/// usando todas las líneas que sean necesarias.
+/// Este script se encarga de spawnear rapes alrededor del motor mientras el jugador lo esté reparando
 /// </summary>
 public class GeneratorEnemySpawner : MonoBehaviour
 {

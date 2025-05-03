@@ -2795,6 +2795,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
+    - target: {fileID: 4110250732275042765, guid: 10a2a23cb1a6fc344864f80da2c1702d, type: 3}
+      propertyPath: maxOxigen
+      value: 50
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -23228,6 +23232,75 @@ Mesh:
     offset: 0
     size: 0
     path: 
+--- !u!1 &1663889018
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1663889020}
+  - component: {fileID: 1663889019}
+  - component: {fileID: 1663889021}
+  m_Layer: 0
+  m_Name: OxigenEffect
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1663889019
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1663889018}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 172515602e62fb746b5d573b38a5fe58, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_IsGlobal: 1
+  priority: 0
+  blendDistance: 0
+  weight: 1
+  sharedProfile: {fileID: 11400000, guid: 433056a4c9b781547a188d740f8b8182, type: 2}
+--- !u!4 &1663889020
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1663889018}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 192.06587, y: 0.646188, z: 0.33668905}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1663889021
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1663889018}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 03a3def8e0cc7ef40bcaadaa979c5fa8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  oscilationSpeed: 2
+  minPostExposureValue: -8
+  maxPostExposureValue: 0
+  postExposureOscilationRange: 2
+  minChromaticAberrationValue: 0
+  maxChromaticAberrationValue: 1
+  chromaticAberrationRange: 1
 --- !u!4 &1666030854 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4407587027861858106, guid: 5c5031b787e12754280e922baf0d1b2f, type: 3}
@@ -35132,3 +35205,4 @@ SceneRoots:
   - {fileID: 790913135}
   - {fileID: 1845664633}
   - {fileID: 935075424}
+  - {fileID: 1663889020}

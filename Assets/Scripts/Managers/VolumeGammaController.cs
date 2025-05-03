@@ -54,8 +54,8 @@ public class VolumeGammaController : MonoBehaviour
 
             // Inicializar el slider con el valor actual de Gamma
             float currentGamma = liftGammaGain.gamma.value.x;
-            gammaSlider.minValue = 0.1f;
-            gammaSlider.maxValue = 3.0f;
+            gammaSlider.minValue = -0.5f;
+            gammaSlider.maxValue = 1.0f;
             gammaSlider.value = currentGamma;
 
 

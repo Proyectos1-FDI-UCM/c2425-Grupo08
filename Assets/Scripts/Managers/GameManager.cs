@@ -52,6 +52,8 @@ public class GameManager : MonoBehaviour
     private bool inmortal = false;
     private bool teleportcheat = false;
 
+    private OxigenEffectsController oxigenEffectsController;
+
     #endregion
 
     // ---- MÉTODOS DE MONOBEHAVIOUR ----
@@ -253,12 +255,21 @@ public class GameManager : MonoBehaviour
     /// </summary>
     /// <param name="OxygenPorcentage">Porcentaje de oxigeno</param>
 
+    public void InitializeOxigenEffects(OxigenEffectsController oxigenEffectsController)
+    {
+        this.oxigenEffectsController = oxigenEffectsController;
+    }
+    /// <summary>
+    /// Este método sirve para utilizar el nivel de oxígeno en cualquier script
+    /// </summary>
+    /// <param name="oxygenPercentage"></param>
     public void UpdateOxygenGM(float oxygenPercentage)
     {
 
         if (UIManager.Instance != null)
         {
             uiManager.UpdateOxygenUI(oxygenPercentage);
+            oxigenEffectsController.AdjustOxigenEffects(oxygenPercentage);
         }
     }
     public void UpdateTankStateGM(bool isTankBroken)
