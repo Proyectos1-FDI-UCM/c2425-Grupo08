@@ -55,11 +55,11 @@ public class Door : MonoBehaviour
 
         if (Console == null)
 
-            Debug.LogError("No se ha encontrado la consola en la puerta.");
+            Debug.LogError("No se ha encontrado la consola en la puerta");
 
         else
 
-            Console.SetMessage("Status...\nInhabilitado\n\nGeneradores reparados: 0/1");
+            Console.SetMessage("Status: \nInhabilitado\n\nGeneradores reparados: 0/1");
 
         levelCompleted = LevelManager.Instance.LevelCompleted();
         // Consulta si se ha completado el nivel
@@ -98,7 +98,7 @@ public class Door : MonoBehaviour
 
             if (levelCompleted && Console != null)
         {
-            Console.Write("Status...\nHabilitado!\n\nPresiona {key_interact} para entrar al refugio.");
+            Console.Write("Status: \nHabilitado\n\nPresiona {key_interact} para entrar al refugio");
             // Muestra el mensaje de que se puede entrar al refugio
         }
 

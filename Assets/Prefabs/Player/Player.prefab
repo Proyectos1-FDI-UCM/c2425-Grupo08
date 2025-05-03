@@ -960,7 +960,7 @@ MonoBehaviour:
   focusIntensity: 70
   flashMultiplier: 3
   flashFalloff: 4.5
-  colliderTime: 0.01
+  colliderTime: 0.015
   playerSprite: {fileID: 2302555880213678727}
 --- !u!82 &3876408090011034337
 AudioSource:

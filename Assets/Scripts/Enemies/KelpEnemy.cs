@@ -71,7 +71,7 @@ public class KelpEnemy : MonoBehaviour
 
         else
 
-            Console.SetMessage("{key_jump}");
+            Console.SetMessage("Pulsa {key_jump}");
     }
 
     /// <summary>

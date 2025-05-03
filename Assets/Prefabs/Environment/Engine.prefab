@@ -633,7 +633,7 @@ MonoBehaviour:
   loadTime: 30
   finalanimationspeed: 4
   finalsoundspeed: 4
-  repairCompleteMsg: "Energ\xEDa restablecida..."
+  repairCompleteMsg: "Energ\xEDa restablecida"
 --- !u!114 &7161606036894806838
 MonoBehaviour:
   m_ObjectHideFlags: 0

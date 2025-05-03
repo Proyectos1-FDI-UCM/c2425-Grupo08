@@ -227,8 +227,7 @@ MonoBehaviour:
   fadeSpeed: 2
   timeDelay: 0.027
   initPause: 0.55
-  message: "Status...\nInhabilitado.\n\nEnerg\xEDa insuficiente...\n\nGeneradores
-    reparados: 0/1"
+  message: 
 --- !u!82 &3155154807646787746
 AudioSource:
   m_ObjectHideFlags: 0

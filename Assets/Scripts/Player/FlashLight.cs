@@ -254,7 +254,7 @@ public class FlashLight : MonoBehaviour
             Vector2 gamepadInput = InputManager.Instance.GetRightStickInput();
 
             // Solo rotar si el joystick supera el radio inputDeadzone
-            if (gamepadInput.magnitude > inputDeadzone)
+            if (gamepadInput.magnitude > inputDeadzone + 0.5f)
             {
                 float angle = Mathf.Atan2(gamepadInput.y, gamepadInput.x) * Mathf.Rad2Deg;
                 transform.rotation = Quaternion.Euler(0, 0, Mathf.LerpAngle(transform.rotation.eulerAngles.z, angle, Time.deltaTime * aimSpeed));

@@ -27,7 +27,7 @@ public class Motor : MonoBehaviour
 
     // Mensaje mostrado al completar la reparación
     [TextArea(2, 5)]
-    [SerializeField] private string repairCompleteMsg = "Generador reparado...\nEnergía restablecida\nRefugio desbloqueado!";
+    [SerializeField] private string repairCompleteMsg;
 
     #endregion
 
