@@ -499,7 +499,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0}
   m_AnchorMax: {x: 0.5, y: 0}
-  m_AnchoredPosition: {x: -2, y: 208}
+  m_AnchoredPosition: {x: -2, y: 183}
   m_SizeDelta: {x: 911.1063, y: 319.3825}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &416219822
@@ -607,11 +607,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 7001314624494379611, guid: 878714b00ce9ed94ea9e28eb09be9e1f, type: 3}
       propertyPath: m_Pivot.x
-      value: 0.5
+      value: 0.5000004
       objectReference: {fileID: 0}
     - target: {fileID: 7001314624494379611, guid: 878714b00ce9ed94ea9e28eb09be9e1f, type: 3}
       propertyPath: m_Pivot.y
-      value: 0.5
+      value: 0.5000006
       objectReference: {fileID: 0}
     - target: {fileID: 7001314624494379611, guid: 878714b00ce9ed94ea9e28eb09be9e1f, type: 3}
       propertyPath: m_AnchorMax.x
@@ -667,11 +667,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7001314624494379611, guid: 878714b00ce9ed94ea9e28eb09be9e1f, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: -238.6
+      value: -185.20132
       objectReference: {fileID: 0}
     - target: {fileID: 7001314624494379611, guid: 878714b00ce9ed94ea9e28eb09be9e1f, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -247.2
+      value: -225
       objectReference: {fileID: 0}
     - target: {fileID: 7001314624494379611, guid: 878714b00ce9ed94ea9e28eb09be9e1f, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -691,18 +691,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7025799074717673256, guid: 878714b00ce9ed94ea9e28eb09be9e1f, type: 3}
       propertyPath: narrativeText
-      value: "Ves una hoja con el borde desgarrado. En ella, un peque\xF1o texto
-        apenas legible:\n\nRealiz\xE9 las operaciones en la calculadora gigante de
-        la Estaci\xF3n. Mi razonamiento fue el siguiente: los datos proporcionados
-        por los mapas celestes no deber\xEDan coincidir a la perfecci\xF3n. con los
-        datos facilitados por el sateloide. O no necesariamente, puesto que el sateloide
-        estaba sometido a unas perturbaciones muy complicadas, por efecto de las
-        fuerzas gravitacionales de Solaris, de los dos soles que giraban a su alrededor,
-        as\xED como de los cambios gravitacionales locales inducidos por el oc\xE9ano."
+      value: "Para: Refugio1\nDesde: secretariabdc@gmail.com\nAsunto: Rescate\n\nHola.\nNos
+        ha llegado tu situaci\xF3n a la central, esperemos que puedas recibir este
+        mensaje. Su c\xE1psula se ha averiado por lo que no podr\xE1s subir a la
+        superficie hasta que se le consiga enviar otra c\xE1psula.\n\nEsperemos que
+        mejore su situaci\xF3n.\n\nMucha suerte."
       objectReference: {fileID: 0}
     - target: {fileID: 7025799074717673256, guid: 878714b00ce9ed94ea9e28eb09be9e1f, type: 3}
       propertyPath: narrativeTitle
-      value: Camarote
+      value: Mensaje 1
       objectReference: {fileID: 0}
     - target: {fileID: 8158885962986307221, guid: 878714b00ce9ed94ea9e28eb09be9e1f, type: 3}
       propertyPath: m_Name
@@ -710,7 +707,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8158885962986307221, guid: 878714b00ce9ed94ea9e28eb09be9e1f, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -768,11 +765,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 7001314624494379611, guid: 878714b00ce9ed94ea9e28eb09be9e1f, type: 3}
       propertyPath: m_Pivot.x
-      value: 0.5
+      value: 0.49999905
       objectReference: {fileID: 0}
     - target: {fileID: 7001314624494379611, guid: 878714b00ce9ed94ea9e28eb09be9e1f, type: 3}
       propertyPath: m_Pivot.y
-      value: 0.5
+      value: 0.49999982
       objectReference: {fileID: 0}
     - target: {fileID: 7001314624494379611, guid: 878714b00ce9ed94ea9e28eb09be9e1f, type: 3}
       propertyPath: m_AnchorMax.x
@@ -840,11 +837,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7001314624494379611, guid: 878714b00ce9ed94ea9e28eb09be9e1f, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 593
+      value: 439.30258
       objectReference: {fileID: 0}
     - target: {fileID: 7001314624494379611, guid: 878714b00ce9ed94ea9e28eb09be9e1f, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -97
+      value: -94
       objectReference: {fileID: 0}
     - target: {fileID: 7001314624494379611, guid: 878714b00ce9ed94ea9e28eb09be9e1f, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -864,23 +861,18 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7025799074717673256, guid: 878714b00ce9ed94ea9e28eb09be9e1f, type: 3}
       propertyPath: narrativeText
-      value: "Un art\xEDculo cient\xEDfico con marcas circulares marrones. Probablemente
-        de apoyar el caf\xE9 de manera descuidada sobre el documento.\n\n[...] La
-        observaci\xF3n de un mimoide durante sus d\xEDas felices (aunque, para ser
-        m\xE1s exactos, son d\xEDas felices para el investigador que se ocupa de
-        ellos) puede constituir una fuente de sensaciones inolvidables. Se dan casos
-        de \"vuelos creativos\" al comienzo de su incre\xEDble sobreproducci\xF3n.
-        Crea entonces variedades propias de las formas externas, o bien sus variantes,
-        o incluse \"prolongaciones formales\"; puede pasarse as\xED horas, para el
-        gozo del pintor abstracto y desesperaci\xF3n del cient\xEDfico que intenta,
-        en vano, comprender los procesos en curso. En ocasiones, la actividad de
-        un mimoide muestra rasgos de simplificaci\xF3n infantil; en otras, cae en
-        \"desviacones barrocas\", en las que todas sus creaciones exhiben una pronunciada
-        elefantitis. [...]"
+      value: "Para: Refugio1\nDesde: secretariabdc@gmail.com\nAsunto: Refugio.\n\nMuy
+        buenas.\n\nPor \xFAltimo, intuyo que se estar\xE1 preguntando porque no se
+        puede quedar simplemente en este refugio esperando el rescate. Ver\xE1s que
+        la energ\xEDa es suficiente para aguantar ah\xED apenas media hora. Por lo
+        que si quiere seguir en contacto con nosotros adem\xE1s de facilitarnos conocer
+        su ubicaci\xF3n para realizar el rescate deber\xE1 de ir desplaz\xE1ndose
+        de refugio en refugio. Estos adem\xE1s est\xE1n provistos de alimentos para
+        que pueda aguantar m\xE1s tiempo.\n\nNos vemos pronto."
       objectReference: {fileID: 0}
     - target: {fileID: 7025799074717673256, guid: 878714b00ce9ed94ea9e28eb09be9e1f, type: 3}
       propertyPath: narrativeTitle
-      value: Cocina
+      value: Mensaje 3
       objectReference: {fileID: 0}
     - target: {fileID: 8158885962986307221, guid: 878714b00ce9ed94ea9e28eb09be9e1f, type: 3}
       propertyPath: m_Name
@@ -888,7 +880,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8158885962986307221, guid: 878714b00ce9ed94ea9e28eb09be9e1f, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -1039,11 +1031,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 7001314624494379611, guid: 878714b00ce9ed94ea9e28eb09be9e1f, type: 3}
       propertyPath: m_Pivot.x
-      value: 0.5
+      value: 0.50000006
       objectReference: {fileID: 0}
     - target: {fileID: 7001314624494379611, guid: 878714b00ce9ed94ea9e28eb09be9e1f, type: 3}
       propertyPath: m_Pivot.y
-      value: 0.5
+      value: 0.49999997
       objectReference: {fileID: 0}
     - target: {fileID: 7001314624494379611, guid: 878714b00ce9ed94ea9e28eb09be9e1f, type: 3}
       propertyPath: m_AnchorMax.x
@@ -1111,11 +1103,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7001314624494379611, guid: 878714b00ce9ed94ea9e28eb09be9e1f, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: -215.2
+      value: -6.826124
       objectReference: {fileID: 0}
     - target: {fileID: 7001314624494379611, guid: 878714b00ce9ed94ea9e28eb09be9e1f, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -205.6
+      value: -108
       objectReference: {fileID: 0}
     - target: {fileID: 7001314624494379611, guid: 878714b00ce9ed94ea9e28eb09be9e1f, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -1135,22 +1127,21 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7025799074717673256, guid: 878714b00ce9ed94ea9e28eb09be9e1f, type: 3}
       propertyPath: narrativeText
-      value: "Un informe sobresale por el canto de un viejo archivador. \n\n[...]
-        Altura: 1000 o 1200, quiz\xE1s 800 metros, no se observa nada, el oc\xE9ano
-        est\xE1 vac\xEDo.\nM\xE1s tarde, a las 16.40: una biebla roja se eleva. Visibilidad:
-        700 metros. El oc\xE9ano est\xE1 vac\xEDo.\nA las 10.00: la niebla se est\xE1
-        espesando, silencio, visibilidad: 400 metros, con claros. Bajo a 200.\nA
-        las 17.20: me encuentro en medio de la niebla. Altura: 200. Visibilidad:
-        20-40 metros. Silencio. Subo a 400.\nA las 17.45: altura 500. Banco de niebla
-        hasta el horizonte. En medio de la niebla: orificios en forma de embudo,
-        a trav\xE9s de ellos se visualiza la superficie del oc\xE9ano. Algo ocurre
-        en su interior. Intento entrar en uno de los embudos.\na las 17.52: percibo
-        una especie de remolino; escupe una espuma de color amarillo. Rodeado por
-        una pared de niebla. Altura: 100. Bajo a 20.\n--- Fin transmisi\xF3n ---"
+      value: "Para: Refugio1\nDesde: secretariabdc@gmail.com\nAsunto: POSIBLES AMENAZAS.\n\nHola
+        de nuevo.\n\nA la altura de -600m tenemos consciencia de una serie de posibles
+        amenazas:\n\n1. Los enemigos fantasma: F\xE1cilmente identificable por su
+        sonido y su punto fuerte es la rapidez de su ataque. Su punto d\xE9bil es
+        la luz por lo que procura usar la linterna para espantarlos.\n\n2. El enemigo
+        sonar: De este enemigo nos faltan muchos datos porque nunca ha sido visto,
+        sin embargo, se han detectado pulsos al estilo del sonar de un delfin o un
+        murci\xE9lago por lo que tenemos la suposici\xF3n de que es invulnerable
+        a la luz.\n\n3. A\xFAn no somos conscientes del total de amenazas que te
+        puedes encontrar por lo que llevese cuidado.\n\nMucha suerte y vigile su
+        espalda."
       objectReference: {fileID: 0}
     - target: {fileID: 7025799074717673256, guid: 878714b00ce9ed94ea9e28eb09be9e1f, type: 3}
       propertyPath: narrativeTitle
-      value: Biblioteca
+      value: Mensaje 2
       objectReference: {fileID: 0}
     - target: {fileID: 8158885962986307221, guid: 878714b00ce9ed94ea9e28eb09be9e1f, type: 3}
       propertyPath: m_Name
@@ -1828,71 +1819,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7dc3aae4b5aa95e4db11e000be605a83, type: 3}
---- !u!1001 &1924164797
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    serializedVersion: 3
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: -2253911629886400664, guid: b41518a22f4864be8a6978cbe3b640a2, type: 3}
-      propertyPath: m_Name
-      value: Capsuleaseprite
-      objectReference: {fileID: 0}
-    - target: {fileID: 7878350319992209165, guid: b41518a22f4864be8a6978cbe3b640a2, type: 3}
-      propertyPath: m_LocalScale.x
-      value: 200
-      objectReference: {fileID: 0}
-    - target: {fileID: 7878350319992209165, guid: b41518a22f4864be8a6978cbe3b640a2, type: 3}
-      propertyPath: m_LocalScale.y
-      value: 200
-      objectReference: {fileID: 0}
-    - target: {fileID: 7878350319992209165, guid: b41518a22f4864be8a6978cbe3b640a2, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 297.1
-      objectReference: {fileID: 0}
-    - target: {fileID: 7878350319992209165, guid: b41518a22f4864be8a6978cbe3b640a2, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 1.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 7878350319992209165, guid: b41518a22f4864be8a6978cbe3b640a2, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7878350319992209165, guid: b41518a22f4864be8a6978cbe3b640a2, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 7878350319992209165, guid: b41518a22f4864be8a6978cbe3b640a2, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7878350319992209165, guid: b41518a22f4864be8a6978cbe3b640a2, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7878350319992209165, guid: b41518a22f4864be8a6978cbe3b640a2, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7878350319992209165, guid: b41518a22f4864be8a6978cbe3b640a2, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7878350319992209165, guid: b41518a22f4864be8a6978cbe3b640a2, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7878350319992209165, guid: b41518a22f4864be8a6978cbe3b640a2, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-    m_RemovedGameObjects: []
-    m_AddedGameObjects: []
-    m_AddedComponents: []
-  m_SourcePrefab: {fileID: -8435245712485981826, guid: b41518a22f4864be8a6978cbe3b640a2, type: 3}
 --- !u!850595691 &1966644504
 LightingSettings:
   m_ObjectHideFlags: 0
@@ -2197,5 +2123,4 @@ SceneRoots:
   - {fileID: 300388364}
   - {fileID: 1263186886}
   - {fileID: 69859735}
-  - {fileID: 1924164797}
   - {fileID: 287199300}
