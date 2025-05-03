@@ -5,10 +5,10 @@
 // Proyectos 1 - Curso 2024-25
 //---------------------------------------------------------
 
-using System;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.Rendering.Universal;
+using UnityEngine.Rendering;
 
 
 /// <summary>
@@ -116,6 +116,22 @@ public class GameManager : MonoBehaviour
     // ---- MÉTODOS PÚBLICOS ----
 
     #region Métodos públicos
+
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="value"></param>
+    public void ChangeGamma(float value)
+    {
+        LiftGammaGain profile;
+
+        GetComponent<Volume>().profile.TryGet<LiftGammaGain>(out profile);
+
+        Vector4 newGamma = profile.gamma.value;
+        newGamma.w = value;
+        
+        profile.gamma.value = newGamma;
+    }
 
     /// <summary>
     /// Propiedad para acceder a la única instancia de la clase.
