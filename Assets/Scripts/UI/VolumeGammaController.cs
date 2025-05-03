@@ -28,7 +28,7 @@ public class VolumeGammaController : MonoBehaviour
     {
        slider = GetComponent<Slider>();
 
-       GameManager.Instance.ChangeGamma(slider.value);
+       slider.value = GameManager.Instance.GetGamma();
     }
 
     #endregion

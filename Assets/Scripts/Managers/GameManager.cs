@@ -93,9 +93,7 @@ public class GameManager : MonoBehaviour
             _instance = this;
             DontDestroyOnLoad(this.gameObject);
             Init();
-        } // if-else somos instancia nueva o no.
-        globalLight = this.GetComponent<Light2D>(); // Inicializamos la luz global
-       
+        } // if-else somos instancia nueva o no.       
     }
 
 
@@ -118,9 +116,10 @@ public class GameManager : MonoBehaviour
     #region Métodos públicos
 
     /// <summary>
-    /// 
+    /// Método que cambia el gamma de la escena actual.
+    /// Se usa para cambiar el gamma de la escena desde el slider
     /// </summary>
-    /// <param name="value"></param>
+    /// <param name="value">float entre -1 y 1</param>
     public void ChangeGamma(float value)
     {
         LiftGammaGain profile;
@@ -131,6 +130,20 @@ public class GameManager : MonoBehaviour
         newGamma.w = value;
         
         profile.gamma.value = newGamma;
+    }
+
+    /// <summary>
+    /// Método que cambia el gamma de la escena actual.
+    /// Se usa para cambiar el gamma de la escena desde el slider
+    /// </summary>
+    /// <param name="value">float entre -1 y 1</param>
+    public float GetGamma()
+    {
+        LiftGammaGain profile;
+
+        GetComponent<Volume>().profile.TryGet<LiftGammaGain>(out profile);
+              
+        return profile.gamma.value.w;
     }
 
     /// <summary>
@@ -208,8 +221,10 @@ public class GameManager : MonoBehaviour
 
     public void ToggleEasyMode()
     {
-      
+        globalLight = GetComponent<Light2D>(); // Inicializamos la luz global
+
         easyMode = !easyMode;
+        
         if (easyMode)
         {
             globalLight.enabled = true;
