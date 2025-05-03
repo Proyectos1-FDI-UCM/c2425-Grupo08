@@ -269,9 +269,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 79e102ee1d109544882c3e15ef85d9a8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxOxigen: 350
+  maxOxigen: 500
   oxigenDecayHealthy: 1
-  oxigenDecayBroken: 2
+  oxigenDecayBroken: 1.8
   Bubbles: {fileID: 3201754607077003509, guid: e790a47eb744da578a88e64c0fd3ee6c, type: 3}
   BubbleSpot: {fileID: 8296679645369719472}
 --- !u!114 &2822911129013704682
@@ -892,11 +892,11 @@ PolygonCollider2D:
   m_AutoTiling: 0
   m_Points:
     m_Paths:
-    - - {x: -1.2369769, y: 0.7630801}
+    - - {x: -0.8124591, y: 0.9258516}
       - {x: 0, y: 0}
-      - {x: 1.1159394, y: 0.940437}
-      - {x: 3.5467062, y: 12.790578}
-      - {x: -4.172311, y: 12.78929}
+      - {x: 0.8124591, y: 0.9258516}
+      - {x: 3.406378, y: 12.64784}
+      - {x: -3.406378, y: 12.64784}
   m_UseDelaunayMesh: 0
 --- !u!1 &8229486857087641073
 GameObject:
@@ -952,15 +952,15 @@ MonoBehaviour:
   minIntensity: 0.5
   flickerSpeed: 7
   flashCooldown: 7
-  unfocusAngle: 99
-  unfocusLength: 6.92
+  unfocusAngle: 115
+  unfocusLength: 7
   unfocusIntensity: 25.8
-  focusAngle: 29.1
-  focusLength: 10.24
+  focusAngle: 20
+  focusLength: 13
   focusIntensity: 70
   flashMultiplier: 3
   flashFalloff: 4.5
-  colliderTime: 0.02
+  colliderTime: 0.01
   playerSprite: {fileID: 2302555880213678727}
 --- !u!82 &3876408090011034337
 AudioSource:
