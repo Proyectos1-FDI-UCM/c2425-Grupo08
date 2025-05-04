@@ -510,9 +510,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cf7bb35f1c18c08f4a25161ba8d88707, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MaxObjectives: 0
+  MaxObjectives: 20
   Arrow: {fileID: -2253911629886400664, guid: d43708aee9f3f2a00b56dd0dc81ee3af, type: 3}
-  test: {fileID: 0}
 --- !u!1 &3861456626031676602
 GameObject:
   m_ObjectHideFlags: 0
@@ -945,7 +944,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 76b0493b3600215489e9289475213cac, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  inputDeadzone: 0.15
+  mouseDeadzone: 0.1
+  joystickDeadzone: 0.5
   aimSpeed: 17
   lightDiffusion: 10
   transitionSpeed: 15

@@ -334,34 +334,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 982502975117708365, guid: 8c0a26a4016db1f4da055ae016bf56f8, type: 3}
-      propertyPath: sfxClips.Array.size
-      value: 12
-      objectReference: {fileID: 0}
-    - target: {fileID: 982502975117708365, guid: 8c0a26a4016db1f4da055ae016bf56f8, type: 3}
-      propertyPath: sfxClips.Array.data[9].clip
-      value: 
-      objectReference: {fileID: 8300000, guid: f7195a4b420d2404d81a7da5dec01879, type: 3}
-    - target: {fileID: 982502975117708365, guid: 8c0a26a4016db1f4da055ae016bf56f8, type: 3}
-      propertyPath: sfxClips.Array.data[9].type
-      value: 10
-      objectReference: {fileID: 0}
-    - target: {fileID: 982502975117708365, guid: 8c0a26a4016db1f4da055ae016bf56f8, type: 3}
-      propertyPath: sfxClips.Array.data[10].clip
-      value: 
-      objectReference: {fileID: 8300000, guid: a8ba46fbf055fd94e8bae8b55c535010, type: 3}
-    - target: {fileID: 982502975117708365, guid: 8c0a26a4016db1f4da055ae016bf56f8, type: 3}
-      propertyPath: sfxClips.Array.data[10].type
-      value: 11
-      objectReference: {fileID: 0}
-    - target: {fileID: 982502975117708365, guid: 8c0a26a4016db1f4da055ae016bf56f8, type: 3}
-      propertyPath: sfxClips.Array.data[11].clip
-      value: 
-      objectReference: {fileID: 8300000, guid: 7a880f81e184ffd49b10f6f2072be12a, type: 3}
-    - target: {fileID: 982502975117708365, guid: 8c0a26a4016db1f4da055ae016bf56f8, type: 3}
-      propertyPath: sfxClips.Array.data[11].type
-      value: 12
-      objectReference: {fileID: 0}
     - target: {fileID: 1629052527552472779, guid: 8c0a26a4016db1f4da055ae016bf56f8, type: 3}
       propertyPath: m_LocalPosition.x
       value: -2.7599983
@@ -19022,6 +18994,10 @@ PrefabInstance:
     - target: {fileID: 4794396205851017353, guid: 10a2a23cb1a6fc344864f80da2c1702d, type: 3}
       propertyPath: MaxObjectives
       value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 7438437273905807075, guid: 10a2a23cb1a6fc344864f80da2c1702d, type: 3}
+      propertyPath: m_PointLightInnerRadius
+      value: 0.5244581
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

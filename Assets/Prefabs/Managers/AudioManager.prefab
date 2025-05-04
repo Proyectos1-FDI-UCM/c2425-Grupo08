@@ -70,7 +70,7 @@ MonoBehaviour:
   - type: 12
     clip: {fileID: 8300000, guid: 7a880f81e184ffd49b10f6f2072be12a, type: 3}
   - type: 13
-    clip: {fileID: 8300000, guid: f6cd5d646e99e0c498d06a9705db2570, type: 3}
+    clip: {fileID: 8300000, guid: 04d673854033c5a4ca64c3e77f4d3d88, type: 3}
   - type: 14
     clip: {fileID: 8300000, guid: 55eade8905784e24cac4ad016863adb5, type: 3}
   sfxVolume: 1
