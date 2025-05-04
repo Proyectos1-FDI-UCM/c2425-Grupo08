@@ -1,7 +1,6 @@
 //---------------------------------------------------------
 // Script que gestiona la linterna del jugador, incluyendo su rotación y el haz de luz.
-// Este script permite al jugador apuntar y enfocar la linterna, así como realizar un flashazo.
-
+//
 // Vicente Rodriguez Casado
 // Carlos Dochao Moreno
 // Proyect Abyss
@@ -21,9 +20,12 @@ public class FlashLight : MonoBehaviour
 
     [Header("Input Settings")]
     [Space]
-    [Tooltip("Zona muerta para joystick o ratón (entre 0 y 1)")]
+    [Tooltip("Zona muerta para ratón (entre 0 y 1)")]
     [Range(0, 1)]
-    [SerializeField] private float inputDeadzone = 0.1f;
+    [SerializeField] private float mouseDeadzone = 0.1f;
+    [Tooltip("Zona muerta para joystick (entre 0 y 1)")]
+    [Range(0, 1)]
+    [SerializeField] private float joystickDeadzone = 0.5f;
     [Tooltip("Velocidad de rotación de la linterna")]
     [Range(1, 50)]
     [SerializeField] private float aimSpeed = 15;
@@ -87,7 +89,7 @@ public class FlashLight : MonoBehaviour
     [SerializeField] private float colliderTime = 0.02f;
 
     [Space]
-    [Header("References (remove in future)")]
+    [Header("References")]
     [Space]
     [Tooltip("Sprite del jugador")]
     [SerializeField] private SpriteRenderer playerSprite; // Referencia al objeto del jugador (TODO: Quitar esto en un futuro?)
@@ -140,13 +142,12 @@ public class FlashLight : MonoBehaviour
         // Obtener la referencia al PlayerMovement del jugador
         player = GameManager.Instance.GetPlayerController().GetComponent<PlayerMovement>();
 
-        //Obtener la referencia del audiosource de la linterna
+        // Obtener la referencia del audiosource de la linterna
         audioSource = GetComponent<AudioSource>();
 
         if (flashLight != null && flashCollider != null && player != null)
-        {
+
             SetDefaults(target); // Configura la luz y su collider por defecto
-        }
 
         else
         {
@@ -166,9 +167,6 @@ public class FlashLight : MonoBehaviour
 
     private void Update()
     {
-        if(PauseManager.GameIsPaused) // Si el juego está en pausa, no hacer nada
-            return;
-
         if (player.GetIsDeath())
         {
             LerpValues(); // Interpolar los valores de la luz
@@ -176,7 +174,7 @@ public class FlashLight : MonoBehaviour
             LightUnfocus(); // Desenfocar la linterna (default)
         }
 
-        else
+        else if (!PauseManager.GameIsPaused) // Si el juego no está en pausa
         {
             LookAtInput(); // Control del movimiento de la linterna con el joystick o el ratón
 
@@ -225,7 +223,7 @@ public class FlashLight : MonoBehaviour
     /// </summary>
     private void LookAtInput()
     {
-        if (!InputManager.Instance.IsGamepadActive()) // Si el ratón está activo, usar el ratón para rotar la linterna
+        if (!InputManager.Instance.IsGamepadActive()) // Si el ratón está activo, usar el ratón (default) para rotar la linterna
         {
             // Obtener la posición del cursor en el mundo y calcular la distancia al jugador
             Vector2 cursorPos = InputManager.Instance.GetWorldCursorPos();
@@ -233,19 +231,21 @@ public class FlashLight : MonoBehaviour
             // Calcular la distancia entre el cursor y el jugador
             float distanceToCursor = Vector2.Distance(cursorPos, transform.position);
 
-            // Cambiar la direción del sprite según si el cursor esta a izquierda o derecha
+            // Calcular la posición del cursor respecto al jugador
             Vector2 mouseInput = cursorPos - (Vector2)transform.position;
             
-            // Solo rotar si el cursor está fuera del círculo del radio inputDeadzone
-            if (distanceToCursor > inputDeadzone)
+            // Solo rotar si el cursor está fuera del círculo del "radio" mouseDeadzone
+            if (distanceToCursor > mouseDeadzone)
             {
                 float angle = Mathf.Atan2(mouseInput.y, mouseInput.x) * Mathf.Rad2Deg;
+
                 transform.rotation = Quaternion.Euler(0, 0, Mathf.LerpAngle(transform.rotation.eulerAngles.z, angle, Time.deltaTime * aimSpeed)); 
             }
-            
-            if (Mathf.Abs(mouseInput.x) > inputDeadzone) // Rotar el sprite según la dirección del cursor (condicional para evitar bugs)
 
-                playerSprite.flipX = mouseInput.x < 0; // Cambiar esta lógica al PlayerMovement?
+            // Rotar el sprite según la dirección del cursor (condicional para evitar bugs)
+            if (Mathf.Abs(mouseInput.x) > mouseDeadzone) 
+
+                player.SpriteFlip(mouseInput.x < 0);
         }
 
         else // Si el gamepad está activo, usar el joystick derecho para rotar la linterna
@@ -253,14 +253,15 @@ public class FlashLight : MonoBehaviour
             // Obtener la dirección del joystick derecho y calcular la distancia al jugador
             Vector2 gamepadInput = InputManager.Instance.GetRightStickInput();
 
-            // Solo rotar si el joystick supera el radio inputDeadzone
-            if (gamepadInput.magnitude > inputDeadzone + 0.5f)
+            // Solo rotar si el joystick supera el "radio" joystickDeadzone
+            if (gamepadInput.magnitude > joystickDeadzone)
             {
                 float angle = Mathf.Atan2(gamepadInput.y, gamepadInput.x) * Mathf.Rad2Deg;
+
                 transform.rotation = Quaternion.Euler(0, 0, Mathf.LerpAngle(transform.rotation.eulerAngles.z, angle, Time.deltaTime * aimSpeed));
 
                 // Cambiar la dirección del sprite según si el cursor esta a izquierda o derecha
-                playerSprite.flipX = gamepadInput.x < 0; // Cambiar esta lógica al PlayerMovement?
+                player.SpriteFlip(gamepadInput.x < 0);
             }
         }
     }

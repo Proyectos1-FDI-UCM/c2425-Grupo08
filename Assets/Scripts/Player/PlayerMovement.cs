@@ -232,32 +232,74 @@ public class PlayerMovement : MonoBehaviour
     // ---- MÉTODOS PÚBLICOS ----
     #region Métodos públicos
 
+    /// <summary>
+    /// Método que se encarga de voltear al jugador hacia la dirección que se le pase por parámetro.
+    /// Se utiliza para que el jugador mire hacia la dirección de movimiento.
+    /// </summary>
+    /// <param name="dir">True si es hacia la derecha</param>
+    public void SpriteFlip(bool dir)
+    {
+        SpriteRenderer sprite = GetComponentInChildren<SpriteRenderer>();
+
+        sprite.flipX = dir;
+    }
+
+    /// <summary>
+    /// Método para indicar que el jugador ha sido agarrado por un alga.
+    /// </summary>
     public void Grabbed()
     {
         isGrabbed = true;
     }
 
+    /// <summary>
+    /// Método para indicar que el jugador ha sido soltado por un alga.
+    /// </summary>
     public void Released()
     {
         isGrabbed = false;
     }
-        
+
+    /// <summary>
+    /// Método para indicar si el jugador está reparando o no.
+    /// </summary>
+    /// <param name="isRepairing">True si está reparando</param>
     public void SetIsRepairing(bool isRepairing)
     {
         this.isRepairing = isRepairing;
     }
+
+    /// <summary>
+    /// Método para indicar si el jugador puede flashear o no.
+    /// </summary>
+    /// <param name="canFlash"></param>
     public void SetcanFlash(bool canFlash)
     {
         this.canFlash = canFlash;
     }
+
+    /// <summary>
+    /// Método para indicar si el jugador está muerto o no.
+    /// </summary>
+    /// <param name="isDeath"></param>
     public void SetIsDeath (bool isDeath)
     {
         this.isDeath = isDeath;
     }
+
+    /// <summary>
+    /// Método para obtener el estado de si el jugador está reparando o no.
+    /// </summary>
+    /// <returns></returns>
     public bool GetIsRepairing()
     {
         return isRepairing;
     }
+
+    /// <summary>
+    /// Método para obtener el estado de si el jugador está muerto o no.
+    /// </summary>
+    /// <returns>True si está muerto</returns>
     public bool GetIsDeath()
     {
         return isDeath;
@@ -341,6 +383,7 @@ public class PlayerMovement : MonoBehaviour
                     _state = States.Death;
                     AudioManager.instance.StopSFX(audioSource);
                 }
+                
                 // Se mantiene Walk mientras haya input horizontal, sin forzar Idle por poca velocidad.
                 if (InputManager.Instance.MovementVector.x == 0)
                 {

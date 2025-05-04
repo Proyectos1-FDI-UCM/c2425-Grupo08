@@ -5,11 +5,7 @@
 // Proyectos 1 - Curso 2024-25
 //---------------------------------------------------------
 
-using System.Runtime.CompilerServices;
-using Unity.Mathematics;
 using UnityEngine;
-// Añadir aquí el resto de directivas using
-
 
 /// <summary>
 /// Antes de cada class, descripción de qué es y para qué sirve,
@@ -48,9 +44,10 @@ public class ArrowManager: MonoBehaviour
         public GameObject _arrowObject{get;set;}
     };
     
-     _arrowStructure _arrows;
+    _arrowStructure _arrows;
 
     _arrowStructure _arrowsBuffer;
+
     #endregion
     
     // ---- MÉTODOS DE MONOBEHAVIOUR ----
@@ -69,8 +66,10 @@ public class ArrowManager: MonoBehaviour
         // Reserva espacio para el suficiente número de flechas
         _arrowsBuffer._arrows = new _arrow[MaxObjectives];
         _arrowsBuffer._hat = 0;
-        CreateArrow(test);
-
+        
+        if (MaxObjectives > 0)
+            
+            CreateArrow(test);
     }
     /// <summary>
     /// Update is called every frame, if the MonoBehaviour is enabled.
@@ -136,29 +135,14 @@ public class ArrowManager: MonoBehaviour
     /// </summary>
     /// <param name="objective"></param>
     /// <param name="arrow"></param>
-    private void CalculateArrowPosition(GameObject objective, GameObject arrow){
-        // Posición
-        Vector3 objectivePosition = objective.transform.position;
-        Vector3 arrowPosition = transform.position; 
-        Vector3 relativeDistance = objectivePosition - arrowPosition  ;
-        relativeDistance.Normalize();
-        arrow.transform.position = relativeDistance + arrowPosition;
-        // Rotación
-        //arrow.transform.rotation = Quaternion.AngleAxis(Mathf.Atan(relativeDistance.y/relativeDistance.x), Vector3.forward);
-        float angle = Mathf.Rad2Deg*(relativeDistance.y/relativeDistance.x+90);
+    private void CalculateArrowPosition(GameObject objective, GameObject arrow) {
 
-        switch (angle){
-            case > 180:
-                arrow.transform.rotation = Quaternion.Euler(0,0,Mathf.Rad2Deg*Mathf.Atan(relativeDistance.y/relativeDistance.x));
-            break;
-            default:
-                //arrow.transform.rotation = Quaternion.Euler(0,0,Mathf.Rad2Deg*Mathf.Atan(relativeDistance.y/relativeDistance.x));
-            break;
-        }
-        Debug.Log(Mathf.Abs(Mathf.Rad2Deg*Mathf.Atan(relativeDistance.y/relativeDistance.x)+90));
+        Vector2 objectivePos = objective.transform.position;
+        Vector2 relativePos = objectivePos - (Vector2)transform.position;
+
+        float angle = Mathf.Atan2(-relativePos.x, relativePos.y) * Mathf.Rad2Deg;
+
+        arrow.transform.SetPositionAndRotation(transform.position, Quaternion.Euler(0, 0, angle));
     }
 
-    
-
-} // class EnemyTracker 
-// namespace
+} // class ArrowManager
