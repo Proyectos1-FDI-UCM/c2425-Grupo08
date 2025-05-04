@@ -48,6 +48,8 @@ public class OxigenScript : MonoBehaviour
     private float currentOxigen; // La cantidad actual de oxígeno que tiene el jugador
     private bool tankBroken = false; // Indica si el tanque de oxígeno está roto o no
     private AudioSource audioSource;
+    private AudioSource audioSourceOxygen;
+
     private bool isDead = false;
     private PlayerMovement player;
     private bool inmortal = false; // Indica si el jugador es inmortal o no
@@ -74,6 +76,7 @@ public class OxigenScript : MonoBehaviour
         player = GameManager.Instance.GetPlayerController().GetComponent<PlayerMovement>();
         currentOxigen = maxOxigen;
         audioSource= AudioManager.instance.GetComponent<AudioSource>();
+        audioSourceOxygen = gameObject.AddComponent<AudioSource>();
         AudioManager.instance.PlaySFX(SFXType.Breath, audioSource, true);
         inmortal = GameManager.Instance.GetInmortal();
     }
@@ -83,7 +86,10 @@ public class OxigenScript : MonoBehaviour
     /// </summary>
     void Update() // Cada frame se resta oxígeno al jugador y en el caso de llegar a 0 el jugador muere
     {
-        
+        if(audioSource.isPlaying == false && !isDead) // Si el audio de la respiración no se está reproduciendo, lo reproduce
+        {
+            AudioManager.instance.PlaySFX(SFXType.Breath, audioSource, true);
+        }
 
         if (tankBroken)
         {
@@ -136,6 +142,7 @@ public class OxigenScript : MonoBehaviour
             tankBroken = true;
             GameManager.Instance.UpdateTankStateGM(tankBroken);
             currentBubbles = Instantiate(Bubbles,BubbleSpot.transform.position,quaternion.identity,this.gameObject.transform);
+            StartCoroutine(PlayOxygenTankSounds()); // Inicia la corutina
         }      
     }
     public void RepairTank() // Método que se llama cuando el tanque de oxígeno es reparado
@@ -159,6 +166,7 @@ public class OxigenScript : MonoBehaviour
 
             isDead = true;
             AudioManager.instance.PlaySFX(SFXType.GameOver, audioSource);
+            audioSourceOxygen.Stop();
             Destroy(currentBubbles);
             animator.SetTrigger("Death");
             player.SetIsDeath(true);
@@ -180,6 +188,15 @@ public class OxigenScript : MonoBehaviour
     {
         yield return new WaitForSeconds(5); // De momento 0 porque no hay animación de muerte
         GameManager.Instance.ChangeScene(0);
+    }
+
+    private IEnumerator PlayOxygenTankSounds()
+    {
+        audioSourceOxygen.volume = 1f;
+        AudioManager.instance.PlaySFX(SFXType.HitOxygenTank, audioSourceOxygen);
+        yield return new WaitForSeconds(1f); // Espera antes de reproducir el sonido de burbujeo
+        
+        AudioManager.instance.PlaySFX(SFXType.OxygenBubbles, audioSourceOxygen, true);
     }
 
     #endregion

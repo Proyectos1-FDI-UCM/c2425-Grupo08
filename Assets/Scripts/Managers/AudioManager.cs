@@ -25,7 +25,9 @@ public enum SFXType
     Sonar2,
     SonarAttack,
     FlashLight,
-    MotorSound
+    MotorSound,
+    HitOxygenTank,
+    OxygenBubbles
     // Se pueden añadir más sonidos según sea necesario
 }
 /// <summary>
