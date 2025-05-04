@@ -530,19 +530,13 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "Respiraci\xF3n: \r\n  Del canal de youtube de Your Film Sounds: \r\n   
-    Sound effect - Heavy breathing, breathing fast, catching breath\r\n  Del canal
-    de youtube de Scary Sound Effects:\r\n    Scary Breathing And Hearbeat Sound
-    Effects / Hombre aterrado, respiraci\xF3n - efecto de sonido\r\nCaminar y Salto:\r\n 
-    De pixabay del autor Rico_Casazza (Freesound):\r\n    walking on the gravel by
-    the canal\r\nCaida:\r\n  Del canal de youtube de BerlinAtmospheres:\r\n    Body
-    Fall SOUND EFFECT - K\xF6rper f\xE4llt zu Boden SOUNDS\nReparaci\xF3n motor:\n
-    Del canal de youtube de joanoz:\n  Dead by Daylight | Sonido para mejorar el
-    motor\nFlash:\n Del canal de youtube de Sound Effects & Music\n  Efecto de sonido
-    de flash camara\nAhogado:\n Del canal de youtube de Santiago Ver\xE1n // Realizador
-    Audiovisual\n  Grito Ahogado\nBurbujas:\n De pixabay del autor linhmitto\n  Bubble\nTanque
-    roto:\n De pixabay de autor desconocido\n  Metal Hit Sound Effect\nAudios enemigos:\n
-    De pixabay de autor desconocido"
+  m_text: "Underwater White Noise - psiboy123\r\nUnderwater Ambience - Fission9\r\nUnderwater
+    Movement - Tim_Verberne\r\nUnderwater - mavopix\nMotor reparation -\nDead by
+    Daylight | Sonido para mejorar el motor - yt joanoz\n  Dead by Daylight | Sonido
+    para mejorar el motor\nFlash -   Efecto de sonido de flash camara - yt Sound
+    Effects & Music\nDrowned - Grito Ahogado -yt Santiago Ver\xE1n // Realizador
+    Audiovisual\nBubbles - linhmitto\nBroken tank - unknown -Metal Hit Sound Effect\nEnemies
+    audios - pixabay"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 6457fc098cf61594a905ef9b23de770d, type: 2}
   m_sharedMaterial: {fileID: 3289748354607904841, guid: 6457fc098cf61594a905ef9b23de770d, type: 2}
@@ -569,8 +563,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 28
-  m_fontSizeBase: 28
+  m_fontSize: 41.7
+  m_fontSizeBase: 41.7
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 0.15
@@ -579,11 +573,11 @@ MonoBehaviour:
   m_HorizontalAlignment: 2
   m_VerticalAlignment: 256
   m_textAlignment: 65535
-  m_characterSpacing: -0.49
-  m_wordSpacing: 0
+  m_characterSpacing: 0.2
+  m_wordSpacing: 0.48
   m_lineSpacing: 2.15
   m_lineSpacingMax: 0
-  m_paragraphSpacing: 0.59
+  m_paragraphSpacing: 18.37
   m_charWidthMaxAdj: 0
   m_enableWordWrapping: 1
   m_wordWrappingRatios: 0.4
