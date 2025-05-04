@@ -1657,6 +1657,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 69859735}
     m_Modifications:
+    - target: {fileID: 1104323915525493672, guid: 7dc3aae4b5aa95e4db11e000be605a83, type: 3}
+      propertyPath: m_hasFontAssetChanged
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1358825697040491576, guid: 7dc3aae4b5aa95e4db11e000be605a83, type: 3}
       propertyPath: m_Name
       value: TextPanel
