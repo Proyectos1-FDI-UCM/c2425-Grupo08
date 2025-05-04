@@ -23,7 +23,7 @@ public class ArrowManager: MonoBehaviour
     #endregion
     [SerializeField] private int MaxObjectives = 0;
     [SerializeField] private GameObject Arrow;
-    [SerializeField] GameObject test;
+    //[SerializeField] GameObject test;
     
     // ---- ATRIBUTOS PRIVADOS ----
     #region Atributos Privados (private fields)
@@ -66,10 +66,10 @@ public class ArrowManager: MonoBehaviour
         // Reserva espacio para el suficiente número de flechas
         _arrowsBuffer._arrows = new _arrow[MaxObjectives];
         _arrowsBuffer._hat = 0;
-        
-        if (MaxObjectives > 0)
+        if (_arrowsBuffer._arrows.Length == 0){
+            Debug.Log("ERROR: No se ha establecido un tamaño para el array de flechas");
+        }
             
-            CreateArrow(test);
     }
     /// <summary>
     /// Update is called every frame, if the MonoBehaviour is enabled.
@@ -77,6 +77,7 @@ public class ArrowManager: MonoBehaviour
     void Update()
     {
         UpdateArrows();
+        //Debug.Log(_arrowsBuffer._hat);
     }
     #endregion
 
@@ -90,27 +91,28 @@ public class ArrowManager: MonoBehaviour
 
     #endregion
     public void CreateArrow(GameObject objective){
-        _arrowsBuffer._arrows[_arrowsBuffer._hat]._objective = objective;
-        _arrowsBuffer._arrows[_arrowsBuffer._hat]._arrowObject = Instantiate(Arrow,objective.transform.position,Quaternion.identity);
-        CalculateArrowPosition(objective,_arrowsBuffer._arrows[_arrowsBuffer._hat]._arrowObject);
-        _arrowsBuffer._hat ++;
-    }
+            _arrowsBuffer._arrows[_arrowsBuffer._hat]._objective = objective;
+            _arrowsBuffer._arrows[_arrowsBuffer._hat]._arrowObject = Instantiate(Arrow,objective.transform.position,Quaternion.identity);
+            CalculateArrowPosition(objective,_arrowsBuffer._arrows[_arrowsBuffer._hat]._arrowObject);
+            _arrowsBuffer._hat ++;
+            }
     public void DeleteArrow(GameObject arrowToDelete){
         bool arrowFound = false;
         int i = 0;
-        while (i <_arrowsBuffer._arrows.Length && !arrowFound){
-            if (_arrowsBuffer._arrows[i]._objective==arrowToDelete){
-                Destroy(_arrowsBuffer._arrows[i]._arrowObject);
-                _arrowsBuffer._arrows[i] = _arrowsBuffer._arrows[_arrowsBuffer._hat];
-                _arrowsBuffer._hat--;
-                arrowFound = true;
+        if (_arrowsBuffer._hat != 0){
+            while (i <_arrowsBuffer._arrows.Length && !arrowFound){
+                if (_arrowsBuffer._arrows[i]._objective==arrowToDelete){
+                    Destroy(_arrowsBuffer._arrows[i]._arrowObject);
+                    _arrowsBuffer._arrows[i] = _arrowsBuffer._arrows[_arrowsBuffer._hat];
+                    _arrowsBuffer._hat--;
+                    arrowFound = true;
+                }
+                i++;
             }
-            i++;
+            if (!arrowFound){
+                Debug.Log("ERROR: trying to remove a non-existent arrow");;
+            }
         }
-        if (!arrowFound){
-            Debug.Log("ERROR: trying to remove a non-existent arrow");;
-        }
-
 
     }
     
@@ -126,8 +128,10 @@ public class ArrowManager: MonoBehaviour
     /// Itera sobre el array de flechas y actualiza sus estados
     /// </summary>
     private void UpdateArrows (){
-        for(int i = 0; i<_arrowsBuffer._hat;i++ ){
-            CalculateArrowPosition(_arrowsBuffer._arrows[i]._objective,_arrowsBuffer._arrows[i]._arrowObject);                     
+        if (_arrowsBuffer._hat != 0){
+            for(int i = 0; i<_arrowsBuffer._hat;i++ ){
+                CalculateArrowPosition(_arrowsBuffer._arrows[i]._objective,_arrowsBuffer._arrows[i]._arrowObject);                     
+            }
         }
     }
     /// <summary>
@@ -136,13 +140,14 @@ public class ArrowManager: MonoBehaviour
     /// <param name="objective"></param>
     /// <param name="arrow"></param>
     private void CalculateArrowPosition(GameObject objective, GameObject arrow) {
+        if (objective && arrow != null){
+            Vector2 objectivePos = objective.transform.position;
+            Vector2 relativePos = objectivePos - (Vector2)transform.position;
 
-        Vector2 objectivePos = objective.transform.position;
-        Vector2 relativePos = objectivePos - (Vector2)transform.position;
+            float angle = Mathf.Atan2(-relativePos.x, relativePos.y) * Mathf.Rad2Deg;
 
-        float angle = Mathf.Atan2(-relativePos.x, relativePos.y) * Mathf.Rad2Deg;
-
-        arrow.transform.SetPositionAndRotation(transform.position, Quaternion.Euler(0, 0, angle));
+            arrow.transform.SetPositionAndRotation(transform.position, Quaternion.Euler(0, 0, angle));
+        }
     }
 
 } // class ArrowManager
