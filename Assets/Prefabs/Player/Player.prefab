@@ -299,7 +299,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   WalkAcceleration: 3
-  WalkDeceleration: 20
+  WalkDeceleration: 4
   WalkMaxSpeed: 2.15
   WalkDecelerationThreshold: 0.2
   JumpAcceleration: 2.5
@@ -511,7 +511,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   MaxObjectives: 20
-  Arrow: {fileID: -2253911629886400664, guid: d43708aee9f3f2a00b56dd0dc81ee3af, type: 3}
+  Arrow: {fileID: 6800110710651817423, guid: f47276b4df33973bd832517a9dbd7300, type: 3}
 --- !u!1 &3861456626031676602
 GameObject:
   m_ObjectHideFlags: 0

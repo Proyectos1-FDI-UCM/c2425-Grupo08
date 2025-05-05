@@ -2,13 +2,14 @@
 // Este archivo gestiona la lógica del motor dentro del juego, 
 // incluyendo su reparación y el progreso de carga visual.
 //
-// Responsable: Tomás Arévalo Almagro, Carlos Dochao Moreno
-// Nombre del juego: Project Abbys
+// Tomás Arévalo Almagro, Carlos Dochao Moreno
+// Project Abbys
 // Proyecto 1 - Curso 2024-25
 //---------------------------------------------------------
 
 using UnityEngine;
 using System.Collections;
+using UnityEngine.Rendering.Universal;
 
 /// <summary>
 /// Clase que maneja la interacción del jugador con el motor,
@@ -53,6 +54,10 @@ public class Motor : MonoBehaviour
     private Animator motorAnimator;
     private AudioSource audioSource;
 
+    private GameObject bubbles; // Objeto de burbujas que se activa al completar la reparación
+    private Light2D engineLight; // Luz del motor que parpadea durante la reparación
+    private float intesity; // Intensidad de la luz del motor
+
     #endregion
 
     // ---- MÉTODOS DE MONOBEHAVIOUR ----
@@ -74,6 +79,26 @@ public class Motor : MonoBehaviour
         audioSource = GetComponent<AudioSource>();
         player = GameManager.Instance.GetPlayerController();
         motorAnimator = GetComponent<Animator>();
+
+        bubbles = GetComponentInChildren<ParticleSystem>().gameObject; // Busca el objeto de burbujas en los hijos del objeto actual
+
+        if (bubbles != null) // Si no se encuentra el objeto de burbujas, muestra un mensaje de error
+            
+            bubbles.SetActive(false); // Desactiva las burbujas al inicio
+
+        else // Si no se encuentra el objeto de burbujas, muestra un mensaje de error
+
+            Debug.LogWarning("No se ha encontrado el objeto de burbujas en el motor.");
+
+        engineLight = GetComponentInChildren<Light2D>(); // Busca la luz del motor en los hijos del objeto actual
+
+        if (engineLight == null) // Si no se encuentra la luz, muestra un mensaje de error
+        
+            Debug.LogWarning("No se ha encontrado el objeto de burbujas en el motor.");
+
+        else 
+
+            intesity = engineLight.intensity; // Almacena la intensidad inicial de la luz del motor
     }
 
     /// <summary>
@@ -97,6 +122,10 @@ public class Motor : MonoBehaviour
                 StopLoading();
             }
         }
+
+        if (engineLight != null && !isRepaired)
+
+            engineLight.intensity = Mathf.PingPong(Time.time, 2f); // Cambia la intensidad de la luz entre 0 y 2
     }
 
     #endregion
@@ -197,6 +226,9 @@ public class Motor : MonoBehaviour
         
         player.GetComponent<PlayerMovement>().SetIsRepairing(false);
         GetComponent<GeneratorEnemySpawner>().SetCanRespawn(false);
+
+        bubbles.SetActive(true); // Activa las burbujas de reparación
+        engineLight.intensity = intesity; // Restablece la intensidad de la luz del motor
 
         Console.Clear();
         Console.Write(repairCompleteMsg);
