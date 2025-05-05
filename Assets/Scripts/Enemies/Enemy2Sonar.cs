@@ -184,7 +184,8 @@ public class Enemy2Sonar : MonoBehaviour
         {
             Move((player.transform.position - transform.position).normalized, attackSpeed);
             if (!arrowActive){
-                player.GetComponent<ArrowManager>().CreateArrow(this.gameObject);
+                if (player.GetComponent<ArrowManager>()!= null)
+                    player.GetComponent<ArrowManager>().CreateArrow(this.gameObject);
                 arrowActive = true;
             }
         }
@@ -258,7 +259,8 @@ public class Enemy2Sonar : MonoBehaviour
             player.GetComponent<OxigenScript>().Death();
 
             if (arrowActive){
-                player.GetComponent<ArrowManager>().DeleteArrow(this.gameObject);
+                if (player.GetComponent<ArrowManager>()!= null)
+                    player.GetComponent<ArrowManager>().DeleteArrow(this.gameObject);
                 arrowActive = false;
             }
             attack = false;

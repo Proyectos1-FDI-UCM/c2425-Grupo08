@@ -91,11 +91,14 @@ public class ArrowManager: MonoBehaviour
 
     #endregion
     public void CreateArrow(GameObject objective){
+        if (objective != null){
             _arrowsBuffer._arrows[_arrowsBuffer._hat]._objective = objective;
             _arrowsBuffer._arrows[_arrowsBuffer._hat]._arrowObject = Instantiate(Arrow,objective.transform.position,Quaternion.identity);
             CalculateArrowPosition(objective,_arrowsBuffer._arrows[_arrowsBuffer._hat]._arrowObject);
             _arrowsBuffer._hat ++;
             }
+        else Debug.Log("ERROR: trying to create an arrow with a null object");
+        }
     public void DeleteArrow(GameObject arrowToDelete){
         bool arrowFound = false;
         int i = 0;

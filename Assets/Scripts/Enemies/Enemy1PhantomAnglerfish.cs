@@ -179,6 +179,8 @@ public class Enemy1PhantomAnglerfish : MonoBehaviour
                 AudioManager.instance.PlaySFX(SFXType.AttackEnemy1, audioSource);
                 attackSoundPlaying = true;
                 if (!arrowActive){
+
+                if (player.GetComponent<ArrowManager>()!= null)
                     player.GetComponent<ArrowManager>().CreateArrow(this.gameObject);
                     arrowActive = true;
                 }
@@ -259,7 +261,8 @@ public class Enemy1PhantomAnglerfish : MonoBehaviour
             animator.SetTrigger("Flee");
 
             if (arrowActive){
-                player.GetComponent<ArrowManager>().DeleteArrow(this.gameObject);
+                if (player.GetComponent<ArrowManager>()!= null)
+                    player.GetComponent<ArrowManager>().DeleteArrow(this.gameObject);
             }
 
             StartCoroutine(DisintegrationDelay());
@@ -279,7 +282,8 @@ public class Enemy1PhantomAnglerfish : MonoBehaviour
             GetComponentInParent<Respawner>().EnemyDead(player);
 
             if (arrowActive){
-                player.GetComponent<ArrowManager>().DeleteArrow(this.gameObject);
+                if (player.GetComponent<ArrowManager>()!= null)
+                    player.GetComponent<ArrowManager>().DeleteArrow(this.gameObject);
             }
 
 
