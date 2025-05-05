@@ -77987,7 +77987,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   motoresReparados: 0
   motorNeed: 1
-  completionLight: {fileID: 1885649168}
 --- !u!4 &1763583482 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3822076177938751177, guid: 881eaa105156a4949b45ad2fe29748a7, type: 3}
@@ -77997,11 +77996,6 @@ Transform:
 Transform:
   m_CorrespondingSourceObject: {fileID: 2181331470842799619, guid: 10a2a23cb1a6fc344864f80da2c1702d, type: 3}
   m_PrefabInstance: {fileID: 1626605688}
-  m_PrefabAsset: {fileID: 0}
---- !u!1 &1885649168 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 5688704513424919389, guid: 88c72a07c4cd7c847aa11a59d071d829, type: 3}
-  m_PrefabInstance: {fileID: 409228189}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1886488159
 PrefabInstance:
@@ -78400,7 +78394,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 4446516891794641865, guid: 3c1e3e90002130b4d93bba17ffd138bb, type: 3}
       propertyPath: loadTime
-      value: 15
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 7161606036894806838, guid: 3c1e3e90002130b4d93bba17ffd138bb, type: 3}
       propertyPath: m_Enabled
@@ -78449,6 +78443,10 @@ PrefabInstance:
     - target: {fileID: 8339163450924880957, guid: 3c1e3e90002130b4d93bba17ffd138bb, type: 3}
       propertyPath: m_Name
       value: Engine
+      objectReference: {fileID: 0}
+    - target: {fileID: 8843889471376991507, guid: 3c1e3e90002130b4d93bba17ffd138bb, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

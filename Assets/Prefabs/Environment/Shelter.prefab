@@ -183,7 +183,6 @@ GameObject:
   - component: {fileID: 3175764407736691663}
   - component: {fileID: 4690528795325124845}
   - component: {fileID: 5086048756615117419}
-  - component: {fileID: 6775836642237801413}
   - component: {fileID: 7277719120512906012}
   m_Layer: 0
   m_Name: Terminal
@@ -423,19 +422,6 @@ MonoBehaviour:
   m_DefaultSpriteDPI: 96
   m_DynamicPixelsPerUnit: 12
   m_PresetInfoIsWorld: 1
---- !u!114 &6775836642237801413
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1539610060806878552}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 451ea4bc5fd44524b8735f5381ab5207, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  sceneIndex: 0
 --- !u!225 &7277719120512906012
 CanvasGroup:
   m_ObjectHideFlags: 0
@@ -534,88 +520,6 @@ MonoBehaviour:
   - {x: 0.47071075, y: 0.06624097, z: 0}
   - {x: 0.38370514, y: 0.18453208, z: 0}
   - {x: -0.28581238, y: 0.26379415, z: 0}
---- !u!1 &2059179488760769126
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1511648578969606343}
-  - component: {fileID: 2288385788269095748}
-  m_Layer: 0
-  m_Name: Light
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1511648578969606343
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2059179488760769126}
-  serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 1.233, y: -1.134, z: -0.053658765}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 2687857090034015759}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &2288385788269095748
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2059179488760769126}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 073797afb82c5a1438f328866b10b3f0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_ComponentVersion: 1
-  m_LightType: 1
-  m_BlendStyleIndex: 0
-  m_FalloffIntensity: 0.94
-  m_Color: {r: 0.34901962, g: 0.54509807, b: 0.36078432, a: 1}
-  m_Intensity: 1.03
-  m_LightVolumeIntensity: 1
-  m_LightVolumeIntensityEnabled: 0
-  m_ApplyToSortingLayers: 00000000
-  m_LightCookieSprite: {fileID: 0}
-  m_DeprecatedPointLightCookieSprite: {fileID: 0}
-  m_LightOrder: 0
-  m_AlphaBlendOnOverlap: 0
-  m_OverlapOperation: 0
-  m_NormalMapDistance: 3
-  m_NormalMapQuality: 2
-  m_UseNormalMap: 0
-  m_ShadowIntensityEnabled: 0
-  m_ShadowIntensity: 0.75
-  m_ShadowVolumeIntensityEnabled: 0
-  m_ShadowVolumeIntensity: 0.75
-  m_LocalBounds:
-    m_Center: {x: -0.025000006, y: -0.051249996, z: 0}
-    m_Extent: {x: 0.6847, y: 0.52845, z: 0}
-  m_PointLightInnerAngle: 360
-  m_PointLightOuterAngle: 360
-  m_PointLightInnerRadius: 0.06
-  m_PointLightOuterRadius: 0.8
-  m_ShapeLightParametricSides: 5
-  m_ShapeLightParametricAngleOffset: 0
-  m_ShapeLightParametricRadius: 1
-  m_ShapeLightFalloffSize: 0.5
-  m_ShapeLightFalloffOffset: {x: 0, y: 0}
-  m_ShapePath:
-  - {x: -0.20864105, y: -0.07871008, z: 0}
-  - {x: 0.15745544, y: -0.0787096, z: 0}
-  - {x: 0.16139221, y: -0.023659706, z: 0}
-  - {x: -0.20929718, y: -0.023273945, z: 0}
 --- !u!1 &2437869700373410330
 GameObject:
   m_ObjectHideFlags: 0
@@ -1097,7 +1001,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &2687857090034015759
 Transform:
   m_ObjectHideFlags: 0
@@ -1114,7 +1018,6 @@ Transform:
   - {fileID: 8945631265202746320}
   - {fileID: 2236566525808194998}
   - {fileID: 9094401381040469428}
-  - {fileID: 1511648578969606343}
   - {fileID: 7136384447504637494}
   - {fileID: 2743247741905488788}
   - {fileID: 3227909685621518017}
@@ -1220,6 +1123,8 @@ GameObject:
   m_Component:
   - component: {fileID: 5013375127548524630}
   - component: {fileID: 7175793035036100895}
+  - component: {fileID: 4847168050292285747}
+  - component: {fileID: 7253334661624214137}
   m_Layer: 0
   m_Name: Shelter
   m_TagString: Untagged
@@ -1290,12 +1195,71 @@ SpriteRenderer:
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 21.9375, y: 8.125}
+  m_Size: {x: 21.8125, y: 8.125}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &4847168050292285747
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7848507516635073959}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 451ea4bc5fd44524b8735f5381ab5207, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sceneIndex: 0
+  shelterSprite: {fileID: 7933732862791913410, guid: 58a7eb357449fee43aadd97a4c257d7b, type: 3}
+--- !u!61 &7253334661624214137
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7848507516635073959}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: -4.487711, y: 1.3271861}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5014327, y: 0}
+    oldSize: {x: 21.8125, y: 8.125}
+    newSize: {x: 21.8125, y: 8.125}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 4.094822, y: 2.6543722}
+  m_EdgeRadius: 0
 --- !u!1 &7888900055763492549
 GameObject:
   m_ObjectHideFlags: 0

@@ -5,18 +5,23 @@
 //---------------------------------------------------------
 
 using UnityEngine;
+using UnityEngine.Rendering.Universal;
 
 /// <summary>
 /// Antes de cada class, descripción de qué es y para qué sirve,
 /// usando todas las líneas que sean necesarias.
 /// </summary>
-public class Door : MonoBehaviour
+public class Shelter : MonoBehaviour
 {
     // ---- ATRIBUTOS DEL INSPECTOR ----
     #region Atributos del Inspector (serialized fields)
 
     [SerializeField] private int sceneIndex;
     // Índice de la escena a la que se cambiará al interactuar con la puerta.
+
+    [SerializeField] private Sprite shelterSprite;
+    // Esto seguro que se puede hacer de mejor manera
+
     #endregion
 
     // ---- ATRIBUTOS PRIVADOS ----
@@ -36,14 +41,12 @@ public class Door : MonoBehaviour
     private Terminal Console;
     // Referencia a la consola del juego para mostrar mensajes.
 
+    private GameObject shelterLights; // Referencia a las luces del refugio.
+
     #endregion
 
     // ---- MÉTODOS DE MONOBEHAVIOUR ----
     #region Métodos de MonoBehaviour
-
-    // Por defecto están los típicos (Update y Start) pero:
-    // - Hay que añadir todos los que sean necesarios
-    // - Hay que borrar los que no se usen 
 
     /// <summary>
     /// Start is called on the frame when a script is enabled just before 
@@ -51,11 +54,11 @@ public class Door : MonoBehaviour
     /// </summary>
     void Start()
     {
-        Console = GetComponent<Terminal>();
+        Console = GetComponentInChildren<Terminal>();
 
         if (Console == null)
 
-            Debug.LogError("No se ha encontrado la consola en la puerta");
+            Debug.LogError("No se ha encontrado el terminal en el refugio");
 
         else
 
@@ -64,6 +67,18 @@ public class Door : MonoBehaviour
         levelCompleted = LevelManager.Instance.LevelCompleted();
         // Consulta si se ha completado el nivel
 
+        // Establece las luces
+        shelterLights = GetComponentInChildren<Light2D>().transform.parent.gameObject;
+
+        if (shelterLights == null)
+
+            Debug.LogError("No se han encontrado las luces del refugio");
+
+        else
+            
+            // Desactiva las luces al inicio
+            shelterLights.SetActive(false);
+
     }
 
     /// <summary>
@@ -71,12 +86,30 @@ public class Door : MonoBehaviour
     /// </summary>
     void Update()
     {
-        if (hasEnter && levelCompleted && InputManager.Instance.InteractWasPressedThisFrame())
+        if (levelCompleted)
         {
-            GameManager.Instance.ChangeScene(sceneIndex);
-            // Cambiar de escena si se cumple todo
+            // Si se ha completado el nivel, se activa la consola y las luces
+            shelterLights.SetActive(true);
+
+            // Pasar al siguiente frame si se ha completado el nivel
+            GetComponent<SpriteRenderer>().sprite = shelterSprite;
+
+            if (hasEnter && InputManager.Instance.InteractWasPressedThisFrame()) 
+
+                GameManager.Instance.ChangeScene(sceneIndex);
+                // Cambiar de escena si se cumple todo
+
         }
 
+        else 
+        {
+            // Si no se ha completado el nivel, se desactiva la consola y las luces
+            shelterLights.SetActive(false);
+        }
+
+        levelCompleted = LevelManager.Instance.LevelCompleted(); // Actualiza estado
+        
+        // Revisar porque esto aquí...
         
     }
 
@@ -84,21 +117,16 @@ public class Door : MonoBehaviour
 
     // ---- MÉTODOS PRIVADOS ----
     #region Métodos privados
-    // Documentar cada método que aparece aquí
-    // El convenio de nombres de Unity recomienda que estos métodos
-    // se nombren en formato PascalCase (palabras con primera letra
-    // mayúscula, incluida la primera letra)
 
     private void OnTriggerEnter2D(Collider2D other)
     {
         if (other.GetComponent<PlayerMovement>() != null)
         {
             hasEnter = true;
-            levelCompleted = LevelManager.Instance.LevelCompleted(); // Actualiza estado
 
             if (levelCompleted && Console != null)
         {
-            Console.Write("Status: \nHabilitado\n\nPresiona {key_interact} para entrar al refugio");
+            Console.Write("Status: \nHabilitado\n\nPulsa {key_interact} para entrar al refugio");
             // Muestra el mensaje de que se puede entrar al refugio
         }
 
@@ -115,4 +143,4 @@ public class Door : MonoBehaviour
     
     #endregion
 
-} // class Door
+} // class Shelter

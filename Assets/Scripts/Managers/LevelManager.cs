@@ -8,7 +8,6 @@
 //---------------------------------------------------------
 
 using UnityEngine;
-using UnityEngine.Rendering.Universal; // Necesario para Light2D
 
 
 /// <summary>
@@ -48,8 +47,6 @@ public class LevelManager : MonoBehaviour
     private int motoresReparados = 0;
     [SerializeField]
     private int motorNeed;
-    [SerializeField]
-    private GameObject completionLight; // Referencia a la luz
 
     #endregion
 
@@ -63,7 +60,6 @@ public class LevelManager : MonoBehaviour
         {
             // Somos la primera y única instancia
             _instance = this;
-            Init();
         }
 
     }
@@ -103,12 +99,6 @@ public class LevelManager : MonoBehaviour
         motoresReparados++; //añade 1 al num de motores reparadoss
         Debug.Log("Motores reparados: " + motoresReparados); 
         //Muestra un mensaje con los motores reparados
-        if (LevelCompleted())
-        {
-            if (completionLight != null)
-                completionLight.SetActive(true); // Encender la luz
-         
-        }
     }
 
     public bool LevelCompleted() 
@@ -127,12 +117,6 @@ public class LevelManager : MonoBehaviour
     #endregion
 
     // ---- MÉTODOS PRIVADOS ----
-
-    private void Init()
-    {
-        if (completionLight != null)
-            completionLight.SetActive(false); // Asegurar que la luz empieza apagada
-    }
     #region Métodos Privados
 
     /// <summary>

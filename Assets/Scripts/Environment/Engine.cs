@@ -15,7 +15,7 @@ using UnityEngine.Rendering.Universal;
 /// Clase que maneja la interacción del jugador con el motor,
 /// permitiendo su reparación a través de un sistema de carga progresiva.
 /// </summary>
-public class Motor : MonoBehaviour
+public class Engine : MonoBehaviour
 {
     // ---- ATRIBUTOS DEL INSPECTOR ----
     #region Atributos del Inspector (serialized fields)
@@ -265,4 +265,4 @@ public class Motor : MonoBehaviour
 
     #endregion
 
-} // Fin de la clase Motor
+} // class Engine

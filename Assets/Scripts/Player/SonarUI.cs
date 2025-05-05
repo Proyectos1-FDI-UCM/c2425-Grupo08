@@ -95,7 +95,7 @@ public class SonarUI : MonoBehaviour
     public void ActivatePulseUI()
     {
         pulseIndicator.enabled = true;
-        Debug.Log("activado");
+        //Debug.Log("activado");
     }
     /// <summary>
     /// Desactiva la parte del pulso del UI
@@ -103,7 +103,7 @@ public class SonarUI : MonoBehaviour
     public void DeactivatePulseUI()
     {
         pulseIndicator.enabled = false;
-        Debug.Log("desactivado");
+        //Debug.Log("desactivado");
     }
     /// <summary>
     /// Ejecuta la animación del pulso del UI
