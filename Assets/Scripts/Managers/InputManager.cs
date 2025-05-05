@@ -233,7 +233,7 @@ public class InputManager : MonoBehaviour
             // Para Xbox
             else if (IsXboxController())
 
-                key = "X";
+                key = "x";
 
             // Para Switch Pro Controller
             else if (IsSwitchProController())
@@ -260,7 +260,7 @@ public class InputManager : MonoBehaviour
             // Para PlayStation
             if (IsDualShockController())
 
-                key = "X";
+                key = "x";
 
             // Para Xbox
             else if (IsXboxController())
@@ -275,7 +275,7 @@ public class InputManager : MonoBehaviour
 
         else // Si no hay gamepad o no hay binding para el gamepad, usamos el teclado
 
-            key = "Espacio";
+            key = "ESPACIO";
 
         return key;
     }
