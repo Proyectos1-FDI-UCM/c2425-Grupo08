@@ -361,7 +361,7 @@ public class PlayerMovement : MonoBehaviour
                     AudioManager.instance.PlaySFX(SFXType.Walk, audioSource, true);
                     AnimationState(_state);
                 }
-                else if (_rb.velocity.y < -0.1f)
+                else if (_rb.velocity.y < -0.2f)
                 {
                     _state = States.Fall;
                     AnimationState(_state);
@@ -391,7 +391,7 @@ public class PlayerMovement : MonoBehaviour
                     AudioManager.instance.StopSFX(audioSource);
                     AnimationState(_state);
                 }
-                else if (_rb.velocity.y < -0.1f)
+                else if (_rb.velocity.y < -0.2f)
                 {
                     _state = States.Fall;
                     AnimationState(_state);
@@ -415,7 +415,7 @@ public class PlayerMovement : MonoBehaviour
                     _state = States.Death;
                     AudioManager.instance.StopSFX(audioSource);
                 }
-                else if (_rb.velocity.y < -0.1f)
+                else if (_rb.velocity.y < 0)
                 {
                     _state = States.Fall;
                     AnimationState(_state);
@@ -427,7 +427,7 @@ public class PlayerMovement : MonoBehaviour
                 {
                     _state = States.Death;
                 }
-                if (_rb.velocity.y >= -0.1f)
+                if (_rb.velocity.y >= 0)
                 {
                     AudioManager.instance.PlaySFX(SFXType.Fall, audioSource);
                     if (_rb.velocity.x == 0f)
@@ -491,7 +491,8 @@ public class PlayerMovement : MonoBehaviour
             _rb.velocity = new Vector2(0, _rb.velocity.y);
         }
             _rb.AddForce(new Vector2(x, 0).normalized * WalkAcceleration, ForceMode2D.Force);
-
+        if (_rb.velocity.x <= 0.01f && _rb.velocity.x >= -0.01f)
+            _rb.AddForce(new Vector2(x, 0.5f) * 20, ForceMode2D.Force);
         if (Mathf.Abs(_rb.velocity.x) > Mathf.Abs(_joystickMaxSpeed))
         {
             if (_joystickMaxSpeed == 1 || _joystickMaxSpeed == -1)
