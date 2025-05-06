@@ -1,25 +1,23 @@
 //---------------------------------------------------------
-// Breve descripción del contenido del archivo
-// Responsable de la creación de este archivo
-// Nombre del juego
+// Mata al jugador al entrar en la zona de interacción
+// Carlos Dochao Moreno
+// Proyect Abyss
 // Proyectos 1 - Curso 2024-25
 //---------------------------------------------------------
 
 using UnityEngine;
-// Añadir aquí el resto de directivas using
-
 
 /// <summary>
-/// Antes de cada class, descripción de qué es y para qué sirve,
-/// usando todas las líneas que sean necesarias.
+/// Componente que representa una barrera de muerte en el juego.
 /// </summary>
 public class DeathBarrier : MonoBehaviour
 {   
     // ---- MÉTODOS PRIVADOS ----
     #region Métodos Privados
+    
     /// <summary>
-    /// Detecta cuando el jugador entra en la zona de interacción del motor.
-    /// Activa la interfaz de carga si el motor no ha sido reparado aún.
+    /// Detecta cuando el jugador entra en la zona de interacción.
+    /// Si el jugador entra, se llama al método Death() del script OxigenScript.
     /// </summary>
     private void OnTriggerEnter2D(Collider2D other)
     {
@@ -30,5 +28,4 @@ public class DeathBarrier : MonoBehaviour
 
     #endregion   
 
-} // class DeathBarrier 
-// namespace
+} // class DeathBarrier

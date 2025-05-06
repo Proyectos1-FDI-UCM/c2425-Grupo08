@@ -65,8 +65,8 @@ public class Terminal : MonoBehaviour
     private bool stop = false; // Indica si se debe detener la escritura progresiva
 
     // Añade fondo a los terminales (con una fuente fallback)
-    //private string mark = "<mark=#000000fa padding=“5, 5, 5, 5”>";
-    private string mark = ""; // Por defecto sin fondo
+    private string mark = "<mark=#000000fa padding=“5, 5, 5, 5”>";
+    //private string mark = ""; // Por defecto sin fondo
 
     #endregion
 
