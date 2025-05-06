@@ -6,6 +6,7 @@
 //---------------------------------------------------------
 
 using UnityEngine;
+using UnityEngine.Rendering.Universal;
 
 /// <summary>
 /// Clase que gestiona la transición entre escenas y la activación/desactivación de objetos.
@@ -18,6 +19,14 @@ public class SceneController : MonoBehaviour
     [SerializeField]
     [Tooltip("Index de la escena a la que se va tras finalizar")]
     private int sceneIndex;
+
+    [SerializeField]
+    [Tooltip("Luz para gestionar (la luz que va a hacer de sol)")]
+    private Light2D topLight;
+
+    [SerializeField, Range (0f, 1f)]
+    [Tooltip("mínimo de intensidad a la que llega la luz")]
+    private float minIntesity;
 
     [SerializeField]
     [Tooltip("Objetos para gestionar")]
@@ -70,6 +79,10 @@ public class SceneController : MonoBehaviour
 
                 GameManager.Instance.ChangeScene(sceneIndex);
         }
+
+        if (topLight.intensity > minIntesity)
+
+            topLight.intensity -= Time.deltaTime * 0.1f;
     }
 
     #endregion
