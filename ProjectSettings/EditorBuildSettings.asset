@@ -18,8 +18,8 @@ EditorBuildSettings:
     path: Assets/Scenes/Tutorial.unity
     guid: fed1c48c54e5639459ecfbce984cc937
   - enabled: 1
-    path: Assets/Scenes/Unused/Shelter.unity
-    guid: c34df6b300ff6d04d89cdc4d41b2b43d
+    path: Assets/Scenes/Intro.unity
+    guid: 5f5db7499c558da4894bc9e1f33c11f4
   - enabled: 1
     path: Assets/Scenes/Level.unity
     guid: 786117613f8220b459d2e9e4966b51b9
