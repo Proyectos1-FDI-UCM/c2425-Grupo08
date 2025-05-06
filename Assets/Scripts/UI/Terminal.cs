@@ -16,6 +16,15 @@ public class Terminal : MonoBehaviour
     // ---- ATRIBUTOS DEL INSPECTOR ----
     #region Atributos del Inspector
 
+    [Header("Debug Settings")]
+    [Space]
+    [Tooltip("Mostrar el terminal inmediatamente al iniciar")]
+    [SerializeField] private bool skipCollider = false; // Por defecto sin skippear
+    [Tooltip("Hacer que el texto se muestre parpadeando")]
+    [SerializeField] private bool textBlink = false; // Por defecto apagado
+    [Tooltip("Muestra el texto con un fondo negro a su alrededor")]
+    [SerializeField] private bool textBackground = true; // Por defecto con fondo
+
     [Header("Transition Settings")]
     [Space]
     [Tooltip("Velocidad de aparición/desparición")]
@@ -36,7 +45,6 @@ public class Terminal : MonoBehaviour
     [Tooltip("Carácter del cursor.")]
     [SerializeField] private string cursor = "▌";*/
 
-    [Header("Message Settings")]
     [Space]
     [Tooltip("Mensaje que se mostrará en la consola.")]
     [TextArea(3, 10)]
@@ -65,8 +73,10 @@ public class Terminal : MonoBehaviour
     private bool stop = false; // Indica si se debe detener la escritura progresiva
 
     // Añade fondo a los terminales (con una fuente fallback)
-    private string mark = "<mark=#000000fa padding=“5, 5, 5, 5”>";
-    //private string mark = ""; // Por defecto sin fondo
+    private string mark;
+
+    // Boleana de control para saber si el mensaje ha terminado de escribirse
+    private bool end = false;
 
     #endregion
 
@@ -76,10 +86,9 @@ public class Terminal : MonoBehaviour
     /// <summary>
     /// Inicializa el componente TMP_Text y AudioSource
     /// </summary>
-    void Awake()
+    void Start()
     {
         // Inicializa el componente CanvasGroup
-
         canvas = GetComponent<CanvasGroup>();
 
         if (canvas == null)
@@ -111,6 +120,18 @@ public class Terminal : MonoBehaviour
 
                 Debug.LogError("No se ha encontrado el componente AudioSource en el objeto ni en sus hijos.");
         }
+
+        if (skipCollider) // Skipea directamente la activación con el collider
+
+            Write(message);
+
+        if (textBackground) // Si se quiere que el texto tenga un fondo
+
+            mark = "<mark=#000000fa padding=“5, 5, 5, 5”>"; // Añade el fondo al texto
+
+        else // Si no se quiere que el texto tenga un fondo
+
+            mark = ""; // Elimina el fondo del texto
     }
 
     /// <summary>
@@ -230,6 +251,15 @@ public class Terminal : MonoBehaviour
         return visible; // Devuelve el estado de visibilidad
     }
 
+    /// <summary>
+    /// Devuelve el estado de escritura del texto.
+    /// </summary>
+    /// <returns>True si ha terminado de escribirse</returns>
+    public bool IsFinished()
+    {       
+        return end; // Devuelve el estado de la escritura
+    }
+
     #endregion
 
     // ---- MÉTODOS PRIVADOS ----
@@ -270,6 +300,8 @@ public class Terminal : MonoBehaviour
         // Si el texto actual es menor que el mensaje y no se ha detenido
         if (message != "" && textTMP.text.Length < totalLength && index < totalLength && !stop) 
         {
+            end = false; // Dejamos la boleana a falso
+
             if (init < initPause) // Pausa inicial
 
                 init += Time.deltaTime;
@@ -299,6 +331,15 @@ public class Terminal : MonoBehaviour
                         audioSource.PlayOneShot(audioSource.clip); // Reproduce el sonido de escritura                    
                 }
             }
+        }
+
+        else // Si el texto ha terminado de escribirse:
+        {
+            end = true; // Devolvemos true en la boleana de control
+
+            if (textBlink) // Si se quiere que parpadee el texto
+                 
+                alpha = Mathf.PingPong(Time.time * fadeSpeed, 1f); // Parpadeo del texto
         }
     }
 
