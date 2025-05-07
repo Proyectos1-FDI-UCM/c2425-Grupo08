@@ -8,33 +8,25 @@
 using UnityEngine;
 
 /// <summary>
-/// Antes de cada class, descripción de qué es y para qué sirve,
-/// usando todas las líneas que sean necesarias.
+/// La clase ArrowManager es única y gestiona la lógica y movimiento de todas las flechas. Las flechas no gestionan su lógica de manera interna.
 /// </summary>
 public class ArrowManager: MonoBehaviour
 {
     // ---- ATRIBUTOS DEL INSPECTOR ----
     #region Atributos del Inspector (serialized fields)
-    // Documentar cada atributo que aparece aquí.
-    // El convenio de nombres de Unity recomienda que los atributos
-    // públicos y de inspector se nombren en formato PascalCase
-    // (palabras con primera letra mayúscula, incluida la primera letra)
-    // Ejemplo: MaxHealthPoints
+    // Número máximo de objetivos que puede asumir la lógica de las flechas
     #endregion
     [SerializeField] private int MaxObjectives = 0;
+    // Referencia al prefab de la flecha
     [SerializeField] private GameObject Arrow;
-    //[SerializeField] GameObject test;
     
     // ---- ATRIBUTOS PRIVADOS ----
     #region Atributos Privados (private fields)
-    // Documentar cada atributo que aparece aquí.
-    // El convenio de nombres de Unity recomienda que los atributos
-    // privados se nombren en formato _camelCase (comienza con _, 
-    // primera palabra en minúsculas y el resto con la 
-    // primera letra en mayúsculas)
-    // Ejemplo: _maxHealthPoints
+    // Una estructura que contiene todas las flechas
     private struct _arrowStructure{
+        // array de flechas del jugador
         public _arrow[] _arrows{get;set;}
+        // "Tapón" del array. Indica en que posición está la última flecha añadida.
         public byte _hat{get;set;}
     };
     private struct _arrow{
@@ -52,10 +44,6 @@ public class ArrowManager: MonoBehaviour
     
     // ---- MÉTODOS DE MONOBEHAVIOUR ----
     #region Métodos de MonoBehaviour
-    
-    // Por defecto están los típicos (Update y Start) pero:
-    // - Hay que añadir todos los que sean necesarios
-    // - Hay que borrar los que no se usen 
     
     /// <summary>
     /// Start is called on the frame when a script is enabled just before 
@@ -77,19 +65,13 @@ public class ArrowManager: MonoBehaviour
     void Update()
     {
         UpdateArrows();
-        //Debug.Log(_arrowsBuffer._hat);
     }
     #endregion
 
     // ---- MÉTODOS PÚBLICOS ----
     #region Métodos públicos
-    // Documentar cada método que aparece aquí con ///<summary>
-    // El convenio de nombres de Unity recomienda que estos métodos
-    // se nombren en formato PascalCase (palabras con primera letra
-    // mayúscula, incluida la primera letra)
-    // Ejemplo: GetPlayerController
 
-    #endregion
+    // Se llama desde fuera del script. Crea una flecha y actualiza la estructura de flechas. La ID de la flecha es una referencia al objeto al que apunta.
     public void CreateArrow(GameObject objective){
         if (objective != null){
             _arrowsBuffer._arrows[_arrowsBuffer._hat]._objective = objective;
@@ -99,6 +81,7 @@ public class ArrowManager: MonoBehaviour
             }
         else Debug.Log("ERROR: trying to create an arrow with a null object");
         }
+    // Se llama desde fuera del script. Borra una flecha que tiene la ID del objeto al que apunta.
     public void DeleteArrow(GameObject arrowToDelete){
         bool arrowFound = false;
         int i = 0;
@@ -118,15 +101,12 @@ public class ArrowManager: MonoBehaviour
         }
 
     }
+
+    #endregion
     
     // ---- MÉTODOS PRIVADOS ----
     #region Métodos Privados
-    // Documentar cada método que aparece aquí
-    // El convenio de nombres de Unity recomienda que estos métodos
-    // se nombren en formato PascalCase (palabras con primera letra
-    // mayúscula, incluida la primera letra)
 
-    #endregion   
     /// <summary>
     /// Itera sobre el array de flechas y actualiza sus estados
     /// </summary>
@@ -153,4 +133,5 @@ public class ArrowManager: MonoBehaviour
         }
     }
 
+    #endregion   1
 } // class ArrowManager
