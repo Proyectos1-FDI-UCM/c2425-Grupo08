@@ -86,7 +86,7 @@ public class Terminal : MonoBehaviour
     /// <summary>
     /// Inicializa el componente TMP_Text y AudioSource
     /// </summary>
-    void Start()
+    void Awake()
     {
         // Inicializa el componente CanvasGroup
         canvas = GetComponent<CanvasGroup>();
@@ -326,7 +326,7 @@ public class Terminal : MonoBehaviour
 
                         init = 0f; // Reinicia el contador de tiempo para la pausa especial
 
-                    if (GetVisibility()) // Si el texto es visible
+                    if (GetVisibility() && audioSource != null) // Si el texto es visible
                         
                         audioSource.PlayOneShot(audioSource.clip); // Reproduce el sonido de escritura                    
                 }

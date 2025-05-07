@@ -1,3 +1,12 @@
+//---------------------------------------------------------
+// Clase que gestiona la transición entre escenas y la activación/desactivación de objetos.
+//
+// Tomás Arévalo Almagro
+// Carlos Dochao Moreno
+// Beyond the Depths
+// Proyectos 1 - Curso 2024-25
+//---------------------------------------------------------
+
 using UnityEngine;
 using UnityEngine.Rendering.Universal;
 
@@ -22,6 +31,10 @@ public class SceneController : MonoBehaviour
     private float minIntesity;
 
     [SerializeField]
+    [Tooltip("Se muestra entre textos para indicar como continuar")]
+    private GameObject continueObject;
+
+    [SerializeField]
     [Tooltip("Objetos para gestionar")]
     private GameObject[] objects;
 
@@ -42,36 +55,46 @@ public class SceneController : MonoBehaviour
         if (objects != null && objects.Length > 0)
         {
             for (int i = 0; i < objects.Length; i++)
+
                 if (objects[i] != null)
+
                     objects[i].SetActive(i == 0);
         }
+
+        //Escribir del tirón el mensaje del Terminal para continuar
+        continueObject.GetComponent<Terminal>().SetMessage(continueObject.GetComponent<Terminal>().GetMessage());
+        continueObject.SetActive(false);
     }
 
     void Update()
     {
+        // Intentar obtener el Terminal del objeto activo
+        Terminal terminal = objects[current]?.GetComponentInChildren<Terminal>();
+
         if (InputManager.Instance.InteractWasRealeasedThisFrame())
         {
-            // Intentar obtener el Terminal del objeto activo
-            Terminal terminal = objects[current]?.GetComponentInChildren<Terminal>();
-
-            if (terminal != null)
+            if (!terminal.IsFinished())
             {
-                if (!terminal.IsFinished())
-                {
                     // Mostrar mensaje completo de inmediato
                     terminal.SetMessage(terminal.GetMessage());
+
                     return; // No continuar hasta que termine
-                }
-            }
+            }    
 
             // Si se ha completado el texto (o no hay Terminal), avanzar
             if (current < objects.Length - 1)
+
                 ShowNext();
+
             else
+
                 GameManager.Instance.ChangeScene(sceneIndex);
         }
 
+        continueObject.SetActive(terminal.IsFinished());
+
         if (topLight.intensity > minIntesity)
+
             topLight.intensity -= Time.deltaTime * 0.1f;
     }
 
@@ -82,6 +105,7 @@ public class SceneController : MonoBehaviour
 
     private void ShowNext()
     {
+
         if (objects != null && objects.Length != 0)
         {
             if (objects[current] != null)
