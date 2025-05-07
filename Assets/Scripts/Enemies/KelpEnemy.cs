@@ -32,9 +32,10 @@ public class KelpEnemy : MonoBehaviour
 
     private GameObject player;
 
+    // Componente de la terminal
     private Terminal Console;
 
-    private float time;
+    // Contador de pulsaciones de tecla
     private int keyCount;
 
     #endregion
@@ -42,10 +43,8 @@ public class KelpEnemy : MonoBehaviour
     // ---- MÉTODOS DE MONOBEHAVIOUR ----
     #region Métodos de MonoBehaviour
 
-
     /// <summary>
-    /// Start is called on the frame when a script is enabled just before 
-    /// any of the Update methods are called the first time.
+    /// Se asignan referencias a los componentes necesarios.
     /// </summary>
     void Start()
     {
@@ -70,8 +69,10 @@ public class KelpEnemy : MonoBehaviour
             Debug.LogError("No se ha encontrado el componente Terminal en el GameObject.");
 
         else
-
+        {
+            Console.gameObject.SetActive(false);
             Console.SetMessage("Pulsa {key_jump}");
+        }
     }
 
     /// <summary>
@@ -88,26 +89,9 @@ public class KelpEnemy : MonoBehaviour
 
             if (keyCount >= keyPresses)
             {
-                Console.Hide();
+                Console.gameObject.SetActive(false);
                 _isGrabbed = false;
                 PlayerMovement.Released();
-            }
-
-            if (time < delay)
-            {
-                time += Time.deltaTime;
-
-                if (time > delay/4)
-
-                    Console.Hide();
-            }
-
-            else
-            {
-                Console.Show();
-                //player.GetComponent<OxigenScript>().ReduceOxygen(damage);
-                // Sonido de que te quitan oxígeno?
-                time = 0f;
             }
 
             // Animación de atrapado?
@@ -118,41 +102,13 @@ public class KelpEnemy : MonoBehaviour
             // Animación idle
         }
 
-        //float playerSpeed = PlayerMovement.GetComponent<Rigidbody2D>().velocity.magnitude;
-        //bool inGrab = _canGrab && playerSpeed <= maxCatchVelocity && IsPlayerInside(grabRadius);
-        //bool inActivate = IsPlayerInside(activateRadius);
-
-        /*
-        if (inGrab)
-        {
-            if (!_isGrabbed)
-            {
-                PlayerMovement.StartGrabbed();
-                _isGrabbed = true;
-                PlayerMovement.isGrabbed = true;
-                PlayerMovement.kelpGrabbing = this;
-            }
-            _isActive = false;
-        }
-        else if (inActivate)
-        {
-            _isActive = true;
-        }
-        else if (_isGrabbed)
-        {
-            // Esperar a que Player llame a ReleasePlayer()
-        }
-        else
-        {
-            _isActive = false;
-        }
-
-        */
     }
+
     #endregion
 
     // ---- MÉTODOS PÚBLICOS ----
     #region Métodos públicos
+
     /// <summary>
     /// Método externo que avisa de que el jugador ya no está siendo agarrado.
     /// </summary>
@@ -184,6 +140,7 @@ public class KelpEnemy : MonoBehaviour
             keyCount = 0;
             PlayerMovement.kelpGrabbing = this;
             GrabPlayer();
+            Console.gameObject.SetActive(true);
         }
     }
 
@@ -194,20 +151,9 @@ public class KelpEnemy : MonoBehaviour
         {
             //Animación de liberación/idle
             _isGrabbed = false;
-            Console.Hide();
+            Console.gameObject.SetActive(false);
         }
     }
-
-
-    /// <summary>
-    /// Compara la posición del jugador con la posición del enemigo alga y devuelve true si está dentro del radio dado.
-    /// </summary>
-    /// <param name="radius">Radio de la circunferencia de acción a comparar con el jugador</param>
-    /// <returns></returns>
-    /*private bool IsPlayerInside(float radius)
-    {
-        return (Player.transform.position - transform.position).magnitude <= radius;
-    }*/
 
 
     private void OnDrawGizmos()
