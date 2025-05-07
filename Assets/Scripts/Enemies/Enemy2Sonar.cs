@@ -254,7 +254,7 @@ public class Enemy2Sonar : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject == player && attack)
+        if (collision.gameObject == player)
         {
             player.GetComponent<OxigenScript>().Death();
 
@@ -375,7 +375,7 @@ public class Enemy2Sonar : MonoBehaviour
         yield return new WaitForSeconds(shadowDelay);
 
         if (player != null && (IsInsideAttackRadious()) &&
-        (InputManager.Instance.MovementVector.x != 0 || player.GetComponent<PlayerMovement>().GetIsRepairing())) // Hace falta cambiar el interact por un bool de si se está reparando el motor
+        (InputManager.Instance.MovementVector.x != 0 || InputManager.Instance.JumpIsPressed() || player.GetComponent<PlayerMovement>().GetIsRepairing())) // Hace falta cambiar el interact por un bool de si se está reparando el motor
         {
             attack = true;
             animator.SetBool("Attack", true);
