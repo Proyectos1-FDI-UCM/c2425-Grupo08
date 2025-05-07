@@ -25,7 +25,10 @@ public class TutorialManager : MonoBehaviour
 
     // ---- ATRIBUTOS PRIVADOS ----
     #region Atributos Privados (private fields)
-
+    private bool fadingIn = false;
+    private bool fadingOut = false;
+    private float fadeDuration = 1f;
+    private float fadeTimer = 0f;
 
     #endregion
 
@@ -44,6 +47,38 @@ public class TutorialManager : MonoBehaviour
     {
         SonarIndicator1.SetActive(false);  
     }
+    /// <summary>
+    /// Update controla frame a frame el efecto de aparecer y desvanecerse.
+    /// </summary>
+    void Update()
+    {
+        if (fadingIn)
+        {
+            fadeTimer += Time.deltaTime;
+            float alpha = Mathf.Clamp01(fadeTimer / fadeDuration);
+            SetAlpha(SonarIndicator1, alpha);
+
+            if (fadeTimer >= fadeDuration)
+            {
+                fadingIn = false;
+                fadeTimer = 0f;
+                Invoke(nameof(StartFadeOut), 1f); // espera 1 segundo antes de desvanecer
+            }
+        }
+        else if (fadingOut)
+        {
+            fadeTimer += Time.deltaTime;
+            float alpha = Mathf.Clamp01(1f - (fadeTimer / fadeDuration));
+            SetAlpha(SonarIndicator1, alpha);
+
+            if (fadeTimer >= fadeDuration)
+            {
+                fadingOut = false;
+                SonarIndicator1.SetActive(false);
+            }
+        }
+    }
+
     #endregion
 
     // ---- MÉTODOS PÚBLICOS ----
@@ -62,7 +97,7 @@ public class TutorialManager : MonoBehaviour
     {
         if (collision.CompareTag("Player"))
         {
-            StartCoroutine(ShowSonarIndicator());
+            StartSonarFade();
         }
     }
     private IEnumerator ShowSonarIndicator()
@@ -70,6 +105,41 @@ public class TutorialManager : MonoBehaviour
         SonarIndicator1.SetActive(true);
         yield return new WaitForSeconds(3f);
         SonarIndicator1.SetActive(false);
+    }
+    /// <summary>
+    /// Inicia el proceso de aparecer.
+    /// </summary>
+    private void StartSonarFade()
+    {
+        SonarIndicator1.SetActive(true);
+        fadeTimer = 0f;
+        fadingIn = true;
+        fadingOut = false;
+    }
+
+    /// <summary>
+    /// Inicia el proceso de desaparecer.
+    /// </summary>
+    private void StartFadeOut()
+    {
+        fadeTimer = 0f;
+        fadingOut = true;
+    }
+    /// <summary>
+    /// Aplica una opacidad determinada al objeto y sus hijos.
+    /// </summary>
+    private void SetAlpha(GameObject obj, float alpha)
+    {
+        SpriteRenderer[] renderers = obj.GetComponentsInChildren<SpriteRenderer>();
+        foreach (var renderer in renderers)
+        {
+            if (renderer != null)
+            {
+                Color color = renderer.color;
+                color.a = alpha;
+                renderer.color = color;
+            }
+        }
     }
 
     #endregion   
