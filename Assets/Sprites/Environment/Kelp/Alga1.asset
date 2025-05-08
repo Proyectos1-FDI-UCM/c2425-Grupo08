@@ -1,0 +1,29 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 13b75c95f34a00d4e8c04f76b73312e6, type: 3}
+  m_Name: Alga1
+  m_EditorClassIdentifier: 
+  m_AnimatedSprites:
+  - {fileID: 1716323263, guid: 087300118939c8a48904e41286f36186, type: 3}
+  - {fileID: -1197311951, guid: 087300118939c8a48904e41286f36186, type: 3}
+  - {fileID: 1539867317, guid: 087300118939c8a48904e41286f36186, type: 3}
+  - {fileID: 46200337, guid: 087300118939c8a48904e41286f36186, type: 3}
+  - {fileID: -504900242, guid: 087300118939c8a48904e41286f36186, type: 3}
+  - {fileID: 237483005, guid: 087300118939c8a48904e41286f36186, type: 3}
+  - {fileID: -703284994, guid: 087300118939c8a48904e41286f36186, type: 3}
+  - {fileID: -189731249, guid: 087300118939c8a48904e41286f36186, type: 3}
+  m_MinSpeed: 10
+  m_MaxSpeed: 12
+  m_AnimationStartTime: 0
+  m_AnimationStartFrame: 0
+  m_TileColliderType: 0
+  m_TileAnimationFlags: 0
