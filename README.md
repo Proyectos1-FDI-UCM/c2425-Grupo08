@@ -34,7 +34,7 @@ Progresión por niveles (Disponible el nivel 1)
 
 Control con teclado o mando
 
-## Como Jugar
+## Controles
 La única plataforma disponible para jugar será PC, pero el juego ofrece múltiples formas de control, ya sea con mando (compatible con cualquier consola que el jugador prefiera) o con el teclado del ordenador.
 
 Usando el teclado, se dispone de varias teclas para realizar distintas acciones dentro del juego. El movimiento se puede efectuar con las teclas A y D para avanzar de forma lateral y barra espaciadora para saltar. La linterna apunta en la dirección del mouse, se apunta con mayor precisión manteniendo pulsado el click derecho, y se dispará el flash cuando se pulsa el click izquierdo mientras apuntas. La tecla para interactuar con elementos del juego es E.
