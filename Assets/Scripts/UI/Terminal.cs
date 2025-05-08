@@ -1,7 +1,7 @@
 //---------------------------------------------------------
 // Clase Terminal.cs
 // Carlos Dochao Moreno
-// Project Abyss
+// Beyond the Depths
 // Proyectos 1 - Curso 2024-25
 //---------------------------------------------------------
 

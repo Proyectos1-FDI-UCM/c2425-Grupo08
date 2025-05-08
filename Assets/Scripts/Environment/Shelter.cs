@@ -1,6 +1,7 @@
 //---------------------------------------------------------
 // Script que se le añade a las puertas para cambiar de escena
 // Tomás Arévalo Almagro
+// Beyond the Depths
 // Proyectos 1 - Curso 2024-25
 //---------------------------------------------------------
 
@@ -26,12 +27,6 @@ public class Shelter : MonoBehaviour
 
     // ---- ATRIBUTOS PRIVADOS ----
     #region Atributos Privados (private fields)
-    // Documentar cada atributo que aparece aquí.
-    // El convenio de nombres de Unity recomienda que los atributos
-    // privados se nombren en formato _camelCase (comienza con _, 
-    // primera palabra en minúsculas y el resto con la 
-    // primera letra en mayúsculas)
-    // Ejemplo: _maxHealthPoints
     private bool levelCompleted = false;
     // Indica si el jugador ha completado el nivel actual.
 
@@ -108,8 +103,6 @@ public class Shelter : MonoBehaviour
         }
 
         levelCompleted = LevelManager.Instance.LevelCompleted(); // Actualiza estado
-        
-        // Revisar porque esto aquí...
         
     }
 

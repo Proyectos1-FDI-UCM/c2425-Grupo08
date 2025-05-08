@@ -1,7 +1,7 @@
 //---------------------------------------------------------
 // Gestiona el Menú de pausa del juego
 // Vicente Rodriguez Casado
-// Nombre del juego
+// Beyond the Depths
 // Proyectos 1 - Curso 2024-25
 //---------------------------------------------------------
 
@@ -10,35 +10,24 @@ using UnityEngine;
 
 
 /// <summary>
-/// Antes de cada class, descripción de qué es y para qué sirve,
-/// usando todas las líneas que sean necesarias.
+/// Gestiona el menu de pausa del juego.
 /// </summary>
 public class PauseManager : MonoBehaviour
 {
     // ---- ATRIBUTOS DEL INSPECTOR ----
     #region Atributos del Inspector (serialized fields)
-    // Documentar cada atributo que aparece aquí.
-    // El convenio de nombres de Unity recomienda que los atributos
-    // públicos y de inspector se nombren en formato PascalCase
-    // (palabras con primera letra mayúscula, incluida la primera letra)
-    // Ejemplo: MaxHealthPoints
+    
 
-    [SerializeField] GameObject pauseMenuUI;
+    [SerializeField] GameObject pauseMenuUI; // El menú de pausa
 
     #endregion
 
     // ---- ATRIBUTOS PRIVADOS ----
     #region Atributos Privados (private fields)
-    // Documentar cada atributo que aparece aquí.
-    // El convenio de nombres de Unity recomienda que los atributos
-    // privados se nombren en formato _camelCase (comienza con _, 
-    // primera palabra en minúsculas y el resto con la 
-    // primera letra en mayúsculas)
-    // Ejemplo: _maxHealthPoints
 
-    public static bool GameIsPaused { get; private set; } = false;
-    private AudioSource[] audioSources;
-    private Animator[] animators;
+    public static bool GameIsPaused { get; private set; } = false; // Indica si el juego está en pausa o no
+    private AudioSource[] audioSources; // Todas las fuentes de audios de la escena
+    private Animator[] animators; // Todos los animators de la escena
 
 
 
@@ -46,11 +35,6 @@ public class PauseManager : MonoBehaviour
 
     // ---- MÉTODOS DE MONOBEHAVIOUR ----
     #region Métodos de MonoBehaviour
-
-    // Por defecto están los típicos (Update y Start) pero:
-    // - Hay que añadir todos los que sean necesarios
-    // - Hay que borrar los que no se usen 
-
     /// <summary>
     /// Start is called on the frame when a script is enabled just before 
     /// any of the Update methods are called the first time.
@@ -104,13 +88,8 @@ public class PauseManager : MonoBehaviour
 
     // ---- MÉTODOS PÚBLICOS ----
     #region Métodos públicos
-    // Documentar cada método que aparece aquí con ///<summary>
-    // El convenio de nombres de Unity recomienda que estos métodos
-    // se nombren en formato PascalCase (palabras con primera letra
-    // mayúscula, incluida la primera letra)
-    // Ejemplo: GetPlayerController
-
-    public void Resume()
+    
+    public void Resume() // Reanuda el juego
     {
         Time.timeScale = 1f; // El juego continúa
         GameIsPaused = false;
@@ -123,7 +102,7 @@ public class PauseManager : MonoBehaviour
             animator.speed = 1f;
     }
 
-    void Pause()
+    void Pause() // Pausa el juego
     {
 
         GameIsPaused = true;

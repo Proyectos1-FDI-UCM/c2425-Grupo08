@@ -1,7 +1,7 @@
 //---------------------------------------------------------
 // Clase que maneja el título dinámico con efectos de fade
 // Carlos Dochao Moreno
-// Project Abyss
+// Beyond the Depths
 // Proyectos 1 - Curso 2024-25
 //---------------------------------------------------------
 

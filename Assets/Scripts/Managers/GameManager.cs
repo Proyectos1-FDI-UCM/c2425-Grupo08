@@ -49,7 +49,7 @@ public class GameManager : MonoBehaviour
     private UIManager uiManager;
     private bool easyMode = false;
     private Light2D globalLight;
-    private bool inmortal = false;
+    private bool immortal = false;
     private bool teleportcheat = false;
 
     private OxigenEffectsController oxigenEffectsController;
@@ -251,17 +251,17 @@ public class GameManager : MonoBehaviour
         Application.Quit(); // Esto es lo que se usa en el build final
         #endif
     }
-    public void SetInmortal(bool state)
+    public void SetImmortal(bool state)
     {
-        inmortal = state;
+        immortal = state;
     }
     public void ToggleInmortal()
     {
-        inmortal = !inmortal;
+        immortal = !immortal;
     }
-    public bool GetInmortal()
+    public bool GetImmortal()
     {
-        return inmortal;
+        return immortal;
     }
     public void SetTeleport(bool state)
     {

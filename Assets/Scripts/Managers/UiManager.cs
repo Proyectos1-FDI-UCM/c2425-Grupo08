@@ -1,7 +1,7 @@
 //---------------------------------------------------------
 // Breve descripción del contenido del archivo: Es la funcion para que el oxigeno baje poco a poco
 // Responsable de la creación de este archivo: Andrés Díaz Guerrero Soto (El sordo)
-// Nombre del juego
+// Beyond the Depths
 // Proyectos 1 - Curso 2024-25
 //---------------------------------------------------------
 
@@ -11,10 +11,6 @@ using UnityEngine.UI;
 // Añadir aquí el resto de directivas using
 
 
-/// <summary>
-/// Antes de cada class, descripción de qué es y para qué sirve,
-/// usando todas las líneas que sean necesarias.
-/// </summary>
 
 /// <summary>
 /// Se encarga de gestionar la interfaz de usuario (HUD) Incluyendo el
@@ -32,11 +28,7 @@ public class UIManager : MonoBehaviour
 
     // ---- ATRIBUTOS DEL INSPECTOR ----
     #region Atributos del Inspector (serialized fields)
-    // Documentar cada atributo que aparece aquí.
-    // El convenio de nombres de Unity recomienda que los atributos
-    // públicos y de inspector se nombren en formato PascalCase
-    // (palabras con primera letra mayúscula, incluida la primera letra)
-    // Ejemplo: MaxHealthPoints
+    
 
     // Referencia al panel de texto
     private GameObject textPanel;
@@ -46,48 +38,42 @@ public class UIManager : MonoBehaviour
     // Referencia de imagen de la barrade oxigeno (lo usare un circulo)
     [SerializeField] private RectTransform OxygenCircle;
 
-    /// <summary>
-    /// Posición más baja del líquido del oxígeno (cuando el oxígeno es 0)
-    /// </summary>
+    // Posición más baja del líquido del oxígeno (cuando el oxígeno es 0)
     [SerializeField] private float minLiquidPosition;
 
-    /// <summary>
-    /// Posición más alta del líquido del oxígeno (cuando el oxígeno es máximo)
-    /// </summary>
+    // Posición más alta del líquido del oxígeno (cuando el oxígeno es máximo)
     [SerializeField] private float maxLiquidPosition;
 
+    // Referencia a la imagen del tanque de oxígeno
     [SerializeField] private Sprite oxygenTankSprite;
+
+    // Referencia a la imagen del tanque de oxígeno roto
     [SerializeField] private Sprite brokenOxygenTankSprite;
 
+    // Referencia a la imagen del tanque de oxígeno
     [SerializeField] private Image oxygenTank;
 
 
     // ---- ATRIBUTOS PRIVADOS ----
     #region Atributos Privados (private fields)
-    // Documentar cada atributo que aparece aquí.
-    // El convenio de nombres de Unity recomienda que los atributos
-    // privados se nombren en formato _camelCase (comienza con _, 
-    // primera palabra en minúsculas y el resto con la 
-    // primera letra en mayúsculas)
-    // Ejemplo: _maxHealthPoints
+
 
     #endregion
 
     // ---- MÉTODOS DE MONOBEHAVIOUR ----
     #region Métodos de MonoBehaviour
 
-    // Por defecto están los típicos (Update y Start) pero:
-    // - Hay que añadir todos los que sean necesarios
-    // - Hay que borrar los que no se usen 
+
 
     /// <summary>
-    /// Start is called on the frame when a script is enabled just before 
-    /// any of the Update methods are called the first time.
+    /// Método llamado al iniciar el script. 
+    /// Inicializa el medidor de oxígeno y registra la UI en el GameManager.
     /// </summary>
     void Start()
     {
         if (OxygenCircle != null)
         {
+            // Configura el nivel inicial del oxígeno al máximo.
             OxygenCircle.anchoredPosition = new Vector2(OxygenCircle.anchoredPosition.x, maxLiquidPosition);
         }
 
@@ -99,6 +85,9 @@ public class UIManager : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Método llamado al despertar el script. Configura el patrón Singleton para esta clase.
+    /// </summary>
     private void Awake()
     {
         if (Instance != null && Instance != this)

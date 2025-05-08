@@ -1,11 +1,12 @@
 //---------------------------------------------------------
 // Este archivo se encarga del funcionamiento del UI del jugador, concretamente de la parte del sonar
 // Javier Zazo Morillo
-// Project Abyss
+// Beyond the Depths
 // Proyectos 1 - Curso 2024-25
 //---------------------------------------------------------
 
 using System.Collections;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.Rendering;
 // Añadir aquí el resto de directivas using
@@ -42,6 +43,8 @@ public class SonarUI : MonoBehaviour
 
     private SpriteRenderer pulseIndicator;
 
+    private string[] animationClips = new string[2];
+
     #endregion
 
     // ---- MÉTODOS DE MONOBEHAVIOUR ----
@@ -62,7 +65,14 @@ public class SonarUI : MonoBehaviour
         sonarIndicatorAnimation = indicatorsAnimation[0];       
         pulseIndicatorAnimation = indicatorsAnimation[1];
 
-        pulseIndicator = GameObject.Find("pulseIndicator").GetComponent<SpriteRenderer>();
+        int i = 0;
+        foreach (AnimationState state in sonarIndicatorAnimation)
+        {
+            animationClips[i] = state.name;
+            i++;
+        }
+
+        pulseIndicator = pulseIndicatorAnimation.gameObject.GetComponent<SpriteRenderer>();
     }
 
     #endregion
@@ -80,14 +90,14 @@ public class SonarUI : MonoBehaviour
     /// </summary>
     public void ActivateSonarUI()
     {
-        sonarIndicatorAnimation.Play("SonarUIAppear");
+        sonarIndicatorAnimation.Play(animationClips[0]);
     }
     /// <summary>
     /// Desactiva la parte de la circunferencia del UI
     /// </summary>
     public void DeactivateSonarUI() 
     {
-        sonarIndicatorAnimation.Play("SonarUIDisappear");
+        sonarIndicatorAnimation.Play(animationClips[1]);
     }
     /// <summary>
     /// Activa la parte del pulso del UI

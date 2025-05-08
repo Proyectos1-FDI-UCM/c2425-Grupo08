@@ -1,8 +1,8 @@
 //---------------------------------------------------------
 // AudioManager que controla los sonidos, los almacena, los reproduce y los para
-// Tomás Arévalo Almagro
+//Tomás Arévalo Almagro
 //Andrés Bartolomé Clap
-// Project Abyss
+// Beyond the Depths
 // Proyectos 1 - Curso 2024-25
 //---------------------------------------------------------
 
@@ -149,15 +149,6 @@ public class AudioManager : MonoBehaviour
         }
         return null; // Si no se encuentra, devuelve null
     }
-    // Método privado para calcular el volumen en función de la distancia al jugador
-    /*private float CalculateVolume(Vector3 playerPosition)
-    {
-        // Calcula la distancia entre el jugador y la fuente del sonido
-        float distance = Vector3.Distance(playerPosition, transform.position);
-        // Ajusta el volumen en base a la distancia, asegurando que nunca sea menor que 0
-        float volume = Mathf.Clamp01(1 / (distance / 20));
-        return volume;
-    }*/
 
     
     #endregion

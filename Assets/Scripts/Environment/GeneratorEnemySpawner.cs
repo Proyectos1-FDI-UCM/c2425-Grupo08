@@ -1,7 +1,7 @@
 //---------------------------------------------------------
 // Este script se encarga de spawnear rapes alrededor del motor mientras el jugador lo esté reparando
 // Javier Zazo Morillo
-// Project Abyss
+// Beyond the Depths
 // Proyectos 1 - Curso 2024-25
 //---------------------------------------------------------
 
@@ -23,19 +23,19 @@ public class GeneratorEnemySpawner : MonoBehaviour
     // (palabras con primera letra mayúscula, incluida la primera letra)
     // Ejemplo: MaxHealthPoints
 
-    [SerializeField] float maxRespawnRadious;
-    [SerializeField] float minRespawnRadious;
+    [SerializeField] float maxSpawnRadious;
+    [SerializeField] float minSpawnRadious;
 
     /// <summary>
     /// Altura mínima a la que puede aparecer el enemigo.
     /// Importante por el posible terreno desigual 
     /// o por decisiones de diseño.
-    /// NO poner mayor que maxRespawnRadious ya que no tiene sentido
+    /// NO poner mayor que maxSpawnRadious ya que no tiene sentido
     /// </summary>
-    [SerializeField] float minRespawnHeight;
+    [SerializeField] float minSpawnHeight;
 
-    [SerializeField] float minRespawnCooldown;
-    [SerializeField] float maxRespawnCooldown;
+    [SerializeField] float minSpawnCooldown;
+    [SerializeField] float maxSpawnCooldown;
 
     [SerializeField] GameObject enemyPrefab;
 
@@ -50,8 +50,8 @@ public class GeneratorEnemySpawner : MonoBehaviour
     // primera letra en mayúsculas)
     // Ejemplo: _maxHealthPoints
 
-    private float currentRespawnCooldown;
-    private bool canRespawn = false;
+    private float currentSpawnCooldown;
+    private bool canSpawn = false;
 
     #endregion
 
@@ -68,7 +68,7 @@ public class GeneratorEnemySpawner : MonoBehaviour
     /// </summary>
     void Start()
     {
-        currentRespawnCooldown = Random.Range(minRespawnCooldown, maxRespawnCooldown);
+        currentSpawnCooldown = Random.Range(minSpawnCooldown, maxSpawnCooldown);
     }
 
     /// <summary>
@@ -76,15 +76,14 @@ public class GeneratorEnemySpawner : MonoBehaviour
     /// </summary>
     void Update()
     {
-        if (canRespawn)
+        if (canSpawn)
         {
-            currentRespawnCooldown -= Time.deltaTime;
+            currentSpawnCooldown -= Time.deltaTime; // No hecho con corrutina para hacer que no baje el contador si el jugador deja de reparar
 
-            if (currentRespawnCooldown <= 0)
+            if (currentSpawnCooldown <= 0)
             {
-                currentRespawnCooldown = Random.Range(minRespawnCooldown, maxRespawnCooldown);
-                RespawnEnemy();
-                Debug.Log("Respawned enemy");             
+                currentSpawnCooldown = Random.Range(minSpawnCooldown, maxSpawnCooldown);
+                SpawnEnemy();        
             }
         }
     }
@@ -101,10 +100,10 @@ public class GeneratorEnemySpawner : MonoBehaviour
     /// <summary>
     /// Método que activa o desactiva la capacidad de spawnear enemigos
     /// </summary>
-    /// <param name="canRespawn">true para activar false para desactivar</param>
-    public void SetCanRespawn(bool canRespawn)
+    /// <param name="canSpawn">true para activar false para desactivar</param>
+    public void SetCanRespawn(bool canSpawn)
     {
-        this.canRespawn = canRespawn;
+        this.canSpawn = canSpawn;
     }
 
     #endregion
@@ -120,12 +119,12 @@ public class GeneratorEnemySpawner : MonoBehaviour
     /// Método que se encarga de hacer aparecer al enemigo
     /// en una posición aleatoria dentro de un rango
     /// </summary>
-    private void RespawnEnemy()
+    private void SpawnEnemy()
     {
         Vector2 randomPosition;
 
-        float randomModule = Random.Range(minRespawnRadious, maxRespawnRadious);
-        float randomY = Random.Range(minRespawnHeight, randomModule);
+        float randomModule = Random.Range(minSpawnRadious, maxSpawnRadious);
+        float randomY = Random.Range(minSpawnHeight, randomModule);
         float x = Mathf.Sqrt((randomModule * randomModule) - (randomY * randomY));
         if (Random.Range(0, 2) == 0)
         {
@@ -141,12 +140,15 @@ public class GeneratorEnemySpawner : MonoBehaviour
         instantiatedEnemy.GetComponent<Respawner>().CanNotRespawn();
     }
 
+    /// <summary>
+    /// Método para dibujar en el editor los rangos de aparición del enemigo
+    /// </summary>
     private void OnDrawGizmos()
     {
         Gizmos.color = Color.red;
-        Gizmos.DrawWireSphere(transform.position, minRespawnRadious);
+        Gizmos.DrawWireSphere(transform.position, minSpawnRadious);
         Gizmos.color = Color.green;
-        Gizmos.DrawWireSphere(transform.position, maxRespawnRadious);
+        Gizmos.DrawWireSphere(transform.position, maxSpawnRadious);
     }
 
     #endregion   

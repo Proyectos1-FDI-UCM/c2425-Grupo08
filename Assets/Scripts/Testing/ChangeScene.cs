@@ -40,13 +40,6 @@ public class ChangeScene : MonoBehaviour
 
     #endregion
     
-    // ---- MÉTODOS DE MONOBEHAVIOUR ----
-    #region Métodos de MonoBehaviour
-    
-    // Por defecto están los típicos (Update y Start) pero:
-    // - Hay que añadir todos los que sean necesarios
-    // - Hay que borrar los que no se usen 
-    #endregion
 
     // ---- MÉTODOS PÚBLICOS ----
     #region Métodos públicos
@@ -68,14 +61,6 @@ public class ChangeScene : MonoBehaviour
     }
     #endregion
 
-    // ---- MÉTODOS PRIVADOS ----
-    #region Métodos Privados
-    // Documentar cada método que aparece aquí
-    // El convenio de nombres de Unity recomienda que estos métodos
-    // se nombren en formato PascalCase (palabras con primera letra
-    // mayúscula, incluida la primera letra)
-
-    #endregion
 
 } // class ChangeScene 
 // namespace

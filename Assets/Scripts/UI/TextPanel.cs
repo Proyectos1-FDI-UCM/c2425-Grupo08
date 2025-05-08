@@ -1,7 +1,7 @@
 //---------------------------------------------------------
 // Este archivo contiene la clase TextPanel, que representa un panel de texto en la interfaz de usuario.
 // Carlos Dochao Moreno
-// Proyect Abyss
+// Beyond the Depths
 // Proyectos 1 - Curso 2024-25
 //---------------------------------------------------------
 

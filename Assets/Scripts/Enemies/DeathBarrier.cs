@@ -1,7 +1,7 @@
 //---------------------------------------------------------
 // Mata al jugador al entrar en la zona de interacción
 // Carlos Dochao Moreno
-// Proyect Abyss
+// Beyond the Depths
 // Proyectos 1 - Curso 2024-25
 //---------------------------------------------------------
 

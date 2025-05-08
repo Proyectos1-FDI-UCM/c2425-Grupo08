@@ -1,7 +1,7 @@
 //---------------------------------------------------------
 // Breve descripción del contenido del archivo
 // Responsable de la creación de este archivo. El original: Javier Zazo Morillo (nuevo modificacion): Andrés Díaz Guerrero Soto (El sordo)
-// Project Abyss
+// Beyond the Depths
 // Proyectos 1 - Curso 2024-25
 //---------------------------------------------------------
 
@@ -26,9 +26,13 @@ public class OxigenScript : MonoBehaviour
     // (palabras con primera letra mayúscula, incluida la primera letra)
     // Ejemplo: MaxHealthPoints
 
-    [SerializeField] private int maxOxigen; // La cantidad máxima de oxígeno que puede tener el jugador
-    [SerializeField] private float oxigenDecayHealthy; // La cantidad de oxígeno que se pierde por segundo al estar en estado "sano"
-    [SerializeField] private float oxigenDecayBroken; // La cantidad de oxígeno que se pierde por segundo al estar en estado "roto"
+    [Tooltip("La cantidad máxima de oxígeno que puede tener el jugador")]
+    [SerializeField] private int maxOxigen;
+    [Tooltip("La cantidad de oxígeno que se pierde por segundo al estar en estado \"sano\"")]
+    [SerializeField] private float oxigenDecayHealthy;
+    [Tooltip("La cantidad de oxígeno que se pierde por segundo al estar en estado \"roto\"")]
+    [SerializeField] private float oxigenDecayBroken;
+
     [SerializeField] private GameObject Bubbles;
     [SerializeField] private GameObject BubbleSpot;
 
@@ -52,7 +56,7 @@ public class OxigenScript : MonoBehaviour
 
     private bool isDead = false;
     private PlayerMovement player;
-    private bool inmortal = false; // Indica si el jugador es inmortal o no
+    private bool immortal = false; // Indica si el jugador es inmortal o no
 
     private Animator animator;
     private GameObject currentBubbles;
@@ -78,7 +82,7 @@ public class OxigenScript : MonoBehaviour
         audioSource= AudioManager.instance.GetComponent<AudioSource>();
         audioSourceOxygen = gameObject.AddComponent<AudioSource>();
         AudioManager.instance.PlaySFX(SFXType.Breath, audioSource, true);
-        inmortal = GameManager.Instance.GetInmortal();
+        immortal = GameManager.Instance.GetImmortal();
     }
 
     /// <summary>
@@ -131,7 +135,10 @@ public class OxigenScript : MonoBehaviour
         currentOxigen -= value;
     }
 
-    public void PierceTank() // Método que se llama cuando el tanque de oxígeno recibe un impacto (si el tanque ya estaba roto, el jugador muere
+    /// <summary>
+    /// Método que se llama cuando el tanque de oxígeno recibe un impacto (si el tanque ya estaba roto, el jugador muere)
+    /// </summary>
+    public void PierceTank()
     {
         if (tankBroken)
         {
@@ -145,7 +152,10 @@ public class OxigenScript : MonoBehaviour
             StartCoroutine(PlayOxygenTankSounds()); // Inicia la corutina
         }      
     }
-    public void RepairTank() // Método que se llama cuando el tanque de oxígeno es reparado
+    /// <summary>
+    /// Método que se llama cuando el tanque de oxígeno es reparado (no utilizado)
+    /// </summary>
+    public void RepairTank()
     {
         tankBroken = false;
         GameManager.Instance.UpdateTankStateGM(tankBroken);
@@ -160,7 +170,7 @@ public class OxigenScript : MonoBehaviour
     }
     public void Death()
     {
-        if (!inmortal)
+        if (!immortal)
         {
             if (isDead) return; // Evitar múltiples ejecuciones
 
@@ -183,10 +193,9 @@ public class OxigenScript : MonoBehaviour
     // se nombren en formato PascalCase (palabras con primera letra
     // mayúscula, incluida la primera letra)
 
-
     private IEnumerator DestroyAfterDelay()
     {
-        yield return new WaitForSeconds(5); // De momento 0 porque no hay animación de muerte
+        yield return new WaitForSeconds(5); // Tiempo despúes de la muerte
         GameManager.Instance.ChangeScene(0);
     }
 

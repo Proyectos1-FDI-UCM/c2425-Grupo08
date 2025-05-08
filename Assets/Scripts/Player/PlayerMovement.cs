@@ -1,8 +1,8 @@
 //---------------------------------------------------------
 // Lógica del movimiento del jugador. Tiene dos switch, uno para cambiar de estado 
 // y otro para ejecutar la lógica específica de cada estado
-// Miguel Ángel González López, Javier Zazo y Andrés Bartolomé
-// Project Abyss
+// Miguel Ángel González López
+// Beyond the Depths
 // Proyectos 1 - Curso 2024-25
 //---------------------------------------------------------
 

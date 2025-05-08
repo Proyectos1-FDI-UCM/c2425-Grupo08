@@ -2,7 +2,7 @@
 // Breve descripción del contenido del archivo
 // La funcion principal de la camara para el jugador
 // Responsable de la creación de este archivo: Andrés Díaz Guerrero Soto (El sordo)
-// Nombre del juego
+// Beyond the Depths
 // Proyectos 1 - Curso 2024-25
 //---------------------------------------------------------
 
@@ -126,20 +126,13 @@ public class MasterCamera : MonoBehaviour
 
     // ---- MÉTODOS PÚBLICOS ----
     #region Métodos públicos
-    // Documentar cada método que aparece aquí con ///<summary>
-    // El convenio de nombres de Unity recomienda que estos métodos
-    // se nombren en formato PascalCase (palabras con primera letra
-    // mayúscula, incluida la primera letra)
-    // Ejemplo: GetPlayerController
+   
 
     #endregion
 
     // ---- MÉTODOS PRIVADOS ----
     #region Métodos Privados
-    // Documentar cada método que aparece aquí
-    // El convenio de nombres de Unity recomienda que estos métodos
-    // se nombren en formato PascalCase (palabras con primera letra
-    // mayúscula, incluida la primera letra)
+    
 
     #endregion
 

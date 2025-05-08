@@ -1,17 +1,17 @@
 //---------------------------------------------------------
-// Breve descripción del contenido del archivo
-// Responsable de la creación de este archivo
-// Nombre del juego
+// Este script se encarga de respawnear a los enemigos rape que no sean del generador después de morir
+// Javier Zazo Morillo
+// Beyond the Depths
 // Proyectos 1 - Curso 2024-25
 //---------------------------------------------------------
 
+using System.Collections;
 using UnityEngine;
 // Añadir aquí el resto de directivas using
 
 
 /// <summary>
-/// Antes de cada class, descripción de qué es y para qué sirve,
-/// usando todas las líneas que sean necesarias.
+/// Este script se encarga de respawnear a los enemigos rape que no sean del generador después de morir
 /// </summary>
 public class Respawner : MonoBehaviour
 {
@@ -23,7 +23,9 @@ public class Respawner : MonoBehaviour
     // (palabras con primera letra mayúscula, incluida la primera letra)
     // Ejemplo: MaxHealthPoints
 
+    [Tooltip("Tiempo mínimo que tiene que pasar para que spawnee el enemigo (con Random.Range)")]
     [SerializeField] float minRespawnTime;
+    [Tooltip("Tiempo máximo que tiene que pasar para que spawnee el enemigo (sin contar si el jugador está demasiado cerca o no)")]
     [SerializeField] float maxRespawnTime;
 
     [SerializeField] float respawnDistance;
@@ -51,25 +53,6 @@ public class Respawner : MonoBehaviour
     // ---- MÉTODOS DE MONOBEHAVIOUR ----
     #region Métodos de MonoBehaviour
 
-    // Por defecto están los típicos (Update y Start) pero:
-    // - Hay que añadir todos los que sean necesarios
-    // - Hay que borrar los que no se usen 
-
-    /// <summary>
-    /// Update is called every frame, if the MonoBehaviour is enabled.
-    /// </summary>
-    void Update()
-    {
-        if (isDead)
-        {
-            respawnTime -= Time.deltaTime;
-            if (respawnTime <= 0 && (player == null || (player.transform.position - transform.position).magnitude > respawnDistance))
-            {
-                Instantiate(enemyPrefab, transform);
-                isDead = false;
-            }
-        }
-    }
     #endregion
 
     // ---- MÉTODOS PÚBLICOS ----
@@ -111,6 +94,27 @@ public class Respawner : MonoBehaviour
     // se nombren en formato PascalCase (palabras con primera letra
     // mayúscula, incluida la primera letra)
 
+    /// <summary>
+    /// Spawnea un enemigo rape cuando el jugador esté lo suficientemente lejos y pase el tiempo de respawn
+    /// </summary>
+    /// <returns></returns>
+    IEnumerator RespawnCooldown()
+    {
+        yield return new WaitForSeconds(respawnTime);
+
+        while (player != null && isDead)
+        {
+            if ((player.transform.position - transform.position).magnitude > respawnDistance)
+            {
+                Instantiate(enemyPrefab, transform);
+                isDead = false;
+            }
+        }
+    }
+
+    /// <summary>
+    /// Dibuja en el editor el rango en el que el enemigo no puede respawnear si el jugador está dentro
+    /// </summary>
     private void OnDrawGizmos()
     {
         Gizmos.color = Color.red;

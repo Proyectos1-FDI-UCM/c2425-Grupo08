@@ -1,7 +1,7 @@
 //---------------------------------------------------------
 // Este archivo contiene la clase NarrativePoint, que representa un punto narrativo en la interfaz de usuario.
 // Carlos Dochao Moreno
-// Proyect Abyss
+// Beyond the Depths
 // Proyectos 1 - Curso 2024-25
 //---------------------------------------------------------
 

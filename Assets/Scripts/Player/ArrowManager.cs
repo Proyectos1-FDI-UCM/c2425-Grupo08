@@ -1,7 +1,7 @@
 //---------------------------------------------------------
 // Script que lleva la lógica y gestión de las flechas que apuntan a los enemigos cuando atacan.
 // Miguel Ángel González López
-// Project Abyss
+// Beyond the Depths
 // Proyectos 1 - Curso 2024-25
 //---------------------------------------------------------
 
