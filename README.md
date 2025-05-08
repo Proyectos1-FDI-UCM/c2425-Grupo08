@@ -25,9 +25,13 @@ El jugador deberá de avanzar a traves de la oscuridad, lidiando con el tiempo y
 ## Características clave
  
 Perspectiva scroll lateral
+
 Sistema de apuntado con la dirección del mouse o dirección del joistick derecho
+
 Ambientación oscura, tensa y sensación solitaria e inmensidad
+
 Progresión por niveles (Disponible el nivel 1)
+
 Control con teclado o mando
 
 ## Como Jugar
@@ -40,10 +44,16 @@ Usando el gamepad, el movimiento se puede efectuar con el joistick izquierdo o f
 ## Miembros del equipo
 
 Javier Zazo
+
 Andrés Diaz
+
 Tomás Arévalo
+
 Carlos Dochao
+
 Vicente Rodríguez
+
 Andres Bartolomé
+
 Miguel Ángel González
 
