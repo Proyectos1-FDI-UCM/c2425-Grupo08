@@ -6,6 +6,7 @@
 //---------------------------------------------------------
 
 using UnityEngine;
+using UnityEngine.InputSystem;
 // Añadir aquí el resto de directivas using
 
 
@@ -57,10 +58,11 @@ public class CustomCursor : MonoBehaviour
         Cursor.SetCursor(cursorTexture, hotSpot, CursorMode.Auto);
     }
 
+   
     /// <summary>
     /// Update is called every frame, if the MonoBehaviour is enabled.
     /// </summary>
-   
+
     #endregion
 
     // ---- MÉTODOS PÚBLICOS ----
@@ -72,7 +74,7 @@ public class CustomCursor : MonoBehaviour
     // Ejemplo: GetPlayerController
 
     #endregion
-    
+
     // ---- MÉTODOS PRIVADOS ----
     #region Métodos Privados
     // Documentar cada método que aparece aquí
@@ -80,7 +82,7 @@ public class CustomCursor : MonoBehaviour
     // se nombren en formato PascalCase (palabras con primera letra
     // mayúscula, incluida la primera letra)
 
-    #endregion   
+    #endregion
 
 } // class CustomCursor 
 // namespace
