@@ -1,7 +1,7 @@
 //---------------------------------------------------------
 // Este sirve para activar el texto de pulsa e para teleportarse al motor y teleportarse a las coordenadas dadas
 // Andrés Bartolomé Clap
-// Project Abyss
+// Beyond the Depths
 // Proyectos 1 - Curso 2024-25
 //---------------------------------------------------------
 

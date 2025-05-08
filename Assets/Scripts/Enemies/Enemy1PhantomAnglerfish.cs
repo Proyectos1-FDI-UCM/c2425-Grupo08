@@ -1,7 +1,7 @@
 //---------------------------------------------------------
 // Este archivo se encarga del funcionamiento del enemigo 1 (rape fantasma)
 // Javier Zazo Morillo
-// Project abyss
+// Beyond the Depths
 // Proyectos 1 - Curso 2024-25
 //---------------------------------------------------------
 
@@ -27,6 +27,7 @@ public class Enemy1PhantomAnglerfish : MonoBehaviour
     [SerializeField] private float attackSpeed;
     [SerializeField] private float fleeSpeed;
 
+    [Tooltip("Tiempo que tarda el enemigo en morir después de ser flasheado")]
     [SerializeField] private float disintegrationDelay;
 
     [SerializeField] private float maxHearingDistance;
@@ -75,21 +76,29 @@ public class Enemy1PhantomAnglerfish : MonoBehaviour
         private GameObject[] nodeArray; //Array con todos los nodos
         private Collider2D collider;
 
-        // Constructor
+        /// <summary>
+        /// Constructor
+        /// </summary>
+        /// <param name="_nodeArray"></param>
         public NodeRoute(GameObject[] _nodeArray)
         {
             nodeArray = _nodeArray;
             nodeCont = 0;
             collider = nodeArray[0].GetComponent<Collider2D>();
         }
-        // Pasa al siguiente nodo
+        /// <summary>
+        /// Pasa al siguiente nodo
+        /// </summary>
         public void SetNextNode()
         {
             nodeCont++;
             nodeCont = nodeCont % nodeArray.Length; // Vuelve al 0 cuando se pasa del tamaño del array
             collider = nodeArray[nodeCont].GetComponent<Collider2D>();
         }
-        // Devuelve el nodo al que se dirige
+        /// <summary>
+        /// Devuelve el nodo al que se dirige
+        /// </summary>
+        /// <returns></returns>
         public GameObject GetNextNode()
         {
             return nodeArray[nodeCont];
@@ -128,7 +137,7 @@ public class Enemy1PhantomAnglerfish : MonoBehaviour
         // Inicializar el AudioSource
         audioSource = GetComponent<AudioSource>();
 
-        player = GameObject.FindGameObjectWithTag("Player");
+        player = GameManager.Instance.GetPlayerController();
 
         playerCollider = player.GetComponent<Collider2D>();
         flashCollider = player.GetComponentInChildren<FlashLight>().GetComponentInChildren<PolygonCollider2D>();
@@ -213,13 +222,17 @@ public class Enemy1PhantomAnglerfish : MonoBehaviour
     // mayúscula, incluida la primera letra)
     // Ejemplo: GetPlayerController
 
+    /// <summary>
+    /// Activa o desactiva el estado de ataque del enemigo rape
+    /// </summary>
+    /// <param name="attack"></param>
     public void SetAttack(bool attack)
     {
         this.attack = attack;
 
         if (attack)
         {
-            GetComponentInChildren<Animator>().SetTrigger("Attack");
+            animator.SetTrigger("Attack");
         }
     }
 
@@ -240,6 +253,11 @@ public class Enemy1PhantomAnglerfish : MonoBehaviour
         nodeArray = GetComponentsInParent<Transform>()[1].GetComponentInChildren<EnemyNodes>().GetNodeArray();
     }
 
+    /// <summary>
+    /// Método con el que se mueve al enemigo
+    /// </summary>
+    /// <param name="direction"></param>
+    /// <param name="speed"></param>
     private void Move(Vector2 direction, float speed)
     {
         transform.rotation = Quaternion.Euler(0, 0, Mathf.Rad2Deg * Mathf.Atan2(direction.y, direction.x));
@@ -249,7 +267,6 @@ public class Enemy1PhantomAnglerfish : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        //Debug.Log("COLISIÓN CON: " + collision.gameObject);
         if (enemyCollider.IsTouching(nodeRoute.GetCollider()))
         {
             nodeRoute.SetNextNode();
@@ -286,12 +303,14 @@ public class Enemy1PhantomAnglerfish : MonoBehaviour
                     player.GetComponent<ArrowManager>().DeleteArrow(this.gameObject);
             }
 
-
-
             Destroy(gameObject);
         }
     }
 
+    /// <summary>
+    /// Método que se activa cuando el enemigo es flasheado para desvanecerse después de un delay
+    /// </summary>
+    /// <returns></returns>
     IEnumerator DisintegrationDelay()
     {      
         Color initialColor = spriteRenderer.color;

@@ -2,7 +2,7 @@
 // Breve descripción del contenido del archivo
 // La funcion principal de la camara para el jugador
 // Responsable de la creación de este archivo: Andrés Díaz Guerrero Soto (El sordo)
-// Nombre del juego
+// Beyond the Depths
 // Proyectos 1 - Curso 2024-25
 //---------------------------------------------------------
 

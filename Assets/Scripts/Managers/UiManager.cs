@@ -1,7 +1,7 @@
 //---------------------------------------------------------
 // Breve descripción del contenido del archivo: Es la funcion para que el oxigeno baje poco a poco
 // Responsable de la creación de este archivo: Andrés Díaz Guerrero Soto (El sordo)
-// Nombre del juego
+// Beyond the Depths
 // Proyectos 1 - Curso 2024-25
 //---------------------------------------------------------
 

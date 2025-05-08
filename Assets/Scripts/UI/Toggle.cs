@@ -3,7 +3,7 @@
 // Gestiona el toggle cambiando el estado de easyMode y el cheat de inmortalidad
 // Vicente Rodríguez Casado
 // Andrés Bartolomé Clap
-// Proyect abyss
+// Beyond the Depths
 // Proyectos 1 - Curso 2024-25
 //---------------------------------------------------------
 
@@ -54,7 +54,7 @@ public class Toggle : MonoBehaviour
     void Start()
     {
        GameManager.Instance.SetEasyMode(false);
-       GameManager.Instance.SetInmortal(false);
+       GameManager.Instance.SetImmortal(false);
        GameManager.Instance.SetTeleport(false);
        GameManager.Instance.GetComponent<Light2D>().enabled = false;
     }

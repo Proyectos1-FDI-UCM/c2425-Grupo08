@@ -1,7 +1,7 @@
 //---------------------------------------------------------
 // Gamma Controller. Modifica el gamma de la escena desde el slider
 // Vicente Rodríguez Casado
-// Proyect abyss
+// Beyond the Depths
 // Proyectos 1 - Curso 2024-25
 //---------------------------------------------------------
 

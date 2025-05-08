@@ -1,7 +1,7 @@
 //---------------------------------------------------------
 // Este archivo se encarga del funcionamiento del enemigo 2 (sonar)
 // Javier Zazo Morillo
-// Project Abyss
+// Beyond the Depths
 // Proyectos 1 - Curso 2024-25
 //---------------------------------------------------------
 
@@ -30,29 +30,19 @@ public class Enemy2Sonar : MonoBehaviour
 
     [SerializeField] private bool debug;
 
-    /// <summary>
-    /// Frecuencia con la que el enemigo utiliza su sonar
-    /// </summary>
+    [Tooltip("Frecuencia con la que el enemigo utiliza su sonar")]
     [SerializeField] private float sonarFrequency;
-    /// <summary>
-    /// Pequeño delay en el que el jugador aún no es detectado por el sonar a pesar de haberle llegado el pulso
-    /// </summary>
+    [Tooltip("Pequeño delay en el que el jugador aún no es detectado por el sonar a pesar de haberle llegado el pulso")]
     [SerializeField] private float shadowDelay;
-    /// <summary>
-    /// Tiempo que tarda la animación del UI del sonar en rellenar la circunferencia
-    /// </summary>
+    [Tooltip("Tiempo que tarda la animación del UI del sonar en rellenar la circunferencia")]
     [SerializeField] private float sonarChargeTime;
 
     [SerializeField] private float sonarHearingDistance;
     [SerializeField] private float sonarAttackDistance;
 
-    /// <summary>
-    /// Velocidad de la animación de patrullaje
-    /// </summary>
+    [Tooltip("Velocidad de la animación de patrullaje")]
     [SerializeField] private float patrolAnimationSpeed;
-    /// <summary>
-    /// Velocidad de la animación de ataque
-    /// </summary>
+    [Tooltip("Velocidad de la animación de ataque")]
     [SerializeField] private float attackAnimationSpeed;
 
     [SerializeField] int maxHearingDistance;
@@ -77,9 +67,11 @@ public class Enemy2Sonar : MonoBehaviour
     private Rigidbody2D rb;
 
     private GameObject player;
+
     private SonarUI sonarUI;
 
     private AudioSource audioSource;
+
     private bool arrowActive = false;
 
     /// <summary>
@@ -112,21 +104,29 @@ public class Enemy2Sonar : MonoBehaviour
         private GameObject[] nodeArray; //Array con todos los nodos
         private Collider2D collider;
 
-        // Constructor
+        /// <summary>
+        /// Constructor
+        /// </summary>
+        /// <param name="_nodeArray"></param>
         public NodeRoute(GameObject[] _nodeArray)
         {
             nodeArray = _nodeArray;
             nodeCont = 0;
             collider = nodeArray[0].GetComponent<Collider2D>();
         }
-        // Pasa al siguiente nodo
+        /// <summary>
+        /// Pasa al siguiente nodo
+        /// </summary>
         public void SetNextNode()
         {
             nodeCont++;
             nodeCont = nodeCont % nodeArray.Length; // Vuelve al 0 cuando se pasa del tamaño del array
             collider = nodeArray[nodeCont].GetComponent<Collider2D>();
         }
-        // Devuelve el nodo al que se dirige
+        /// <summary>
+        /// Devuelve el nodo al que se dirige
+        /// </summary>
+        /// <returns></returns>
         public GameObject GetNextNode()
         {
             return nodeArray[nodeCont];
@@ -164,16 +164,15 @@ public class Enemy2Sonar : MonoBehaviour
 
         rb = GetComponent<Rigidbody2D>();
 
-        player = GameObject.FindGameObjectWithTag("Player");
+        player = GameManager.Instance.GetPlayerController();
         sonarUI = player.GetComponentInChildren<SonarUI>();
 
         nodeRoute = new NodeRoute(nodeArray); // Aviso. El array de nodos se crea al inicio, no es dinámico.
 
         sonarCooldownTime = sonarFrequency - sonarChargeTime - shadowDelay;
 
-        audioSource = GetComponent<AudioSource>();
-    
-}
+        audioSource = GetComponent<AudioSource>();   
+    }
 
     /// <summary>
     /// Update is called every frame, if the MonoBehaviour is enabled.

@@ -1,7 +1,7 @@
 //---------------------------------------------------------
 // Gestiona el Menú de pausa del juego
 // Vicente Rodriguez Casado
-// Nombre del juego
+// Beyond the Depths
 // Proyectos 1 - Curso 2024-25
 //---------------------------------------------------------
 

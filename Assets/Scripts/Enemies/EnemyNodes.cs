@@ -1,7 +1,7 @@
 //---------------------------------------------------------
 // Este script gestiona la obtención de la referencia a los nodos de los enemigos
 // Javier Zazo Morillo
-// Project Abyss
+// Beyond the Depths
 // Proyectos 1 - Curso 2024-25
 //---------------------------------------------------------
 
@@ -33,6 +33,9 @@ public class EnemyNodes : MonoBehaviour
     // primera letra en mayúsculas)
     // Ejemplo: _maxHealthPoints
 
+    /// <summary>
+    /// Array de nodos de patrulla del enemigo
+    /// </summary>
     private GameObject[] nodeArray;
 
     #endregion

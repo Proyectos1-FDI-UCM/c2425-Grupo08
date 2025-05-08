@@ -1,7 +1,7 @@
 //---------------------------------------------------------
 // Este script se encarga de aplicar efectos de post-procesado según el nivel de oxígeno del jugador
 // Javier Zazo Morillo
-// Project Abyss
+// Beyond the Depths
 // Proyectos 1 - Curso 2024-25
 //---------------------------------------------------------
 
@@ -26,18 +26,24 @@ public class OxigenEffectsController : MonoBehaviour
     // Ejemplo: MaxHealthPoints
 
     [Tooltip("El tiempo que tardan los efectos en ir de un extremo al otro de su rango")]
-    [SerializeField] private float oscilationSpeed;
+    [SerializeField] private float oscilationFrequency;
 
     [Header("Post Exposure")]
 
     [SerializeField] private float minPostExposureValue;
     [SerializeField] private float maxPostExposureValue;
+    [Tooltip("La diferencia entre el valor máximo y el mínimo de exposición respecto al porcentaje con el que se aplica el efecto." +
+        "\n Ej: si el valor máximo de exposición es 0, el mínimo es -10 y el rango de oscilación es 2, al estar el efecto al 100% " +
+        "este oscilaría entre -10 y -8")]
     [SerializeField] private float postExposureOscilationRange;
 
     [Header("Chromatic Aberration")]
 
     [SerializeField] private float minChromaticAberrationValue;
     [SerializeField] private float maxChromaticAberrationValue;
+    [Tooltip("La diferencia entre el valor máximo y el mínimo de aberración cromática respecto al porcentaje con el que se aplica el efecto." +
+        "\n Ej: si el valor máximo de aberración cromática es 0, el mínimo es -10 y el rango de oscilación es 2, al estar el efecto al 100% " +
+        "este oscilaría entre -10 y -8")]
     [SerializeField] private float chromaticAberrationRange;
 
     #endregion
@@ -94,7 +100,7 @@ public class OxigenEffectsController : MonoBehaviour
         GetComponent<Volume>().profile.TryGet<ColorAdjustments>(out colorAdjustments);
         GetComponent<Volume>().profile.TryGet<ChromaticAberration>(out chromaticAberration);
 
-        oscilationValue = oscilationSpeed;
+        oscilationValue = oscilationFrequency;
     }
 
     private void Update()
@@ -104,8 +110,8 @@ public class OxigenEffectsController : MonoBehaviour
             if (oscilationDown)
             {
                 oscilationValue -= Time.deltaTime;
-                colorAdjustments.postExposure.value = Mathf.Lerp(minPostExposure, maxPostExposure, Mathf.InverseLerp(0, oscilationSpeed, oscilationValue));
-                chromaticAberration.intensity.value = Mathf.Lerp(maxChromaticAberration, minChromaticAberration, Mathf.InverseLerp(0, oscilationSpeed, oscilationValue));
+                colorAdjustments.postExposure.value = Mathf.Lerp(minPostExposure, maxPostExposure, Mathf.InverseLerp(0, oscilationFrequency, oscilationValue));
+                chromaticAberration.intensity.value = Mathf.Lerp(maxChromaticAberration, minChromaticAberration, Mathf.InverseLerp(0, oscilationFrequency, oscilationValue));
 
                 if (oscilationValue <= 0)
                 {
@@ -115,10 +121,10 @@ public class OxigenEffectsController : MonoBehaviour
             else
             {
                 oscilationValue += Time.deltaTime;
-                colorAdjustments.postExposure.value = Mathf.Lerp(minPostExposure, maxPostExposure, Mathf.InverseLerp(0, oscilationSpeed, oscilationValue));
-                chromaticAberration.intensity.value = Mathf.Lerp(maxChromaticAberration, minChromaticAberration, Mathf.InverseLerp(0, oscilationSpeed, oscilationValue));
+                colorAdjustments.postExposure.value = Mathf.Lerp(minPostExposure, maxPostExposure, Mathf.InverseLerp(0, oscilationFrequency, oscilationValue));
+                chromaticAberration.intensity.value = Mathf.Lerp(maxChromaticAberration, minChromaticAberration, Mathf.InverseLerp(0, oscilationFrequency, oscilationValue));
 
-                if (oscilationValue >= oscilationSpeed)
+                if (oscilationValue >= oscilationFrequency)
                 {
                     oscilationDown = true;
                 }
@@ -136,6 +142,10 @@ public class OxigenEffectsController : MonoBehaviour
     // mayúscula, incluida la primera letra)
     // Ejemplo: GetPlayerController
 
+    /// <summary>
+    /// Ajusta el rango los valores de oscilación según el porcentaje de oxígeno
+    /// </summary>
+    /// <param name="oxygenPercentage">Porcentaje de oxígeno</param>
     public void AdjustOxigenEffects(float oxygenPercentage)
     {
         if (oxygenPercentage < 0.5f)

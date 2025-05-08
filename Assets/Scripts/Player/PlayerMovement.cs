@@ -2,7 +2,7 @@
 // Lógica del movimiento del jugador. Tiene dos switch, uno para cambiar de estado 
 // y otro para ejecutar la lógica específica de cada estado
 // Miguel Ángel González López
-// Project Abyss
+// Beyond the Depths
 // Proyectos 1 - Curso 2024-25
 //---------------------------------------------------------
 

@@ -1,7 +1,7 @@
 //---------------------------------------------------------
 // Permite la personalizacion del cursor del raton
 // Vicente Rodriguez Casado
-// Nombre del juego
+// Beyond the Depths
 // Proyectos 1 - Curso 2024-25
 //---------------------------------------------------------
 

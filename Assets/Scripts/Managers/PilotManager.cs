@@ -2,7 +2,7 @@
 // Breve descripción del contenido del archivo: Permite mostrar un mensaje de texto para notificar al jugador 
 // que su mando esta conectado o desconectado.
 // Responsable de la creación de este archivo: Andrés Díaz Guerrero Soto
-// Nombre del juego
+// Beyond the Depths
 // Proyectos 1 - Curso 2024-25
 //---------------------------------------------------------
 
