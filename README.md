@@ -30,7 +30,7 @@ Usando el teclado, se dispone de varias teclas para realizar distintas acciones 
 
 Usando el gamepad, el movimiento se puede efectuar con el joistick izquierdo o flechas direccionales para avanzar de forma lateral y botón A para saltar. La linterna apunta en la dirección del joistick derecho, se apunta con mayor precisión manteniendo pulsado LT , y se dispará el flash cuando se pulsa RT mientras apuntas. El botón para interactuar con elementos del juego es el cuadrado
 
-![controles](https://github.com/user-attachments/assets/1b2c06b6-26fd-473f-8767-e169937a36ad)
+![controles](https://github.com/user-attachments/assets/aeba0b0e-4202-4aca-9d2b-259e086bed0b)
 
 ## Miembros del equipo
 
