@@ -5045,7 +5045,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0.5}
   m_AnchorMax: {x: 1, y: 0.5}
-  m_AnchoredPosition: {x: -260, y: 161}
+  m_AnchoredPosition: {x: -254, y: 172}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!225 &161597176
@@ -5184,7 +5184,7 @@ MonoBehaviour:
     sonar de un delfin o un murci\xE9lago por lo que tenemos la suposici\xF3n de
     que es invulnerable a la luz.\r\n\r\n3. A\xFAn no somos conscientes del total
     de amenazas que te puedes encontrar por lo que llevese cuidado.\r\n\r\nMucha
-    suerte y vigile su espalda.\r\n"
+    suerte y vigile su espalda.\r"
 --- !u!1001 &334594854
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5326,8 +5326,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4288604058
-  m_fontColor: {r: 0.6023496, g: 0.9056604, b: 0.6206213, a: 1}
+    rgba: 4284740955
+  m_fontColor: {r: 0.35857958, g: 0.9622642, b: 0.38980466, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -5344,8 +5344,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 1.1
-  m_fontSizeBase: 1.1
+  m_fontSize: 1.2
+  m_fontSizeBase: 1.2
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 0
@@ -5380,7 +5380,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: 0.25230646, y: 0, z: -4.3212357, w: -3.2524233}
+  m_margin: {x: -0.252424, y: 0, z: -4.3212357, w: -3.2524233}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_hasFontAssetChanged: 0
@@ -5467,8 +5467,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4288604058
-  m_fontColor: {r: 0.6023496, g: 0.9056604, b: 0.6206213, a: 1}
+    rgba: 4284740955
+  m_fontColor: {r: 0.35857958, g: 0.9622642, b: 0.38980466, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -5485,8 +5485,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 1.1
-  m_fontSizeBase: 1.1
+  m_fontSize: 1.2
+  m_fontSizeBase: 1.2
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 0
@@ -5745,6 +5745,22 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 918195593}
     m_Modifications:
+    - target: {fileID: 1723195543679858878, guid: f91ab98695e90f04fbb1b291795451b9, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Target
+      value: 
+      objectReference: {fileID: 1397269256}
+    - target: {fileID: 1723195543679858878, guid: f91ab98695e90f04fbb1b291795451b9, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
+      value: Resume
+      objectReference: {fileID: 0}
+    - target: {fileID: 2224905342046197501, guid: f91ab98695e90f04fbb1b291795451b9, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2224905342046197501, guid: f91ab98695e90f04fbb1b291795451b9, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2402600260823934462, guid: f91ab98695e90f04fbb1b291795451b9, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -5825,6 +5841,22 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2860763139311237648, guid: f91ab98695e90f04fbb1b291795451b9, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1397269256}
+    - target: {fileID: 2860763139311237648, guid: f91ab98695e90f04fbb1b291795451b9, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: Resume
+      objectReference: {fileID: 0}
+    - target: {fileID: 2860763139311237648, guid: f91ab98695e90f04fbb1b291795451b9, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: PauseManager, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 2860763139311237648, guid: f91ab98695e90f04fbb1b291795451b9, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
     - target: {fileID: 3056759541199085599, guid: f91ab98695e90f04fbb1b291795451b9, type: 3}
       propertyPath: m_AnchorMax.x
       value: 0
@@ -5898,7 +5930,7 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &644439229 stripped
 GameObject:
-  m_CorrespondingSourceObject: {fileID: 439712848329186101, guid: f91ab98695e90f04fbb1b291795451b9, type: 3}
+  m_CorrespondingSourceObject: {fileID: 5187266612395529879, guid: f91ab98695e90f04fbb1b291795451b9, type: 3}
   m_PrefabInstance: {fileID: 644439226}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &751940660
@@ -5976,7 +6008,7 @@ MonoBehaviour:
   m_ScrollWheelAction: {fileID: 6240969308177333660, guid: ca9f5fa95ffab41fb9a615ab714db018, type: 3}
   m_TrackedDevicePositionAction: {fileID: 6564999863303420839, guid: ca9f5fa95ffab41fb9a615ab714db018, type: 3}
   m_TrackedDeviceOrientationAction: {fileID: 7970375526676320489, guid: ca9f5fa95ffab41fb9a615ab714db018, type: 3}
-  m_DeselectOnBackgroundClick: 1
+  m_DeselectOnBackgroundClick: 0
   m_PointerBehavior: 0
   m_CursorLockBehavior: 0
 --- !u!4 &871773277 stripped
@@ -6015,12 +6047,12 @@ RectTransform:
   m_LocalScale: {x: 0, y: 0, z: 0}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 644439227}
   - {fileID: 4845581887001064788}
   - {fileID: 161597175}
   - {fileID: 1287570736}
   - {fileID: 1235750044}
   - {fileID: 4845581887440339803}
+  - {fileID: 644439227}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -6085,7 +6117,7 @@ Canvas:
   m_OverrideSorting: 0
   m_OverridePixelPerfect: 0
   m_SortingBucketNormalizedSize: 0
-  m_VertexColorAlwaysGammaSpace: 0
+  m_VertexColorAlwaysGammaSpace: 1
   m_AdditionalShaderChannelsFlag: 25
   m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 0
@@ -11226,9 +11258,9 @@ MonoBehaviour:
   textBackground: 0
   fadeSpeed: 1.53
   timeDelay: 0.03
-  initPause: 0.75
+  initPause: 1
   message: "Todos estos mensajes vac\xEDos se me ven\xEDan a la mente mientras me
-    hund\xEDa poco a poco en la oscuridad de las profundidades..."
+    hund\xEDa poco a poco en la m\xE1s absoluta oscuridad..."
 --- !u!1 &1269688954
 GameObject:
   m_ObjectHideFlags: 0
@@ -16095,7 +16127,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 113.8, y: -139.2}
+  m_AnchoredPosition: {x: 113.8, y: -131}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!225 &1287570737
@@ -16532,8 +16564,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4288604058
-  m_fontColor: {r: 0.6023496, g: 0.9056604, b: 0.6206213, a: 1}
+    rgba: 4284740955
+  m_fontColor: {r: 0.35857958, g: 0.9622642, b: 0.38980466, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -16550,8 +16582,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 1.1
-  m_fontSizeBase: 1.1
+  m_fontSize: 1.2
+  m_fontSizeBase: 1.2
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 0
@@ -17326,8 +17358,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4288604058
-  m_fontColor: {r: 0.6023496, g: 0.9056604, b: 0.6206213, a: 1}
+    rgba: 4284740955
+  m_fontColor: {r: 0.35857958, g: 0.9622642, b: 0.38980466, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -17344,8 +17376,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 1.1
-  m_fontSizeBase: 1.1
+  m_fontSize: 1.2
+  m_fontSizeBase: 1.2
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 0
@@ -17419,8 +17451,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4288604058
-  m_fontColor: {r: 0.6023496, g: 0.9056604, b: 0.6206213, a: 1}
+    rgba: 4284740955
+  m_fontColor: {r: 0.35857958, g: 0.9622642, b: 0.38980466, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -17437,8 +17469,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 1.1
-  m_fontSizeBase: 1.1
+  m_fontSize: 1.2
+  m_fontSizeBase: 1.2
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 0
@@ -17558,7 +17590,7 @@ MonoBehaviour:
   fadeSpeed: 1.3
   timeDelay: 0.05
   initPause: 0.5
-  message: Presiona {key_interact} para continuar
+  message: Pulsa {key_interact} para continuar
 --- !u!222 &4461387817132508951
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -17592,7 +17624,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 116, y: 136}
+  m_AnchoredPosition: {x: 113, y: 161}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!224 &4845581887440339803
@@ -17685,7 +17717,7 @@ SceneRoots:
   - {fileID: 1397269255}
   - {fileID: 2135486458}
   - {fileID: 334594854}
-  - {fileID: 918195593}
   - {fileID: 1699507305}
+  - {fileID: 918195593}
   - {fileID: 1930627378}
   - {fileID: 581253239}
