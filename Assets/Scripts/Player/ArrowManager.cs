@@ -73,7 +73,7 @@ public class ArrowManager: MonoBehaviour
 
     // Se llama desde fuera del script. Crea una flecha y actualiza la estructura de flechas. La ID de la flecha es una referencia al objeto al que apunta.
     public void CreateArrow(GameObject objective){
-        if (objective != null){
+        if (objective != null && _arrowsBuffer._hat <= MaxObjectives){
             _arrowsBuffer._arrows[_arrowsBuffer._hat]._objective = objective;
             _arrowsBuffer._arrows[_arrowsBuffer._hat]._arrowObject = Instantiate(Arrow,objective.transform.position,Quaternion.identity);
             CalculateArrowPosition(objective,_arrowsBuffer._arrows[_arrowsBuffer._hat]._arrowObject);

@@ -94,7 +94,6 @@ public class KelpEnemy : MonoBehaviour
                 PlayerMovement.Released();
             }
 
-            // Animación de atrapado?
         }
 
         else
