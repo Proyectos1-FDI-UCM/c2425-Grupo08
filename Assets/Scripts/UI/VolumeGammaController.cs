@@ -1,5 +1,5 @@
 //---------------------------------------------------------
-// Gamma Controller. Modifica el gamma de la escena desde el slider
+// Gamma Controller. Modifica el gamma de la escena desde el slider.
 // Vicente Rodríguez Casado
 // Beyond the Depths
 // Proyectos 1 - Curso 2024-25
@@ -17,16 +17,16 @@ public class VolumeGammaController : MonoBehaviour
     // ---- ATRIBUTOS PRIVADOS ----
     #region Atributos Privados (private fields)
 
-    private Slider slider;
+    private Slider slider; // Referencia al slider de gamma
 
     #endregion
 
     // ---- MÉTODOS DE MONOBEHAVIOUR ----
     #region Métodos de MonoBehaviour
 
-    void Start()
+    void Start() // Guardamos la referencia al slider
     {
-       slider = GetComponent<Slider>();
+        slider = GetComponent<Slider>();
 
        slider.value = GameManager.Instance.GetGamma();
     }
@@ -36,7 +36,7 @@ public class VolumeGammaController : MonoBehaviour
     // ---- MÉTODOS PÚBLICOS ----
     #region Métodos públicos
     
-    public void ChangeGamma() 
+    public void ChangeGamma() // Cambia el gamma de la escena
     {
         GameManager.Instance.ChangeGamma(slider.value);
     }

@@ -22,22 +22,13 @@ public class Toggle : MonoBehaviour
 {
     // ---- ATRIBUTOS DEL INSPECTOR ----
     #region Atributos del Inspector (serialized fields)
-    // Documentar cada atributo que aparece aquí.
-    // El convenio de nombres de Unity recomienda que los atributos
-    // públicos y de inspector se nombren en formato PascalCase
-    // (palabras con primera letra mayúscula, incluida la primera letra)
-    // Ejemplo: MaxHealthPoints
+   
 
     #endregion
     
     // ---- ATRIBUTOS PRIVADOS ----
     #region Atributos Privados (private fields)
-    // Documentar cada atributo que aparece aquí.
-    // El convenio de nombres de Unity recomienda que los atributos
-    // privados se nombren en formato _camelCase (comienza con _, 
-    // primera palabra en minúsculas y el resto con la 
-    // primera letra en mayúsculas)
-    // Ejemplo: _maxHealthPoints
+   
 
     #endregion
     
@@ -51,7 +42,7 @@ public class Toggle : MonoBehaviour
     /// Start is called on the frame when a script is enabled just before 
     /// any of the Update methods are called the first time.
     /// </summary>
-    void Start()
+    void Start() 
     {
        GameManager.Instance.SetEasyMode(false);
        GameManager.Instance.SetImmortal(false);
@@ -62,11 +53,7 @@ public class Toggle : MonoBehaviour
 
     // ---- MÉTODOS PÚBLICOS ----
     #region Métodos públicos
-    // Documentar cada método que aparece aquí con ///<summary>
-    // El convenio de nombres de Unity recomienda que estos métodos
-    // se nombren en formato PascalCase (palabras con primera letra
-    // mayúscula, incluida la primera letra)
-    // Ejemplo: GetPlayerController
+    
 
     public void EasyMode()
     {
