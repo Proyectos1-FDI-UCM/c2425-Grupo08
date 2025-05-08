@@ -27,7 +27,7 @@ public class TutorialManager : MonoBehaviour
     #region Atributos Privados (private fields)
     private bool fadingIn = false;
     private bool fadingOut = false;
-    private float fadeDuration = 1f;
+    private float fadeDuration = 2f;
     private float fadeTimer = 0f;
 
     #endregion
