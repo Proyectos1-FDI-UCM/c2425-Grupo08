@@ -1,7 +1,6 @@
 //---------------------------------------------------------
 // Este archivo gestiona la lógica del motor dentro del juego, 
 // incluyendo su reparación y el progreso de carga visual.
-//
 // Tomás Arévalo Almagro, Carlos Dochao Moreno
 // Project Abbys
 // Proyecto 1 - Curso 2024-25
