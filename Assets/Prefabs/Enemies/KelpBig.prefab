@@ -586,7 +586,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   skipCollider: 1
   textBlink: 1
-  textBackground: 1
+  textBackground: 0
   fadeSpeed: 9
   timeDelay: 0.001
   initPause: 0
@@ -969,7 +969,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   grabRadius: 2.5
   keyPresses: 8
-  delay: 0.5
 --- !u!95 &8283015255018681911
 Animator:
   serializedVersion: 5

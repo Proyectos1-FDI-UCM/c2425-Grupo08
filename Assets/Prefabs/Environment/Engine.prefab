@@ -273,7 +273,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   skipCollider: 0
   textBlink: 0
-  textBackground: 1
+  textBackground: 0
   fadeSpeed: 2
   timeDelay: 0.03
   initPause: 0.5
