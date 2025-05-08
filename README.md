@@ -1,16 +1,6 @@
 
 ![image](https://github.com/user-attachments/assets/bd4b30e7-71b3-4945-8519-9c0fc4dcd370)
 
-# Índice
-
--Descripción
-
--Características clave
-
--Como jugar
-
--Miembros del equipo
-
 ## Descripción
 
 Beyond the Depths es un videojuego terror de perspectiva scroll lateral y de avance lineal. El jugador toma el control de un buzo que investiga las profundidades del fondo marino.
@@ -30,7 +20,7 @@ Sistema de apuntado con la dirección del mouse o dirección del joistick derech
 
 Ambientación oscura, tensa y sensación solitaria e inmensidad
 
-Progresión por niveles (Disponible el nivel 1)
+Progresión por niveles (Disponible el nivel 1 y tutorial opcional)
 
 Control con teclado o mando
 
