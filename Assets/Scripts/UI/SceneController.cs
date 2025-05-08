@@ -1,6 +1,5 @@
 //---------------------------------------------------------
 // Clase que gestiona la transición entre escenas y la activación/desactivación de objetos.
-//
 // Tomás Arévalo Almagro
 // Carlos Dochao Moreno
 // Beyond the Depths
@@ -43,13 +42,16 @@ public class SceneController : MonoBehaviour
     // ---- ATRIBUTOS PRIVADOS ----
     #region Atributos Privados
 
-    private int current = 0;
-
+    private int current = 0; // Index actual de los objetos
+    
     #endregion
 
     // ---- MÉTODOS DE MONOBEHAVIOUR ----
     #region Métodos de MonoBehaviour
 
+    /// <summary>
+    /// Inicializa el controlador de escena.
+    /// </summary>
     void Start()
     {
         if (objects != null && objects.Length > 0)
@@ -66,6 +68,9 @@ public class SceneController : MonoBehaviour
         continueObject.SetActive(false);
     }
 
+    /// <summary>
+    /// Actualiza la lógica del controlador de escena.
+    /// </summary>
     void Update()
     {
         // Intentar obtener el Terminal del objeto activo
@@ -91,7 +96,7 @@ public class SceneController : MonoBehaviour
                 GameManager.Instance.ChangeScene(sceneIndex);
         }
 
-        continueObject.SetActive(terminal.IsFinished());
+        continueObject.SetActive(terminal.IsFinished()); // Mostrar/Ocultar el objeto de continuar
 
         if (topLight.intensity > minIntesity)
 
@@ -103,6 +108,9 @@ public class SceneController : MonoBehaviour
     // ---- MÉTODOS PRIVADOS ----
     #region Métodos Privados
 
+    /// <summary>
+    /// Muestra el siguiente objeto en la lista.
+    /// </summary>
     private void ShowNext()
     {
 

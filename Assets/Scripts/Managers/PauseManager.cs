@@ -60,7 +60,7 @@ public class PauseManager : MonoBehaviour
     /// </summary>
     void Update()
     {
-        if (InputManager.Instance.ReturnWasReleased())
+        if (InputManager.Instance.ReturnWasReleasedThisFrame())
         {
             if (pauseMenuUI != null)
             {

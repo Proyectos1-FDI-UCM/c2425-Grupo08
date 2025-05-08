@@ -30,10 +30,6 @@ public class UIManager : MonoBehaviour
     #region Atributos del Inspector (serialized fields)
     
 
-    // Referencia al panel de texto
-    private GameObject textPanel;
-
-    #endregion
 
     // Referencia de imagen de la barrade oxigeno (lo usare un circulo)
     [SerializeField] private RectTransform OxygenCircle;
@@ -54,12 +50,7 @@ public class UIManager : MonoBehaviour
     [SerializeField] private Image oxygenTank;
 
 
-    // ---- ATRIBUTOS PRIVADOS ----
-    #region Atributos Privados (private fields)
-
-
     #endregion
-
     // ---- MÉTODOS DE MONOBEHAVIOUR ----
     #region Métodos de MonoBehaviour
 
@@ -101,18 +92,6 @@ public class UIManager : MonoBehaviour
         }
     }
 
-
-    #endregion
-
-    // ---- MÉTODOS PÚBLICOS ----
-    #region Métodos públicos
-
-    public GameObject GetTextPanel()
-    {
-        textPanel = FindObjectOfType<TextPanel>()?.gameObject;
-
-        return textPanel;
-    }
 
     #endregion
 

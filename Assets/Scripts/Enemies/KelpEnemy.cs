@@ -17,7 +17,7 @@ public class KelpEnemy : MonoBehaviour
     [SerializeField] private float grabRadius = 5f;         // Radio para atrapar
     //[SerializeField] private float damage = 1f;   // Daño que hace al jugador al atraparlo
     [SerializeField] private int keyPresses = 5;  // Numero de pulsaciones de tecla para liberarse
-    [SerializeField] private float delay = 1f; // Tiempo para quitar oxígeno (y mostrar el texto)
+    //[SerializeField] private float delay = 1f; // Tiempo para quitar oxígeno (y mostrar el texto)
     #endregion
 
     // ---- ATRIBUTOS PRIVADOS ----

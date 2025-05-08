@@ -1,7 +1,7 @@
 //---------------------------------------------------------
 // Contiene el componente de InputManager
 // Guillermo Jiménez Díaz, Pedro Pablo Gómez Martín
-// TemplateP1
+// Beyond the Depths
 // Proyectos 1 - Curso 2024-25
 //---------------------------------------------------------
 using UnityEngine;
@@ -32,20 +32,7 @@ using System.Linq;
 /// </summary>
 public class InputManager : MonoBehaviour
 {
-    // ---- ATRIBUTOS DEL INSPECTOR ----
-
-    #region Atributos del Inspector (serialized fields)
-
-    // Documentar cada atributo que aparece aquí.
-    // El convenio de nombres de Unity recomienda que los atributos
-    // públicos y de inspector se nombren en formato PascalCase
-    // (palabras con primera letra mayúscula, incluida la primera letra)
-    // Ejemplo: MaxHealthPoints
-
-    #endregion
-
     // ---- ATRIBUTOS PRIVADOS ----
-
     #region Atributos Privados (private fields)
 
     /// <summary>
@@ -91,7 +78,6 @@ public class InputManager : MonoBehaviour
     #endregion
 
     // ---- MÉTODOS DE MONOBEHAVIOUR ----
-
     #region Métodos de MonoBehaviour
 
     /// <summary>
@@ -169,53 +155,93 @@ public class InputManager : MonoBehaviour
 
     #region Player Interactions
 
+    /// <summary>
+    /// Método que devuelve si el botón de Fire está pulsado.
+    /// </summary>
+    /// <returns>True si se presiona</returns>
     public bool JumpIsPressed()
     {
         return _jump.IsPressed();
     }
 
+    /// <summary>
+    /// Método que devuelve si el botón de Focus está pulsado.
+    /// </summary>
+    /// <returns>True si se presiona</returns>
     public bool FocusIsPressed()
     {
         return _focus.IsPressed();
     }
 
+    /// <summary>
+    /// Método que devuelve si el botón de Flash está pulsado.
+    /// </summary>
+    /// <returns>True si se presiona</returns>
     public bool FlashIsPressed()
     {
         return _flash.IsPressed();
     }
 
+    /// <summary>
+    /// Método que devuelve si el botón de Jump está pulsado en ese frame.
+    /// </summary>
+    /// <returns>True si se presiona</returns>
     public bool JumpWasPressedThisFrame()
     {
         return _jump.WasPressedThisFrame();
     }
 
+    /// <summary>
+    /// Método que devuelve si el botón de Jump está soltado en ese frame.
+    /// </summary>
+    /// <returns>True si se presiona</returns>
     public bool JumpWasRealeasedThisFrame()
     {
         return _jump.WasReleasedThisFrame();
     }
 
+    /// <summary>
+    /// Método que devuelve si el botón de Interact está pulsado en ese frame.
+    /// </summary>
+    /// <returns>True si se presiona</returns>
     public bool InteractIsPressed()
     {
         return _interact.IsPressed();
     }
 
+    /// <summary>
+    /// Método que devuelve si el botón de Interact está pulsado en ese frame.
+    /// </summary>
+    /// <returns>True si se presiona</returns>
     public bool InteractWasPressedThisFrame()
     {
         return _interact.WasPressedThisFrame();
     }
 
+    /// <summary>
+    /// Método que devuelve si el botón de Interact está soltado en ese frame.
+    /// </summary>
+    /// <returns>True si se presiona</returns>
     public bool InteractWasRealeasedThisFrame()
     {
         return _interact.WasReleasedThisFrame();
     }
 
-    public bool ReturnWasReleased()
+    /// <summary>
+    /// Método que devuelve si el botón de Return está soltado en ese frame.
+    /// </summary>
+    /// <returns>True si se presiona</returns>
+    public bool ReturnWasReleasedThisFrame()
     {
         return _return.WasPressedThisFrame();
     }
 
     // Getters para los controles del juego
 
+    /// <summary>
+    /// Método que devuelve la string de interacción
+    /// </summary>
+    /// <returns>Devuelve el string de la tecla</returns>
     public string GetInteractKey()
     {
         string key;
@@ -248,6 +274,10 @@ public class InputManager : MonoBehaviour
         return key;
     }
 
+    /// <summary>
+    /// Método que devuelve la string del salto
+    /// </summary>
+    /// <returns>Devuelve el string de la tecla</returns>
     public string GetJumpKey()
     {
         string key;
@@ -280,6 +310,10 @@ public class InputManager : MonoBehaviour
         return key;
     }
 
+    /// <summary>
+    /// Método que devuelve la string del focus
+    /// </summary>
+    /// <returns>Devuelve el string de la tecla</returns>
     public string GetFocusKey()
     {
         string key;
@@ -312,6 +346,10 @@ public class InputManager : MonoBehaviour
         return key;
     }
 
+    /// <summary>
+    /// Método que devuelve la string del flash
+    /// </summary>
+    /// <returns>Devuelve el string de la tecla</returns>
     public string GetFlashKey()
     {
         string key;
@@ -344,6 +382,10 @@ public class InputManager : MonoBehaviour
         return key;
     }
 
+    /// <summary>
+    /// Método que devuelve la string del return
+    /// </summary>
+    /// <returns>Devuelve el string de la tecla</returns>
     public string GetReturnKey()
     {
         string key;

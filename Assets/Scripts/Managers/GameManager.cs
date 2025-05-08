@@ -1,7 +1,7 @@
 //---------------------------------------------------------
 // Contiene el componente GameManager
 // Guillermo Jiménez Díaz, Pedro Pablo Gómez Martín
-// TemplateP1
+// Beyond the Depths
 // Proyectos 1 - Curso 2024-25
 //---------------------------------------------------------
 
@@ -24,18 +24,6 @@ using UnityEngine.Rendering;
 /// </summary>
 public class GameManager : MonoBehaviour
 {
-    // ---- ATRIBUTOS DEL INSPECTOR ----
-
-    #region Atributos del Inspector (serialized fields)
-
-    // Documentar cada atributo que aparece aquí.
-    // El convenio de nombres de Unity recomienda que los atributos
-    // públicos y de inspector se nombren en formato PascalCase
-    // (palabras con primera letra mayúscula, incluida la primera letra)
-    // Ejemplo: MaxHealthPoints
-
-    #endregion
-
     // ---- ATRIBUTOS PRIVADOS ----
 
     #region Atributos Privados (private fields)
@@ -57,7 +45,6 @@ public class GameManager : MonoBehaviour
     #endregion
 
     // ---- MÉTODOS DE MONOBEHAVIOUR ----
-
     #region Métodos de MonoBehaviour
 
     /// <summary>
@@ -95,7 +82,6 @@ public class GameManager : MonoBehaviour
             Init();
         } // if-else somos instancia nueva o no.       
     }
-
 
     /// <summary>
     /// Método llamado cuando se destruye el componente.

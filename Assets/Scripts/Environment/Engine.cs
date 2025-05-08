@@ -129,12 +129,6 @@ public class Engine : MonoBehaviour
 
     #endregion
 
-    // ---- MÉTODOS PÚBLICOS ----
-    #region Métodos públicos
-
-    // (No hay métodos públicos en esta versión del código)
-
-    #endregion
 
     // ---- MÉTODOS PRIVADOS ----
     #region Métodos privados

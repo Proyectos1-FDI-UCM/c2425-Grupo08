@@ -1,6 +1,5 @@
 //---------------------------------------------------------
 // Script que gestiona la linterna del jugador, incluyendo su rotación y el haz de luz.
-//
 // Vicente Rodriguez Casado
 // Carlos Dochao Moreno
 // Beyond the Depths

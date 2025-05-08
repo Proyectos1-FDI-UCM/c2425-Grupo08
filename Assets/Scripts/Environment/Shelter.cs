@@ -111,6 +111,10 @@ public class Shelter : MonoBehaviour
     // ---- MÉTODOS PRIVADOS ----
     #region Métodos privados
 
+    /// <summary>
+    /// Este método se llama cuando el jugador entra en el área de colisión de la puerta.
+    /// </summary>
+    /// <param name="other">Objeto con el que se colisiona</param>
     private void OnTriggerEnter2D(Collider2D other)
     {
         if (other.GetComponent<PlayerMovement>() != null)
@@ -126,6 +130,10 @@ public class Shelter : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Este método se llama cuando el jugador sale del área de colisión de la puerta.
+    /// </summary>
+    /// <param name="other">Objeto con el que se colisiona</param>
     private void OnTriggerExit2D(Collider2D other)
     {
         if (other.GetComponent<PlayerMovement>() != null)

@@ -2,8 +2,8 @@
 // Gestor de escena. Podemos crear uno diferente con un
 // nombre significativo para cada escena, si es necesario
 // Guillermo Jiménez Díaz, Pedro Pablo Gómez Martín
-//Tomás Arévalo Almagro
-// TemplateP1
+// Tomás Arévalo Almagro
+// Beyond the Depths
 // Proyectos 1 - Curso 2024-25
 //---------------------------------------------------------
 
@@ -23,17 +23,6 @@ using UnityEngine;
 /// </summary>
 public class LevelManager : MonoBehaviour
 {
-    // ---- ATRIBUTOS DEL INSPECTOR ----
-
-    #region Atributos del Inspector (serialized fields)
-
-    // Documentar cada atributo que aparece aquí.
-    // El convenio de nombres de Unity recomienda que los atributos
-    // públicos y de inspector se nombren en formato PascalCase
-    // (palabras con primera letra mayúscula, incluida la primera letra)
-    // Ejemplo: MaxHealthPoints
-
-    #endregion
 
     // ---- ATRIBUTOS PRIVADOS ----
 
@@ -107,7 +96,7 @@ public class LevelManager : MonoBehaviour
         if (motoresReparados == motorNeed) 
         //Comprueba si la cantidad de motores reparados es la misma que los que se necesitam
         {
-            Debug.Log("Puedes abandonar el nivel");
+            //Debug.Log("Puedes abandonar el nivel");
             return true; //Vuelve true la función
         }
         return false;
