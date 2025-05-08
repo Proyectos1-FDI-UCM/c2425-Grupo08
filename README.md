@@ -37,7 +37,7 @@ Control con teclado o mando
 ## Controles
 La única plataforma disponible para jugar será PC, pero el juego ofrece múltiples formas de control, ya sea con mando (compatible con cualquier consola que el jugador prefiera) o con el teclado del ordenador.
 
-Usando el teclado, se dispone de varias teclas para realizar distintas acciones dentro del juego. El movimiento se puede efectuar con las teclas A y D para avanzar de forma lateral y barra espaciadora para saltar. La linterna apunta en la dirección del mouse, se apunta con mayor precisión manteniendo pulsado el click derecho, y se dispará el flash cuando se pulsa el click izquierdo o la tecla F mientras apuntas. La tecla para interactuar con elementos del juego es E.
+Usando el teclado, se dispone de varias teclas para realizar distintas acciones dentro del juego. El movimiento se puede efectuar con las teclas A y D para avanzar de forma lateral y barra espaciadora o W para saltar. La linterna apunta en la dirección del mouse, se apunta con mayor precisión manteniendo pulsado el click derecho, y se dispará el flash cuando se pulsa el click izquierdo o la tecla F mientras apuntas. La tecla para interactuar con elementos del juego es E.
 
 Usando el gamepad, el movimiento se puede efectuar con el joistick izquierdo o flechas direccionales para avanzar de forma lateral y botón A para saltar. La linterna apunta en la dirección del joistick derecho, se apunta con mayor precisión manteniendo pulsado LT , y se dispará el flash cuando se pulsa RT mientras apuntas. El botón para interactuar con elementos del juego es el cuadrado
 
