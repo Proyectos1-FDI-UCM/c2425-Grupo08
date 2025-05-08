@@ -1,4 +1,7 @@
-Índice
+
+![image](https://github.com/user-attachments/assets/bd4b30e7-71b3-4945-8519-9c0fc4dcd370)
+
+# Índice
 
 -Descripción
 
@@ -8,7 +11,7 @@
 
 -Miembros del equipo
 
-Descripción
+## Descripción
 
 Beyond the Depths es un videojuego terror de perspectiva scroll lateral y de avance lineal. El jugador toma el control de un buzo que investiga las profundidades del fondo marino.
 Se caracteriza por su atmosfera inmersiva que hará sentir a los jugadores una constante tensión y sensación de soldedad debida a la inmensidad de las profundidades marinas.
@@ -19,7 +22,7 @@ poder defenderte de los depredadores que acechan en la profundidades.
 
 El jugador deberá de avanzar a traves de la oscuridad, lidiando con el tiempo y los enemigos que se interpondrán entre él y el único lugar seguro en el fondo del abismo, el refugio.
 
- Características clave
+## Características clave
  
 Perspectiva scroll lateral
 Sistema de apuntado con la dirección del mouse o dirección del joistick derecho
@@ -27,14 +30,14 @@ Ambientación oscura, tensa y sensación solitaria e inmensidad
 Progresión por niveles (Disponible el nivel 1)
 Control con teclado o mando
 
-Como Jugar
+## Como Jugar
 La única plataforma disponible para jugar será PC, pero el juego ofrece múltiples formas de control, ya sea con mando (compatible con cualquier consola que el jugador prefiera) o con el teclado del ordenador.
 
 Usando el teclado, se dispone de varias teclas para realizar distintas acciones dentro del juego. El movimiento se puede efectuar con las teclas A y D para avanzar de forma lateral y barra espaciadora para saltar. La linterna apunta en la dirección del mouse, se apunta con mayor precisión manteniendo pulsado el click derecho, y se dispará el flash cuando se pulsa el click izquierdo mientras apuntas. La tecla para interactuar con elementos del juego es E.
 
 Usando el gamepad, el movimiento se puede efectuar con el joistick izquierdo o flechas direccionales para avanzar de forma lateral y botón A para saltar. La linterna apunta en la dirección del joistick derecho, se apunta con mayor precisión manteniendo pulsado LT , y se dispará el flash cuando se pulsa RT mientras apuntas. El botón para interactuar con elementos del juego es el cuadrado
 
-Miembros del equipo
+## Miembros del equipo
 
 Javier Zazo
 Andrés Diaz
