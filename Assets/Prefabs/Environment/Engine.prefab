@@ -271,6 +271,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ef9dc41b9c2f0e24bb92a91e02a26c99, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  skipCollider: 0
+  textBlink: 0
+  textBackground: 1
   fadeSpeed: 2
   timeDelay: 0.03
   initPause: 0.5
@@ -647,11 +650,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 08c6efa3e37f5e243897b67438a04817, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxRespawnRadious: 20
-  minRespawnRadious: 15
-  minRespawnHeight: 5
-  minRespawnCooldown: 10
-  maxRespawnCooldown: 20
+  maxSpawnRadious: 20
+  minSpawnRadious: 15
+  minSpawnHeight: 3
+  minSpawnCooldown: 11
+  maxSpawnCooldown: 15
   enemyPrefab: {fileID: 6928249760915936609, guid: 5c5031b787e12754280e922baf0d1b2f, type: 3}
 --- !u!95 &4527530145176184677
 Animator:

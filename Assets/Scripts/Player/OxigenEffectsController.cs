@@ -155,8 +155,8 @@ public class OxigenEffectsController : MonoBehaviour
             minPostExposure = Mathf.Lerp(maxPostExposureValue - postExposureOscilationRange, minPostExposureValue, effectPercentage);
             maxPostExposure = Mathf.Lerp(maxPostExposureValue, minPostExposureValue + postExposureOscilationRange, effectPercentage);
 
-            minChromaticAberration = Mathf.Lerp(maxChromaticAberrationValue - chromaticAberrationRange, minChromaticAberrationValue, effectPercentage);
-            maxChromaticAberration = Mathf.Lerp(maxChromaticAberrationValue, minChromaticAberrationValue + chromaticAberrationRange, effectPercentage);
+            minChromaticAberration = Mathf.Lerp(minChromaticAberrationValue, maxChromaticAberrationValue - chromaticAberrationRange, effectPercentage);
+            maxChromaticAberration = Mathf.Lerp(maxChromaticAberrationValue - chromaticAberrationRange, maxChromaticAberrationValue, effectPercentage);
         }      
     }
 

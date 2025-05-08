@@ -5174,17 +5174,18 @@ MonoBehaviour:
   fadeSpeed: 2
   timeDelay: 0.015
   initPause: 0.5
-  message: "Mensaje 2:Para: Refugio1\r\nDesde: secretariabdc@gmail.com\r\nAsunto:
-    POSIBLES AMENAZAS.\r\n\r\nHola de nuevo.\r\n\r\nA la altura de -600m tenemos
-    consciencia de una serie de posibles amenazas:\r\n\r\n1. Los enemigos fantasma:
-    F\xE1cilmente identificable por su sonido y su punto fuerte es la rapidez de
-    su ataque. Su punto d\xE9bil es la luz por lo que procura usar la linterna para
-    espantarlos.\r\n\r\n2. El enemigo sonar: De este enemigo nos faltan muchos datos
-    porque nunca ha sido visto, sin embargo, se han detectado pulsos al estilo del
-    sonar de un delfin o un murci\xE9lago por lo que tenemos la suposici\xF3n de
-    que es invulnerable a la luz.\r\n\r\n3. A\xFAn no somos conscientes del total
-    de amenazas que te puedes encontrar por lo que llevese cuidado.\r\n\r\nMucha
-    suerte y vigile su espalda.\r"
+  message: "Mensaje 2:\n\nPara: C\xE1psula de compresi\xF3n 08\nDesde: dptojimenez@projectabyss.com\r\nAsunto:
+    Posibles amenazas\n\r\nHola de nuevo.\r\n\r\nA una profundidad de 4800 metros
+    tenemos consciencia de una serie de posibles amenazas:\r\n\r\n1. Se han avistado
+    ciertas presencias paranormales f\xE1cilmente identificables por su alarido.
+    Estas criaturas aborrecen la luz, por lo que procure mantener su linterna cerca,
+    son agresivas.\n\r\n2. Esta especie nunca ha sido vista, sin embargo, se han
+    detectado pulsos de ultrasonido como los de los delfines o los murci\xE9lagos,
+    por lo que tenemos la suposici\xF3n de que, por esto \xFAtimo y por la profundidad
+    a la que se encuentra, su \xFAnica manera de detectar formas de vida es mediante
+    estos pulsos. \r\n\r\nA\xFAn no somos conscientes del total de amenazas que te
+    puedes encontrar por lo que ll\xE9vese cuidado.\r\n\r\nMucha suerte y vigile
+    su espalda.\r"
 --- !u!1001 &334594854
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -16256,12 +16257,12 @@ MonoBehaviour:
   fadeSpeed: 2
   timeDelay: 0.015
   initPause: 0.5
-  message: "Mensaje 3:Para: Refugio1\r\nDesde: secretariabdc@gmail.com\r\nAsunto:
-    Refugio.\r\n\r\nMuy buenas.\r\n\r\nPor \xFAltimo, intuyo que se estar\xE1 preguntando
+  message: "Mensaje 3:\n\nPara: C\xE1psula de compresi\xF3n 08\nDesde: dptojimenez@projectabyss.com\r\nAsunto:
+    Refugio\n\r\nMuy buenas.\r\n\r\nPor \xFAltimo, intuyo que se estar\xE1 preguntando
     porque no se puede quedar simplemente en este refugio esperando el rescate. Ver\xE1s
     que la energ\xEDa es suficiente para aguantar ah\xED apenas media hora. Por lo
-    que si quiere seguir en contacto con nosotros adem\xE1s de facilitarnos conocer
-    su ubicaci\xF3n para realizar el rescate deber\xE1 de ir desplaz\xE1ndose de
+    que, si quiere seguir en contacto con nosotros adem\xE1s de facilitarnos conocer
+    su ubicaci\xF3n para realizar el rescate, deber\xE1 de ir desplaz\xE1ndose de
     refugio en refugio. Estos adem\xE1s est\xE1n provistos de alimentos para que
     pueda aguantar m\xE1s tiempo.\r\n\r\nNos vemos pronto.\r\n"
 --- !u!1001 &1397269255
@@ -17567,10 +17568,10 @@ MonoBehaviour:
   fadeSpeed: 2
   timeDelay: 0.015
   initPause: 0.5
-  message: "Mensaje 1: Para: Refugio1\r\nDesde: secretariabdc@gmail.com\r\nAsunto:
-    Rescate\r\n\r\nHola.\r\nNos ha llegado tu situaci\xF3n a la central, esperemos
-    que puedas recibir este mensaje. Su capsula se ha averiado por lo que no podr\xE1s
-    subir a la superficie hasta que se le consiga enviar otra capsula.\r\n\r\nEsperemos
+  message: "Mensaje 1: \n\nPara: C\xE1psula de compresi\xF3n 08\nDesde: dptojimenez@projectabyss.com\r\nAsunto:
+    Rescate\r\n\r\nHola.\n\r\nNos ha llegado tu situaci\xF3n a la central, esperemos
+    que puedas recibir este mensaje. Su c\xE1psula se ha averiado por lo que no podr\xE1s
+    subir a la superf\xEDcie hasta que se le consiga enviar otra c\xE1psula.\r\n\r\nEsperemos
     que mejore su situaci\xF3n.\r\n\r\nMucha suerte.\r\n"
 --- !u!114 &2707086053803860666
 MonoBehaviour:

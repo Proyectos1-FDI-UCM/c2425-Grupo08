@@ -64,8 +64,6 @@ public class PauseManager : MonoBehaviour
         {
             if (pauseMenuUI != null)
             {
-                Debug.Log("Pausa");
-
                 if (GameIsPaused)
                 {
                     Resume();
@@ -95,11 +93,13 @@ public class PauseManager : MonoBehaviour
         GameIsPaused = false;
         pauseMenuUI.SetActive(false);
 
-        foreach (var audio in audioSources)
-            audio.UnPause();
+        foreach (var audioSource in audioSources)
+            if (audioSource != null)
+                audioSource.UnPause();
 
         foreach (var animator in animators)
-            animator.speed = 1f;
+            if (animator != null)
+                animator.speed = 1f;
     }
 
     void Pause() // Pausa el juego
@@ -110,11 +110,13 @@ public class PauseManager : MonoBehaviour
         Time.timeScale = 0f; // El juego se "congela"
         pauseMenuUI.SetActive(true); // Se activa el menú de pausa
 
-        foreach (var audio in audioSources)
-            audio.Pause();
+        foreach (var audioSource in audioSources)
+            if (audioSource != null)
+                audioSource.Pause();
 
         foreach (var animator in animators)
-            animator.speed = 0f;
+            if (animator != null)
+                animator.speed = 0f;
     }
 
 
