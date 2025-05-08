@@ -1,5 +1,4 @@
-
-![image](https://github.com/user-attachments/assets/bd4b30e7-71b3-4945-8519-9c0fc4dcd370)
+![banner](https://github.com/user-attachments/assets/8cccc38a-07ef-4a78-8742-5251007513d2)
 
 ## Descripción
 
@@ -14,15 +13,15 @@ El jugador deberá de avanzar a traves de la oscuridad, lidiando con el tiempo y
 
 ## Características clave
  
-Perspectiva scroll lateral
+- Perspectiva scroll lateral
 
-Sistema de apuntado con la dirección del mouse o dirección del joistick derecho
+- Sistema de apuntado con la dirección del mouse o dirección del joistick derecho
 
-Ambientación oscura, tensa y sensación solitaria e inmensidad
+- Ambientación oscura, tensa y sensación solitaria e inmensidad
 
-Progresión por niveles (Disponible el nivel 1 y tutorial opcional)
+- Progresión por niveles (Disponible el nivel 1 y tutorial opcional)
 
-Control con teclado o mando
+- Control con teclado o mando
 
 ## Controles
 La única plataforma disponible para jugar será PC, pero el juego ofrece múltiples formas de control, ya sea con mando (compatible con cualquier consola que el jugador prefiera) o con el teclado del ordenador.
@@ -31,24 +30,21 @@ Usando el teclado, se dispone de varias teclas para realizar distintas acciones 
 
 Usando el gamepad, el movimiento se puede efectuar con el joistick izquierdo o flechas direccionales para avanzar de forma lateral y botón A para saltar. La linterna apunta en la dirección del joistick derecho, se apunta con mayor precisión manteniendo pulsado LT , y se dispará el flash cuando se pulsa RT mientras apuntas. El botón para interactuar con elementos del juego es el cuadrado
 
-![Teclado](https://github.com/user-attachments/assets/a9dd43b6-0e06-4a71-bc63-52ee4c93cc31)
-
-![Captura de pantalla 2025-05-08 183557](https://github.com/user-attachments/assets/7de1bf0f-452f-477b-98b6-f2ab63265d4d)
-
+![controles](https://github.com/user-attachments/assets/1b2c06b6-26fd-473f-8767-e169937a36ad)
 
 ## Miembros del equipo
 
-Javier Zazo
+- Javier Zazo
 
-Andrés Diaz
+- Andrés Diaz
 
-Tomás Arévalo
+- Tomás Arévalo
 
-Carlos Dochao
+- Carlos Dochao
 
-Vicente Rodríguez
+- Vicente Rodríguez
 
-Andres Bartolomé
+- Andres Bartolomé
 
-Miguel Ángel González
+- Miguel Ángel González
 
